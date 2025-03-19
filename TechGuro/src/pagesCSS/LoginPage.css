@@ -1,0 +1,106 @@
+/* Login Page Container */
+.login-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Left Side - Image */
+  .login-left {
+    flex: 7; /* 70% */
+    background-color: #e0e0e0; /* Placeholder background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Right Side - Login Form */
+  .login-right {
+    flex: 3; /* 30% */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    color:black;
+    background-color: #ffffff;
+  }
+  
+  /* Title */
+  .login-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Input Fields */
+  .login-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  /* Password Input with Eye Icon */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; 
+}
+
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #4c5173;
+}
+  
+  /* Bottom Links */
+  .login-links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  .login-link {
+    text-decoration: none;
+    color: #4c5173;
+    font-size: 0.9rem;
+  }
+  
+  .login-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Login Button */
+  .login-button {
+    width: 80%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    background-color: #4c5173;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #3b3f65;
+  }
+  

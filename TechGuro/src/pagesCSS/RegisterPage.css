@@ -1,0 +1,116 @@
+/* Full-Screen Background */
+.register-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:black;
+    background-color: #dcdcda; /* Placeholder Background */
+  }
+  
+  /* Centered Form */
+  .register-form {
+    background: #F9F6EE;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 600px;
+  }
+  
+  /* Titles */
+  .register-title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .register-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Input Fields */
+  .register-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 2px solid #36454F;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  /* Password Field with Eye Icon */
+  .password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-container input {
+    width: 100%;
+    padding-right: 40px; /* Space for eye icon */
+  }
+  
+  .password-container span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #4c5173;
+  }
+  
+  /* Terms & Conditions */
+  .terms-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .terms-container input {
+    margin-right: 8px;
+  }
+  
+  .terms-link {
+    color: #223ef7;
+    text-decoration: none;
+  }
+  
+  .terms-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Bottom Links & Button */
+  .register-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .register-link {
+    font-weight: bold;
+    font-size: 1em;
+    color: #4c5173;
+    text-decoration: none;
+  }
+  
+  .register-link:hover {
+    text-decoration: underline;
+  }
+  
+  .register-button {
+    background: #4c5173;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .register-button:hover {
+    background: #3b3f65;
+  }
+  
