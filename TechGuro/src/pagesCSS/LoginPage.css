@@ -7,16 +7,19 @@
   /* Left Side - Image */
   .login-left {
     flex: 7; /* 70% */
-    background-color: #e0e0e0; /* Placeholder background */
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url('../assets/login_image1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
   }
   
+  /* Remove the login-image class since we're using background-image */
   .login-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    display: none;
   }
   
   /* Right Side - Login Form */
@@ -102,5 +105,105 @@
   
   .login-button:hover {
     background-color: #3b3f65;
+  }
+  
+  /* Modal Overlay */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* Notification Modal */
+  .notification-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    max-width: 90%;
+    z-index: 999;
+    animation: modalDropDown 0.3s ease-out;
+  }
+  
+  .notification-modal.success {
+    border-left: 4px solid #28a745;
+  }
+  
+  .notification-modal.error {
+    border-left: 4px solid #dc3545;
+  }
+  
+  .notification-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .notification-content p {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  /* Loading Spinner */
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #28a745;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  .close-notification-btn {
+    background: #4c5173;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+  }
+  
+  .close-notification-btn:hover {
+    background: #3b3f65;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes modalDropDown {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
   

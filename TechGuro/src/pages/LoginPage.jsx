@@ -8,28 +8,37 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationType, setNotificationType] = useState(""); // "success" or "error"
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   // Hardcoded User Account (TEMPORARY)
   const hardcodedUser = {
     email: "testuser@gmail.com",
     password: "password123",
   };
-
+  
   // Handle Login
   const handleLogin = () => {
     if (email === hardcodedUser.email && password === hardcodedUser.password) {
-      alert("Login Successful! Redirecting...");
-      navigate("/dashboard"); // Redirect to UserDashboard
+      setNotificationType("success");
+      setNotificationMessage("Login Successful! Redirecting...");
+      setShowNotification(true);
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
     } else {
-      alert("Invalid Email or Password!");
+      setNotificationType("error");
+      setNotificationMessage("Invalid Email or Password!");
+      setShowNotification(true);
     }
   };
 
   return (
     <div className="login-container">
-      {/* Left - Image Placeholder */}
+      {/* Left - Image Section */}
       <div className="login-left">
-        <img src="/path-to-placeholder.jpg" alt="Placeholder" className="login-image" />
+        {/* Image is in CSS background */}
       </div>
 
       {/* Right - Login Form */}
@@ -68,6 +77,25 @@ const LoginPage = () => {
         {/* Login Button */}
         <button className="login-button" onClick={handleLogin}>LOG IN</button>
       </div>
+
+      {/* Notification Modal */}
+      {showNotification && (
+        <>
+          <div className="modal-overlay" onClick={() => setShowNotification(false)}></div>
+          <div className={`notification-modal ${notificationType}`}>
+            <div className="notification-content">
+              <p>{notificationMessage}</p>
+              {notificationType === "success" ? (
+                <div className="loading-spinner"></div>
+              ) : (
+                <button className="close-notification-btn" onClick={() => setShowNotification(false)}>
+                  Close
+                </button>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

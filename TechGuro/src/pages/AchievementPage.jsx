@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import MainNavbar from "../MainNavbar";
 import "../pagesCSS/AchievementPage.css";
-import achievement1 from "../assets/achievement_1.png";
-import achievement2 from "../assets/achievement_2.png";
-import achievement3 from "../assets/achievement_3.png";
-import placholderimg from "../assets/placeholder_teki.png";
+import achievement1 from "../assets/Dashboard/achievement_1.png";
+import achievement2 from "../assets/Dashboard/achievement_2.png";
+import achievement3 from "../assets/Dashboard/achievement_3.png";
+import placholderimg from "../assets/Dashboard/placeholder_teki.png";
 
 const achievements = [
   { image: achievement1, title: "WELCOME TO TECHGURO!", description: "Create an account and log in for the first time.", status: "Achievement Get!" },

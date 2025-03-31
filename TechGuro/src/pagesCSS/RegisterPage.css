@@ -75,6 +75,7 @@
   .terms-link {
     color: #223ef7;
     text-decoration: none;
+    cursor: pointer;
   }
   
   .terms-link:hover {
@@ -112,5 +113,101 @@
   
   .register-button:hover {
     background: #3b3f65;
+  }
+  
+  /* Modal Overlay */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* Terms Modal */
+  .terms-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    width: 600px;
+    max-width: 90%;
+    max-height: 80vh;
+    z-index: 999;
+    animation: modalDropDown 0.3s ease-out;
+  }
+  
+  .terms-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .terms-modal h2 {
+    font-size: 2rem;
+    color: #4c5173;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .terms-scroll {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 1rem;
+  }
+  
+  .terms-scroll h3 {
+    color: #4c5173;
+    margin: 1.5rem 0 0.5rem 0;
+    font-size: 1.2rem;
+  }
+  
+  .terms-scroll p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .close-terms-btn {
+    background: #4c5173;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    align-self: center;
+    transition: background 0.3s ease;
+  }
+  
+  .close-terms-btn:hover {
+    background: #3b3f65;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes modalDropDown {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
   }
   

@@ -1,14 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../HomeNavbar";
 import "../pagesCSS/HomePage.css";
-import { FaEnvelope, FaPhone, FaLaptop, FaCode, FaShieldAlt, FaGlobe, FaBuilding, FaCreditCard } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaLaptop, FaCode, FaShieldAlt, FaGlobe, FaBuilding, FaCreditCard, FaBookOpen } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 
+const courses = [
+  { 
+    icon: <FaLaptop />, 
+    title: "Computer Basics", 
+    description: "Learn how to navigate and use a computer for daily tasks with ease.",
+    lessons: 6,
+    keyPoints: [
+      "Using a mouse and keyboard",
+      "Managing files and folders",
+      "Installing applications",
+      "Basic troubleshooting"
+    ]
+  },
+  { 
+    icon: <FaCreditCard />, 
+    title: "Online Transactions", 
+    description: "Understand how to safely perform digital transactions for bills, shopping, and banking.",
+    lessons: 6,
+    keyPoints: [
+      "Online payments & e-wallets",
+      "Mobile banking essentials",
+      "Online shopping safety",
+      "Digital receipts & tracking"
+    ]
+  },
+  { 
+    icon: <FaBookOpen />, 
+    title: "Microsoft Essentials", 
+    description: "Master the basics of Microsoft Word, Excel, and PowerPoint.",
+    lessons: 6,
+    keyPoints: [
+      "Formatting documents",
+      "Creating spreadsheets",
+      "Designing presentations",
+      "File saving & sharing"
+    ]
+  },
+  { 
+    icon: <FaGlobe />, 
+    title: "Internet Safety", 
+    description: "Stay safe online by understanding how to protect your information.",
+    lessons: 6,
+    keyPoints: [
+      "Recognizing fake news",
+      "Safe social media practices",
+      "Avoiding malware",
+      "Online privacy tips"
+    ]
+  },
+  { 
+    icon: <FaShieldAlt />, 
+    title: "Basic Cybersecurity", 
+    description: "Protect yourself from online threats by learning cybersecurity basics.",
+    lessons: 6,
+    keyPoints: [
+      "Creating strong passwords",
+      "Identifying scams & phishing",
+      "Safe browsing habits",
+      "Privacy settings for apps"
+    ]
+  },
+  { 
+    icon: <FaBuilding />, 
+    title: "Smartphone Basics", 
+    description: "Learn how to use a smartphone efficiently, from calls to apps.",
+    lessons: 6,
+    keyPoints: [
+      "Navigating Android & iOS",
+      "Installing and managing apps",
+      "Sending emails & messages",
+      "Adjusting accessibility settings"
+    ]
+  }
+];
+
 const HomePage = () => {
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
   return (
     <div>
       <Navbar />
@@ -21,9 +98,7 @@ const HomePage = () => {
           <p>TechGuro is an AI-driven learning platform designed to make digital literacy 
             accessible for adults and elderly learners. Through personalized course 
             recommendations and interactive lessons, our AI technology adapts to each 
-            user's learning pace, ensuring a more effective and engaging experience.
-            Whether you're new to technology or looking to enhance your digital skills, 
-            TechGuro provides an intuitive and supportive learning environment.</p>
+            user's learning pace, ensuring a more effective and engaging experience.</p>
           <div className="home-buttons">
             <a href="#about" className="btn learn-more">Learn More</a>
             <a href="/register" className="btn join-now">Join Now</a>
@@ -31,8 +106,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* About Section with Swiper */}
-      <section id="about" className="about-section">
+         {/* About Section with Swiper */}
+         <section id="about" className="about-section">
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={50}
@@ -45,7 +120,6 @@ const HomePage = () => {
           <SwiperSlide>
             <div className="about-slide">
               <div className="about-left">
-                <img src="/path-to-image.jpg" alt="TechGuro Learning" className="about-image" />
               </div>
               <div className="about-right">
                 <h2 className="about-title">About TechGuro</h2>
@@ -73,26 +147,32 @@ const HomePage = () => {
               <div className="researchers-grid">
                 {/* Researcher 1 */}
                 <div className="researcher">
-                  <img src="/path-to-researcher1.jpg" alt="Researcher 1" className="researcher-image" />
-                  <h3>Jammil C. Epistola</h3>
-                  <p><FaEnvelope className="icon" /> epistolajammil45@gmail.com</p>
-                  <p><FaPhone className="icon" /> 0921 729 4657</p>
+                  <div className="researcher-image-container"></div>
+                  <div className="researcher-content">
+                    <h3>Jammil C. Epistola</h3>
+                    <p><FaEnvelope className="icon" /> epistolajammil45@gmail.com</p>
+                    <p><FaPhone className="icon" /> 0921 729 4657</p>
+                  </div>
                 </div>
 
                 {/* Researcher 2 */}
                 <div className="researcher">
-                  <img src="/path-to-researcher2.jpg" alt="Researcher 2" className="researcher-image" />
-                  <h3>Raquel H. Javier</h3>
-                  <p><FaEnvelope className="icon" /> raquelhiraojavier@gmail.com</p>
-                  <p><FaPhone className="icon" /> 0991 584 9104</p>
+                  <div className="researcher-image-container"></div>
+                  <div className="researcher-content">
+                    <h3>Raquel H. Javier</h3>
+                    <p><FaEnvelope className="icon" /> raquelhiraojavier@gmail.com</p>
+                    <p><FaPhone className="icon" /> 0991 584 9104</p>
+                  </div>
                 </div>
 
                 {/* Researcher 3 */}
                 <div className="researcher">
-                  <img src="/path-to-researcher3.jpg" alt="Researcher 3" className="researcher-image" />
-                  <h3>Angel B. Ojoy</h3>
-                  <p><FaEnvelope className="icon" /> ojoyangel14@gmail.com</p>
-                  <p><FaPhone className="icon" /> 0992 627 6650</p>
+                  <div className="researcher-image-container"></div>
+                  <div className="researcher-content">
+                    <h3>Angel B. Ojoy</h3>
+                    <p><FaEnvelope className="icon" /> ojoyangel14@gmail.com</p>
+                    <p><FaPhone className="icon" /> 0992 627 6650</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -106,14 +186,46 @@ const HomePage = () => {
         <p className="courses-subtitle">| We have the Following Categories |</p>
 
         <div className="courses-grid">
-          <div className="course-card"><FaLaptop className="course-icon" /> <p>About Computers</p></div>
-          <div className="course-card"><FaCode className="course-icon" /> <p>About Computer Softwares</p></div>
-          <div className="course-card"><FaShieldAlt className="course-icon" /> <p>Basic CyberSecurity</p></div>
-          <div className="course-card"><FaGlobe className="course-icon" /> <p>The Internet</p></div>
-          <div className="course-card"><FaBuilding className="course-icon" /> <p>Government Systems</p></div>
-          <div className="course-card"><FaCreditCard className="course-icon" /> <p>Online Banking</p></div>
+          {courses.map((course, index) => (
+            <div key={index} className="course-card" onClick={() => setSelectedCourse(course)}>
+              {course.icon}
+              <p>{course.title}</p>
+            </div>
+          ))}
         </div>
       </section>
+
+      {/* Course Modal (Fixed) */}
+      {selectedCourse && (
+        <>
+          <div className="modal-overlay" onClick={() => setSelectedCourse(null)}></div>
+          <div className="course-modal">
+            <div className="modal-content">
+              <div className="modal-left">
+                <img src="/assets/course-placeholder.jpg" alt="Course" className="course-image" />
+              </div>
+              <div className="modal-right">
+                <h2>{selectedCourse.title}</h2>
+                <p className="lesson-info">
+                  <FaBookOpen className="icon" /> {selectedCourse.lessons} Lessons Available
+                </p>
+                <hr />
+                <p>{selectedCourse.description}</p>
+                <ul>
+                  {selectedCourse.keyPoints.map((point, index) => (
+                    <li key={index} className="key-point">
+                      ✅ {point}
+                    </li>
+                  ))}
+                </ul>
+                <button className="start-course-btn" onClick={() => window.location.href = "/login"}>
+                  Start Course
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
