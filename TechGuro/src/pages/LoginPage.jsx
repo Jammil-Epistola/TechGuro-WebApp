@@ -25,7 +25,7 @@ const LoginPage = () => {
       setNotificationMessage("Login Successful! Redirecting...");
       setShowNotification(true);
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/UserDashboard");
       }, 2000);
     } else {
       setNotificationType("error");

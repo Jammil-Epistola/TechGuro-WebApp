@@ -1,109 +1,175 @@
 .lesson-list-page {
   min-height: 100vh;
-  background-color: #e6e2d3;
+  background-color: #e6e2d4;
   display: flex;
   flex-direction: column;
 }
 
-.lesson-list-container {
+.content-wrapper {
+  display: flex;
   flex: 1;
+}
+
+.units-sidebar {
+  width: 300px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
+}
+
+.course-header {
+  padding: 25px;
+  display: flex;
   align-items: center;
-  padding: 2rem;
+  gap: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #ffffff;
 }
 
-.course-title {
+.course-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.course-icon img {
   width: 100%;
-  max-width: 1200px;
-  margin-bottom: 1rem;
+  height: 100%;
+  object-fit: cover;
 }
 
-.course-title h1 {
-  color: #2c3e50;
-  font-size: 3rem;
-  text-align: center;
+.course-header h2 {
   margin: 0;
+  font-size: 1.6rem;
+  color: #333;
+  font-weight: 700;
 }
 
-.lesson-section {
-  background-color: #34495e;
-  border-radius: 20px;
-  padding: 3rem;
-  width: 100%;
-  max-width: 1200px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.unit-item {
+  padding: 25px;
+  cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease;
 }
 
-.lesson-section h2 {
-  color: #ffffff;
-  font-size: 2rem;
-  text-align: center;
-  margin: 0;
-  margin-bottom: 0.5rem;
+.unit-item:hover {
+  background-color: #f5f5f5;
 }
 
-.lesson-section h3 {
-  color: #ffffff;
-  font-size: 1.5rem;
-  text-align: center;
-  margin: 0;
-  margin-bottom: 3rem;
-  opacity: 0.9;
+.unit-item.active {
+  background-color: #f0f0f0;
+  border-left: 4px solid #4a90e2;
 }
 
-.lessons-grid {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  margin-bottom: 3rem;
-}
-
-.lessons-column {
+.unit-text {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 8px;
+}
+
+.unit-number {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.unit-title {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.lessons-section {
   flex: 1;
-  max-width: 400px;
+  padding: 40px;
+  background-color: #e6e2d3;
+  overflow-y: auto;
 }
 
-.lesson-button {
-  background-color: #4a5568;
+.lessons-section h1 {
+  color: #333;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  font-weight: 800;
+}
+
+.lessons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.lesson-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.lesson-content {
+  flex: 1;
+}
+
+.lesson-card h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.lesson-card p {
+  margin: 0;
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.button-container {
+  margin-left: 30px;
+}
+
+.start-button {
+  background-color: #4a90e2;
   color: white;
   border: none;
-  border-radius: 15px;
-  padding: 1.5rem;
-  font-size: 1.5rem;
+  border-radius: 6px;
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-align: center;
-  width: 100%;
+  min-width: 120px;
 }
 
-.lesson-button:hover {
-  background-color: #2d3748;
+.start-button:hover {
+  background-color: #357abd;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.quizzes-button {
-  background-color: #4a5568;
-  color: white;
-  border: none;
-  border-radius: 15px;
-  padding: 1.5rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  display: block;
+/* Scrollbar Styling */
+.units-sidebar::-webkit-scrollbar {
+  width: 6px;
 }
 
-.quizzes-button:hover {
-  background-color: #2d3748;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+.units-sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.units-sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.units-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

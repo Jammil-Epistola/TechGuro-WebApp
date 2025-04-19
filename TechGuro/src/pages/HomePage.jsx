@@ -14,6 +14,7 @@ const courses = [
     title: "Computer Basics", 
     description: "Learn how to navigate and use a computer for daily tasks with ease.",
     lessons: 6,
+    imageClass: "computer-basics",
     keyPoints: [
       "Using a mouse and keyboard",
       "Managing files and folders",
@@ -26,6 +27,7 @@ const courses = [
     title: "Online Transactions", 
     description: "Understand how to safely perform digital transactions for bills, shopping, and banking.",
     lessons: 6,
+    imageClass: "online-transactions",
     keyPoints: [
       "Online payments & e-wallets",
       "Mobile banking essentials",
@@ -50,6 +52,7 @@ const courses = [
     title: "Internet Safety", 
     description: "Stay safe online by understanding how to protect your information.",
     lessons: 6,
+    imageClass: "internet-safety",
     keyPoints: [
       "Recognizing fake news",
       "Safe social media practices",
@@ -94,7 +97,7 @@ const HomePage = () => {
       <section id="home" className="home-section">
         <div className="home-content">
           <h2>LEARNING</h2>
-          <h1>DIGITAL LITERACY</h1>
+          <h1>COMPUTER LITERACY</h1>
           <p>TechGuro is an AI-driven learning platform designed to make digital literacy 
             accessible for adults and elderly learners. Through personalized course 
             recommendations and interactive lessons, our AI technology adapts to each 
@@ -177,6 +180,36 @@ const HomePage = () => {
               </div>
             </div>
           </SwiperSlide>
+
+          {/* Slide 3 - Features */}
+          <SwiperSlide>
+            <div className="features-slide">
+              <div className="researchers-title">
+                <h3><b>ABOUT</b></h3>
+                <h2><b>TECHGURO:</b> PROFESSORS</h2>
+                <hr />
+              </div>
+
+              <div className="features-content">
+                <div className="feature-container left-feature">
+                  <div className="feature-image"></div>
+                  <div className="feature-text">
+                    <h3>PROF. ROSELLE R. BENGCO</h3>
+                    <p> Research Adviser</p>
+                  </div>
+                </div>
+
+                <div className="feature-container right-feature">
+                  <div className="feature-text">
+                    <h3>ASST. PROF. FE L. HABLANIDA</h3>
+                    <p>Research Teacher</p>
+                  </div>
+                  <div className="feature-image"></div>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+
         </Swiper>
       </section>
 
@@ -200,28 +233,25 @@ const HomePage = () => {
         <>
           <div className="modal-overlay" onClick={() => setSelectedCourse(null)}></div>
           <div className="course-modal">
-            <div className="modal-content">
-              <div className="modal-left">
-                <img src="/assets/course-placeholder.jpg" alt="Course" className="course-image" />
-              </div>
-              <div className="modal-right">
-                <h2>{selectedCourse.title}</h2>
-                <p className="lesson-info">
-                  <FaBookOpen className="icon" /> {selectedCourse.lessons} Lessons Available
-                </p>
-                <hr />
-                <p>{selectedCourse.description}</p>
-                <ul>
-                  {selectedCourse.keyPoints.map((point, index) => (
-                    <li key={index} className="key-point">
-                      ✅ {point}
-                    </li>
-                  ))}
-                </ul>
-                <button className="start-course-btn" onClick={() => window.location.href = "/login"}>
-                  Start Course
-                </button>
-              </div>
+            <div className="modal-left">
+              <div className={`course-image ${selectedCourse.imageClass}`}></div>
+            </div>
+            <div className="modal-right">
+              <h2>{selectedCourse.title}</h2>
+              <p className="lesson-info">
+                <FaBookOpen className="icon" /> {selectedCourse.lessons} Lessons Available
+              </p>
+              <p>{selectedCourse.description}</p>
+              <ul>
+                {selectedCourse.keyPoints.map((point, index) => (
+                  <li key={index} className="key-point">
+                    ✅ {point}
+                  </li>
+                ))}
+              </ul>
+              <button className="start-course-btn" onClick={() => window.location.href = "/login"}>
+                Start Course
+              </button>
             </div>
           </div>
         </>

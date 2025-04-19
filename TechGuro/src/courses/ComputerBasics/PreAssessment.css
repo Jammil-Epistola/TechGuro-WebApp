@@ -5,6 +5,18 @@
     flex-direction: column;
   }
   
+  .course-heading {
+    text-align: center;
+    padding: 1rem 0;
+    color: rgb(0, 0, 0);
+  }
+  
+  .course-heading h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: 600;
+  }
+  
   .pre-assessment-container {
     flex: 1;
     display: flex;
@@ -14,7 +26,7 @@
   }
   
   .assessment-content {
-    background-color: #b4b4b4;
+    background-color: #f8f5f5;
     padding: 3rem;
     border-radius: 10px;
     width: 100%;

@@ -12,6 +12,11 @@ const CourseNavbar = ({ courseTitle }) => {
     navigate('/login');
   };
 
+  const handleLanguageChange = (e) => {
+    e.stopPropagation(); // Prevent the click from closing the dropdown
+    // Add language change logic here
+  };
+
   return (
     <nav className="course-navbar">
       <div className="navbar-left">
@@ -19,19 +24,22 @@ const CourseNavbar = ({ courseTitle }) => {
       </div>
       
       <div className="navbar-right">
-        <h2 className="course-title">{courseTitle}</h2>
         <div className="menu-container" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
           <FaBars className="menu-icon" />
           <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>
             <div className="dropdown-item" onClick={() => navigate('/dashboard')}>
               <FaHome /> <span>Dashboard</span>
             </div>
-            <div className="dropdown-item">
+            <div className="dropdown-item" onClick={() => navigate('/courses/ComputerBasics')}>
               <FaBook /> <span>Lessons</span>
             </div>
-            <div className="dropdown-item">
+            <div className="dropdown-item" onClick={(e) => e.stopPropagation()}>
               <FaLanguage /> <span>Language</span>
-              <select className="language-select">
+              <select 
+                className="language-select"
+                onClick={(e) => e.stopPropagation()}
+                onChange={handleLanguageChange}
+              >
                 <option value="en">English</option>
                 <option value="fil">Filipino</option>
               </select>

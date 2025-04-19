@@ -49,8 +49,11 @@ const PreAssessment = () => {
 
   return (
     <div className="pre-assessment-page">
-      <CourseNavbar courseTitle="COURSE: COMPUTER BASICS" />
-      
+      <CourseNavbar courseTitle="Computer Basics" />
+      <div className="course-heading">
+        <h1>- COURSE -</h1>
+        <h1>Computer Basics</h1>
+      </div>
       <div className="pre-assessment-container">
         <div className="assessment-content">
           {!startTest ? (
