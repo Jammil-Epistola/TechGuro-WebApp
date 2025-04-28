@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaDesktop,
-  FaMobileAlt,
-  FaShieldAlt,
+  FaFileAlt,
+  FaTools,
   FaGlobe,
   FaBookOpen,
-  FaCreditCard,
+  FaPaintBrush,
 } from "react-icons/fa";
 
 const CoursesSection = () => {
@@ -21,8 +21,8 @@ const CoursesSection = () => {
       available: true,
     },
     {
-      icon: <FaCreditCard />,
-      name: "Online Transactions",
+      icon: <FaFileAlt />,
+      name: "File & Document Handling",
       description: "Understand how to safely perform digital transactions for bills, shopping, and banking.",
       available: false,
     },
@@ -39,14 +39,14 @@ const CoursesSection = () => {
       available: false,
     },
     {
-      icon: <FaShieldAlt />,
-      name: "Basic Cybersecurity",
+      icon: <FaTools />,
+      name: "Computer Maintenance",
       description: "Protect yourself from online threats by learning cybersecurity basics.",
       available: false,
     },
     {
-      icon: <FaMobileAlt />,
-      name: "Smartphone Basics",
+      icon: <FaPaintBrush />,
+      name: "Creative Tools (Photos & Design)",
       description: "Learn how to use a smartphone efficiently, from calls to apps.",
       available: false,
     }
@@ -55,7 +55,7 @@ const CoursesSection = () => {
   const handleCourseClick = (course) => {
     if (course.available) {
       if (course.name === "Computer Basics") {
-        navigate("/courses/ComputerBasics");
+        navigate("/courses/ComputerBasics/Pre-Assessment");
       }
     } else {
       setShowModal(true);

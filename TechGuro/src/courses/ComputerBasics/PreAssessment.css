@@ -26,7 +26,7 @@
   }
   
   .assessment-content {
-    background-color: #f8f5f5;
+    background-color: #BFC4D7;
     padding: 3rem;
     border-radius: 10px;
     width: 100%;
@@ -70,26 +70,34 @@
   }
   
   .question-container {
-    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .question-image {
+    max-width: 20rem;
+    height: 20rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .question-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
   }
   
   .question-text {
     font-size: 2rem;
     color: #000;
     margin-bottom: 1.5rem;
-  }
-  
-  .question-box {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-  }
-  
-  .question-box p {
-    font-size: 1.5rem;
-    color: #000;
-    margin: 0;
   }
   
   .options-grid {

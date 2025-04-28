@@ -1,226 +1,131 @@
+
 {
-    "ComputerBasics": [
-      {
-        "id": 1,
-        "lesson": "Introduction to Computers",
-        "question": "What is a computer?",
-        "options": [
-          "A device used to make phone calls",
-          "A machine that processes and stores data",
-          "A tool used for gardening",
-          "An appliance for cooking food"
-        ],
-        "answer": "A machine that processes and stores data"
-      },
-      {
-        "id": 2,
-        "lesson": "Introduction to Computers",
-        "question": "Which of the following is NOT a type of computer?",
-        "options": [
-          "Desktop",
-          "Laptop",
-          "Tablet",
-          "Smart Refrigerator"
-        ],
-        "answer": "Smart Refrigerator"
-      },
-      {
-        "id": 3,
-        "lesson": "Introduction to Computers",
-        "question": "How do you properly turn off a computer?",
-        "options": [
-          "Press and hold the power button",
-          "Unplug it from the wall",
-          "Use the shutdown option from the start menu",
-          "Close the lid"
-        ],
-        "answer": "Use the shutdown option from the start menu"
-      },
-  
-      {
-        "id": 4,
-        "lesson": "Navigating the Desktop & Mouse/Keyboard Basics",
-        "question": "What does right-clicking an icon typically do?",
-        "options": [
-          "Select the item",
-          "Open a context menu",
-          "Rename the item",
-          "Delete the item"
-        ],
-        "answer": "Open a context menu"
-      },
-      {
-        "id": 5,
-        "lesson": "Navigating the Desktop & Mouse/Keyboard Basics",
-        "question": "Which keyboard shortcut is used to copy selected text?",
-        "options": [
-          "Ctrl + V",
-          "Ctrl + X",
-          "Ctrl + C",
-          "Ctrl + A"
-        ],
-        "answer": "Ctrl + C"
-      },
-      {
-        "id": 6,
-        "lesson": "Navigating the Desktop & Mouse/Keyboard Basics",
-        "question": "What action does a single left-click usually perform?",
-        "options": [
-          "Open a context menu",
-          "Select an item",
-          "Move an item",
-          "Zoom in"
-        ],
-        "answer": "Select an item"
-      },
-  
-      {
-        "id": 7,
-        "lesson": "File Management",
-        "question": "How do you create a new folder on the desktop?",
-        "options": [
-          "Right-click > New > Folder",
-          "Press Ctrl + N",
-          "Press Alt + F4",
-          "Double-click the desktop"
-        ],
-        "answer": "Right-click > New > Folder"
-      },
-      {
-        "id": 8,
-        "lesson": "File Management",
-        "question": "What should you do before removing a USB drive?",
-        "options": [
-          "Just pull it out",
-          "Use the 'Safely Remove Hardware' option",
-          "Restart the computer",
-          "Close all programs"
-        ],
-        "answer": "Use the 'Safely Remove Hardware' option"
-      },
-      {
-        "id": 9,
-        "lesson": "File Management",
-        "question": "Which file extension indicates a document file?",
-        "options": [
-          ".mp3",
-          ".docx",
-          ".jpg",
-          ".exe"
-        ],
-        "answer": ".docx"
-      },
-  
-      {
-        "id": 10,
-        "lesson": "Basic Software & Applications",
-        "question": "Which of the following is a web browser?",
-        "options": [
-          "Microsoft Word",
-          "Google Chrome",
-          "File Explorer",
-          "Paint"
-        ],
-        "answer": "Google Chrome"
-      },
-      {
-        "id": 11,
-        "lesson": "Basic Software & Applications",
-        "question": "How do you close a program using the keyboard?",
-        "options": [
-          "Ctrl + C",
-          "Alt + F4",
-          "Ctrl + V",
-          "Shift + Delete"
-        ],
-        "answer": "Alt + F4"
-      },
-      {
-        "id": 12,
-        "lesson": "Basic Software & Applications",
-        "question": "Which of the following is NOT an application?",
-        "options": [
-          "Word Processor",
-          "Spreadsheet",
-          "Search Engine",
-          "Presentation Software"
-        ],
-        "answer": "Search Engine"
-      },
-  
-      {
-        "id": 13,
-        "lesson": "Internet & Email Basics",
-        "question": "What is the purpose of an email attachment?",
-        "options": [
-          "To add a greeting",
-          "To include a file",
-          "To send a link",
-          "To mark the email as important"
-        ],
-        "answer": "To include a file"
-      },
-      {
-        "id": 14,
-        "lesson": "Internet & Email Basics",
-        "question": "Which protocol is commonly used for secure browsing?",
-        "options": [
-          "HTTP",
-          "HTTPS",
-          "FTP",
-          "SMTP"
-        ],
-        "answer": "HTTPS"
-      },
-      {
-        "id": 15,
-        "lesson": "Internet & Email Basics",
-        "question": "What should you do if you receive an email from an unknown sender?",
-        "options": [
-          "Open the attachments",
-          "Click all the links",
-          "Mark it as spam",
-          "Reply with personal information"
-        ],
-        "answer": "Mark it as spam"
-      },
-  
-      {
-        "id": 16,
-        "lesson": "Troubleshooting Basics",
-        "question": "What is the first step if your computer is unresponsive?",
-        "options": [
-          "Restart the computer",
-          "Unplug it immediately",
-          "Call tech support",
-          "Throw it away"
-        ],
-        "answer": "Restart the computer"
-      },
-      {
-        "id": 17,
-        "lesson": "Troubleshooting Basics",
-        "question": "What should you do if an application freezes?",
-        "options": [
-          "Open Task Manager and end the task",
-          "Uninstall the application",
-          "Restart the entire computer",
-          "Press Alt + F4"
-        ],
-        "answer": "Open Task Manager and end the task"
-      },
-      {
-        "id": 18,
-        "lesson": "Troubleshooting Basics",
-        "question": "What might cause a slow computer?",
-        "options": [
-          "Too many running programs",
-          "High internet speed",
-          "New hardware installed",
-          "Having too much free space"
-        ],
-        "answer": "Too many running programs"
-      }
-    ]
-  }
-  
+  "ComputerBasics": [
+    {
+      "id": 1,
+      "lesson": "Introduction to Computers",
+      "question": "Which item below is a computer?",
+      "options": ["A. Phone", "B. Toaster", "C. Laptop", "D. Speaker"],
+      "answer": "C. Laptop"
+    },
+    {
+      "id": 2,
+      "lesson": "Introduction to Computers",
+      "question": "Which is NOT a computer?",
+      "options": ["A. Tablet", "B. Desktop", "C. Smartwatch", "D. Blender"],
+      "answer": "D. Blender"
+    },
+    {
+      "id": 3,
+      "lesson": "Introduction to Computers",
+      "question": "What’s the safe way to turn off a computer?",
+      "options": ["A. Shutdown", "B. Unplug", "C. Close lid", "D. Press power"],
+      "answer": "A. Shutdown"
+    },
+    {
+      "id": 4,
+      "lesson": "Navigating the Desktop & Mouse/Keyboard Basics",
+      "question": "What does a right-click do?",
+      "options": ["A. Open menu", "B. Select", "C. Delete", "D. Move"],
+      "answer": "A. Open menu"
+    },
+    {
+      "id": 5,
+      "lesson": "Navigating the Desktop & Mouse/Keyboard Basics",
+      "question": "Shortcut for copy?",
+      "options": ["A. Ctrl + C", "B. Ctrl + X", "C. Ctrl + V", "D. Ctrl + Z"],
+      "answer": "A. Ctrl + C"
+    },
+    {
+      "id": 6,
+      "lesson": "Navigating the Desktop & Mouse/Keyboard Basics",
+      "question": "Left-click usually does what?",
+      "options": ["A. Open menu", "B. Zoom", "C. Select", "D. Drag"],
+      "answer": "C. Select"
+    },
+    {
+      "id": 7,
+      "lesson": "File Management",
+      "question": "How do you make a new folder?",
+      "options": ["A. Right-click", "B. Ctrl + N", "C. Alt + F4", "D. Double-click"],
+      "answer": "A. Right-click"
+    },
+    {
+      "id": 8,
+      "lesson": "File Management",
+      "question": "Before removing USB, you should?",
+      "options": ["A. Just pull", "B. Eject safely", "C. Close tabs", "D. Reboot"],
+      "answer": "B. Eject safely"
+    },
+    {
+      "id": 9,
+      "lesson": "File Management",
+      "question": "Which is a document file?",
+      "options": ["A. .mp3", "B. .jpg", "C. .docx", "D. .exe"],
+      "answer": "C. .docx"
+    },
+    {
+      "id": 10,
+      "lesson": "Basic Software & Applications",
+      "question": "Which is a browser?",
+      "options": ["A. Paint", "B. Chrome", "C. Word", "D. Excel"],
+      "answer": "B. Chrome"
+    },
+    {
+      "id": 11,
+      "lesson": "Basic Software & Applications",
+      "question": "Shortcut to close a program?",
+      "options": ["A. Alt + F4", "B. Ctrl + C", "C. Shift + Del", "D. Ctrl + P"],
+      "answer": "A. Alt + F4"
+    },
+    {
+      "id": 12,
+      "lesson": "Basic Software & Applications",
+      "question": "Which is NOT a software?",
+      "options": ["A. Browser", "B. Spreadsheet", "C. App", "D. Cable"],
+      "answer": "D. Cable"
+    },
+    {
+      "id": 13,
+      "lesson": "Internet & Email Basics",
+      "question": "What is an attachment in email?",
+      "options": ["A. Emoji", "B. Greeting", "C. File", "D. Signature"],
+      "answer": "C. File"
+    },
+    {
+      "id": 14,
+      "lesson": "Internet & Email Basics",
+      "question": "Secure websites use?",
+      "options": ["A. HTTP", "B. FTP", "C. SMTP", "D. HTTPS"],
+      "answer": "D. HTTPS"
+    },
+    {
+      "id": 15,
+      "lesson": "Internet & Email Basics",
+      "question": "If you get an email from a stranger?",
+      "options": ["A. Reply", "B. Open links", "C. Mark spam", "D. Download file"],
+      "answer": "C. Mark spam"
+    },
+    {
+      "id": 16,
+      "lesson": "Troubleshooting Basics",
+      "question": "If PC freezes, first try?",
+      "options": ["A. Restart", "B. Unplug", "C. Call support", "D. Hit it"],
+      "answer": "A. Restart"
+    },
+    {
+      "id": 17,
+      "lesson": "Troubleshooting Basics",
+      "question": "App not responding, what now?",
+      "options": ["A. Alt + F4", "B. Task Manager", "C. Uninstall", "D. Ignore"],
+      "answer": "B. Task Manager"
+    },
+    {
+      "id": 18,
+      "lesson": "Troubleshooting Basics",
+      "question": "Why is the PC slow?",
+      "options": ["A. New hardware", "B. Too many apps", "C. Big screen", "D. Fast Wi-Fi"],
+      "answer": "B. Too many apps"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ const DashboardSection = () => {
   const [selectedCourse, setSelectedCourse] = useState("Computer Basics");
   const [selectedUnit, setSelectedUnit] = useState("Unit 1: Introduction to Computers");
 
-  const courses = ["Computer Basics", "Online Banking", "About Phone"];
+  const courses = ["Computer Basics", "File & Documment Handling", "Microsoft Essentials", "Internet Safety", "Computer Maintenance", "Creative Tools (Photos & Design)"];
   const units = ["Unit 1: Introduction to Computers", "Unit 2: Navigating the Desktop", "Unit 3: File Management"];
 
   const handleCourseClick = (course) => {
@@ -26,7 +26,7 @@ const DashboardSection = () => {
           <div className="chart-wrapper">
             <Bar data={{
               labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-              datasets: [{ label: "Hours Spent", data: [0, 0, 0, 0, 0, 0, 0], backgroundColor: "rgba(76, 81, 115, 0.5)", borderColor: "#4c5173", borderWidth: 2 }]
+              datasets: [{ label: "Hours Spent", data: [2, 5, 1.5, 0, 3.2, 2, 2], backgroundColor: "rgba(76, 81, 115, 0.5)", borderColor: "#4c5173", borderWidth: 2 }]
             }} />
           </div>
         </div>

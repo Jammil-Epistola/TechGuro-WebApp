@@ -2,7 +2,7 @@ import React from "react";
 import { Line, Bar } from "react-chartjs-2";
 
 const PerformanceSection = () => {
-  const courses = ["Computer Basics", "Online Banking", "About Phone", "Internet"];
+  const courses = ["Computer Basics", "File & Document Handling", "Microsoft Essentials", "Internet Safety", "Computer Maintenance", "Creative Tools (Photos & Design)"];
 
   return (
     <div className="performance-container">
@@ -27,10 +27,10 @@ const PerformanceSection = () => {
                 fill="none"
                 stroke="#4CAF50"
                 strokeWidth="3"
-                strokeDasharray="75, 100"
+                strokeDasharray="20, 100"
               />
             </svg>
-            <div className="progress-text">75%</div>
+            <div className="progress-text">20%</div>
           </div>
           <p>Course Completion Rate</p>
         </div>
@@ -39,11 +39,11 @@ const PerformanceSection = () => {
           <h3>Quiz Performance</h3>
           <div className="quiz-stats">
             <div className="stat-item">
-              <span className="stat-value">85%</span>
+              <span className="stat-value">70%</span>
               <span className="stat-label">Average Score</span>
             </div>
             <div className="stat-item">
-              <span className="stat-value">12</span>
+              <span className="stat-value">2</span>
               <span className="stat-label">Quizzes Taken</span>
             </div>
           </div>
@@ -53,7 +53,7 @@ const PerformanceSection = () => {
           <h3>Time Investment</h3>
           <div className="time-stats">
             <div className="stat-item">
-              <span className="stat-value">24h</span>
+              <span className="stat-value">12h</span>
               <span className="stat-label">Total Learning Time</span>
             </div>
             <div className="stat-item">
@@ -74,9 +74,9 @@ const PerformanceSection = () => {
               datasets: [
                 {
                   label: "Quiz Scores",
-                  data: [65, 75, 85, 90],
+                  data: [18, 12, 18, 22],
                   borderColor: "#4CAF50",
-                  tension: 0.4
+                  tension: 0.2
                 }
               ]
             }}
@@ -129,17 +129,17 @@ const PerformanceSection = () => {
               <div className="progress-bar">
                 <div 
                   className="progress-fill" 
-                  style={{ width: `${(index + 1) * 20}%` }}
+                  style={{ width: `${(index + 1) * 5}%` }}
                 ></div>
               </div>
               <div className="performance-details">
                 <div className="detail-item">
                   <span className="detail-label">Last Quiz Score</span>
-                  <span className="detail-value">85%</span>
+                  <span className="detail-value">20%</span>
                 </div>
                 <div className="detail-item">
                   <span className="detail-label">Time Spent</span>
-                  <span className="detail-value">8 hours</span>
+                  <span className="detail-value">3 hours</span>
                 </div>
               </div>
             </div>

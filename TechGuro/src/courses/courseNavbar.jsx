@@ -27,7 +27,7 @@ const CourseNavbar = ({ courseTitle }) => {
         <div className="menu-container" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
           <FaBars className="menu-icon" />
           <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>
-            <div className="dropdown-item" onClick={() => navigate('/dashboard')}>
+            <div className="dropdown-item" onClick={() => navigate('/UserDashboard')}>
               <FaHome /> <span>Dashboard</span>
             </div>
             <div className="dropdown-item" onClick={() => navigate('/courses/ComputerBasics')}>

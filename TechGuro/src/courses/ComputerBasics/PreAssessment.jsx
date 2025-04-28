@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CourseNavbar from '../courseNavbar';
-import questionsData from '../data/preAssessmentQuestions.json';
+import { questionsData } from '../data/PREquestionsData.js';
 import './PreAssessment.css';
 
 const PreAssessment = () => {
@@ -88,25 +88,37 @@ const PreAssessment = () => {
             </div>
           ) : (
             <div className="question-section">
-              <h2>Pre-Assessment: Please Answer the Following Questions</h2>
-              <div className="separator"></div>
-              
+  <h2>Pre-Assessment: Please Answer the Following Questions</h2>
+  <div className="separator"></div>
+
               <div className="question-container">
-                <h3 className="question-text">Question {currentQuestion + 1}</h3>
-                <div className="question-box">
-                  <p>{questions[currentQuestion].question}</p>
+
+                {/* 1st container - Image */}
+                <div className="image-container">
+                  <img
+                    src={questions[currentQuestion].image}
+                    alt={`Question ${currentQuestion + 1}`}
+                    className="question-image"
+                  />
                 </div>
-                
-                <div className="options-grid">
-                  {questions[currentQuestion].options.map((option, index) => (
-                    <button
-                      key={index}
-                      className={`option-button ${selectedAnswers[currentQuestion] === option ? 'selected' : ''}`}
-                      onClick={() => handleAnswerSelect(option)}
-                    >
-                      {option}
-                    </button>
-                  ))}
+
+                {/* 2nd container - Question and options */}
+                <div className="question-card">
+                  <h3 className="question-text">
+                    Q{currentQuestion + 1}. {questions[currentQuestion].question}
+                  </h3>
+
+                  <div className="options-grid">
+                    {questions[currentQuestion].options.map((option, index) => (
+                      <button
+                        key={index}
+                        className={`option-button ${selectedAnswers[currentQuestion] === option ? 'selected' : ''}`}
+                        onClick={() => handleAnswerSelect(option)}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

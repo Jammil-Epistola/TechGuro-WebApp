@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../HomeNavbar";
 import "../pagesCSS/HomePage.css";
-import { FaEnvelope, FaPhone, FaLaptop, FaCode, FaShieldAlt, FaGlobe, FaBuilding, FaCreditCard, FaBookOpen } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaLaptop, FaFileAlt, FaTools, FaGlobe, FaPaintBrush, FaBookOpen } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -23,16 +23,16 @@ const courses = [
     ]
   },
   { 
-    icon: <FaCreditCard />, 
-    title: "Online Transactions", 
-    description: "Understand how to safely perform digital transactions for bills, shopping, and banking.",
+    icon: <FaFileAlt />, 
+    title: "File & Document Handling", 
+    description: "Learn about managing, sharing, and converting different file formats.",
     lessons: 6,
     imageClass: "online-transactions",
     keyPoints: [
-      "Online payments & e-wallets",
-      "Mobile banking essentials",
-      "Online shopping safety",
-      "Digital receipts & tracking"
+      "Understanding different file types (PDF, DOCX, JPG, etc.)",
+      "How to organize files into folders",
+      "Saving and renaming documents",
+      "Converting files (e.g., Word to PDF)"
     ]
   },
   { 
@@ -61,27 +61,27 @@ const courses = [
     ]
   },
   { 
-    icon: <FaShieldAlt />, 
-    title: "Basic Cybersecurity", 
-    description: "Protect yourself from online threats by learning cybersecurity basics.",
+    icon: <FaTools />, 
+    title: "Computer Maintenance", 
+    description: "Learn how to maintain and troubleshoot your computer for better performance.",
     lessons: 6,
     keyPoints: [
-      "Creating strong passwords",
-      "Identifying scams & phishing",
-      "Safe browsing habits",
-      "Privacy settings for apps"
+      "Cleaning up unnecessary files and apps",
+      "Running antivirus and system updates",
+      "Understanding error messages and warnings",
+      "When and how to ask for tech support"
     ]
   },
   { 
-    icon: <FaBuilding />, 
-    title: "Smartphone Basics", 
-    description: "Learn how to use a smartphone efficiently, from calls to apps.",
+    icon: <FaPaintBrush />, 
+    title: "Creative Tools (Photos & Design)", 
+    description: "Use beginner-friendly tools to edit images and create visual content.",
     lessons: 6,
     keyPoints: [
-      "Navigating Android & iOS",
-      "Installing and managing apps",
-      "Sending emails & messages",
-      "Adjusting accessibility settings"
+      "Basic photo editing (crop, rotate, adjust brightness)",
+      "Using templates to design posters or flyers",
+      "Introduction to tools like Canva or MS Paint",
+      "Ethics of using images online (copyright, sources)"
     ]
   }
 ];
@@ -98,10 +98,11 @@ const HomePage = () => {
         <div className="home-content">
           <h2>LEARNING</h2>
           <h1>COMPUTER LITERACY</h1>
-          <p>TechGuro is an AI-driven learning platform designed to make digital literacy 
-            accessible for adults and elderly learners. Through personalized course 
-            recommendations and interactive lessons, our AI technology adapts to each 
-            user's learning pace, ensuring a more effective and engaging experience.</p>
+          <p>TechGuro is a learning platform focused on building essential computer literacy skills for adults and the elderly. 
+            From understanding basic computer functions to navigating the internet and using everyday applications, 
+            TechGuro provides step-by-step lessons tailored for beginners. Our platform uses AI to recommend personalized 
+            learning paths based on each user's progress, helping them learn at their own pace and gain confidence in using digital 
+            tools for daily life.</p>
           <div className="home-buttons">
             <a href="#about" className="btn learn-more">Learn More</a>
             <a href="/register" className="btn join-now">Join Now</a>
@@ -127,12 +128,14 @@ const HomePage = () => {
               <div className="about-right">
                 <h2 className="about-title">About TechGuro</h2>
                 <p className="about-text">
-                  TechGuro is a web-based learning platform designed to enhance digital literacy among adults and elderly users.
-                  The platform aims to bridge the technology gap by providing accessible, easy-to-follow courses on essential digital skills.
-                  From basic computer operations to using online applications, TechGuro ensures that learners gain confidence in navigating the digital world.
+                  TechGuro is a web-based learning platform dedicated to improving computer literacy among adults and elderly users. 
+                  The platform addresses the growing need for foundational computer knowledge by offering accessible, easy-to-follow 
+                  lessons on essential computer skills. From learning how to operate a computer and manage files to navigating software 
+                  and staying safe online, TechGuro equips users with the practical skills needed for everyday digital tasks.
                   <br /><br />
-                  By empowering adults and senior learners with essential digital skills, TechGuro fosters independence and opens new opportunities for
-                  communication, online transactions, and even career development in an increasingly digital society.
+                  By equipping adults and seniors with essential computer literacy, TechGuro unlocks new opportunities for independence, 
+                  confidence, and connection. Whether it's reconnecting with loved ones online, managing personal tasks, or navigating 
+                  the digital world with ease, learners gain not just skills—but the freedom to thrive in a technology-driven society.
                 </p>
               </div>
             </div>

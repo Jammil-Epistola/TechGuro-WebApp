@@ -2,7 +2,7 @@ import React from "react";
 import practiceModeImage from '../../assets/Dashboard/practice_mode.png';
 
 const QuizzesSection = () => {
-  const courses = ["Computer Basics", "Online Banking", "About Phone", "Internet"];
+  const courses = ["Computer Basics", "File & Document Handling", "Microsoft Essentials", "Internet Safety", "Computer Maintenance", "Creative Tools (Photos & Design)"];
 
   return (
     <div className="quizzes-container">

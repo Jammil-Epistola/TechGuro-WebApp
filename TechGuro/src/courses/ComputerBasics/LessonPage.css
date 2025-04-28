@@ -1,3 +1,4 @@
+
 .lesson-page {
   min-height: 100vh;
   background-color: #e6e2d4;
@@ -473,10 +474,9 @@
 /* Modal Styles */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -485,12 +485,11 @@
 }
 
 .modal-content {
-  background-color: white;
-  padding: 40px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
+  background: white !important;
+  display: block !important;
+  opacity: 1 !important;
+  z-index: 9999 !important;
+  position: relative !important;
 }
 
 .modal-title {
@@ -534,9 +533,9 @@
 
 /* Score Display Modal Styles */
 .score-display.modal-content {
-  max-width: 600px;
+  width: 1000px !important; 
   text-align: center;
-  padding: 40px;
+  padding: 50px;
   background-color: white;
   border-radius: 12px;
 }
@@ -574,7 +573,7 @@
 
 /* Review Modal Styles */
 .review-container.modal-content {
-  max-width: 800px;
+  width: 1000px;
   max-height: 80vh;
   overflow-y: auto;
   padding: 40px;

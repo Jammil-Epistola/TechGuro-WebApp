@@ -31,7 +31,7 @@ const UserBoard = () => {
       case "courses":
         return "COURSE SELECTION";
       case "achievements":
-        return "ACHIEVEMENTS";
+        return "MILESTONES";
       default:
         return "USER DASHBOARD";
     }
@@ -94,7 +94,7 @@ const UserBoard = () => {
             className={`nav-item ${activeSection === "achievements" ? "active" : ""}`}
             onClick={() => setActiveSection("achievements")}
           >
-            <FaTrophy /> <span>Achievements</span>
+            <FaTrophy /> <span>Milestones</span>
           </button>
           
           <hr className="footer-separator" />
