@@ -15,7 +15,7 @@ import AchievementsSection from "./UserBoard/AchievementsSection";
 import CoursesSection from "./UserBoard/CoursesSection";
 import TopNavbar from "./UserBoard/TopNavbar";
 import tekiLogo from "../assets/Home/Teki 1.png";
-import "./UserBoard/UserBoard.css";
+import "../pagesCSS/UserBoard.css";
 
 const UserBoard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");

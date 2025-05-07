@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../HomeNavbar";
+import Navbar from "./HomeNavbar";
 import "../pagesCSS/HomePage.css";
 import { FaEnvelope, FaPhone, FaLaptop, FaFileAlt, FaTools, FaGlobe, FaPaintBrush, FaBookOpen } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";

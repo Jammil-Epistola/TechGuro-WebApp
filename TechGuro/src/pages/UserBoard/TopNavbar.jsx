@@ -10,7 +10,7 @@ import {
   FaSignOutAlt,
   FaChevronDown 
 } from 'react-icons/fa';
-import './UserBoard.css';
+import '../../pagesCSS/UserBoard.css';
 
 const TopNavbar = ({ title }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
