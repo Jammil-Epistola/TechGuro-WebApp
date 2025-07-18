@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  FaTachometerAlt,
-  FaChartLine,
-  FaQuestionCircle,
   FaBook,
   FaTrophy,
+  FaBolt,
+  FaInfoCircle,
   FaSignOutAlt,
 } from "react-icons/fa";
 import DashboardSection from "./UserBoard/DashboardSection";
-import PerformanceSection from "./UserBoard/PerformanceSection";
-import QuizzesSection from "./UserBoard/QuizzesSection";
 import AchievementsSection from "./UserBoard/AchievementsSection";
 import CoursesSection from "./UserBoard/CoursesSection";
 import TopNavbar from "./UserBoard/TopNavbar";
-import tekiLogo from "../assets/Home/Teki 1.png";
-import "../pagesCSS/UserBoard.css";
+import tgLogo from "../assets/TechGuroLogo_3.png";
 
 const UserBoard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -24,10 +20,6 @@ const UserBoard = () => {
     switch (activeSection) {
       case "dashboard":
         return "USER DASHBOARD";
-      case "performance":
-        return "PERFORMANCE";
-      case "quizzes":
-        return "QUIZ OVERVIEW";
       case "courses":
         return "COURSE SELECTION";
       case "achievements":
@@ -41,10 +33,6 @@ const UserBoard = () => {
     switch (activeSection) {
       case "dashboard":
         return <DashboardSection />;
-      case "performance":
-        return <PerformanceSection />;
-      case "quizzes":
-        return <QuizzesSection />;
       case "courses":
         return <CoursesSection />;
       case "achievements":
@@ -55,62 +43,82 @@ const UserBoard = () => {
   };
 
   return (
-    <div className="user-board-wrapper">
-      {/* Logo and Sidebar */}
-      <div className="sidebar">
-        {/* Logo Container */}
-        <div className="logo-container">
-          <img src={tekiLogo} alt="TechGuro Logo" className="logo-image" />
-          <h1 className="logo-text">TechGuro</h1>
+    <div className="flex">
+      {/* Sidebar */}
+      <div className="w-[300px] sticky top-0 h-screen bg-[#BFC4D7] flex flex-col justify-between p-4">
+        <div>
+          {/* Logo */}
+          <div className="flex items-center gap-3 mb-4">
+            <img src={tgLogo} alt="TechGuro Logo" className="w-20 h-20" />
+            <h1 className="font-bold text-black" style={{ fontSize: "35px" }}>
+              TechGuro.
+            </h1>
+          </div>
+
+          {/* Streak/Level Box */}
+          <div className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-3 mb-6">
+            <div className="flex items-center text-black mb-2" style={{ fontSize: "25px", fontWeight: 500 }}>
+              <FaBolt className="mr-2" /> 0 day streak
+            </div>
+
+            <div className="h-[5px] bg-[#6B708D] mb-3" />
+
+            <div className="flex items-center justify-between mb-2 text-black" style={{ fontSize: "25px", fontWeight: 500 }}>
+              <span>Level 1</span>
+              <FaInfoCircle title="EXP increases as you complete lessons and tasks." />
+            </div>
+
+            <div className="w-full h-3 border border-black rounded-full overflow-hidden">
+              <div className="bg-[#6B708D] h-full w-1/4"></div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex flex-col gap-5 text-black font-bold">
+            <button
+              className={`text-left px-4 py-5 rounded-md ${activeSection === "courses" ? "bg-[#F4EDD9]" : "hover:bg-[#e0e3ee]"
+                }`}
+              onClick={() => setActiveSection("courses")}
+              style={{ fontSize: "35px" }}
+            >
+              Courses
+            </button>
+            <button
+              className={`text-left px-4 py-5 rounded-md ${activeSection === "dashboard" ? "bg-[#F4EDD9]" : "hover:bg-[#e0e3ee]"
+                }`}
+              onClick={() => setActiveSection("dashboard")}
+              style={{ fontSize: "35px" }}
+            >
+              Dashboard
+            </button>
+            <button
+              className={`text-left px-4 py-5 rounded-md ${activeSection === "achievements" ? "bg-[#F4EDD9]" : "hover:bg-[#e0e3ee]"
+                }`}
+              onClick={() => setActiveSection("achievements")}
+              style={{ fontSize: "35px" }}
+            >
+              Milestones
+            </button>
+          </div>
         </div>
 
-        {/* Nav Links */}
-        <nav className="nav-links">
-          <button 
-            className={`nav-item ${activeSection === "dashboard" ? "active" : ""}`}
-            onClick={() => setActiveSection("dashboard")}
+        {/* Sign Out */}
+        <div className="pt-4 border-t border-black/50">
+          <Link
+            to="/"
+            className="flex items-center gap-2 px-4 py-2 text-red-600 font-bold hover:opacity-80"
+            style={{ fontSize: "30px" }}
           >
-            <FaTachometerAlt /> <span>Dashboard</span>
-          </button>
-          <button 
-            className={`nav-item ${activeSection === "performance" ? "active" : ""}`}
-            onClick={() => setActiveSection("performance")}
-          >
-            <FaChartLine /> <span>Performance</span>
-          </button>
-          <button 
-            className={`nav-item ${activeSection === "quizzes" ? "active" : ""}`}
-            onClick={() => setActiveSection("quizzes")}
-          >
-            <FaQuestionCircle /> <span>Quizzes</span>
-          </button>
-          <button 
-            className={`nav-item ${activeSection === "courses" ? "active" : ""}`}
-            onClick={() => setActiveSection("courses")}
-          >
-            <FaBook /> <span>Courses</span>
-          </button>
-          <button 
-            className={`nav-item ${activeSection === "achievements" ? "active" : ""}`}
-            onClick={() => setActiveSection("achievements")}
-          >
-            <FaTrophy /> <span>Milestones</span>
-          </button>
-          
-          <hr className="footer-separator" />
-          <Link to="/" className="nav-item logout">
-            <FaSignOutAlt /> <span>Sign Out</span>
+            <FaSignOutAlt />
+            <span>Sign Out</span>
           </Link>
-        </nav>
+        </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="main-area">
-        {/* Remove the built-in top navbar and use our TopNavbar component */}
+      <div className="flex-1 min-h-screen overflow-y-auto bg-[#DFDFEE]">
         <TopNavbar title={getSectionTitle()} />
-        <div className="main-content">
-          {renderContent()}
-        </div>
+        <div className="p-6">{renderContent()}</div>
       </div>
     </div>
   );
