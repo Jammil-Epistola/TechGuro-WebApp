@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaUser,
   FaCalendar,
@@ -12,6 +13,8 @@ import {
 } from "react-icons/fa";
 
 const TopNavbar = ({ title }) => {
+  const navigate = useNavigate();
+  const { user, logout } = useUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState("en");
@@ -27,6 +30,11 @@ const TopNavbar = ({ title }) => {
 
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   useEffect(() => {
@@ -69,7 +77,7 @@ const TopNavbar = ({ title }) => {
             onClick={toggleDropdown}
           >
             <FaUser className="text-white text-[20px]" />
-            <span className="text-white font-medium">John Doe</span>
+            <span className="text-white font-medium">{user?.username || "User"}</span>
             <FaChevronDown className="text-white" />
           </button>
 
@@ -124,18 +132,18 @@ const TopNavbar = ({ title }) => {
 
               <hr className="border-t border-gray-200" />
 
-              <Link
-                to="/"
-                className="flex items-center gap-2 px-4 py-3 text-red-600 hover:bg-red-50 transition"
+              <button
+                onClick={handleLogout}
+                className="w-full text-left flex items-center gap-2 px-4 py-3 text-red-600 hover:bg-red-50 transition"
               >
                 <FaSignOutAlt />
                 <span>Sign Out</span>
-              </Link>
+              </button>
             </div>
           )}
-        </div>
       </div>
     </div>
+    </div >
   );
 };
 

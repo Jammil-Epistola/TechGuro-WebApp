@@ -8,37 +8,80 @@ const RegisterPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
 
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleRegister = async () => {
+    if (!termsAccepted) {
+      setMessage("Please accept the Terms and Conditions.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          username,
+          password,
+          birthday: birthday + "T00:00:00"
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessage("Registered successfully!");
+      } else {
+        setMessage(data.detail || "Registration failed");
+      }
+    } catch (error) {
+      setMessage("Error connecting to server.");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#4C5173]">
-      {/* Form Container */}
       <div className="bg-white rounded-xl shadow-lg w-full max-w-[600px] p-10 text-black relative z-10">
-        {/* Logo and Title */}
         <div className="flex items-center justify-center gap-3 mb-6">
           <img src={Teki1} alt="TechGuro Logo" className="w-16 h-16" />
           <h1 className="text-[32px] font-bold text-[#4C5173]">TechGuro.</h1>
         </div>
 
-        {/* Heading */}
         <h2 className="text-2xl font-bold text-center mb-6">Create An Account</h2>
 
-        {/* Input Fields */}
         <div className="space-y-4">
           <input
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
             className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black"
           />
           <input
             type="text"
             placeholder="Username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
             className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black"
           />
 
-          {/* Password */}
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black"
             />
             <span
@@ -49,11 +92,12 @@ const RegisterPage = () => {
             </span>
           </div>
 
-          {/* Confirm Password */}
           <div className="relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
               className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black"
             />
             <span
@@ -64,18 +108,24 @@ const RegisterPage = () => {
             </span>
           </div>
 
-          {/* Birthday Field */}
           <div className="relative w-full">
             <input
               type="date"
+              value={birthday}
+              onChange={e => setBirthday(e.target.value)}
               className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black pr-12"
             />
             <FaRegCalendarAlt className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#6B708D]" />
           </div>
 
-          {/* Terms and Conditions */}
           <div className="flex items-start gap-2 mt-2">
-            <input type="checkbox" className="mt-1" id="terms" />
+            <input
+              type="checkbox"
+              className="mt-1"
+              id="terms"
+              checked={termsAccepted}
+              onChange={() => setTermsAccepted(!termsAccepted)}
+            />
             <label htmlFor="terms" className="text-sm text-black">
               I have read and accept the{" "}
               <span
@@ -87,22 +137,24 @@ const RegisterPage = () => {
             </label>
           </div>
 
-          {/* Submit Button */}
-          <button className="w-full py-3 mt-6 rounded-full bg-[#697DFF] text-white text-lg font-bold hover:bg-[#5d71e0] transition-all">
+          <button
+            onClick={handleRegister}
+            className="w-full py-3 mt-6 rounded-full bg-[#697DFF] text-white text-lg font-bold hover:bg-[#5d71e0] transition-all"
+          >
             CREATE ACCOUNT
           </button>
         </div>
 
-        {/* Back to Login */}
         <p className="text-center mt-4 text-sm text-black">
           Already have an account?{" "}
           <Link to="/login" className="text-[#697DFF] underline">
             Log In
           </Link>
         </p>
+
+        {message && <p className="mt-4 text-center text-sm text-black">{message}</p>}
       </div>
 
-      {/* Terms Modal */}
       {showTerms && (
         <>
           <div

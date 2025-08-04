@@ -1,29 +1,33 @@
 import React from "react";
 import "./chartConfig";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
+
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserBoard from "./pages/UserBoard";
-import PreAssessment from "./courses/ComputerBasics/PreAssessment";
-import LessonList from "./courses/ComputerBasics/LessonList";
-import LessonPage from "./courses/ComputerBasics/LessonPage";
+
+import PreAssessment from "./courses/PreAssessment";
+import LessonList from "./courses/LessonList";            
+import LessonPage from "./courses/LessonPage";        
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Pages */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        {/* User Dashboard */}
         <Route path="/UserDashboard" element={<UserBoard />} />
-        
-        {/* Computer Basics Course Routes */}
-        <Route path="/courses/ComputerBasics">
-          <Route index element={<LessonList />} />
-          <Route path="Pre-Assessment" element={<PreAssessment />} />
-          <Route path="lesson" element={<LessonPage />} />
-        </Route>
+
+        {/* Course Routes - Generalized */}
+        <Route path="/courses/:courseName/Pre-Assessment" element={<PreAssessment />} />
+        <Route path="/courses/:courseName" element={<LessonList />} />
+        <Route path="/courses/:courseName/lesson" element={<LessonPage />} />
       </Routes>
     </Router>
   );

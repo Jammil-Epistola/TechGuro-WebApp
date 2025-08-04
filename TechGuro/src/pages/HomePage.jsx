@@ -1,6 +1,15 @@
 import React, { useState, useRef } from "react";
 import Navbar from "./HomeNavbar";
-import { FaEnvelope, FaPhone, FaLaptop, FaFileAlt, FaTools, FaGlobe, FaPaintBrush, FaBookOpen } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaLaptop,
+  FaFileAlt,
+  FaTools,
+  FaGlobe,
+  FaPaintBrush,
+  FaBookOpen,
+} from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -41,14 +50,14 @@ const courses = [
   },
   {
     icon: <FaBookOpen />,
-    title: "Microsoft Essentials",
-    description: "Master the basics of Microsoft Word, Excel, and PowerPoint.",
+    title: "Office Tools & Typing Essentials",
+    description: "Get started with Word, Excel, and improve your typing skills.",
     lessons: 6,
     keyPoints: [
+      "Typing practice and accuracy",
       "Formatting documents",
-      "Creating spreadsheets",
-      "Designing presentations",
-      "File saving & sharing"
+      "Spreadsheets basics",
+      "Editing tools"
     ]
   },
   {
@@ -65,27 +74,27 @@ const courses = [
     ]
   },
   {
-    icon: <FaTools />,
-    title: "Computer Maintenance",
-    description: "Learn how to maintain and troubleshoot your computer for better performance.",
+    icon: <FaPaintBrush />,
+    title: "Digital Communication",
+    description: "Learn how to communicate effectively online using different platforms.",
     lessons: 6,
     keyPoints: [
-      "Cleaning up unnecessary files and apps",
-      "Running antivirus and system updates",
-      "Understanding error messages and warnings",
-      "When and how to ask for tech support"
+      "Using email and messaging apps",
+      "Online etiquette and safety",
+      "Video conferencing basics",
+      "Effective digital writing"
     ]
   },
   {
-    icon: <FaPaintBrush />,
-    title: "Creative Tools (Photos & Design)",
-    description: "Use beginner-friendly tools to edit images and create visual content.",
+    icon: <FaTools />,
+    title: "Intro to Online Selling",
+    description: "Use Facebook Pages and other tools to start a small online business.",
     lessons: 6,
     keyPoints: [
-      "Basic photo editing (crop, rotate, adjust brightness)",
-      "Using templates to design posters or flyers",
-      "Introduction to tools like Canva or MS Paint",
-      "Ethics of using images online (copyright, sources)"
+      "Creating a Facebook Page",
+      "Posting and promoting products",
+      "Handling customer messages",
+      "Online selling tips"
     ]
   }
 ];
@@ -96,18 +105,16 @@ const HomePage = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
 
       {/* Home Section */}
       <section
         id="home"
-        className="relative flex flex-col justify-center h-screen bg-cover bg-center bg-no-repeat text-white pl-48"
+        className="relative flex flex-col justify-center h-screen bg-cover bg-center bg-no-repeat text-white pl-48 pt-[100px]"
         style={{ backgroundImage: `url(${home_background1})` }}
       >
-        {/* Overlay (replaces ::before) */}
         <div className="absolute inset-0 bg-black/50 z-0"></div>
 
-        {/* Content */}
         <div className="relative z-10 max-w-7xl">
           <h2 className="text-[3.2rem] font-bold mb-[-1.5rem]">LEARNING</h2>
           <h1 className="text-[4.2rem] font-bold">COMPUTER LITERACY</h1>
@@ -119,7 +126,6 @@ const HomePage = () => {
             tools for daily life.
           </p>
 
-          {/* Buttons */}
           <div className="mt-10 flex gap-4">
             <a
               href="#about"
@@ -137,8 +143,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* About Section with Swiper */}
-      <section id="about" className="min-h-screen flex justify-center items-center bg-[#4C5173] px-8 py-12">
+      {/* About Section */}
+      <section id="about" className="min-h-screen flex justify-center items-center bg-[#4C5173] px-8 py-12 pt-[100px]">
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={50}
@@ -147,16 +153,12 @@ const HomePage = () => {
           pagination={{ clickable: true }}
           className="w-full h-full"
         >
-          {/* Slide 1 - About TechGuro */}
           <SwiperSlide>
             <div className="flex flex-col lg:flex-row w-full max-w-[1780px] min-h-[83vh] bg-[#6B708D] rounded-xl mt-14 overflow-hidden shadow-lg">
-              {/* Left Image Section */}
               <div
                 className="flex-1 bg-[#282c4a] bg-cover bg-center bg-no-repeat hidden lg:block"
                 style={{ backgroundImage: `url(${home_background2})` }}
               ></div>
-
-              {/* Right Content */}
               <div className="flex-1 flex flex-col justify-center items-end text-right text-white p-8 bg-[#6B708D]">
                 <h2 className="text-[2.5rem] font-bold pr-10 pb-20">About TechGuro</h2>
                 <p className="text-[1.3rem] leading-relaxed pr-10 text-justify">
@@ -173,38 +175,33 @@ const HomePage = () => {
             </div>
           </SwiperSlide>
 
-          {/* Slide 2 - Researchers */}
           <SwiperSlide>
             <div className="flex flex-col items-center text-center w-full max-w-[1780px] min-h-[83vh] mt-14 bg-[#6B708D] text-white p-8">
-              {/* Title */}
               <div className="text-left w-full max-w-[1200px] mb-8">
                 <h3 className="text-[2.5rem] mb-2">ABOUT</h3>
                 <h2 className="text-[3rem] mb-4">TECHGURO: THE RESEARCHERS</h2>
                 <hr className="w-full max-w-[100rem] h-[3px] bg-white border-none mx-auto" />
               </div>
 
-              {/* Researchers Grid */}
               <div className="flex flex-col md:flex-row justify-between gap-8 w-full max-w-[1200px]">
-                {[
-                  {
-                    name: "Jammil C. Epistola",
-                    email: "epistolajammil45@gmail.com",
-                    phone: "0921 729 4657",
-                    image: jammil_img
-                  },
-                  {
-                    name: "Raquel H. Javier",
-                    email: "raquelhiraojavier@gmail.com",
-                    phone: "0991 584 9104",
-                    image: raquel_img
-                  },
-                  {
-                    name: "Angel B. Ojoy",
-                    email: "ojoyangel14@gmail.com",
-                    phone: "0992 627 6650",
-                    image: angel_img
-                  }
-                ].map((res, idx) => (
+                {[{
+                  name: "Jammil C. Epistola",
+                  email: "epistolajammil45@gmail.com",
+                  phone: "0921 729 4657",
+                  image: jammil_img
+                },
+                {
+                  name: "Raquel H. Javier",
+                  email: "raquelhiraojavier@gmail.com",
+                  phone: "0991 584 9104",
+                  image: raquel_img
+                },
+                {
+                  name: "Angel B. Ojoy",
+                  email: "ojoyangel14@gmail.com",
+                  phone: "0992 627 6650",
+                  image: angel_img
+                }].map((res, idx) => (
                   <div key={idx} className="flex-1 bg-[#4C5173] p-6 rounded-lg shadow-md flex flex-col items-center transition-transform hover:-translate-y-1">
                     <div
                       className="w-[200px] h-[300px] rounded-xl mb-4 shadow-md bg-cover bg-center"
@@ -230,7 +227,7 @@ const HomePage = () => {
       </section>
 
       {/* Courses Section */}
-      <section id="courses" className="min-h-[95vh] flex flex-col justify-center items-center text-center bg-[#8B91B8] text-white px-8 py-12">
+      <section id="courses" className="min-h-[95vh] flex flex-col justify-center items-center text-center bg-[#8B91B8] text-white px-8 py-12 pt-[100px]">
         <h2 className="text-[2.5rem] font-bold">TechGuro Courses</h2>
         <p className="text-[1.2rem] font-bold text-black mb-8">| We have the Following Categories |</p>
 
@@ -251,16 +248,8 @@ const HomePage = () => {
       {/* Course Modal */}
       {selectedCourse && (
         <>
-          {/* Modal Overlay */}
-          <div
-            className="fixed inset-0 bg-black bg-opacity-60 z-[200] flex justify-center items-center"
-            onClick={() => setSelectedCourse(null)}
-          ></div>
-
-          {/* Modal Content */}
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl w-[95%] max-w-[1400px] h-[80vh] z-[200] flex flex-col lg:flex-row overflow-hidden">
-
-            {/* Left Side (Image) */}
+          <div className="fixed inset-0 bg-black bg-opacity-60 z-[200] flex justify-center items-center" onClick={() => setSelectedCourse(null)}></div>
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl w-[95%] max-w-[1400px] h-[80vh] z-[200] flex flex-col lg:flex-row overflow-hidden">
             <div className="w-full lg:w-[45%] bg-white flex justify-center items-center p-4">
               <div
                 className={`w-full h-full bg-center bg-no-repeat bg-contain rounded-lg`}
@@ -273,18 +262,13 @@ const HomePage = () => {
                 }}
               ></div>
             </div>
-
-            {/* Right Side (Text) */}
             <div className="w-full lg:w-[55%] bg-[#f5f5f5] p-8 flex flex-col overflow-y-auto">
               <h2 className="text-[3rem] font-bold mb-6 text-[#333]">{selectedCourse.title}</h2>
-
               <div className="flex items-center gap-2 text-[1.4rem] text-[#666] mb-8">
                 <FaBookOpen className="text-[1.6rem] text-[#4c5173]" />
                 <span>{selectedCourse.lessons} Lessons Available</span>
               </div>
-
               <p className="text-[1.3rem] leading-relaxed text-[#555] mb-10">{selectedCourse.description}</p>
-
               <ul className="list-none mb-8">
                 {selectedCourse.keyPoints.map((point, index) => (
                   <li
@@ -295,7 +279,6 @@ const HomePage = () => {
                   </li>
                 ))}
               </ul>
-
               <button
                 className="bg-[#4c5173] text-white w-full text-center py-4 rounded-lg text-[1.4rem] font-bold transition-colors hover:bg-[#3b3f65] mt-auto"
                 onClick={() => (window.location.href = "/login")}

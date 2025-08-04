@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import placeholderimg from "../../assets/Dashboard/placeholder_teki.png";
 
 const AchievementsSection = () => {
+  const [filter, setFilter] = useState("all");
+
   const achievements = [
     {
       title: "Welcome to TechGuro",
@@ -101,41 +103,75 @@ const AchievementsSection = () => {
     },
   ];
 
+  // Filter logic
+  const filteredAchievements = achievements.filter((achievement) => {
+    if (filter === "unlocked") return achievement.status === "Achievement Get!";
+    if (filter === "locked") return achievement.status === "Achievement Locked";
+    return true;
+  });
+
   return (
-    <div className="text-[#4C5173]">
-      <h1 className="text-left text-[40px] font-bold mb-5">MILESTONES</h1>
-      <div className="flex flex-col gap-5">
-        {achievements.map((achievement, index) => (
+    <div className="bg-[#DFDFEE] p-6 min-h-screen text-[#4C5173]">
+      <h1 className="text-[30px] font-bold mb-6">MILESTONES</h1>
+
+      {/* Filter Buttons */}
+      <div className="flex gap-4 mb-6">
+        <button
+          onClick={() => setFilter("all")}
+          className={`px-4 py-2 rounded-md border ${
+            filter === "all" ? "bg-[#BFC4D7] font-bold" : "bg-white"
+          }`}
+        >
+          All Milestones
+        </button>
+        <button
+          onClick={() => setFilter("unlocked")}
+          className={`px-4 py-2 rounded-md border ${
+            filter === "unlocked" ? "bg-[#BFC4D7] font-bold" : "bg-white"
+          }`}
+        >
+          Unlocked Milestones
+        </button>
+        <button
+          onClick={() => setFilter("locked")}
+          className={`px-4 py-2 rounded-md border ${
+            filter === "locked" ? "bg-[#BFC4D7] font-bold" : "bg-white"
+          }`}
+        >
+          Locked Milestones
+        </button>
+      </div>
+
+      {/* Achievement Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {filteredAchievements.map((achievement, index) => (
           <div
             key={index}
-            className={`relative flex items-center bg-[#BFC4D7] text-black p-[50px] rounded-[30px] transition duration-300 overflow-hidden ${
-              achievement.status === "Achievement Locked" ? "opacity-90" : ""
-            }`}
+            className="relative flex items-center bg-[#F9F8FE] text-black p-6 rounded-2xl overflow-hidden border border-[#6B708D]"
           >
             {/* Overlay for Locked */}
             {achievement.status === "Achievement Locked" && (
-              <div className="absolute top-0 left-0 w-full h-full bg-black/75  z-[1] rounded-[30px]" />
+              <div className="absolute inset-0 bg-black opacity-50 z-10 rounded-2xl" />
             )}
 
-            {/* Left Side: Image */}
-            <div className="w-[120px] flex justify-center items-center z-[0]">
+            {/* Left Image */}
+            <div className="w-[80px] h-[80px] mr-4 z-20 flex items-center justify-center">
               <img
                 src={achievement.image}
-                alt={`${achievement.title} Icon`}
-                className="w-full h-full object-contain"
+                alt={achievement.title}
+                className="w-full h-full object-contain rounded-full"
               />
             </div>
 
-            {/* Separator */}
-            <div className="w-[3px] h-full bg-[#333] mx-5 z-[2]" />
-
-            {/* Right Side */}
-            <div className="flex-1 z-[2]">
-              <h2 className="text-[45px] font-bold">{achievement.title}</h2>
-              <p className="text-[20px] ml-[15px] mb-2">{achievement.description}</p>
+            {/* Details */}
+            <div className="flex-1 z-20">
+              <h2 className="text-[22px] font-bold">{achievement.title}</h2>
+              <p className="text-[16px] text-gray-800">{achievement.description}</p>
               <span
-                className={`block text-right font-bold text-[20px] ${
-                  achievement.status === "Achievement Get!" ? "text-green-600" : "text-red-700"
+                className={`block text-right font-bold text-[16px] mt-2 ${
+                  achievement.status === "Achievement Get!"
+                    ? "text-green-600"
+                    : "text-red-600"
                 }`}
               >
                 {achievement.status}
