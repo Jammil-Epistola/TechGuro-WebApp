@@ -1,0 +1,197 @@
+[
+  {
+    "question_id": 1,
+    "question": "What is a computer used for?",
+    "options": [
+      "Only for calling people",
+      "Storing, processing, and showing information",
+      "Only playing games"
+    ],
+    "answer": "Storing, processing, and showing information",
+    "image": null
+  },
+  {
+    "question_id": 2,
+    "question": "Which of these is an example of a computer?",
+    "options": [
+      "Television",
+      "Smartphone",
+      "Refrigerator"
+    ],
+    "answer": "Smartphone",
+    "image": null
+  },
+  {
+    "question_id": 3,
+    "question": "Click on the picture that shows a computer mouse.",
+    "options": [
+      {
+        "image": "/images/pre-assessment/CB_q3_A.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q3_B.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q3_C.png"
+      }
+    ],
+    "answer_image": "/images/pre-assessment/CB_q3_A.png",
+    "image": null
+  },
+  {
+    "question_id": 4,
+    "question": "Which part is called the brain of the computer?",
+    "options": [
+      "Monitor",
+      "CPU",
+      "Keyboard"
+    ],
+    "answer": "CPU",
+    "image": null
+  },
+  {
+    "question_id": 5,
+    "question": "What is the keyboard used for?",
+    "options": [
+      "Watching videos",
+      "Typing letters and numbers",
+      "Moving the mouse"
+    ],
+    "answer": "Typing letters and numbers",
+    "image": null
+  },
+  {
+    "question_id": 6,
+    "question": "Which icon symbolizes ‘POWER ON’?",
+    "options": [
+      {
+        "image": "/images/pre-assessment/CB_q6_A.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q6_B.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q6_C.png"
+      }
+    ],
+    "answer_image": "/images/pre-assessment/CB_q6_B.png",
+    "image": null
+  },
+  {
+    "question_id": 7,
+    "question": "Before turning OFF the computer, what should you always do?",
+    "options": [
+      "Save your work, click the Start Menu, then click Shut Down",
+      "Unplug it directly",
+      "Close your eyes and wait"
+    ],
+    "answer": "Save your work, click the Start Menu, then click Shut Down",
+    "image": null
+  },
+  {
+    "question_id": 8,
+    "question": "Where is the Taskbar usually located?",
+    "options": [
+      "Bottom of the screen",
+      "Top of the keyboard",
+      "Inside the monitor"
+    ],
+    "answer": "Bottom of the screen",
+    "image": null
+  },
+  {
+    "question_id": 9,
+    "question": "Click the icon that opens a folder of files.",
+    "options": [
+      {
+        "image": "/images/pre-assessment/CB_q9_A.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q9_B.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q9_C.png"
+      }
+    ],
+    "answer_image": "/images/pre-assessment/CB_q9_A.png",
+    "image": null
+  },
+  {
+    "question_id": 10,
+    "question": "If you see a program icon on the desktop, how do you open it?",
+    "options": [
+      "Double-click the icon",
+      "Press the Esc key",
+      "Right-click and choose Delete"
+    ],
+    "answer": "Double-click the icon",
+    "image": null
+  },
+  {
+    "question_id": 11,
+    "question": "What happens when you double-click a file?",
+    "options": [
+      "It opens",
+      "It closes",
+      "It restarts the computer"
+    ],
+    "answer": "It opens",
+    "image": null
+  },
+  {
+    "question_id": 12,
+    "question": "Which button closes a program window?",
+    "options": [
+      {
+        "image": "/images/pre-assessment/CB_q12_A.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q12_B.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q12_C.png"
+      }
+    ],
+    "answer_image": "/images/pre-assessment/CB_q12_C.png",
+    "image": null
+  },
+  {
+    "question_id": 13,
+    "question": "You accidentally opened a program. What should you do to close it?",
+    "options": [
+      "Click the X button",
+      "Unplug the computer",
+      "Click on the Taskbar"
+    ],
+    "answer": "Click the X button",
+    "image": null
+  },
+  {
+    "question_id": 14,
+    "question": "How can you switch between open windows?",
+    "options": [
+      "Click their icons on the Taskbar",
+      "Press the Spacebar",
+      "Turn off the computer"
+    ],
+    "answer": "Click their icons on the Taskbar",
+    "image": null
+  },
+  {
+    "question_id": 15,
+    "question": "Click on the Start Menu button.",
+    "options": [
+      {
+        "image": "/images/pre-assessment/CB_q15_A.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q12_B.png"
+      },
+      {
+        "image": "/images/pre-assessment/CB_q6_B.png"
+      }
+    ],
+    "answer_image": "/images/pre-assessment/CB_q15_A.png",
+    "image": null
+  }
+]

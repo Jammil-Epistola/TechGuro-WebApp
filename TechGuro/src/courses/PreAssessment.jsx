@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CourseNavbar from './courseNavbar.jsx';
+import { useUser } from '../context/UserContext.jsx';
 import Teki1 from "../assets/Teki 1.png";
 
 const PreAssessment = () => {
   const navigate = useNavigate();
   const { courseName } = useParams();
+  const { user } = useUser();
   const [dialogueStep, setDialogueStep] = useState(0);
   const [startTest, setStartTest] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [score, setScore] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const questions = questionsData[courseName] || [];
+  // Check if pre-assessment already taken
+  useEffect(() => {
+    fetch(`http://localhost:8000/assessment/check/${user?.user_id || 1}/1`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.taken) {
+          navigate(`/courses/${courseName}`);
+        }
+      })
+      .catch(err => console.error("Failed to check pre-assessment:", err));
+  }, [user]);
+
+  useEffect(() => {
+    fetch('/data/computer_basics_questions.json')
+      .then(response => response.json())
+      .then(data => setQuestions(data))
+      .catch(error => console.error("Failed to load questions:", error));
+  }, []);
 
   const handleDialogueNext = () => {
     if (dialogueStep === 1) {
@@ -23,10 +44,10 @@ const PreAssessment = () => {
   };
 
   const handleAnswerSelect = (selectedOption) => {
-    setSelectedAnswers({
-      ...selectedAnswers,
+    setSelectedAnswers(prev => ({
+      ...prev,
       [currentQuestion]: selectedOption
-    });
+    }));
 
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -37,9 +58,14 @@ const PreAssessment = () => {
 
   const calculateScore = () => {
     let correctAnswers = 0;
-    Object.keys(selectedAnswers).forEach(index => {
-      if (selectedAnswers[index] === questions[index].answer) {
-        correctAnswers++;
+    questions.forEach((q, idx) => {
+      const selected = selectedAnswers[idx];
+      if (!selected) return;
+
+      if (q.answer_image) {
+        if (selected.image === q.answer_image) correctAnswers++;
+      } else {
+        if (selected === q.answer) correctAnswers++;
       }
     });
     return correctAnswers;
@@ -48,6 +74,60 @@ const PreAssessment = () => {
   const handleSubmit = () => {
     const finalScore = calculateScore();
     setScore(finalScore);
+    setIsSubmitting(true);
+
+    const responses = questions.map((q, idx) => {
+      const selected = selectedAnswers[idx];
+      let isCorrect = false;
+
+      if (!selected) return { question_id: q.question_id, is_correct: false };
+
+      if (q.answer_image) {
+        isCorrect = selected.image === q.answer_image;
+      } else {
+        isCorrect = selected === q.answer;
+      }
+
+      return {
+        question_id: q.question_id,
+        is_correct: isCorrect
+      };
+    });
+
+    const payload = {
+      user_id: user?.user_id || 1,
+      course_id: 1,
+      assessment_type: "pre",
+      score: finalScore,
+      responses: responses
+    };
+
+    // Step 1: Submit assessment
+    fetch("http://localhost:8000/assessment/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then(res => res.json())
+      .then(() => {
+        // Step 2: Trigger BKT update
+        return fetch("http://localhost:8000/bkt/update-from-pre", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: user?.user_id || 1, course_id: 1 })
+        });
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log("BKT Update Success:", data);
+        setTimeout(() => {
+          navigate(`/courses/${courseName}`);
+        }, 2500);
+      })
+      .catch(error => {
+        console.error("Submission failed:", error);
+        setIsSubmitting(false);
+      });
   };
 
   const formattedTitle = courseName.replace(/([A-Z])/g, ' $1').trim();
@@ -56,113 +136,76 @@ const PreAssessment = () => {
     <div className="bg-[#DFDFEE] min-h-screen text-black">
       <CourseNavbar courseTitle={formattedTitle} />
 
-      <div className="text-center py-4">
-        <h1 className="text-[28px] font-bold">{formattedTitle.toUpperCase()}</h1>
-        <h2 className="text-[24px] font-semibold">Pre-Assessment Test</h2>
+      <div className="text-center py-8">
+        <h1 className="text-[42px] font-bold">{formattedTitle.toUpperCase()}</h1>
+        <h2 className="text-[36px] font-semibold">Pre-Assessment Test</h2>
       </div>
 
-      <div className="flex flex-col justify-center items-center p-6">
+      <div className="flex flex-col justify-center items-center p-8">
         {!startTest ? (
-          <div className="bg-white border border-black rounded-lg p-6 max-w-[800px] w-full relative">
-            {/* Teki Image - Large and Positioned */}
-            <img 
-              src={Teki1} 
-              alt="Teki" 
-              className="w-[140px] h-[140px] absolute top-[-70px] right-[-70px]" 
-            />
-
-            {/* Header Left-Aligned */}
-            <h2 className="text-[22px] font-bold mb-4 text-left">Teki</h2>
-
-            {/* Dialogue Text Justified */}
-            <p className="text-[18px] text-justify mb-4">
+          <div className="bg-white border border-black rounded-lg p-10 max-w-[1000px] w-full relative">
+            <img src={Teki1} alt="Teki" className="w-[180px] h-[180px] absolute top-[-90px] right-[-90px]" />
+            <h2 className="text-[32px] font-bold mb-6 text-left">Teki</h2>
+            <p className="text-[24px] text-justify mb-6">
               {dialogueStep === 0 && (
                 <>
                   Before you begin, please answer the following multiple-choice questions honestly.
-                  This questionnaire is designed to assess your current knowledge and skills for the chosen course.
-                  Your responses will help us better understand your learning needs and recommend lessons for you.
+                  This questionnaire helps us recommend the right lessons for you.
                 </>
               )}
               {dialogueStep === 1 && (
                 <>
-                  There is no time limit, so take your time and choose the answers that best reflect what you currently know.
+                  There is no time limit, so take your time and choose the answers that best reflect what you know.
                   Good luck!
                 </>
               )}
             </p>
-
-            {/* Conditional Button Placement */}
-            {dialogueStep === 1 ? (
-              <div className="flex justify-center mt-4">
-                <button
-                  onClick={handleDialogueNext}
-                  className="px-6 py-3 bg-blue-500 text-white text-[16px] rounded hover:bg-blue-600 transition"
-                >
-                  Start Pre-Assessment
-                </button>
-              </div>
-            ) : (
-              <div className="flex justify-end mt-4">
-                <button
-                  onClick={handleDialogueNext}
-                  className="px-6 py-3 bg-blue-500 text-white text-[16px] rounded hover:bg-blue-600 transition"
-                >
-                  Next
-                </button>
-              </div>
-            )}
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={handleDialogueNext}
+                className="px-8 py-4 bg-blue-500 text-white text-[20px] rounded hover:bg-blue-600 transition"
+              >
+                {dialogueStep === 1 ? "Start Pre-Assessment" : "Next"}
+              </button>
+            </div>
           </div>
         ) : score !== null ? (
-          <div className="bg-white border border-black rounded-lg p-6 max-w-[800px] w-full text-center">
-            <h2 className="text-[28px] font-bold mb-4">Assessment Complete!</h2>
-            <p className="text-[22px] font-semibold mb-4">Your Score: {score}/{questions.length}</p>
-            <p className="text-[18px] italic mb-6 text-[#4c5173]">Preparing lessons based on results...</p>
-            <button
-              onClick={() => navigate(`/courses/${courseName}`)}
-              className="px-6 py-3 bg-[#4c5173] text-white rounded text-[16px] hover:bg-[#3b3f65] transition"
-            >
-              Start Learning
-            </button>
+          <div className="bg-white border border-black rounded-lg p-10 max-w-[1000px] w-full relative">
+            <img src={Teki1} alt="Teki" className="w-[180px] h-[180px] absolute top-[-90px] right-[-90px]" />
+            <h2 className="text-[32px] font-bold mb-6 text-left">Teki</h2>
+            <p className="text-[24px] text-justify mb-6">
+              You scored {score}/{questions.length}. Based on your answers, we are recommending lessons for you...
+            </p>
+            <p className="text-[20px] italic text-[#4c5173] mb-6">Redirecting to lessons...</p>
           </div>
         ) : (
-          <div className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-6 max-w-[900px] w-full">
-            <h2 className="text-[20px] font-bold mb-4">Please Answer the Following Questions:</h2>
+          <div className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-10 max-w-[1000px] w-full">
+            <h2 className="text-[30px] font-bold mb-8 text-center">
+              Q{currentQuestion + 1}: {questions[currentQuestion]?.question}
+            </h2>
 
-            <div className="flex flex-col lg:flex-row gap-6">
-              {/* Question Box */}
-              <div className="flex-1 bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-4">
-                <h3 className="text-[20px] font-semibold">
-                  Q{currentQuestion + 1}. {questions[currentQuestion]?.question || "No question available"}
-                </h3>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              {questions[currentQuestion]?.options?.map((option, index) => {
+                const selected = selectedAnswers[currentQuestion];
+                const isSelected =
+                  (option.image && selected?.image === option.image) ||
+                  (!option.image && selected === option);
 
-              {/* Image (if any) */}
-              <div className="w-full lg:w-[250px] h-[200px] border border-black rounded-lg flex justify-center items-center">
-                {questions[currentQuestion]?.image ? (
-                  <img
-                    src={questions[currentQuestion].image}
-                    alt={`Question ${currentQuestion + 1}`}
-                    className="w-full h-full object-contain rounded-lg"
-                  />
-                ) : (
-                  <span className="text-gray-400 text-[16px]">No Image</span>
-                )}
-              </div>
-            </div>
-
-            {/* Answer Options */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              {questions[currentQuestion]?.options?.map((option, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleAnswerSelect(option)}
-                  className={`w-full py-3 px-4 rounded-lg text-white font-bold text-[16px] 
-                    ${selectedAnswers[currentQuestion] === option ? "bg-blue-700" : "bg-blue-500"} 
-                    hover:bg-blue-600 transition`}
-                >
-                  {option}
-                </button>
-              ))}
+                return (
+                  <button
+                    key={index}
+                    onClick={() => handleAnswerSelect(option)}
+                    className={`flex flex-col items-center justify-center px-6 py-6 rounded-lg text-white font-bold text-[20px] 
+                      ${isSelected ? "bg-blue-700" : "bg-blue-500"} hover:bg-blue-600 transition w-full sm:w-auto min-w-[250px]`}
+                  >
+                    {option.image ? (
+                      <img src={option.image} alt={`Option ${index + 1}`} className="w-24 h-24 object-contain" />
+                    ) : (
+                      <span>{option}</span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

@@ -64,6 +64,16 @@ class AssessmentResults(Base):
     score = Column(Float)
     date_taken = Column(DateTime, default=datetime.utcnow)
 
+class AssessmentQuestionResponse(Base):
+    __tablename__ = "assessment_question_responses"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    assessment_id = Column(Integer, ForeignKey("assessment_results.id"))
+    question_id = Column(Integer)
+    is_correct = Column(Boolean)
+    lesson_id = Column(Integer)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
 class UserLessonMastery(Base):
     __tablename__ = "user_lesson_mastery"
     id = Column(Integer, primary_key=True)
