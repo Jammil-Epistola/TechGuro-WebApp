@@ -10,14 +10,17 @@ import {
   FaBook
 } from 'react-icons/fa';
 import Logo from "../assets/TechGuroLogo_2.png";
+import { useUser } from '../context/UserContext';
 
 const CourseNavbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [language, setLanguage] = useState("en");
   const navigate = useNavigate();
-  const { courseName } = useParams(); // Dynamic course name for navigation
+  const { courseName } = useParams();
+  const { user, logout } = useUser();
 
   const handleLogout = () => {
+    logout();
     navigate('/login');
   };
 
@@ -36,7 +39,6 @@ const CourseNavbar = () => {
         setIsDropdownOpen(false);
       }
     };
-
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
@@ -75,7 +77,7 @@ const CourseNavbar = () => {
             onClick={toggleDropdown}
           >
             <FaUser className="text-white text-[20px]" />
-            <span className="text-white font-medium">John Doe</span>
+            <span className="text-white font-medium">{user?.username || "User"}</span>
             <FaChevronDown className="text-white" />
           </button>
 
@@ -90,7 +92,7 @@ const CourseNavbar = () => {
                 <span>Dashboard</span>
               </div>
 
-              {/* Lessons (Back to LessonList of this course) */}
+              {/* Lessons */}
               <div
                 onClick={() => navigate(`/courses/${courseName}`)}
                 className="flex items-center gap-2 px-4 py-3 hover:bg-gray-100 transition cursor-pointer"
