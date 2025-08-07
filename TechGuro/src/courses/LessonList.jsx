@@ -11,7 +11,7 @@ const LessonList = () => {
   const [lessonsData, setLessonsData] = useState(null);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [recommendedLessons, setRecommendedLessons] = useState([]);
-  const [postAssessmentUnlocked, setPostAssessmentUnlocked] = useState(false);
+  const [completedActivities, setCompletedActivities] = useState(false); // Placeholder
   const [activeSection, setActiveSection] = useState('recommended');
 
   const formattedTitle = courseName.replace(/([A-Z])/g, ' $1').trim();
@@ -27,10 +27,14 @@ const LessonList = () => {
       .then(data => {
         setCompletedLessons(data.completed_lessons || []);
         setRecommendedLessons(data.recommended_lessons || []);
-        setPostAssessmentUnlocked(data.post_assessment_unlocked || false);
+        setCompletedActivities(data.completed_activities || false); // Must come from backend
       })
       .catch(err => console.error('Failed to fetch progress:', err));
   }, [user]);
+
+  const postAssessmentUnlocked = recommendedLessons.every(id =>
+    completedLessons.includes(id)
+  ) && completedActivities;
 
   const handleStartLesson = (lessonId) => {
     navigate(`/courses/${courseName}/lesson`, {
@@ -58,7 +62,6 @@ const LessonList = () => {
             <h2 className="text-[20px] font-bold">{formattedTitle}</h2>
           </div>
 
-          {/* Sidebar Sections */}
           <div
             onClick={() => setActiveSection('recommended')}
             className={`p-4 mb-2 rounded cursor-pointer transition 
@@ -89,12 +92,11 @@ const LessonList = () => {
             <div className="text-[14px]">Practice exercises</div>
           </div>
 
-          {/* Post-Assessment Button */}
           <div className="mt-6">
             <button
               onClick={handlePostAssessment}
               className={`w-full px-4 py-3 rounded font-bold text-[16px] 
-                ${postAssessmentUnlocked ? 'bg-[#B6C44D] text-black hover:bg-[#a5b83d]' 
+                ${postAssessmentUnlocked ? 'bg-[#B6C44D] text-black hover:bg-[#a5b83d]'
                 : 'bg-gray-400 text-white cursor-not-allowed'}`}
               disabled={!postAssessmentUnlocked}
             >
@@ -119,26 +121,30 @@ const LessonList = () => {
                 ) : (
                   lessonsData.units.flatMap(unit =>
                     unit.lessons.filter(lesson => recommendedLessons.includes(lesson.lesson_id))
-                  ).map(lesson => (
-                    <div
-                      key={lesson.lesson_id}
-                      className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-6 flex justify-between items-center"
-                    >
-                      <div>
-                        <h2 className="text-[20px] font-bold mb-2">
-                          Lesson {lesson.lesson_id}: {lesson.lesson_title}
-                        </h2>
-                        <p className="text-[16px]">{lesson.slides[0]?.content[0]}</p>
-                      </div>
-                      <button
-                        onClick={() => handleStartLesson(lesson.lesson_id)}
-                        className={`px-6 py-2 rounded font-semibold text-[16px] 
-                          bg-[#B6C44D] text-black hover:bg-[#a5b83d]`}
+                  ).map(lesson => {
+                    const isCompleted = completedLessons.includes(lesson.lesson_id);
+
+                    return (
+                      <div
+                        key={lesson.lesson_id}
+                        className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-6 flex justify-between items-center"
                       >
-                        Start
-                      </button>
-                    </div>
-                  ))
+                        <div>
+                          <h2 className="text-[20px] font-bold mb-2">
+                            Lesson {lesson.lesson_id}: {lesson.lesson_title}
+                          </h2>
+                          <p className="text-[16px]">{lesson.slides[0]?.content[0]}</p>
+                          {isCompleted && <p className="text-green-700 font-bold mt-1 text-[14px]">✓ Completed</p>}
+                        </div>
+                        <button
+                          onClick={() => handleStartLesson(lesson.lesson_id)}
+                          className="px-6 py-2 rounded font-semibold text-[16px] bg-[#B6C44D] text-black hover:bg-[#a5b83d]"
+                        >
+                          {isCompleted ? "Review" : "Start"}
+                        </button>
+                      </div>
+                    );
+                  })
                 )}
               </div>
             </>
@@ -156,7 +162,6 @@ const LessonList = () => {
                 {lessonsData.units[activeSection].lessons.map(lesson => {
                   const isCompleted = completedLessons.includes(lesson.lesson_id);
                   const isRecommended = recommendedLessons.includes(lesson.lesson_id);
-                  const isUnlocked = isRecommended || isCompleted;
 
                   return (
                     <div
@@ -174,11 +179,9 @@ const LessonList = () => {
                       <button
                         onClick={() => handleStartLesson(lesson.lesson_id)}
                         className={`px-6 py-2 rounded font-semibold text-[16px] 
-                          ${isUnlocked ? 'bg-[#B6C44D] text-black hover:bg-[#a5b83d]' 
-                          : 'bg-gray-400 text-white cursor-not-allowed'}`}
-                        disabled={!isUnlocked}
+                          bg-[#B6C44D] text-black hover:bg-[#a5b83d]`}
                       >
-                        Start
+                        {isCompleted ? "Review" : "Start"}
                       </button>
                     </div>
                   );

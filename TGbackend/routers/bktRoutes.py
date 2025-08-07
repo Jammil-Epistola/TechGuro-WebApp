@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from TGbackend.database import get_db
 from TGbackend.models import (
-    Progress, AssessmentResults, UserLessonMastery, MilestoneEarned,
+    User, Progress, AssessmentResults, UserLessonMastery, MilestoneEarned,
     AssessmentQuestionResponse
 )
 from datetime import datetime
@@ -19,8 +19,8 @@ class ProgressUpdate(BaseModel):
     lesson_id: int
     completed: bool = True
 
-@router.post("/progress/update")
-def update_progress(data: ProgressUpdate, db: Session = Depends(get_db)):
+@router.post("/progress/bkt-update")
+def update_progress_bkt(data: ProgressUpdate, db: Session = Depends(get_db)):
     progress = Progress(
         user_id=data.user_id,
         course_id=data.course_id,
@@ -174,20 +174,39 @@ def update_bkt_from_pre(user_id: int, course_id: int, db: Session = Depends(get_
     weak_lessons = [m["lesson_id"] for m in mastery_updates if m["mastery"] < 0.7]
     return {"updated_mastery": mastery_updates, "recommend": weak_lessons}
 
-# Clear User Data Endpoint
 @router.delete("/user/clear-data/{user_id}")
 def clear_all_user_data(user_id: int, db: Session = Depends(get_db)):
-    # Clear Progress
+    # 1. Delete lesson progress
     db.query(Progress).filter(Progress.user_id == user_id).delete()
 
-    # Clear Assessments and Question Responses
+    # 2. Delete assessment data
     db.query(AssessmentQuestionResponse).filter(AssessmentQuestionResponse.user_id == user_id).delete()
     db.query(AssessmentResults).filter(AssessmentResults.user_id == user_id).delete()
 
-    # Clear BKT Mastery Data
+    # 3. Delete BKT / Mastery data
     db.query(UserLessonMastery).filter(UserLessonMastery.user_id == user_id).delete()
 
-    # Note: MilestoneEarned is NOT deleted
+    # 4. Delete earned milestones
+    db.query(MilestoneEarned).filter(MilestoneEarned.user_id == user_id).delete()
+
+    # 5. Reset user EXP and level
+    user = db.query(User).filter(User.id == user_id).first()
+    if user:
+        user.exp = 0
+        user.level = 1
+
     db.commit()
-    return {"status": "User data cleared except for milestones and account info", "user_id": user_id}
+
+    print(f"[CLEAR DATA] All data reset for user_id={user_id}")
+    return {
+        "status": "All user-related data fully cleared",
+        "cleared": [
+            "Progress", "AssessmentQuestionResponse", "AssessmentResults",
+            "UserLessonMastery", "MilestoneEarned"
+        ],
+        "reset_fields": {"exp": 0, "level": 1},
+        "user_id": user_id
+    }
+
+
 

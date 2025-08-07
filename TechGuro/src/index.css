@@ -16,3 +16,17 @@
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  20% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+.animate-typing::after {
+  content: '...';
+  animation: blink 1.4s infinite steps(1), blink 1.4s infinite steps(1) 0.2s, blink 1.4s infinite steps(1) 0.4s;
+  display: inline-block;
+  width: 1em;
+  text-align: left;
+}

@@ -15,14 +15,14 @@ const PreAssessment = () => {
   const [score, setScore] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGeneratingRecommendations, setIsGeneratingRecommendations] = useState(false);
 
-  // Check if pre-assessment already taken
   useEffect(() => {
     fetch(`http://localhost:8000/assessment/check/${user?.user_id || 1}/1`)
       .then(res => res.json())
       .then(data => {
         if (data.taken) {
-          navigate(`/courses/${courseName}`);
+          navigate(`/courses/${courseName}`, { replace: true }); // Avoid flash
         }
       })
       .catch(err => console.error("Failed to check pre-assessment:", err));
@@ -75,6 +75,7 @@ const PreAssessment = () => {
     const finalScore = calculateScore();
     setScore(finalScore);
     setIsSubmitting(true);
+    setIsGeneratingRecommendations(true); // Trigger UI message
 
     const responses = questions.map((q, idx) => {
       const selected = selectedAnswers[idx];
@@ -102,7 +103,6 @@ const PreAssessment = () => {
       responses: responses
     };
 
-    // Step 1: Submit assessment
     fetch("http://localhost:8000/assessment/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -110,7 +110,6 @@ const PreAssessment = () => {
     })
       .then(res => res.json())
       .then(() => {
-        // Step 2: Trigger BKT update
         return fetch("http://localhost:8000/bkt/update-from-pre", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -121,12 +120,13 @@ const PreAssessment = () => {
       .then(data => {
         console.log("BKT Update Success:", data);
         setTimeout(() => {
-          navigate(`/courses/${courseName}`);
-        }, 2500);
+          navigate(`/courses/${courseName}`, { replace: true });
+        }, 2500); // Delay to show animation
       })
       .catch(error => {
         console.error("Submission failed:", error);
         setIsSubmitting(false);
+        setIsGeneratingRecommendations(false);
       });
   };
 
@@ -169,14 +169,19 @@ const PreAssessment = () => {
               </button>
             </div>
           </div>
-        ) : score !== null ? (
+        ) : isGeneratingRecommendations ? (
           <div className="bg-white border border-black rounded-lg p-10 max-w-[1000px] w-full relative">
             <img src={Teki1} alt="Teki" className="w-[180px] h-[180px] absolute top-[-90px] right-[-90px]" />
             <h2 className="text-[32px] font-bold mb-6 text-left">Teki</h2>
             <p className="text-[24px] text-justify mb-6">
-              You scored {score}/{questions.length}. Based on your answers, we are recommending lessons for you...
+              You scored {score}/{questions.length}. Based on your answers,
+              I’m figuring out the perfect lessons for you
+              <span className="animate-typing ml-1"></span>
             </p>
-            <p className="text-[20px] italic text-[#4c5173] mb-6">Redirecting to lessons...</p>
+            <p className="text-[20px] italic text-[#4c5173] mb-6">
+              Please wait while I analyze your results
+              <span className="animate-typing ml-1"></span>
+            </p>
           </div>
         ) : (
           <div className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-10 max-w-[1000px] w-full">
