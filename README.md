@@ -8,20 +8,20 @@ Javier, Raquel
 <br>
 Ojoy, Angel
 
-Local Host Set-up
-DATABASE:
+Local Host Set-up<br>
+DATABASE:<br>
   TGbackend/.env : DATABASE_URL=postgresql://postgres:[password]localhost:5432/techguro_db
   <br>
-BACKEND:
-  cd TGbackend
-  venv\Scripts\activate
-  cd..
-  uvicorn TGbackend.main:app --reload
+BACKEND:<br>
+  cd TGbackend<br>
+  venv\Scripts\activate<br>
+  cd..<br>
+  uvicorn TGbackend.main:app --reload<br>
   <br>
-FRONTEND:
-  cd TechGuro
-  npm run dev
+FRONTEND:<br>
+  cd TechGuro<br>
+  npm run dev<br>
   <br>
-DATABASE SEED:
-  python -m TGbackend.seedCourse
+DATABASE SEED:<br>
+  python -m TGbackend.seedCourse<br>
 
