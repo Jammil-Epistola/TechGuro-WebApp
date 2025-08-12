@@ -11,19 +11,44 @@ import {
 } from "react-icons/fa";
 import { useUser } from "../../context/UserContext";
 
+// --- added: match DashboardSection helpers ---
+const COURSES = [
+  "Computer Basics",
+  "File & Document Handling",
+  "Office Tools & Typing Essentials",
+  "Internet Safety",
+  "Digital Communication",
+  "Intro to Online Selling",
+];
+
+const courseLessonCounts = {
+  "Computer Basics": 15,
+  "File & Document Handling": 15,
+  "Office Tools & Typing Essentials": 15,
+  "Internet Safety": 15,
+  "Digital Communication": 15,
+  "Intro to Online Selling": 15,
+};
+
+const getCourseName = (courseId) => {
+  const index = courseId - 1;
+  return COURSES[index] || "Unknown Course";
+};
+// --- end added ---
+
 const CoursesSection = () => {
   const navigate = useNavigate();
   const { user } = useUser();
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [courseData, setCourseData] = useState([]);
 
- useEffect(() => {
-  const fetchCourses = async () => {
+  useEffect(() => {
     const mockCourses = [
       {
         name: "Computer Basics",
         icon: <FaDesktop />,
-        description: "Learn how to use and navigate a computer for everyday tasks.",
+        description:
+          "Learn how to use and navigate a computer for everyday tasks.",
         available: true,
         units: [
           {
@@ -32,8 +57,8 @@ const CoursesSection = () => {
               "Lesson 1: What is a Computer?",
               "Lesson 2: Parts of a Computer",
               "Lesson 3: Turning On/Off Your Computer",
-              "Lesson 4: Exploring the Desktop"
-            ]
+              "Lesson 4: Exploring the Desktop",
+            ],
           },
           {
             unit: "UNIT 2: Basic Navigation Skills",
@@ -41,71 +66,87 @@ const CoursesSection = () => {
               "Lesson 1: Using the Mouse (Click, Double-click, Drag)",
               "Lesson 2: Opening and Closing Programs",
               "Lesson 3: Switching Between Windows",
-              "Lesson 4: Using the Start Menu"
-            ]
-          }
-        ]
+              "Lesson 4: Using the Start Menu",
+            ],
+          },
+        ],
       },
       {
         name: "File & Document Handling",
         icon: <FaFolderOpen />,
-        description: "Master saving, organizing, and locating digital files and folders.",
-        available: false
+        description:
+          "Master saving, organizing, and locating digital files and folders.",
+        available: false,
       },
       {
         name: "Office Tools & Typing Essentials",
         icon: <FaKeyboard />,
-        description: "Practice typing and learn to use Word, Excel, and more.",
-        available: false
+        description:
+          "Practice typing and learn to use Word, Excel, and more.",
+        available: false,
       },
       {
         name: "Internet Safety",
         icon: <FaShieldAlt />,
-        description: "Stay secure online by recognizing risks and protecting your data.",
-        available: false
+        description:
+          "Stay secure online by recognizing risks and protecting your data.",
+        available: false,
       },
       {
         name: "Digital Communication",
         icon: <FaComments />,
-        description: "Use email, messaging apps, and video calls effectively.",
-        available: false
+        description:
+          "Use email, messaging apps, and video calls effectively.",
+        available: false,
       },
       {
         name: "Intro to Online Selling",
         icon: <FaStore />,
-        description: "Set up a Facebook Page and start selling online in your area.",
-        available: false
-      }
+        description:
+          "Set up a Facebook Page and start selling online in your area.",
+        available: false,
+      },
     ];
-      // Fetch progress for available courses
-      const updatedCourses = await Promise.all(
-        mockCourses.map(async (course) => {
+
+    const fetchCourses = async () => {
+      try {
+        // same approach as DashboardSection
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/progress/${user.user_id}`
+        );
+        const progressData = await res.json();
+
+        // count completed lessons per courseId -> name
+        const completedPerCourse = {};
+        progressData.forEach((entry) => {
+          if (entry.completed) {
+            const courseName = getCourseName(entry.course_id);
+            completedPerCourse[courseName] =
+              (completedPerCourse[courseName] || 0) + 1;
+          }
+        });
+
+        // compute percentage using the same courseLessonCounts as DashboardSection
+        const updatedCourses = mockCourses.map((course) => {
           if (!course.available) return course;
 
-          const coursePath = course.name.replace(/\s+/g, "");
-          try {
-            const res = await fetch(
-              `${import.meta.env.VITE_API_URL}/course-progress/${user.user_id}/${coursePath}`
-            );
-            const data = await res.json();
-            return {
-              ...course,
-              progress: data.progress || 0
-            };
-          } catch (err) {
-            console.error(`Failed to fetch progress for ${course.name}`, err);
-            return {
-              ...course,
-              progress: 0
-            };
-          }
-        })
-      );
+          const completed = completedPerCourse[course.name] || 0;
+          const total = courseLessonCounts[course.name] || 1;
+          const percent = Math.round((completed / total) * 100);
 
-      setCourseData(updatedCourses);
+          return { ...course, progress: percent };
+        });
+
+        setCourseData(updatedCourses);
+      } catch (err) {
+        console.error("Failed to fetch course progress:", err);
+        setCourseData(mockCourses);
+      }
     };
 
-    fetchCourses();
+    if (user?.user_id) {
+      fetchCourses();
+    }
   }, [user.user_id]);
 
   const handleCourseClick = (course) => {
@@ -149,10 +190,11 @@ const CoursesSection = () => {
           <div
             key={index}
             onClick={() => handleCourseClick(course)}
-            className={`flex items-center bg-white p-5 rounded-lg cursor-pointer min-h-[200px] transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg ${course.available
+            className={`flex items-center bg-white p-5 rounded-lg cursor-pointer min-h-[200px] transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg ${
+              course.available
                 ? "border-2 border-green-600"
                 : "border-2 border-gray-300 opacity-80"
-              }`}
+            }`}
           >
             <div className="flex flex-col items-center w-[300px] p-2">
               <div className="text-[40px] mb-2">{course.icon}</div>
@@ -168,16 +210,17 @@ const CoursesSection = () => {
                 {course.description}
               </p>
               <div className="flex flex-col mt-2">
-                <progress
-                  value={course.progress || 0}
-                  max="100"
-                  className="w-full h-3 rounded-md [&::-webkit-progress-bar]:bg-gray-300 [&::-webkit-progress-value]:bg-green-600"
-                ></progress>
-                <span className="text-sm mt-1">
+                <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden">
+                  <div
+                    className="bg-[#6B708D] h-full"
+                    style={{ width: `${course.progress || 0}%` }}
+                  ></div>
+                </div>
+                <p className="text-sm mt-1 text-center">
                   {course.available
-                    ? `${course.progress || 0}% Complete`
+                    ? `${course.progress || 0}% completed`
                     : "Not Available"}
-                </span>
+                </p>
               </div>
             </div>
           </div>

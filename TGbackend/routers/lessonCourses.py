@@ -17,9 +17,23 @@ def get_all_courses(db: Session = Depends(get_db)):
             "id": c.id,
             "title": c.title,
             "description": c.description,
-            "image_url": c.image_url
+            "image_url": c.image_url,
+            "units": [
+                {
+                    "unit_id": u.id,
+                    "unit_title": u.title,
+                    "lessons": [
+                        {
+                            "lesson_id": l.id,
+                            "lesson_title": l.title
+                        }
+                        for l in sorted(u.lessons, key=lambda x: x.id)
+                    ]
+                }
+                for u in sorted(c.units, key=lambda x: x.id)
+            ]
         }
-        for c in courses
+        for c in sorted(courses, key=lambda x: x.id)
     ]
 
 # =========================

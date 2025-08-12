@@ -160,7 +160,7 @@ const DashboardSection = () => {
 
   const barOptions = {
     scales: {
-      y: { beginAtZero: true, max: 100 }
+      y: { beginAtZero: true, max: 15 }
     },
     plugins: { legend: { display: false } }
   };
@@ -231,8 +231,8 @@ const DashboardSection = () => {
 
       // Fetch user's responses for this assessment
       // Note: There is no direct backend endpoint for responses by assessment ID,
-      // so assuming responses come embedded or you need to add one.
-      // For now, we will mock or filter responses from the assessments data if available.
+      // so assuming responses come embedded or need to add one.
+      // For now, mock or filter responses from the assessments data if available.
       // If no endpoint exists, consider adding one in backend like:
       // GET /assessment/responses/{assessment_id}
       // Here, for demonstration, we assume an endpoint like:
@@ -269,7 +269,7 @@ const DashboardSection = () => {
 
   return (
     <div className="bg-[#DFDFEE] min-h-screen p-6 text-black text-[18px]">
-      {/* Profile & Achievements */}
+      {/* Profile Section */}
       <div className="flex items-center justify-between bg-[#F9F8FE] border-[1.5px] border-[#6B708D] p-6 rounded-lg mb-8">
         <div className="flex gap-6 items-center">
           <img
@@ -300,14 +300,21 @@ const DashboardSection = () => {
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Recent Milestone */}
         <div
-          className="flex-1 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6 text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#f0f0ff]"
+          className="flex-1 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6 cursor-pointer hover:bg-[#f0f0ff] flex flex-col"
           onClick={() => navigate("/UserDashboard/achievements")}
         >
-          <img src={placeholderimg} alt="Milestone" className="w-20 h-20 rounded-full border border-black mb-2" />
-          <p className="text-[18px] font-semibold">Welcome to TechGuro</p>
-          <p className="text-sm text-gray-600">Click to view achievements</p>
-        </div>
+          <h2 className="text-[20px] font-bold mb-4 text-left">Recent Milestones:</h2>
 
+          <div className="flex flex-col items-center justify-center flex-1">
+            <img
+              src={placeholderimg}
+              alt="Milestone"
+              className="w-20 h-20 rounded-full border border-black mb-2"
+            />
+            <p className="text-[18px] font-semibold">Welcome to TechGuro</p>
+            <p className="text-sm text-gray-600">Click to view achievements</p>
+          </div>
+        </div>
         {/* Assessment Scores */}
         <div className="flex-1 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6 min-h-[180px]">
           <h2 className="text-[20px] font-bold mb-4">Assessment Scores:</h2>
@@ -323,9 +330,9 @@ const DashboardSection = () => {
           <p className="text-[18px] text-center mt-3 mb-2">
             {assessments.length === 0 ? "Loading scores..." : (
               selectedAssessment === "Pre-Assessment" && preAssessment
-                ? `Pre-Assessment: ${Math.round(preAssessment.score)}%`
+                ? `Pre-Assessment: ${Math.round(preAssessment.score)}/15`
                 : selectedAssessment === "Post-Assessment" && postAssessment
-                  ? `Post-Assessment: ${Math.round(postAssessment.score)}%`
+                  ? `Post-Assessment: ${Math.round(postAssessment.score)}/15`
                   : `You have not taken ${selectedAssessment}`
             )}
           </p>
