@@ -20,29 +20,30 @@ const LessonPage = () => {
   const formattedTitle = courseName.replace(/([A-Z])/g, " $1").trim();
 
   useEffect(() => {
-    fetch("/data/computer_basics_lessons.json")
-      .then((res) => res.json())
-      .then((data) => setLessonsData(data))
-      .catch((err) => console.error("Failed to load lessons JSON:", err));
+    if (!user) return;
 
-    fetch(`http://localhost:8000/progress-recommendations/${user?.user_id}/1`)
-      .then((res) => res.json())
-      .then((data) => setRecommendedLessons(data.recommended_lessons || []))
-      .catch((err) => console.error("Failed to fetch recommendations:", err));
+    // Fetch course data
+    fetch(`http://localhost:8000/lesson-courses/1`) // hardcoded course_id=1 for now
+      .then(res => res.json())
+      .then(data => setLessonsData(data))
+      .catch(err => console.error("Failed to load lessons:", err));
+
+    // Fetch recommendations
+    fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/1`)
+      .then(res => res.json())
+      .then(data => setRecommendedLessons(data.recommended_lessons || []))
+      .catch(err => console.error("Failed to fetch recommendations:", err));
   }, [user]);
 
   useEffect(() => {
-    if (!lessonsData) return;
-    let foundLesson = null;
-    for (const unit of lessonsData.units) {
-      const match = unit.lessons.find((l) => l.lesson_id === lessonId);
-      if (match) {
-        foundLesson = { ...match, unitTitle: unit.unit_title };
-        break;
-      }
-    }
-    if (foundLesson) setCurrentLesson(foundLesson);
-  }, [lessonsData, lessonId]);
+    if (!lessonId) return;
+
+    // Fetch lesson detail (with slides)
+    fetch(`http://localhost:8000/lessons/${lessonId}`)
+      .then(res => res.json())
+      .then(data => setCurrentLesson(data))
+      .catch(err => console.error("Failed to load lesson detail:", err));
+  }, [lessonId]);
 
   const handleNextSlide = () => {
     if (currentSlide < currentLesson.slides.length - 1) {
@@ -77,8 +78,14 @@ const LessonPage = () => {
     );
     if (currentIndex !== -1 && currentIndex < sectionLessons.length - 1) {
       const nextLesson = sectionLessons[currentIndex + 1];
-      setCurrentLesson(nextLesson);
-      setCurrentSlide(0);
+      // Fetch full lesson data for the next lesson
+      fetch(`http://localhost:8000/lessons/${nextLesson.lesson_id}`)
+        .then(res => res.json())
+        .then(data => {
+          setCurrentLesson(data);
+          setCurrentSlide(0);
+        })
+        .catch(err => console.error("Failed to load next lesson detail:", err));
     } else {
       // End of section
       navigate(`/courses/${courseName}`);
@@ -103,8 +110,13 @@ const LessonPage = () => {
   };
 
   const handleLessonClick = (lesson) => {
-    setCurrentLesson(lesson);
-    setCurrentSlide(0);
+    fetch(`http://localhost:8000/lessons/${lesson.lesson_id}`)
+      .then(res => res.json())
+      .then(data => {
+        setCurrentLesson(data);
+        setCurrentSlide(0);
+      })
+      .catch(err => console.error("Failed to load lesson detail:", err));
   };
 
   const handleNextSection = () => {
@@ -126,6 +138,15 @@ const LessonPage = () => {
   }
 
   const slide = currentLesson.slides[currentSlide];
+
+  if (!slide) {
+    return (
+      <div className="p-10 text-center text-lg font-bold">
+        No slide data available.
+      </div>
+    );
+  }
+
   const sectionLessons = getAllLessonsInSection();
 
   const getSectionTitle = () => {
@@ -182,7 +203,7 @@ const LessonPage = () => {
                       : "hover:bg-[#e2e6f1]"
                   }`}
                 >
-                  Lesson {lesson.lesson_id}: {lesson.lesson_title}
+                  {lesson.lesson_title}
                 </div>
               ))
             )}
@@ -210,9 +231,37 @@ const LessonPage = () => {
             <div className="w-full h-[300px] bg-gray-300 rounded-md mb-6 flex justify-center items-center">
               <span className="text-gray-700">Media Placeholder</span>
             </div>
-            {slide.content.map((text, idx) => (
-              <p key={idx} className="text-lg text-justify mb-4">{text}</p>
-            ))}
+            {(() => {
+              let content = slide.content;
+
+              // If content is a string that looks like JSON, parse it
+              if (typeof content === "string") {
+                try {
+                  const parsed = JSON.parse(content);
+                  if (Array.isArray(parsed)) {
+                    content = parsed;
+                  } else {
+                    content = [parsed];
+                  }
+                } catch {
+                  // Not JSON, just split by newline
+                  content = content.split("\n");
+                }
+              }
+
+              // Ensure it's an array for mapping
+              if (!Array.isArray(content)) {
+                content = [content];
+              }
+
+              return content.map((text, idx) => (
+                <p key={idx} className="text-lg text-justify mb-4">
+                  {typeof text === "string"
+                    ? text.replace(/[{}"]/g, "").replace(/,/g, " ")
+                    : text}
+                </p>
+              ));
+            })()}
           </div>
 
           {/* Slide Navigation */}

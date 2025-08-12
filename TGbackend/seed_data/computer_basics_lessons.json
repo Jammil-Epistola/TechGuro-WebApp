@@ -7,10 +7,11 @@
       "lessons": [
         {
           "lesson_id": 1,
-          "lesson_title": "What is a computer?",
+          "lesson_title": "Lesson 1: What is a computer?",
           "slides": [
             {
-              "title": "What Can a Computer Do?",
+              "slide_number": 1,
+              "slide_title": "What Can a Computer Do?",
               "content": [
                 "A computer is a machine that helps you perform many tasks, such as writing, browsing the internet, and watching videos.",
                 "It can also be used to listen to music, make video calls, and play games.",
@@ -20,7 +21,8 @@
               "media": ""
             },
             {
-              "title": "Types of Computers",
+              "slide_number": 2,
+              "slide_title": "Types of Computers",
               "content": [
                 "Desktop: are computers that are placed on a desk and used in one place",
                 "Laptop: are computers that are small and portable; easy to carry",
@@ -30,7 +32,8 @@
               "media": ""
             },
             {
-              "title": "Two Main Parts of a Computer",
+              "slide_number": 3,
+              "slide_title": "Two Main Parts of a Computer",
               "content": [
                 "Hardware: the physical parts you can touch, like the keyboard and monitor",
                 "Software: the programs and apps that run inside the computer",
@@ -39,7 +42,8 @@
               "media": ""
             },
             {
-              "title": "Examples of Software",
+              "slide_number": 4,
+              "slide_title": "Examples of Software",
               "content": [
                 "Software includes programs like browsers (Google Chrome), word processors (Microsoft Word), and games.",
                 "Without software, the computer cannot do anything.",
@@ -48,7 +52,8 @@
               "media": ""
             },
             {
-              "title": "Summary",
+              "slide_number": 5,
+              "slide_title": "Summary",
               "content": [
                 "Computers help us work, learn, and play",
                 "Types include desktop, laptop, and tablet/smartphone",
@@ -57,7 +62,8 @@
               "media": ""
             },
             {
-              "title": "Lesson Recap Video",
+              "slide_number": 6,
+              "slide_title": "Lesson Recap Video",
               "content": [
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
@@ -68,10 +74,11 @@
         },
         {
           "lesson_id": 2,
-          "lesson_title": "Parts of a Computer",
+          "lesson_title": "Lesson 2: Parts of a Computer",
           "slides": [
             {
-              "title": "The Monitor",
+              "slide_number": 1,
+              "slide_title": "The Monitor",
               "content": [
                 "The monitor is the screen that shows you what the computer is doing.",
                 "It displays text, images, and videos.",
@@ -80,7 +87,8 @@
               "media": ""
             },
             {
-              "title": "The Keyboard",
+              "slide_number": 2,
+              "slide_title": "The Keyboard",
               "content": [
                 "The keyboard is used to type letters, numbers, and symbols.",
                 "Each key sends a command or input to the computer.",
@@ -89,7 +97,8 @@
               "media": ""
             },
             {
-              "title": "The Mouse",
+              "slide_number": 3,
+              "slide_title": "The Mouse",
               "content": [
                 "The mouse moves the pointer on the screen.",
                 "You can click to select items, double-click to open them, or drag to move things.",
@@ -98,7 +107,8 @@
               "media": ""
             },
             {
-              "title": "The CPU (Central Processing Unit)",
+              "slide_number": 4,
+              "slide_title": "The CPU (Central Processing Unit)",
               "content": [
                 "The CPU is called the “brain” of the computer.",
                 "It processes all the instructions from the software and controls what happens.",
@@ -107,7 +117,8 @@
               "media": ""
             },
             {
-              "title": "Other Common Devices",
+              "slide_number": 5,
+              "slide_title": "Other Common Devices",
               "content": [
                 "Printer – to print papers or photos",
                 "Speakers – to play sound or music",
@@ -117,7 +128,8 @@
               "media": ""
             },
             {
-              "title": "Lesson Recap Video",
+              "slide_number": 6,
+              "slide_title": "Lesson Recap Video",
               "content": [
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
@@ -128,10 +140,11 @@
         },
         {
           "lesson_id": 3,
-          "lesson_title": "Turning On/Off Your Computer",
+          "lesson_title": "Lesson 3: Turning On/Off Your Computer",
           "slides": [
             {
-              "title": "Turning On the Computer",
+              "slide_number": 1,
+              "slide_title": "Turning On the Computer",
               "content": [
                 "To turn on a computer, press the power button on the CPU or laptop.",
                 "Wait for a few seconds while the computer loads.",
@@ -140,7 +153,8 @@
               "media": ""
             },
             {
-              "title": "Turning Off the Computer Safely",
+              "slide_number": 2,
+              "slide_title": "Turning Off the Computer Safely",
               "content": [
                 "To turn off the computer, click the Start Menu, then choose Shut Down.",
                 "Do not unplug the computer or press the power button to turn it off.",
@@ -149,7 +163,8 @@
               "media": ""
             },
             {
-              "title": "Restarting the Computer",
+              "slide_number": 3,
+              "slide_title": "Restarting the Computer",
               "content": [
                 "If the computer is slow or not responding, you can click Restart.",
                 "Restarting closes all programs and turns the computer off and on again.",
@@ -158,7 +173,8 @@
               "media": ""
             },
             {
-              "title": "The CPU (Central Processing Unit)",
+              "slide_number": 4,
+              "slide_title": "The CPU (Central Processing Unit)",
               "content": [
                 "The CPU is called the “brain” of the computer.",
                 "It processes all the instructions from the software and controls what happens.",
@@ -167,7 +183,8 @@
               "media": ""
             },
             {
-              "title": "Helpful Reminders",
+              "slide_number": 5,
+              "slide_title": "Helpful Reminders",
               "content": [
                 "✅ Always shut down or restart using the Start Menu",
                 "✅ Avoid turning off power suddenly",
@@ -176,7 +193,8 @@
               "media": ""
             },
             {
-              "title": "Lesson Recap Video",
+              "slide_number": 6,
+              "slide_title": "Lesson Recap Video",
               "content": [
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
@@ -187,10 +205,11 @@
         },
         {
           "lesson_id": 4,
-          "lesson_title": "Exploring the Desktop",
+          "lesson_title": "Lesson 4: Exploring the Desktop",
           "slides": [
             {
-              "title": "What is the Desktop?",
+              "slide_number": 1,
+              "slide_title": "What is the Desktop?",
               "content": [
                 "The desktop is the main screen you see after turning on your computer.",
                 "It shows icons, the taskbar, and the background image.",
@@ -199,7 +218,8 @@
               "media": ""
             },
             {
-              "title": "Icons on the Desktop",
+              "slide_number": 2,
+              "slide_title": "Icons on the Desktop",
               "content": [
                 "Icons are small pictures that represent programs or files",
                 "Double-click an icon to open it.",
@@ -208,7 +228,8 @@
               "media": ""
             },
             {
-              "title": "The Taskbar and System Tray",
+              "slide_number": 3,
+              "slide_title": "The Taskbar and System Tray",
               "content": [
                 "The taskbar is the bar at the bottom of the screen.",
                 "It shows open programs and quick tools like volume and internet in the system tray.",
@@ -217,7 +238,8 @@
               "media": ""
             },
             {
-              "title": "Using the Start Button",
+              "slide_number": 4,
+              "slide_title": "Using the Start Button",
               "content": [
                 "Click the Start Button on the bottom-left corner to see your programs and settings.",
                 "You can also shut down or restart the computer from the Start Menu.",
@@ -226,7 +248,8 @@
               "media": ""
             },
             {
-              "title": "Summary",
+              "slide_number": 5,
+              "slide_title": "Summary",
               "content": [
                 "✅ The desktop is your main screen",
                 "✅ Icons help open programs and files",
@@ -236,7 +259,8 @@
               "media": ""
             },
             {
-              "title": "Lesson Recap Video",
+              "slide_number": 6,
+              "slide_title": "Lesson Recap Video",
               "content": [
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
@@ -253,10 +277,11 @@
       "lessons": [
         {
           "lesson_id": 5,
-          "lesson_title": "Using the Mouse",
+          "lesson_title": "Lesson 5: Using the Mouse",
           "slides": [
             {
-              "title": "What is a Mouse?",
+              "slide_number": 1,
+              "slide_title": "What is a Mouse?",
               "content": [
                 "A mouse is a small device that helps you move the pointer on the screen.",
                 "It usually has two buttons: left and right, and sometimes a scroll wheel.",
@@ -265,7 +290,8 @@
               "media": ""
             },
             {
-              "title": "Clicking Basics",
+              "slide_number": 2,
+              "slide_title": "Clicking Basics",
               "content": [
                 "Single-click: Press the left button once to select an item",
                 "Double-click: Press the left button twice quickly to open a file or program",
@@ -274,7 +300,8 @@
               "media": ""
             },
             {
-              "title": "Dragging Items",
+              "slide_number": 3,
+              "slide_title": "Dragging Items",
               "content": [
                 "Click and hold the left button over the item",
                 "Move the mouse to drag it",
@@ -283,7 +310,8 @@
               "media": ""
             },
             {
-              "title": "Recap Video",
+              "slide_number": 4,
+              "slide_title": "Recap Video",
               "content": [
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
@@ -294,10 +322,11 @@
         },
          {
           "lesson_id": 6,
-          "lesson_title": "Opening and Closing Programs",
+          "lesson_title": "Lesson 6: Opening and Closing Programs",
           "slides": [
             {
-              "title": "Opening a Program",
+              "slide_number": 1,
+              "slide_title": "Opening a Program",
               "content": [
                 "You can open a program by:",
                 "- Double-clicking its icon on the desktop",
@@ -306,7 +335,8 @@
               "media": ""
             },
             {
-              "title": "Closing a Program",
+              "slide_number": 2,
+              "slide_title": "Closing a Program",
               "content": [
                 "To close a program, click the 'X' at the top-right corner of its window.",
                 "Closing programs you’re not using helps your computer run smoothly."
@@ -314,7 +344,8 @@
               "media": ""
             },
             {
-              "title": "Minimizing and Maximizing",
+              "slide_number": 3,
+              "slide_title": "Minimizing and Maximizing",
               "content": [
                 "- Minimize: Hides the window but keeps it open (click the “-” button)",
                 "- Maximize: Makes the window full screen (click the square button)",
@@ -323,7 +354,8 @@
               "media": ""
             },
             {
-              "title": "Recap Video",
+              "slide_number": 4,
+              "slide_title": "Recap Video",
               "content": [
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
@@ -334,10 +366,11 @@
         },
          {
           "lesson_id": 7,
-          "lesson_title": "Switching Between Windows",
+          "lesson_title": "Lesson 7: Switching Between Windows",
           "slides": [
             {
-              "title": "Why Switch Between Windows?",
+              "slide_number": 1,
+              "slide_title": "Why Switch Between Windows?",
               "content": [
                 "You may need to use two or more programs at the same time.",
                 "Instead of closing them, you can switch between them easily."
@@ -345,7 +378,8 @@
               "media": ""
             },
             {
-              "title": "Using the Taskbar",
+              "slide_number": 2,
+              "slide_title": "Using the Taskbar",
               "content": [
                 "Click on a program’s icon in the taskbar to bring it to the front.",
                 "The taskbar is the row of icons at the bottom of the screen."
@@ -353,7 +387,8 @@
               "media": ""
             },
             {
-              "title": "Using Alt + Tab ",
+              "slide_number": 3,
+              "slide_title": "Using Alt + Tab ",
               "content": [
                 "Pressing Alt key + Tab key on the keyboard to quickly switch between open programs.",
                 "Hold the Alt key, tap Tab, and release when you see the one you want.",
@@ -362,7 +397,8 @@
               "media": ""
             },
             {
-              "title": "Recap Video",
+              "slide_number": 4,
+              "slide_title": "Recap Video",
               "content": [
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
@@ -373,10 +409,11 @@
         },
          {
           "lesson_id": 8,
-          "lesson_title": "Using the Start Menu",
+          "lesson_title": "Lesson 8: Using the Start Menu",
           "slides": [
             {
-              "title": "What is the Start Menu?",
+              "slide_number": 1,
+              "slide_title": "What is the Start Menu?",
               "content": [
                 "The Start Menu is where you find programs, settings, and power options.",
                 "Click the Start button at the bottom-left corner of the screen to open it."
@@ -384,7 +421,8 @@
               "media": ""
             },
             {
-              "title": "Finding a Program",
+              "slide_number": 2,
+              "slide_title": "Finding a Program",
               "content": [
                 "In the Start Menu, you can:",
                 "- Scroll through the list of apps",
@@ -393,7 +431,8 @@
               "media": ""
             },
             {
-              "title": "Power Options",
+              "slide_number": 3,
+              "slide_title": "Power Options",
               "content": [
                 "From the Start Menu, you can also:",
                 "- Shut Down the computer",
@@ -403,7 +442,8 @@
               "media": ""
             },
             {
-              "title": "Recap Video",
+              "slide_number": 4,
+              "slide_title": "Recap Video",
               "content": [
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."

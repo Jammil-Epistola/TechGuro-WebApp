@@ -1,5 +1,8 @@
 [
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 1,
     "question_id": 1,
     "question": "What is a computer used for?",
     "options": [
@@ -11,6 +14,9 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 1,
     "question_id": 2,
     "question": "Which of these is an example of a computer?",
     "options": [
@@ -22,23 +28,29 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 2,
     "question_id": 3,
     "question": "Click on the picture that shows a computer mouse.",
     "options": [
       {
-        "image": "/images/pre-assessment/CB_q3_A.png"
+        "image": "CB_q3_A.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q3_B.png"
+        "image": "CB_q3_B.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q3_C.png"
+        "image": "CB_q3_C.png"
       }
     ],
-    "answer_image": "/images/pre-assessment/CB_q3_A.png",
+    "answer_image": "CB_q3_A.png",
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 2,
     "question_id": 4,
     "question": "Which part is called the brain of the computer?",
     "options": [
@@ -50,6 +62,9 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 2,
     "question_id": 5,
     "question": "What is the keyboard used for?",
     "options": [
@@ -61,23 +76,29 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 3,
     "question_id": 6,
     "question": "Which icon symbolizes ‘POWER ON’?",
     "options": [
       {
-        "image": "/images/pre-assessment/CB_q6_A.png"
+        "image": "CB_q6_A.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q6_B.png"
+        "image": "CB_q6_B.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q6_C.png"
+        "image": "CB_q6_C.png"
       }
     ],
-    "answer_image": "/images/pre-assessment/CB_q6_B.png",
+    "answer_image": "CB_q6_B.png",
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 3,
     "question_id": 7,
     "question": "Before turning OFF the computer, what should you always do?",
     "options": [
@@ -89,6 +110,9 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 4,
     "question_id": 8,
     "question": "Where is the Taskbar usually located?",
     "options": [
@@ -100,23 +124,29 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 4,
     "question_id": 9,
     "question": "Click the icon that opens a folder of files.",
     "options": [
       {
-        "image": "/images/pre-assessment/CB_q9_A.png"
+        "image": "CB_q9_A.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q9_B.png"
+        "image": "CB_q9_B.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q9_C.png"
+        "image": "CB_q9_C.png"
       }
     ],
-    "answer_image": "/images/pre-assessment/CB_q9_A.png",
+    "answer_image": "CB_q9_A.png",
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 6,
     "question_id": 10,
     "question": "If you see a program icon on the desktop, how do you open it?",
     "options": [
@@ -128,6 +158,9 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 5,
     "question_id": 11,
     "question": "What happens when you double-click a file?",
     "options": [
@@ -139,23 +172,29 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 6,
     "question_id": 12,
     "question": "Which button closes a program window?",
     "options": [
       {
-        "image": "/images/pre-assessment/CB_q12_A.png"
+        "image": "CB_q12_A.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q12_B.png"
+        "image": "CB_q12_B.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q12_C.png"
+        "image": "CB_q12_C.png"
       }
     ],
-    "answer_image": "/images/pre-assessment/CB_q12_C.png",
+    "answer_image": "CB_q12_C.png",
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 5,
     "question_id": 13,
     "question": "You accidentally opened a program. What should you do to close it?",
     "options": [
@@ -167,6 +206,9 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 7,
     "question_id": 14,
     "question": "How can you switch between open windows?",
     "options": [
@@ -178,20 +220,23 @@
     "image": null
   },
   {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 8,
     "question_id": 15,
     "question": "Click on the Start Menu button.",
     "options": [
       {
-        "image": "/images/pre-assessment/CB_q15_A.png"
+        "image": "CB_q15_A.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q12_B.png"
+        "image": "CB_q12_B.png"
       },
       {
-        "image": "/images/pre-assessment/CB_q6_B.png"
+        "image": "CB_q6_B.png"
       }
     ],
-    "answer_image": "/images/pre-assessment/CB_q15_A.png",
+    "answer_image": "CB_q15_A.png",
     "image": null
   }
 ]

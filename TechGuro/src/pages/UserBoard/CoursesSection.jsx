@@ -13,77 +13,100 @@ import { useUser } from "../../context/UserContext";
 
 const CoursesSection = () => {
   const navigate = useNavigate();
-  const { user } = useUser(); 
+  const { user } = useUser();
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [courseData, setCourseData] = useState([]);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const mockCourses = [
-        {
-          name: "Computer Basics",
-          icon: <FaDesktop />,
-          description: "Learn how to use and navigate a computer for everyday tasks.",
-          available: true,
-          lessons: 12,
-          progress: 16,
-          units: [
-            {
-              unit: "UNIT 1: Getting to Know Your Computer",
-              lessons: [
-                "Lesson 1: What is a Computer?",
-                "Lesson 2: Parts of a Computer",
-                "Lesson 3: Turning On/Off Your Computer",
-                "Lesson 4: Exploring the Desktop"
-              ]
-            },
-            {
-              unit: "UNIT 2: Basic Navigation Skills",
-              lessons: [
-                "Lesson 1: Using the Mouse (Click, Double-click, Drag)",
-                "Lesson 2: Opening and Closing Programs",
-                "Lesson 3: Switching Between Windows",
-                "Lesson 4: Using the Start Menu"
-              ]
-            }
-          ]
-        },
-        {
-          name: "File & Document Handling",
-          icon: <FaFolderOpen />,
-          description: "Master saving, organizing, and locating digital files and folders.",
-          available: false
-        },
-        {
-          name: "Office Tools & Typing Essentials",
-          icon: <FaKeyboard />,
-          description: "Practice typing and learn to use Word, Excel, and more.",
-          available: false
-        },
-        {
-          name: "Internet Safety",
-          icon: <FaShieldAlt />,
-          description: "Stay secure online by recognizing risks and protecting your data.",
-          available: false
-        },
-        {
-          name: "Digital Communication",
-          icon: <FaComments />,
-          description: "Use email, messaging apps, and video calls effectively.",
-          available: false
-        },
-        {
-          name: "Intro to Online Selling",
-          icon: <FaStore />,
-          description: "Set up a Facebook Page and start selling online in your area.",
-          available: false
-        }
-      ];
-      setCourseData(mockCourses);
+ useEffect(() => {
+  const fetchCourses = async () => {
+    const mockCourses = [
+      {
+        name: "Computer Basics",
+        icon: <FaDesktop />,
+        description: "Learn how to use and navigate a computer for everyday tasks.",
+        available: true,
+        units: [
+          {
+            unit: "UNIT 1: Getting to Know Your Computer",
+            lessons: [
+              "Lesson 1: What is a Computer?",
+              "Lesson 2: Parts of a Computer",
+              "Lesson 3: Turning On/Off Your Computer",
+              "Lesson 4: Exploring the Desktop"
+            ]
+          },
+          {
+            unit: "UNIT 2: Basic Navigation Skills",
+            lessons: [
+              "Lesson 1: Using the Mouse (Click, Double-click, Drag)",
+              "Lesson 2: Opening and Closing Programs",
+              "Lesson 3: Switching Between Windows",
+              "Lesson 4: Using the Start Menu"
+            ]
+          }
+        ]
+      },
+      {
+        name: "File & Document Handling",
+        icon: <FaFolderOpen />,
+        description: "Master saving, organizing, and locating digital files and folders.",
+        available: false
+      },
+      {
+        name: "Office Tools & Typing Essentials",
+        icon: <FaKeyboard />,
+        description: "Practice typing and learn to use Word, Excel, and more.",
+        available: false
+      },
+      {
+        name: "Internet Safety",
+        icon: <FaShieldAlt />,
+        description: "Stay secure online by recognizing risks and protecting your data.",
+        available: false
+      },
+      {
+        name: "Digital Communication",
+        icon: <FaComments />,
+        description: "Use email, messaging apps, and video calls effectively.",
+        available: false
+      },
+      {
+        name: "Intro to Online Selling",
+        icon: <FaStore />,
+        description: "Set up a Facebook Page and start selling online in your area.",
+        available: false
+      }
+    ];
+      // Fetch progress for available courses
+      const updatedCourses = await Promise.all(
+        mockCourses.map(async (course) => {
+          if (!course.available) return course;
+
+          const coursePath = course.name.replace(/\s+/g, "");
+          try {
+            const res = await fetch(
+              `${import.meta.env.VITE_API_URL}/course-progress/${user.user_id}/${coursePath}`
+            );
+            const data = await res.json();
+            return {
+              ...course,
+              progress: data.progress || 0
+            };
+          } catch (err) {
+            console.error(`Failed to fetch progress for ${course.name}`, err);
+            return {
+              ...course,
+              progress: 0
+            };
+          }
+        })
+      );
+
+      setCourseData(updatedCourses);
     };
 
     fetchCourses();
-  }, []);
+  }, [user.user_id]);
 
   const handleCourseClick = (course) => {
     if (course.available) {
@@ -126,11 +149,10 @@ const CoursesSection = () => {
           <div
             key={index}
             onClick={() => handleCourseClick(course)}
-            className={`flex items-center bg-white p-5 rounded-lg cursor-pointer min-h-[200px] transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg ${
-              course.available
+            className={`flex items-center bg-white p-5 rounded-lg cursor-pointer min-h-[200px] transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg ${course.available
                 ? "border-2 border-green-600"
                 : "border-2 border-gray-300 opacity-80"
-            }`}
+              }`}
           >
             <div className="flex flex-col items-center w-[300px] p-2">
               <div className="text-[40px] mb-2">{course.icon}</div>

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from TGbackend.database import engine
 from TGbackend.database import SessionLocal
 from TGbackend import models
-from TGbackend.routers import bktRoutes, user, progress
+from TGbackend.routers import bktRoutes, user, progress, lessonCourses
 
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
@@ -72,6 +72,8 @@ print("Router included.")
 app.include_router(progress.router)
 # (bkt endpoints)
 app.include_router(bktRoutes.router)
+app.include_router(bktRoutes.bkt_router)
+app.include_router(lessonCourses.router)
 
 #Test root endpoint
 @app.get("/")

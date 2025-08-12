@@ -1,10 +1,11 @@
+// PostAssessment.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CourseNavbar from './courseNavbar.jsx';
 import { useUser } from '../context/UserContext.jsx';
 import Teki1 from "../assets/Teki 1.png";
 
-const PreAssessment = () => {
+const PostAssessment = () => {
   const navigate = useNavigate();
   const { courseName } = useParams();
   const { user } = useUser();
@@ -15,33 +16,26 @@ const PreAssessment = () => {
   const [score, setScore] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isGeneratingRecommendations, setIsGeneratingRecommendations] = useState(false);
+  const [isCheckingMastery, setIsCheckingMastery] = useState(false);
+  const [isMastered, setIsMastered] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/assessment/check/${user?.user_id || 1}/1`)
+    fetch(`http://localhost:8000/assessment/check/${user?.user_id || 1}/1?type=post`)
       .then(res => res.json())
       .then(data => {
         if (data.taken) {
-          navigate(`/courses/${courseName}`, { replace: true }); // Avoid flash
+          navigate(`/courses/${courseName}`, { replace: true });
         }
       })
-      .catch(err => console.error("Failed to check pre-assessment:", err));
+      .catch(err => console.error("Failed to check post-assessment:", err));
   }, [user]);
 
   useEffect(() => {
-  fetch(`http://localhost:8000/assessment/questions/1?assessment_type=pre`)
-    .then(response => response.json())
-    .then(data => {
-      const formattedQuestions = data.map(q => ({
-        question_id: q.id,
-        question: q.text,
-        answer: q.correct_answer,
-        options: q.choices ? JSON.parse(q.choices) : []
-      }));
-      setQuestions(formattedQuestions);
-    })
-    .catch(error => console.error("Failed to load questions:", error));
-}, []);
+    fetch('/data/computer_basics_post_questions.json') // your 4-choice post questions
+      .then(response => response.json())
+      .then(data => setQuestions(data))
+      .catch(error => console.error("Failed to load post questions:", error));
+  }, []);
 
   const handleDialogueNext = () => {
     if (dialogueStep === 1) {
@@ -69,7 +63,6 @@ const PreAssessment = () => {
     questions.forEach((q, idx) => {
       const selected = selectedAnswers[idx];
       if (!selected) return;
-
       if (q.answer_image) {
         if (selected.image === q.answer_image) correctAnswers++;
       } else {
@@ -83,20 +76,17 @@ const PreAssessment = () => {
     const finalScore = calculateScore();
     setScore(finalScore);
     setIsSubmitting(true);
-    setIsGeneratingRecommendations(true); // Trigger UI message
+    setIsCheckingMastery(true);
 
     const responses = questions.map((q, idx) => {
       const selected = selectedAnswers[idx];
       let isCorrect = false;
-
       if (!selected) return { question_id: q.question_id, is_correct: false };
-
       if (q.answer_image) {
         isCorrect = selected.image === q.answer_image;
       } else {
         isCorrect = selected === q.answer;
       }
-
       return {
         question_id: q.question_id,
         is_correct: isCorrect
@@ -106,7 +96,7 @@ const PreAssessment = () => {
     const payload = {
       user_id: user?.user_id || 1,
       course_id: 1,
-      assessment_type: "pre",
+      assessment_type: "post",
       score: finalScore,
       responses: responses
     };
@@ -118,7 +108,7 @@ const PreAssessment = () => {
     })
       .then(res => res.json())
       .then(() => {
-        return fetch("http://localhost:8000/bkt/update-from-pre", {
+        return fetch("http://localhost:8000/bkt/check-mastery", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ user_id: user?.user_id || 1, course_id: 1 })
@@ -126,15 +116,15 @@ const PreAssessment = () => {
       })
       .then(res => res.json())
       .then(data => {
-        console.log("BKT Update Success:", data);
+        setIsMastered(data.mastery);
         setTimeout(() => {
           navigate(`/courses/${courseName}`, { replace: true });
-        }, 2500); // Delay to show animation
+        }, 2500);
       })
       .catch(error => {
-        console.error("Submission failed:", error);
+        console.error("Post-assessment submission failed:", error);
         setIsSubmitting(false);
-        setIsGeneratingRecommendations(false);
+        setIsCheckingMastery(false);
       });
   };
 
@@ -146,7 +136,7 @@ const PreAssessment = () => {
 
       <div className="text-center py-8">
         <h1 className="text-[42px] font-bold">{formattedTitle.toUpperCase()}</h1>
-        <h2 className="text-[36px] font-semibold">Pre-Assessment Test</h2>
+        <h2 className="text-[36px] font-semibold">Post-Assessment Test</h2>
       </div>
 
       <div className="flex flex-col justify-center items-center p-8">
@@ -155,41 +145,35 @@ const PreAssessment = () => {
             <img src={Teki1} alt="Teki" className="w-[180px] h-[180px] absolute top-[-90px] right-[-90px]" />
             <h2 className="text-[32px] font-bold mb-6 text-left">Teki</h2>
             <p className="text-[24px] text-justify mb-6">
-              {dialogueStep === 0 && (
-                <>
-                  Before you begin, please answer the following multiple-choice questions honestly.
-                  This questionnaire helps us recommend the right lessons for you.
-                </>
-              )}
-              {dialogueStep === 1 && (
-                <>
-                  There is no time limit, so take your time and choose the answers that best reflect what you know.
-                  Good luck!
-                </>
-              )}
+              {dialogueStep === 0 && <>You’ve completed the lessons. Now it’s time for your Post-Assessment to measure your learning progress!</>}
+              {dialogueStep === 1 && <>Answer the following questions carefully. There’s no time limit—just do your best!</>}
             </p>
             <div className="flex justify-end mt-6">
               <button
                 onClick={handleDialogueNext}
                 className="px-8 py-4 bg-blue-500 text-white text-[20px] rounded hover:bg-blue-600 transition"
               >
-                {dialogueStep === 1 ? "Start Pre-Assessment" : "Next"}
+                {dialogueStep === 1 ? "Start Post-Assessment" : "Next"}
               </button>
             </div>
           </div>
-        ) : isGeneratingRecommendations ? (
+        ) : isCheckingMastery ? (
           <div className="bg-white border border-black rounded-lg p-10 max-w-[1000px] w-full relative">
             <img src={Teki1} alt="Teki" className="w-[180px] h-[180px] absolute top-[-90px] right-[-90px]" />
             <h2 className="text-[32px] font-bold mb-6 text-left">Teki</h2>
-            <p className="text-[24px] text-justify mb-6">
-              You scored {score}/{questions.length}. Based on your answers,
-              I’m figuring out the perfect lessons for you
-              <span className="animate-typing ml-1"></span>
-            </p>
-            <p className="text-[20px] italic text-[#4c5173] mb-6">
-              Please wait while I analyze your results
-              <span className="animate-typing ml-1"></span>
-            </p>
+            {isMastered === null ? (
+              <p className="text-[24px] text-justify mb-6">
+                You scored {score}/{questions.length}. Checking your mastery level<span className="animate-typing ml-1"></span>
+              </p>
+            ) : isMastered ? (
+              <p className="text-[24px] text-justify mb-6 text-green-600 font-bold">
+                🎉 Congratulations! You’ve mastered this course! Returning to the course page…
+              </p>
+            ) : (
+              <p className="text-[24px] text-justify mb-6 text-red-600 font-bold">
+                You’ve improved a lot! Keep practicing to reach mastery. Returning to the course page…
+              </p>
+            )}
           </div>
         ) : (
           <div className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-10 max-w-[1000px] w-full">
@@ -227,4 +211,4 @@ const PreAssessment = () => {
   );
 };
 
-export default PreAssessment;
+export default PostAssessment;

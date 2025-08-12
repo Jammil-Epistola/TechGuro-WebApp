@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Bar, Doughnut } from "react-chartjs-2";
@@ -23,6 +23,16 @@ const DashboardSection = () => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [courseProgress, setCourseProgress] = useState({});
   const [overallProgress, setOverallProgress] = useState(0);
+
+  // Store all assessments for user
+  const [assessments, setAssessments] = useState([]);
+  // Modal state and detailed questions/answers
+  const [showModal, setShowModal] = useState(false);
+  const [modalQuestions, setModalQuestions] = useState([]);
+  const [modalResponses, setModalResponses] = useState([]);
+  const [loadingModal, setLoadingModal] = useState(false);
+  const [modalError, setModalError] = useState(null);
+
   const navigate = useNavigate();
 
   const courses = [
@@ -52,13 +62,12 @@ const DashboardSection = () => {
     "Creative Tools (Photos & Design)"
   ];
 
-  const hasTakenAssessment = false; 
-
   useEffect(() => {
     const shuffled = [...unaccessedCourses].sort(() => 0.5 - Math.random());
     setRecommended(shuffled.slice(0, 3));
   }, []);
 
+  // Fetch course progress and assessments when user or selectedCourse changes
   useEffect(() => {
     const fetchProgress = async () => {
       try {
@@ -69,7 +78,6 @@ const DashboardSection = () => {
         data.forEach(entry => {
           if (entry.completed) {
             const courseName = getCourseName(entry.course_id);
-            console.log("Mapped course_id:", entry.course_id, "to courseName:", courseName);
             if (completedPerCourse[courseName]) {
               completedPerCourse[courseName] += 1;
             } else {
@@ -92,20 +100,27 @@ const DashboardSection = () => {
         });
 
         const overall = Math.round((totalCompleted / totalLessons) * 100);
-
         setCourseProgress(progressPercents);
         setOverallProgress(overall);
-        console.log("Fetched progress data:", data);
-        console.log("Completed per course:", completedPerCourse);
-        console.log("Progress percents:", progressPercents);
       } catch (error) {
         console.error("Failed to fetch progress data:", error);
       }
     };
 
-    console.log("User object in DashboardSection:", user);
+    const fetchAssessments = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/assessment/${user.user_id}`);
+        const data = await res.json();
+        setAssessments(data);
+      } catch (error) {
+        console.error("Error fetching assessments:", error);
+        setAssessments([]);
+      }
+    };
+
     if (user?.user_id) {
       fetchProgress();
+      fetchAssessments();
     }
   }, [user]);
 
@@ -122,12 +137,24 @@ const DashboardSection = () => {
     setCarouselIndex((prev) => (prev === 3 ? 0 : prev + 1));
   };
 
+  // Extract pre and post assessment scores for the selected course
+  const preAssessment = assessments.find(
+    a => a.course_id === courses.indexOf(selectedCourse) + 1 && a.assessment_type === "pre"
+  );
+  const postAssessment = assessments.find(
+    a => a.course_id === courses.indexOf(selectedCourse) + 1 && a.assessment_type === "post"
+  );
+
+  // Calculate bar chart data using scores or 0 if not available
   const barData = {
     labels: ["Pre", "Post"],
     datasets: [{
       label: "Score (%)",
-      data: [60, 80],
-      backgroundColor: "#4C5173",
+      data: [
+        preAssessment ? preAssessment.score : 0,
+        postAssessment ? postAssessment.score : 0
+      ],
+      backgroundColor: "#4C5173"
     }]
   };
 
@@ -146,34 +173,103 @@ const DashboardSection = () => {
     }]
   };
 
+  // Used to disable See Results button if no assessment taken
+  const hasTakenAssessment = Boolean(
+    (selectedAssessment === "Pre-Assessment" ? preAssessment : postAssessment)
+  );
+
   const carouselContent = [
-    <div className="w-full text-center">
+    <div className="w-full text-center" key="score-improvement">
       <h4 className="text-lg font-semibold mb-2">Score Improvement</h4>
       <Bar data={barData} options={barOptions} className="mx-auto max-w-xs" />
     </div>,
-    <div className="w-full text-center">
+    <div className="w-full text-center" key="lessons-completed">
       <h4 className="text-lg font-semibold mb-2">Lessons Completed</h4>
       <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden mb-2">
         <div className="bg-[#4C5173] h-full" style={{ width: `${overallProgress}%` }}></div>
       </div>
       <p>{overallProgress}% of lessons completed</p>
     </div>,
-    <div className="w-full text-center">
+    <div className="w-full text-center" key="time-spent">
       <h4 className="text-lg font-semibold mb-2">Time Spent Learning</h4>
       <div className="w-32 h-32 mx-auto">
         <Doughnut data={donutData} />
       </div>
       <p className="mt-2">{Math.round(overallProgress / 10)} hrs spent</p>
     </div>,
-    <div className="w-full text-center">
+    <div className="w-full text-center" key="units-completed">
       <h4 className="text-lg font-semibold mb-2">Units Completed</h4>
       <p className="text-xl font-bold">{Math.round(overallProgress / 100 * 18)} / 18 Units</p>
     </div>
   ];
 
+  // Modal related functions
+
+  const openResultsModal = async () => {
+    setShowModal(true);
+    setLoadingModal(true);
+    setModalError(null);
+
+    try {
+      const courseId = courses.indexOf(selectedCourse) + 1;
+      const assessmentType = selectedAssessment.toLowerCase();
+
+      // Fetch questions for selected course and assessment type
+      const questionsRes = await fetch(
+        `${import.meta.env.VITE_API_URL}/assessment/questions/${courseId}?assessment_type=${assessmentType}`
+      );
+      if (!questionsRes.ok) throw new Error("Failed to fetch questions");
+      const questions = await questionsRes.json();
+
+      // Find the assessment result ID for this course and assessment type
+      const assessmentResult = assessments.find(
+        a => a.course_id === courseId && a.assessment_type === assessmentType
+      );
+      if (!assessmentResult) {
+        throw new Error("No assessment result found");
+      }
+
+      // Fetch user's responses for this assessment
+      // Note: There is no direct backend endpoint for responses by assessment ID,
+      // so assuming responses come embedded or you need to add one.
+      // For now, we will mock or filter responses from the assessments data if available.
+      // If no endpoint exists, consider adding one in backend like:
+      // GET /assessment/responses/{assessment_id}
+      // Here, for demonstration, we assume an endpoint like:
+      const responsesRes = await fetch(
+        `${import.meta.env.VITE_API_URL}/assessment/responses/${assessmentResult.id}`
+      );
+      if (!responsesRes.ok) throw new Error("Failed to fetch responses");
+      const responses = await responsesRes.json();
+
+      setModalQuestions(questions);
+      setModalResponses(responses);
+    } catch (err) {
+      console.error(err);
+      setModalError(err.message);
+      setModalQuestions([]);
+      setModalResponses([]);
+    } finally {
+      setLoadingModal(false);
+    }
+  };
+
+  const closeResultsModal = () => {
+    setShowModal(false);
+    setModalQuestions([]);
+    setModalResponses([]);
+    setModalError(null);
+  };
+
+  // Helper to find user's answer for a question
+  const getUserAnswer = (questionId) => {
+    const resp = modalResponses.find(r => r.question_id === questionId);
+    return resp ? resp.is_correct : null;
+  };
+
   return (
     <div className="bg-[#DFDFEE] min-h-screen p-6 text-black text-[18px]">
-      {/* Profile Card */}
+      {/* Profile & Achievements */}
       <div className="flex items-center justify-between bg-[#F9F8FE] border-[1.5px] border-[#6B708D] p-6 rounded-lg mb-8">
         <div className="flex gap-6 items-center">
           <img
@@ -200,11 +296,11 @@ const DashboardSection = () => {
 
       <h1 className="text-[24px] font-bold text-[#4C5173] mb-4">USER DASHBOARD</h1>
 
-      {/* Recent Milestone & Assessment */}
+      {/* Recent Achievements + Assessment Scores */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Recent Milestone */}
         <div
-          className="flex-1 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6 min-h-[180px] cursor-pointer text-center flex flex-col items-center justify-center"
+          className="flex-1 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6 text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#f0f0ff]"
           onClick={() => navigate("/UserDashboard/achievements")}
         >
           <img src={placeholderimg} alt="Milestone" className="w-20 h-20 rounded-full border border-black mb-2" />
@@ -225,11 +321,17 @@ const DashboardSection = () => {
             <option>Post-Assessment</option>
           </select>
           <p className="text-[18px] text-center mt-3 mb-2">
-            {hasTakenAssessment
-              ? `You have taken ${selectedAssessment}`
-              : `You have not taken ${selectedAssessment}`}
+            {assessments.length === 0 ? "Loading scores..." : (
+              selectedAssessment === "Pre-Assessment" && preAssessment
+                ? `Pre-Assessment: ${Math.round(preAssessment.score)}%`
+                : selectedAssessment === "Post-Assessment" && postAssessment
+                  ? `Post-Assessment: ${Math.round(postAssessment.score)}%`
+                  : `You have not taken ${selectedAssessment}`
+            )}
           </p>
-          <button disabled={!hasTakenAssessment}
+          <button
+            disabled={!hasTakenAssessment}
+            onClick={openResultsModal}
             className={`w-full py-2 rounded-md border-2 border-black text-white font-bold text-[18px] 
               ${hasTakenAssessment ? "bg-[#479DFF]" : "bg-[#8E8E8E]"}`}>
             See Results
@@ -292,7 +394,7 @@ const DashboardSection = () => {
                   <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden">
                     <div className="bg-[#6B708D] h-full" style={{ width: `${percent}%` }}></div>
                   </div>
-                  <p className="text-sm text-right text-gray-700 mt-1">{percent}% Complete</p>
+                  <p className="text-center mt-1 text-sm">{percent}% completed</p>
                 </div>
               );
             })}
@@ -300,18 +402,78 @@ const DashboardSection = () => {
         </div>
       </div>
 
-      {/* Recommended Courses */}
-      <div className="mt-10 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6">
-        <h2 className="text-[20px] font-bold mb-4">Recommended Courses</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Recommendations */}
+      <div className="mt-8 border border-black rounded-md p-4 bg-white">
+        <h2 className="text-[20px] font-bold mb-3 text-center">Courses to Explore</h2>
+        <div className="grid grid-cols-3 gap-4">
           {recommended.map((course, index) => (
-            <div key={index} className="border border-black rounded-lg p-4 flex flex-col items-center bg-[#F1F1FA] shadow-md">
-              <img src={placeholderimg} alt={course} className="w-28 h-28 object-contain mb-4" />
-              <p className="text-center text-[18px] font-semibold">{course}</p>
+            <div key={index} className="border border-gray-400 rounded-lg p-3 text-center cursor-pointer hover:bg-gray-100">
+              {course}
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal for Assessment Details */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto p-6 relative">
+            <button
+              onClick={closeResultsModal}
+              className="absolute top-2 right-2 text-gray-600 hover:text-black font-bold text-xl"
+            >
+              &times;
+            </button>
+            <h2 className="text-xl font-bold mb-4">{selectedAssessment} Results - {selectedCourse}</h2>
+
+            {loadingModal && <p>Loading assessment details...</p>}
+            {modalError && <p className="text-red-600">Error: {modalError}</p>}
+
+            {!loadingModal && !modalError && modalQuestions.length === 0 && (
+              <p>No questions found for this assessment.</p>
+            )}
+
+            {!loadingModal && !modalError && modalQuestions.length > 0 && (
+              <div>
+                {modalQuestions.map((q) => {
+                  // Find user response for this question
+                  const userResp = modalResponses.find(r => r.question_id === q.id);
+                  return (
+                    <div key={q.id} className="mb-4 border-b border-gray-300 pb-2">
+                      <p className="font-semibold">{q.text}</p>
+                      <ul className="list-disc list-inside">
+                        {q.choices.map((choice, idx) => {
+                          // Highlight correct answer & user's choice
+                          const isCorrectAnswer = choice === q.correct_answer;
+                          const isUserChoice = userResp?.question_id === q.id && choice === (userResp.selected_choice || userResp.answer || null);
+                          // Fallback if no selected_choice stored, highlight based on correctness flag
+                          return (
+                            <li
+                              key={idx}
+                              className={`${isCorrectAnswer ? "text-green-600 font-bold" : ""}
+                                ${isUserChoice ? "underline" : ""}`}
+                            >
+                              {choice}
+                              {isCorrectAnswer && " ✅"}
+                              {isUserChoice && !isCorrectAnswer && " (Your answer)"}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <p>
+                        Your answer was:{" "}
+                        <span className={userResp?.is_correct ? "text-green-600" : "text-red-600"}>
+                          {userResp?.is_correct ? "Correct" : "Incorrect"}
+                        </span>
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

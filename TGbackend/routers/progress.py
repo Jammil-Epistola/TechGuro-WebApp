@@ -62,3 +62,5 @@ def update_progress(progress_data: ProgressCreate, db: Session = Depends(get_db)
             user.exp += 10
         db.commit()
         return {"message": "Progress created. EXP updated."}
+    
+

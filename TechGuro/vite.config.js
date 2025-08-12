@@ -8,4 +8,10 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
+  
+  server: {
+    proxy: {
+      '/assessment-scores': 'http://localhost:8000'
+    }
+  }
 })
