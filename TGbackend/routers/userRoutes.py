@@ -4,20 +4,12 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from datetime import datetime, date
 from TGbackend import models
-from TGbackend.database import SessionLocal
+from TGbackend.database import get_db
 
-router = APIRouter()
+router = APIRouter(tags=["User Management"])
 
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Dependency to get DB session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 # Pydantic schemas
 class UserCreate(BaseModel):
@@ -29,13 +21,6 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
-
-class ProgressCreate(BaseModel):
-    user_id: int
-    course_id: int
-    unit_id: int
-    lesson_id: int
-    completed: bool
 
 # Helper: EXP and Leveling
 def check_level_up(user):
@@ -84,7 +69,6 @@ def award_milestone(user: models.User, milestone_title: str, db: Session):
 
     leveled_up = check_level_up(user)  # Reuse level-up logic
     return True
-
 
 # Register endpoint
 @router.post("/register")
@@ -159,87 +143,47 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         "leveled_up": leveled_up
     }
 
+# -------------------------
+# Data Clearing
+# -------------------------
+@router.delete("/user/clear-data/{user_id}")
+def clear_all_user_data(user_id: int, db: Session = Depends(get_db)):
+    # 1. Delete lesson progress
+    db.query(models.Progress).filter(models.Progress.user_id == user_id).delete()
 
-# Update Progress endpoint
-@router.post("/progress/update")
-def update_progress(progress_data: ProgressCreate, db: Session = Depends(get_db)):
-    # Check if progress already exists
-    existing = db.query(models.Progress).filter_by(
-        user_id=progress_data.user_id,
-        course_id=progress_data.course_id,
-        unit_id=progress_data.unit_id,
-        lesson_id=progress_data.lesson_id
-    ).first()
+    # 2. Delete assessment data
+    db.query(models.AssessmentQuestionResponse).filter(models.AssessmentQuestionResponse.user_id == user_id).delete()
+    db.query(models.AssessmentResults).filter(models.AssessmentResults.user_id == user_id).delete()
 
-    user = db.query(models.User).filter_by(id=progress_data.user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+    # 3. Delete BKT / Mastery data
+    db.query(models.UserLessonMastery).filter(models.UserLessonMastery.user_id == user_id).delete()
 
-    exp_gained = 0
-    message = ""
+    # 4. Delete earned milestones
+    db.query(models.MilestoneEarned).filter(models.MilestoneEarned.user_id == user_id).delete()
 
-    if existing:
-        if progress_data.completed and not existing.completed:
-            existing.completed = True
-            existing.completed_at = datetime.utcnow()
-            exp_gained += 10  # Lesson completion
-            message = "Progress updated. "
-        else:
-            return {"message": "Progress already recorded."}
-    else:
-        new_progress = models.Progress(
-            user_id=progress_data.user_id,
-            course_id=progress_data.course_id,
-            unit_id=progress_data.unit_id,
-            lesson_id=progress_data.lesson_id,
-            completed=progress_data.completed,
-            completed_at=datetime.utcnow() if progress_data.completed else None
-        )
-        db.add(new_progress)
-        if progress_data.completed:
-            exp_gained += 10
-        message = "Progress created. "
+    # 5. Reset user EXP and level
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if user:
+        user.exp = 0
+        user.level = 1
 
-    # Unit completion check
-    if progress_data.completed:
-        unit_lessons = db.query(models.Progress).filter_by(
-            user_id=progress_data.user_id,
-            course_id=progress_data.course_id,
-            unit_id=progress_data.unit_id
-        ).all()
-
-        if unit_lessons and all(p.completed for p in unit_lessons):
-            exp_gained += 50
-            message += "Unit completed! "
-
-        # Course completion check
-        course_progress = db.query(models.Progress).filter_by(
-            user_id=progress_data.user_id,
-            course_id=progress_data.course_id
-        ).all()
-
-        units_by_id = {}
-        for p in course_progress:
-            if p.unit_id not in units_by_id:
-                units_by_id[p.unit_id] = []
-            units_by_id[p.unit_id].append(p)
-
-        all_units_completed = all(all(l.completed for l in lessons) for lessons in units_by_id.values())
-
-        if course_progress and all_units_completed:
-            exp_gained += 100
-            message += "Course completed! "
-
-    user.exp += exp_gained
-    leveled_up = check_level_up(user)
     db.commit()
 
-    if leveled_up:
-        message += "Level Up!"
-
+    print(f"[CLEAR DATA] All data reset for user_id={user_id}")
     return {
-        "message": message.strip(),
-        "exp_gained": exp_gained,
-        "new_level": user.level,
-        "current_exp": user.exp
+        "status": "All user-related data fully cleared",
+        "cleared": [
+            "Progress", "AssessmentQuestionResponse", "AssessmentResults",
+            "UserLessonMastery", "MilestoneEarned"
+        ],
+        "reset_fields": {"exp": 0, "level": 1},
+        "user_id": user_id
     }
+
+# -------------------------
+# Milestones
+# -------------------------
+@router.get("/milestones/{user_id}")
+def get_earned_milestones(user_id: int, db: Session = Depends(get_db)):
+    earned = db.query(models.MilestoneEarned).filter(models.MilestoneEarned.user_id == user_id).all()
+    return earned

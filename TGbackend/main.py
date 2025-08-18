@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from TGbackend.database import engine
 from TGbackend.database import SessionLocal
 from TGbackend import models
-from TGbackend.routers import bktRoutes, user, progress, lessonCourses
+from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes
 
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
@@ -63,20 +63,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# (register/login endpoints)
-print("About to include router...")
-app.include_router(user.router)
-print("Router included.")
+# Include all routers
+print("About to include routers...")
 
-# (progress endpoint)
-app.include_router(progress.router)
-# (bkt endpoints)
+# User management (register/login endpoints)
+app.include_router(userRoutes.router)
+
+# Progress tracking
+app.include_router(progressRoutes.router)
+
+# Lessons and courses
+app.include_router(lessonsRoutes.router)
+
+# Assessment management 
+app.include_router(assessmentRoutes.router)
+
+# BKT (Bayesian Knowledge Tracing)
 app.include_router(bktRoutes.router)
-app.include_router(bktRoutes.bkt_router)
-app.include_router(lessonCourses.router)
 
-#Test root endpoint
+print("All routers included.")
+
+# Test root endpoint
 @app.get("/")
 def read_root():
     return {"message": "TechGuro Backend is Live!"}
-
