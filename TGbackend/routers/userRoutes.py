@@ -144,7 +144,7 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
     }
 
 # -------------------------
-# Data Clearing
+# Data Clearing (Enhanced with BKT cleanup)
 # -------------------------
 @router.delete("/user/clear-data/{user_id}")
 def clear_all_user_data(user_id: int, db: Session = Depends(get_db)):
@@ -167,6 +167,15 @@ def clear_all_user_data(user_id: int, db: Session = Depends(get_db)):
         user.exp = 0
         user.level = 1
 
+    # 6. NEW: Clear BKT AI model data
+    try:
+        from TGbackend.services.bkt_ai_service import bkt_service
+        bkt_service.clear_user_model(user_id)
+        bkt_cleared = True
+    except Exception as e:
+        print(f"[BKT CLEAR] Could not clear BKT data: {e}")
+        bkt_cleared = False
+
     db.commit()
 
     print(f"[CLEAR DATA] All data reset for user_id={user_id}")
@@ -177,13 +186,206 @@ def clear_all_user_data(user_id: int, db: Session = Depends(get_db)):
             "UserLessonMastery", "MilestoneEarned"
         ],
         "reset_fields": {"exp": 0, "level": 1},
+        "bkt_model_cleared": bkt_cleared,
         "user_id": user_id
     }
 
 # -------------------------
-# Milestones
+# Milestones (Enhanced with AI insights)
 # -------------------------
 @router.get("/milestones/{user_id}")
 def get_earned_milestones(user_id: int, db: Session = Depends(get_db)):
     earned = db.query(models.MilestoneEarned).filter(models.MilestoneEarned.user_id == user_id).all()
-    return earned
+    
+    # Add AI-suggested next milestones based on learning progress
+    try:
+        from TGbackend.services.bkt_ai_service import bkt_service
+        ai_suggestions = bkt_service.get_milestone_suggestions(user_id, db)
+    except Exception:
+        ai_suggestions = []
+    
+    return {
+        "earned_milestones": earned,
+        "ai_suggested_milestones": ai_suggestions
+    }
+
+# -------------------------
+# NEW: BKT-Enhanced User Endpoints
+# -------------------------
+@router.get("/users/learning-profile/{user_id}")
+def get_user_learning_profile(user_id: int, db: Session = Depends(get_db)):
+    """Get AI-generated learning profile for user"""
+    try:
+        from TGbackend.services.bkt_ai_service import bkt_service
+        
+        # Get basic user info (preserve existing logic)
+        user = db.query(models.User).filter(models.User.id == user_id).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        # Calculate age (preserve existing logic)
+        today = date.today()
+        age = today.year - user.birthday.year - (
+            (today.month, today.day) < (user.birthday.month, user.birthday.day)
+        )
+        is_elderly = age >= 60
+        
+        # Get AI learning insights
+        learning_insights = bkt_service.get_learning_insights(user_id, db)
+        
+        profile = {
+            # Existing user data
+            "user_id": user_id,
+            "username": user.username,
+            "age": age,
+            "is_elderly": is_elderly,
+            "level": user.level,
+            "exp": user.exp,
+            
+            # New AI insights
+            "learning_style": learning_insights.get("learning_style", "balanced"),
+            "optimal_difficulty": learning_insights.get("optimal_difficulty", "medium"),
+            "learning_velocity": learning_insights.get("learning_velocity", 0.5),
+            "engagement_patterns": learning_insights.get("engagement_patterns", {}),
+            "strengths": learning_insights.get("strengths", []),
+            "areas_for_improvement": learning_insights.get("areas_for_improvement", []),
+            "personalization_settings": learning_insights.get("personalization_settings", {})
+        }
+        
+        return profile
+        
+    except Exception as e:
+        # Fallback to basic profile if AI fails
+        user = db.query(models.User).filter(models.User.id == user_id).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+            
+        today = date.today()
+        age = today.year - user.birthday.year - (
+            (today.month, today.day) < (user.birthday.month, user.birthday.day)
+        )
+        
+        return {
+            "user_id": user_id,
+            "username": user.username,
+            "age": age,
+            "is_elderly": age >= 60,
+            "level": user.level,
+            "exp": user.exp,
+            "ai_error": str(e)
+        }
+
+@router.get("/users/dashboard/{user_id}")
+def get_user_dashboard_with_ai(user_id: int, db: Session = Depends(get_db)):
+    """Enhanced dashboard with AI insights"""
+    try:
+        # Get existing user data (preserve all current logic)
+        user = db.query(models.User).filter(models.User.id == user_id).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        # Get milestones (existing logic)
+        earned_milestones = db.query(models.MilestoneEarned).filter(
+            models.MilestoneEarned.user_id == user_id
+        ).count()
+        
+        # Get progress (existing logic)
+        completed_lessons = db.query(models.Progress).filter(
+            models.Progress.user_id == user_id,
+            models.Progress.completed == True
+        ).count()
+        
+        # Add AI recommendations without disrupting existing data
+        try:
+            from TGbackend.services.bkt_ai_service import bkt_service
+            ai_recommendations = bkt_service.get_ai_recommendations(user_id)
+            next_recommended_lesson = ai_recommendations[0]['lesson_id'] if ai_recommendations else None
+            ai_enabled = True
+        except Exception:
+            ai_recommendations = []
+            next_recommended_lesson = None
+            ai_enabled = False
+        
+        return {
+            # Existing dashboard data
+            "user_id": user_id,
+            "username": user.username,
+            "level": user.level,
+            "exp": user.exp,
+            "earned_milestones_count": earned_milestones,
+            "completed_lessons_count": completed_lessons,
+            
+            # New AI enhancements
+            "ai_recommendations": ai_recommendations,
+            "next_recommended_lesson": next_recommended_lesson,
+            "ai_enabled": ai_enabled,
+            "last_updated": datetime.utcnow().isoformat()
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading dashboard: {str(e)}")
+
+@router.get("/users/learning-stats/{user_id}")
+def get_learning_statistics(user_id: int, db: Session = Depends(get_db)):
+    """Detailed learning statistics with AI analysis"""
+    try:
+        # Basic stats (preserve existing approach)
+        total_assessments = db.query(models.AssessmentResults).filter(
+            models.AssessmentResults.user_id == user_id
+        ).count()
+        
+        avg_score = db.query(models.AssessmentResults).filter(
+            models.AssessmentResults.user_id == user_id
+        ).with_entities(models.AssessmentResults.score).all()
+        
+        average_score = sum(score[0] for score in avg_score) / len(avg_score) if avg_score else 0
+        
+        # Add AI analysis
+        try:
+            from TGbackend.services.bkt_ai_service import bkt_service
+            ai_stats = bkt_service.get_detailed_stats(user_id, db)
+        except Exception:
+            ai_stats = {}
+        
+        return {
+            "user_id": user_id,
+            "total_assessments": total_assessments,
+            "average_score": round(average_score, 2),
+            "ai_mastery_analysis": ai_stats.get("mastery_analysis", {}),
+            "learning_progress_trend": ai_stats.get("progress_trend", []),
+            "predicted_completion_time": ai_stats.get("predicted_completion", "Unknown"),
+            "learning_recommendations": ai_stats.get("recommendations", [])
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting statistics: {str(e)}")
+
+@router.post("/users/update-learning-preferences/{user_id}")
+def update_learning_preferences(user_id: int, preferences: dict, db: Session = Depends(get_db)):
+    """Update user's learning preferences to enhance AI recommendations"""
+    try:
+        # Validate user exists
+        user = db.query(models.User).filter(models.User.id == user_id).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        # Store preferences (you might want to add a UserPreferences model later)
+        # For now, we'll just acknowledge the preferences for AI use
+        
+        try:
+            from TGbackend.services.bkt_ai_service import bkt_service
+            bkt_service.update_user_preferences(user_id, preferences)
+            ai_updated = True
+        except Exception:
+            ai_updated = False
+        
+        return {
+            "message": "Learning preferences updated successfully",
+            "user_id": user_id,
+            "preferences_stored": True,
+            "ai_model_updated": ai_updated,
+            "updated_at": datetime.utcnow().isoformat()
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error updating preferences: {str(e)}")

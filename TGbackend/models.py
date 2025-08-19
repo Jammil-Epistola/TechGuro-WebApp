@@ -20,8 +20,13 @@ class User(Base):
     bio = Column(String, default="")
     date_created = Column(DateTime(timezone=True), server_default=func.now())
 
+    # Fixed: Add missing relationships for BKT integration
     progress = relationship("Progress", back_populates="user")
     earned_milestones = relationship("MilestoneEarned", back_populates="user")
+    assessment_results = relationship("AssessmentResults", back_populates="user")
+    assessment_responses = relationship("AssessmentQuestionResponse", back_populates="user")
+    lesson_mastery = relationship("UserLessonMastery", back_populates="user")
+    mastery_history = relationship("UserLessonMasteryHistory", back_populates="user")
 
 
 class Progress(Base):
@@ -29,13 +34,17 @@ class Progress(Base):
 
     progress_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    course_id = Column(Integer, nullable=False)
-    unit_id = Column(Integer, nullable=False)
-    lesson_id = Column(Integer, nullable=False)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)  # Fixed: Add FK constraint
+    unit_id = Column(Integer, ForeignKey("units.id"), nullable=False)      # Fixed: Add FK constraint  
+    lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)  # Fixed: Add FK constraint
     completed = Column(Boolean, default=False)
     completed_at = Column(DateTime, default=datetime.utcnow)
 
+    # Fixed: Add all missing relationships
     user = relationship("User", back_populates="progress")
+    course = relationship("Course", back_populates="progress")
+    unit = relationship("Unit", back_populates="progress") 
+    lesson = relationship("Lesson", back_populates="progress")
 
 
 class Milestone(Base):
@@ -65,48 +74,69 @@ class MilestoneEarned(Base):
 class AssessmentResults(Base):
     __tablename__ = "assessment_results"
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    course_id = Column(Integer)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)  # Fixed: Make nullable=False
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)  # Fixed: Add FK constraint
     assessment_type = Column(String)  # 'pre' or 'post'
     score = Column(Float)
     date_taken = Column(DateTime, default=datetime.utcnow)
+
+    # Fixed: Add missing relationships for BKT
+    user = relationship("User", back_populates="assessment_results")
+    course = relationship("Course", back_populates="assessment_results")
+    responses = relationship("AssessmentQuestionResponse", back_populates="assessment")
 
 
 class AssessmentQuestionResponse(Base):
     __tablename__ = "assessment_question_responses"
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    assessment_id = Column(Integer, ForeignKey("assessment_results.id"))
-    question_id = Column(Integer)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)  # Fixed: Make nullable=False
+    assessment_id = Column(Integer, ForeignKey("assessment_results.id"), nullable=False)  # Fixed: Make nullable=False
+    question_id = Column(Integer, ForeignKey("questions.id"), nullable=False)  # Fixed: Add FK constraint
+    lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=True)  # Fixed: Add FK constraint
     selected_choice = Column(String, nullable=True)
-    is_correct = Column(Boolean)
-    lesson_id = Column(Integer)
+    is_correct = Column(Boolean, nullable=False)  # Fixed: Make nullable=False for BKT
     timestamp = Column(DateTime, default=datetime.utcnow)
+
+    # Fixed: Add all missing relationships for BKT traversal
+    user = relationship("User", back_populates="assessment_responses")
+    assessment = relationship("AssessmentResults", back_populates="responses")
+    question = relationship("Question", back_populates="responses")
+    lesson = relationship("Lesson", back_populates="responses")
 
 
 class UserLessonMastery(Base):
     __tablename__ = "user_lesson_mastery"
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    lesson_id = Column(Integer)
-    estimated_mastery = Column(Float)  # Between 0.0 and 1.0
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)  # Fixed: Make nullable=False
+    lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)  # Fixed: Add FK constraint
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)  # Fixed: Add missing course_id
+    estimated_mastery = Column(Float, nullable=False, default=0.0)  # Between 0.0 and 1.0
     last_updated = Column(DateTime, default=datetime.utcnow)
-    is_mastered = Column(Boolean)  # threshold flag
+    is_mastered = Column(Boolean, default=False)  # threshold flag
+
+    # Fixed: Add missing relationships for BKT
+    user = relationship("User", back_populates="lesson_mastery")
+    lesson = relationship("Lesson", back_populates="mastery_records")
+    course = relationship("Course", back_populates="mastery_records")
 
 
-# UserLessonMasteryHistory for tracking changes over time
 class UserLessonMasteryHistory(Base):
     __tablename__ = "user_lesson_mastery_history"
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False) 
-    lesson_id = Column(Integer, nullable=False)
+    lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)  # Fixed: Add FK constraint
     estimated_mastery = Column(Float, nullable=False)
     is_mastered = Column(Boolean, nullable=False, default=False)
     assessment_type = Column(String, nullable=True)  # e.g., "pre", "post"
     source = Column(String, nullable=False) 
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False) 
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+    # Fixed: Add missing relationships
+    user = relationship("User", back_populates="mastery_history")
+    course = relationship("Course", back_populates="mastery_history")
+    lesson = relationship("Lesson", back_populates="mastery_history")
 
 
 # ===================
@@ -119,7 +149,13 @@ class Course(Base):
     description = Column(String, nullable=True)
     image_url = Column(String, nullable=True)
 
+    # Fixed: Add missing back_populates for BKT integration
     units = relationship("Unit", back_populates="course")
+    progress = relationship("Progress", back_populates="course")
+    assessment_results = relationship("AssessmentResults", back_populates="course")
+    mastery_records = relationship("UserLessonMastery", back_populates="course")
+    mastery_history = relationship("UserLessonMasteryHistory", back_populates="course")
+    questions = relationship("Question", back_populates="course")
 
 
 class Unit(Base):
@@ -131,6 +167,7 @@ class Unit(Base):
 
     course = relationship("Course", back_populates="units")
     lessons = relationship("Lesson", back_populates="unit")
+    progress = relationship("Progress", back_populates="unit")  # Fixed: Add missing relationship
 
 
 class Lesson(Base):
@@ -144,8 +181,14 @@ class Lesson(Base):
     unit = relationship("Unit", back_populates="lessons")
     questions = relationship("Question", back_populates="lesson")
     activities = relationship("Activity", back_populates="lesson")
-    
     slides = relationship("LessonSlides", back_populates="lesson", cascade="all, delete-orphan")
+    
+    # Fixed: Add missing relationships for BKT integration
+    progress = relationship("Progress", back_populates="lesson")
+    responses = relationship("AssessmentQuestionResponse", back_populates="lesson")
+    mastery_records = relationship("UserLessonMastery", back_populates="lesson")
+    mastery_history = relationship("UserLessonMasteryHistory", back_populates="lesson")
+
 
 class LessonSlides(Base):
     __tablename__ = "lesson_slides"
@@ -175,7 +218,9 @@ class Question(Base):
     image_url = Column(String, nullable=True)
 
     lesson = relationship("Lesson", back_populates="questions")
-    course = relationship("Course") 
+    course = relationship("Course", back_populates="questions")  # Fixed: Add back_populates
+    responses = relationship("AssessmentQuestionResponse", back_populates="question")  # Fixed: Add missing relationship
+
 
 class Activity(Base):
     __tablename__ = "activities"
