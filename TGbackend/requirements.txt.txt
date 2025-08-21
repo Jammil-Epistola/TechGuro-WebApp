@@ -4,9 +4,5 @@ sqlalchemy
 alembic
 psycopg2-binary
 pydantic
-pydantic[email]
 passlib[bcrypt]
-pyBKT
-pandas
-numpy
-python-dotenv
+bcrypt

@@ -2,21 +2,17 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List
 
 from TGbackend.database import get_db
 from TGbackend.models import (
     Question, AssessmentResults, AssessmentQuestionResponse
 )
-from TGbackend.services.bkt_ai_service import BKTService  
 
 router = APIRouter(tags=["Assessment Management"])
 
-# Initialize BKT service
-bkt_service = BKTService()
-
 # -------------------------
-# Existing Assessment Models
+# Assessment Submission and Queries
 # -------------------------
 class QuestionResponse(BaseModel):
     question_id: int
@@ -29,24 +25,6 @@ class AssessmentSubmission(BaseModel):
     score: float
     responses: List[QuestionResponse]
 
-# New BKT-related models
-class MasteryPrediction(BaseModel):
-    user_id: int
-    skill_name: str
-    mastery_probability: float
-    is_mastered: bool
-    confidence_level: str
-
-class SkillRecommendation(BaseModel):
-    skill_name: str
-    lesson_id: int
-    priority: str
-    mastery_probability: float
-    recommended_action: str
-
-# -------------------------
-# Existing Assessment Endpoints
-# -------------------------
 @router.get("/assessment/questions/{course_id}")
 def get_assessment_questions(course_id: int, assessment_type: str = None, db: Session = Depends(get_db)):
     query = db.query(Question).filter(Question.course_id == course_id)
@@ -68,8 +46,8 @@ def get_assessment_questions(course_id: int, assessment_type: str = None, db: Se
             "text": q.text,
             "type": q.type,
             "assessment_type": q.assessment_type,
-            "choices": q.choices.split("|"),
-            "correct_answer": q.correct_answer,
+            "choices": q.choices.split("|"),  # assuming choices stored like "A|B|C|D"
+            "correct_answer": q.correct_answer,  # include only if needed
             "image_url": q.image_url
         })
 
@@ -94,13 +72,13 @@ def get_assessment_responses(assessment_id: int, db: Session = Depends(get_db)):
             "is_correct": r.is_correct,
             "lesson_id": r.lesson_id,
             "timestamp": r.timestamp.isoformat()
+            # "selected_choice": r.selected_choice  # include if you add this field
         })
 
     return result
 
 @router.post("/assessment/submit")
 def submit_assessment(data: AssessmentSubmission, db: Session = Depends(get_db)):
-    # Original assessment submission logic
     result = AssessmentResults(
         user_id=data.user_id,
         course_id=data.course_id,
@@ -129,14 +107,6 @@ def submit_assessment(data: AssessmentSubmission, db: Session = Depends(get_db))
         )
         db.add(r)
     db.commit()
-
-    # NEW: Update BKT model after assessment submission
-    try:
-        bkt_service.update_user_model(data.user_id, db)
-    except Exception as e:
-        # Log the error but don't fail the assessment submission
-        print(f"BKT update failed for user {data.user_id}: {str(e)}")
-
     return {"status": "Assessment and responses recorded."}
 
 @router.get("/assessment/{user_id}")
@@ -152,122 +122,3 @@ def check_pre_assessment(user_id: int, course_id: int, db: Session = Depends(get
         AssessmentResults.assessment_type == "pre"
     ).first()
     return {"taken": pre is not None}
-
-# -------------------------
-# NEW: BKT-Enhanced Endpoints
-# -------------------------
-@router.get("/assessment/mastery/{user_id}")
-def get_user_mastery(user_id: int, db: Session = Depends(get_db)) -> Dict[str, Any]:
-    """
-    Get current mastery levels for all skills for a user
-    """
-    try:
-        mastery_data = bkt_service.get_user_mastery(user_id, db)
-        return {
-            "user_id": user_id,
-            "mastery_levels": mastery_data,
-            "last_updated": datetime.utcnow().isoformat()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error getting mastery data: {str(e)}")
-
-@router.get("/assessment/recommendations/{user_id}")
-def get_learning_recommendations(user_id: int, db: Session = Depends(get_db)) -> Dict[str, Any]:
-    """
-    Get personalized learning recommendations based on BKT analysis
-    """
-    try:
-        recommendations = bkt_service.get_recommendations(user_id, db)
-        return {
-            "user_id": user_id,
-            "recommendations": recommendations,
-            "generated_at": datetime.utcnow().isoformat()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error getting recommendations: {str(e)}")
-
-@router.get("/assessment/next-skill/{user_id}")
-def get_next_skill(user_id: int, db: Session = Depends(get_db)) -> Dict[str, Any]:
-    """
-    Get the next skill/lesson the user should focus on
-    """
-    try:
-        next_skill = bkt_service.get_next_skill_recommendation(user_id, db)
-        return {
-            "user_id": user_id,
-            "next_skill": next_skill,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error getting next skill: {str(e)}")
-
-@router.post("/assessment/update-model/{user_id}")
-def update_bkt_model(user_id: int, db: Session = Depends(get_db)) -> Dict[str, Any]:
-    """
-    Manually trigger BKT model update for a user (useful for testing)
-    """
-    try:
-        result = bkt_service.update_user_model(user_id, db)
-        return {
-            "user_id": user_id,
-            "update_result": result,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error updating BKT model: {str(e)}")
-
-@router.get("/assessment/skill-progress/{user_id}/{skill_name}")
-def get_skill_progress(user_id: int, skill_name: str, db: Session = Depends(get_db)) -> Dict[str, Any]:
-    """
-    Get detailed progress for a specific skill
-    """
-    try:
-        progress = bkt_service.get_skill_progress(user_id, skill_name, db)
-        return {
-            "user_id": user_id,
-            "skill_name": skill_name,
-            "progress": progress,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error getting skill progress: {str(e)}")
-
-@router.get("/assessment/difficulty-adjustment/{user_id}")
-def get_difficulty_adjustment(user_id: int, db: Session = Depends(get_db)) -> Dict[str, Any]:
-    """
-    Get recommended difficulty level adjustments based on BKT analysis
-    """
-    try:
-        adjustment = bkt_service.get_difficulty_adjustment(user_id, db)
-        return {
-            "user_id": user_id,
-            "difficulty_adjustment": adjustment,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error getting difficulty adjustment: {str(e)}")
-
-# -------------------------
-# Admin/Debug Endpoints
-# -------------------------
-@router.get("/assessment/bkt-status")
-def get_bkt_status() -> Dict[str, Any]:
-    """
-    Get current BKT service status and model information
-    """
-    return bkt_service.get_model_info()
-
-@router.post("/assessment/retrain-model/{course_id}")
-def retrain_bkt_model(course_id: int, db: Session = Depends(get_db)) -> Dict[str, Any]:
-    """
-    Retrain BKT model with all available data for a course
-    """
-    try:
-        result = bkt_service.retrain_model_for_course(course_id, db)
-        return {
-            "course_id": course_id,
-            "retrain_result": result,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retraining model: {str(e)}")
