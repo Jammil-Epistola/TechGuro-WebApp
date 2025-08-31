@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import UserBoard from "./pages/UserBoard";
 
 import PreAssessment from "./courses/PreAssessment";
+import PostAssessment from "./courses/PostAssessment";
 import LessonList from "./courses/LessonList";            
 import LessonPage from "./courses/LessonPage";        
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/courses/:courseName/Pre-Assessment" element={<PreAssessment />} />
         <Route path="/courses/:courseName" element={<LessonList />} />
         <Route path="/courses/:courseName/lesson" element={<LessonPage />} />
+        <Route path="/courses/:courseName/Post-Assessment" element={<PostAssessment />} />
       </Routes>
     </Router>
   );

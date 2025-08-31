@@ -161,15 +161,16 @@ const CoursesSection = () => {
     if (!selectedCourse || selectedCourse.locked) return;
 
     const coursePath = selectedCourse.name.replace(/\s+/g, "");
+    const courseId = COURSES.indexOf(selectedCourse.name) + 1 || 1;
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/progress-recommendations/${user.user_id}/${coursePath}`
+        `${import.meta.env.VITE_API_URL}/progress-recommendations/${user.user_id}/${courseId}`
       );
       const data = await res.json();
 
       if (data.recommended_lessons && data.recommended_lessons.length > 0) {
-        navigate(`/courses/${coursePath}/lessons`);
+        navigate(`/courses/${coursePath}`);
       } else {
         navigate(`/courses/${coursePath}/Pre-Assessment`);
       }

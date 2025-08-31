@@ -1,8 +1,8 @@
-"""Recreate all tables
+"""Initial migration
 
-Revision ID: 36c7744b9938
+Revision ID: 6203cc7dab49
 Revises: 
-Create Date: 2025-08-12 22:10:13.621374
+Create Date: 2025-08-28 14:34:16.208978
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '36c7744b9938'
+revision: str = '6203cc7dab49'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -97,10 +97,12 @@ def upgrade() -> None:
     op.create_table('user_lesson_mastery',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('course_id', sa.Integer(), nullable=True),
     sa.Column('lesson_id', sa.Integer(), nullable=True),
     sa.Column('estimated_mastery', sa.Float(), nullable=True),
     sa.Column('last_updated', sa.DateTime(), nullable=True),
     sa.Column('is_mastered', sa.Boolean(), nullable=True),
+    sa.ForeignKeyConstraint(['course_id'], ['courses.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -123,6 +125,7 @@ def upgrade() -> None:
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('assessment_id', sa.Integer(), nullable=True),
     sa.Column('question_id', sa.Integer(), nullable=True),
+    sa.Column('selected_choice', sa.String(), nullable=True),
     sa.Column('is_correct', sa.Boolean(), nullable=True),
     sa.Column('lesson_id', sa.Integer(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),

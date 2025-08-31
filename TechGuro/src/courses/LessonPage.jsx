@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CourseNavbar from "./courseNavbar";
 import { useUser } from "../context/UserContext";
+import { normalizeSlides } from "../utility/normalizeContent";
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
 
 const LessonPage = () => {
@@ -38,10 +39,13 @@ const LessonPage = () => {
   useEffect(() => {
     if (!lessonId) return;
 
-    // Fetch lesson detail (with slides)
+    // ✅ Fetch lesson detail with normalized slides
     fetch(`http://localhost:8000/lessons/${lessonId}`)
       .then(res => res.json())
-      .then(data => setCurrentLesson(data))
+      .then(data => {
+        const normalizedSlides = normalizeSlides(data.slides || []);
+        setCurrentLesson({ ...data, slides: normalizedSlides });
+      })
       .catch(err => console.error("Failed to load lesson detail:", err));
   }, [lessonId]);
 
@@ -78,16 +82,17 @@ const LessonPage = () => {
     );
     if (currentIndex !== -1 && currentIndex < sectionLessons.length - 1) {
       const nextLesson = sectionLessons[currentIndex + 1];
-      // Fetch full lesson data for the next lesson
+      // ✅ Fetch next lesson and normalize slides
       fetch(`http://localhost:8000/lessons/${nextLesson.lesson_id}`)
         .then(res => res.json())
         .then(data => {
-          setCurrentLesson(data);
+          const normalizedSlides = normalizeSlides(data.slides || []);
+          setCurrentLesson({ ...data, slides: normalizedSlides });
           setCurrentSlide(0);
         })
         .catch(err => console.error("Failed to load next lesson detail:", err));
     } else {
-      // End of section
+      // End of section → return to LessonList
       navigate(`/courses/${courseName}`);
     }
   };
@@ -197,11 +202,10 @@ const LessonPage = () => {
                 <div
                   key={lesson.lesson_id}
                   onClick={() => handleLessonClick(lesson)}
-                  className={`p-2 rounded mb-1 cursor-pointer text-sm transition ${
-                    currentLesson.lesson_id === lesson.lesson_id
-                      ? "bg-[#F4EDD9] font-semibold border border-[#6B708D]"
-                      : "hover:bg-[#e2e6f1]"
-                  }`}
+                  className={`p-2 rounded mb-1 cursor-pointer text-sm transition ${currentLesson.lesson_id === lesson.lesson_id
+                    ? "bg-[#F4EDD9] font-semibold border border-[#6B708D]"
+                    : "hover:bg-[#e2e6f1]"
+                    }`}
                 >
                   {lesson.lesson_title}
                 </div>
@@ -231,37 +235,17 @@ const LessonPage = () => {
             <div className="w-full h-[300px] bg-gray-300 rounded-md mb-6 flex justify-center items-center">
               <span className="text-gray-700">Media Placeholder</span>
             </div>
-            {(() => {
-              let content = slide.content;
 
-              // If content is a string that looks like JSON, parse it
-              if (typeof content === "string") {
-                try {
-                  const parsed = JSON.parse(content);
-                  if (Array.isArray(parsed)) {
-                    content = parsed;
-                  } else {
-                    content = [parsed];
-                  }
-                } catch {
-                  // Not JSON, just split by newline
-                  content = content.split("\n");
-                }
-              }
-
-              // Ensure it's an array for mapping
-              if (!Array.isArray(content)) {
-                content = [content];
-              }
-
-              return content.map((text, idx) => (
-                <p key={idx} className="text-lg text-justify mb-4">
+            {/* ✅ Display content as bullet points */}
+            <ul className="list-disc list-inside space-y-2">
+              {slide.content.map((text, idx) => (
+                <li key={idx} className="text-lg text-justify">
                   {typeof text === "string"
-                    ? text.replace(/[{}"]/g, "").replace(/,/g, " ")
+                    ? text.replace(/[{}"]/g, "").replace(/"/g, "").trim()
                     : text}
-                </p>
-              ));
-            })()}
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Slide Navigation */}
@@ -269,11 +253,10 @@ const LessonPage = () => {
             <button
               onClick={handlePrevSlide}
               disabled={currentSlide === 0}
-              className={`px-4 py-2 rounded-md font-semibold ${
-                currentSlide === 0
-                  ? "bg-gray-400 text-white cursor-not-allowed"
-                  : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
-              }`}
+              className={`px-4 py-2 rounded-md font-semibold ${currentSlide === 0
+                ? "bg-gray-400 text-white cursor-not-allowed"
+                : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
+                }`}
             >
               Previous
             </button>

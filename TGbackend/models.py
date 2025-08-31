@@ -70,6 +70,8 @@ class AssessmentResults(Base):
     assessment_type = Column(String)  # 'pre' or 'post'
     score = Column(Float)
     date_taken = Column(DateTime, default=datetime.utcnow)
+    completion_eligible = Column(Boolean, default=False)  
+    eligibility_reason = Column(String, nullable=True)    
 
 
 class AssessmentQuestionResponse(Base):
@@ -88,6 +90,7 @@ class UserLessonMastery(Base):
     __tablename__ = "user_lesson_mastery"
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"))
+    course_id = Column(Integer, ForeignKey("courses.id"))
     lesson_id = Column(Integer)
     estimated_mastery = Column(Float)  # Between 0.0 and 1.0
     last_updated = Column(DateTime, default=datetime.utcnow)

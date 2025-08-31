@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Bar, Doughnut } from "react-chartjs-2";
@@ -67,11 +67,13 @@ const DashboardSection = () => {
     setRecommended(shuffled.slice(0, 3));
   }, []);
 
-  // Fetch course progress and assessments when user or selectedCourse changes
+  // Fetch course progress and assessments when user changes
   useEffect(() => {
     const fetchProgress = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/progress/${user.user_id}`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/progress/${user.user_id}`
+        );
         const data = await response.json();
 
         const completedPerCourse = {};
@@ -145,22 +147,24 @@ const DashboardSection = () => {
     a => a.course_id === courses.indexOf(selectedCourse) + 1 && a.assessment_type === "post"
   );
 
-  // Calculate bar chart data using scores or 0 if not available
+  // Calculate bar chart data
+  const preScore = preAssessment ? preAssessment.score : 0;
+  const postScore = postAssessment ? postAssessment.score : 0;
+  const totalQuestions = 15; // default fallback
+  const maxQuestions = postAssessment?.total || preAssessment?.total || totalQuestions;
+
   const barData = {
     labels: ["Pre", "Post"],
     datasets: [{
-      label: "Score (%)",
-      data: [
-        preAssessment ? preAssessment.score : 0,
-        postAssessment ? postAssessment.score : 0
-      ],
+      label: "Score",
+      data: [preScore, postScore],
       backgroundColor: "#4C5173"
     }]
   };
 
   const barOptions = {
     scales: {
-      y: { beginAtZero: true, max: 15 }
+      y: { beginAtZero: true, max: maxQuestions }
     },
     plugins: { legend: { display: false } }
   };
@@ -173,10 +177,13 @@ const DashboardSection = () => {
     }]
   };
 
-  // Used to disable See Results button if no assessment taken
   const hasTakenAssessment = Boolean(
     (selectedAssessment === "Pre-Assessment" ? preAssessment : postAssessment)
   );
+
+  // Dynamic units instead of hardcoded 18
+  const totalUnits = Object.values(courseLessonCounts).reduce((a, b) => a + b, 0);
+  const completedUnits = Math.round((overallProgress / 100) * totalUnits);
 
   const carouselContent = [
     <div className="w-full text-center" key="score-improvement">
@@ -199,12 +206,11 @@ const DashboardSection = () => {
     </div>,
     <div className="w-full text-center" key="units-completed">
       <h4 className="text-lg font-semibold mb-2">Units Completed</h4>
-      <p className="text-xl font-bold">{Math.round(overallProgress / 100 * 18)} / 18 Units</p>
+      <p className="text-xl font-bold">{completedUnits} / {totalUnits} Units</p>
     </div>
   ];
 
-  // Modal related functions
-
+  // Modal functions
   const openResultsModal = async () => {
     setShowModal(true);
     setLoadingModal(true);
@@ -214,14 +220,12 @@ const DashboardSection = () => {
       const courseId = courses.indexOf(selectedCourse) + 1;
       const assessmentType = selectedAssessment.toLowerCase();
 
-      // Fetch questions for selected course and assessment type
       const questionsRes = await fetch(
         `${import.meta.env.VITE_API_URL}/assessment/questions/${courseId}?assessment_type=${assessmentType}`
       );
       if (!questionsRes.ok) throw new Error("Failed to fetch questions");
       const questions = await questionsRes.json();
 
-      // Find the assessment result ID for this course and assessment type
       const assessmentResult = assessments.find(
         a => a.course_id === courseId && a.assessment_type === assessmentType
       );
@@ -229,17 +233,10 @@ const DashboardSection = () => {
         throw new Error("No assessment result found");
       }
 
-      // Fetch user's responses for this assessment
-      // Note: There is no direct backend endpoint for responses by assessment ID,
-      // so assuming responses come embedded or need to add one.
-      // For now, mock or filter responses from the assessments data if available.
-      // If no endpoint exists, consider adding one in backend like:
-      // GET /assessment/responses/{assessment_id}
-      // Here, for demonstration, we assume an endpoint like:
       const responsesRes = await fetch(
         `${import.meta.env.VITE_API_URL}/assessment/responses/${assessmentResult.id}`
       );
-      if (!responsesRes.ok) throw new Error("Failed to fetch responses");
+      if (!responsesRes.ok) throw new Error("Responses not available yet");
       const responses = await responsesRes.json();
 
       setModalQuestions(questions);
@@ -259,12 +256,6 @@ const DashboardSection = () => {
     setModalQuestions([]);
     setModalResponses([]);
     setModalError(null);
-  };
-
-  // Helper to find user's answer for a question
-  const getUserAnswer = (questionId) => {
-    const resp = modalResponses.find(r => r.question_id === questionId);
-    return resp ? resp.is_correct : null;
   };
 
   return (
@@ -330,9 +321,9 @@ const DashboardSection = () => {
           <p className="text-[18px] text-center mt-3 mb-2">
             {assessments.length === 0 ? "Loading scores..." : (
               selectedAssessment === "Pre-Assessment" && preAssessment
-                ? `Pre-Assessment: ${Math.round(preAssessment.score)}/15`
+                ? `Pre-Assessment: ${Math.round(preAssessment.score)}/${preAssessment.total || totalQuestions}`
                 : selectedAssessment === "Post-Assessment" && postAssessment
-                  ? `Post-Assessment: ${Math.round(postAssessment.score)}/15`
+                  ? `Post-Assessment: ${Math.round(postAssessment.score)}/${postAssessment.total || totalQuestions}l}`
                   : `You have not taken ${selectedAssessment}`
             )}
           </p>
@@ -431,47 +422,47 @@ const DashboardSection = () => {
             >
               &times;
             </button>
-            <h2 className="text-xl font-bold mb-4">{selectedAssessment} Results - {selectedCourse}</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {selectedAssessment} Results - {selectedCourse}
+            </h2>
 
             {loadingModal && <p>Loading assessment details...</p>}
             {modalError && <p className="text-red-600">Error: {modalError}</p>}
 
-            {!loadingModal && !modalError && modalQuestions.length === 0 && (
-              <p>No questions found for this assessment.</p>
-            )}
-
             {!loadingModal && !modalError && modalQuestions.length > 0 && (
               <div>
                 {modalQuestions.map((q) => {
-                  // Find user response for this question
                   const userResp = modalResponses.find(r => r.question_id === q.id);
                   return (
                     <div key={q.id} className="mb-4 border-b border-gray-300 pb-2">
                       <p className="font-semibold">{q.text}</p>
                       <ul className="list-disc list-inside">
                         {q.choices.map((choice, idx) => {
-                          // Highlight correct answer & user's choice
                           const isCorrectAnswer = choice === q.correct_answer;
-                          const isUserChoice = userResp?.question_id === q.id && choice === (userResp.selected_choice || userResp.answer || null);
-                          // Fallback if no selected_choice stored, highlight based on correctness flag
+                          const isUserChoice = userResp && choice === userResp.selected_choice;
                           return (
                             <li
                               key={idx}
-                              className={`${isCorrectAnswer ? "text-green-600 font-bold" : ""}
-                                ${isUserChoice ? "underline" : ""}`}
+                              className={`${isCorrectAnswer ? "text-green-600 font-bold" : ""} ${isUserChoice ? "underline" : ""}`}
                             >
                               {choice}
                               {isCorrectAnswer && " ✅"}
-                              {isUserChoice && !isCorrectAnswer && " (Your answer)"}
+                              {isUserChoice && " (Your answer)"}
                             </li>
                           );
                         })}
                       </ul>
-                      <p>
-                        Your answer was:{" "}
-                        <span className={userResp?.is_correct ? "text-green-600" : "text-red-600"}>
-                          {userResp?.is_correct ? "Correct" : "Incorrect"}
-                        </span>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {userResp?.selected_choice ? (
+                          <span>
+                            Your answer was:{" "}
+                            <span className={userResp.is_correct ? "text-green-600" : "text-red-600"}>
+                              {userResp.is_correct ? "Correct" : "Incorrect"}
+                            </span>
+                          </span>
+                        ) : (
+                          <span className="text-gray-500">No answer recorded</span>
+                        )}
                       </p>
                     </div>
                   );

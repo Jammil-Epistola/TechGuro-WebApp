@@ -79,7 +79,7 @@ app.include_router(lessonsRoutes.router)
 app.include_router(assessmentRoutes.router)
 
 # BKT (Bayesian Knowledge Tracing)
-app.include_router(bktRoutes.router)
+app.include_router(bktRoutes.router) 
 
 print("All routers included.")
 

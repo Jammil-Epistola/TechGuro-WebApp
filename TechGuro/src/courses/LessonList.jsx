@@ -13,6 +13,8 @@ const LessonList = () => {
   const [recommendedLessons, setRecommendedLessons] = useState([]);
   const [completedActivities, setCompletedActivities] = useState(false);
   const [activeSection, setActiveSection] = useState('recommended');
+  const [postAssessmentUnlocked, setPostAssessmentUnlocked] = useState(false);
+  const [unlockReason, setUnlockReason] = useState("");
 
   const formattedTitle = courseName.replace(/([A-Z])/g, ' $1').trim();
 
@@ -39,15 +41,61 @@ const LessonList = () => {
       const lessonsData = await lessonsRes.json();
       setLessonsData(lessonsData);
 
-      const progressRes = await fetch(
-        `http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`
-      );
-      if (!progressRes.ok) throw new Error("Failed to fetch progress data.");
-      const progressData = await progressRes.json();
+      // UPDATED: Use new BKT recommendations endpoint instead of old progress endpoint
+      try {
+        const bktRes = await fetch(
+          `http://localhost:8000/bkt/recommendations/${user.user_id}/${courseId}?threshold=0.7&limit=10`
+        );
 
-      setCompletedLessons(progressData.completed_lessons || []);
-      setRecommendedLessons(progressData.recommended_lessons || []);
-      setCompletedActivities(progressData.completed_activities || false);
+        if (!bktRes.ok) throw new Error("Failed to fetch BKT recommendations.");
+        const bktData = await bktRes.json();
+
+        console.log("BKT recommendations data:", bktData);
+
+        // Extract recommended lessons from BKT response
+        setRecommendedLessons(bktData.recommended_lessons || []);
+
+        // Fetch progress (completed lessons + unlock status)
+        const progressRes = await fetch(
+          `http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`
+        );
+
+        if (progressRes.ok) {
+          const progressData = await progressRes.json();
+          setCompletedLessons(progressData.completed_lessons || []);
+          setCompletedActivities(progressData.completed_activities || false);
+          setPostAssessmentUnlocked(progressData.post_assessment_unlocked || false); // ✅ NEW
+        } else {
+          console.warn("Progress endpoint failed, assuming no completed lessons");
+          setCompletedLessons([]);
+          setCompletedActivities(false);
+          setPostAssessmentUnlocked(false);
+        }
+
+      } catch (bktError) {
+        console.error("BKT recommendations failed:", bktError);
+
+        // Fallback to old endpoint if BKT fails
+        try {
+          const progressRes = await fetch(
+            `http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`
+          );
+          if (progressRes.ok) {
+            const progressData = await progressRes.json();
+            setCompletedLessons(progressData.completed_lessons || []);
+            setRecommendedLessons(progressData.recommended_lessons || []);
+            setCompletedActivities(progressData.completed_activities || false);
+            setPostAssessmentUnlocked(progressData.post_assessment_unlocked || false); // ✅ NEW
+          }
+        } catch (fallbackError) {
+          console.error("All recommendation endpoints failed:", fallbackError);
+          setCompletedLessons([]);
+          setRecommendedLessons([]);
+          setCompletedActivities(false);
+          setPostAssessmentUnlocked(false);
+        }
+      }
+
     } catch (err) {
       console.error("Error fetching course data:", err);
     }
@@ -59,10 +107,6 @@ const LessonList = () => {
     }
   }, [user, courseName]);
 
-  const postAssessmentUnlocked = recommendedLessons.every(id =>
-    completedLessons.includes(id)
-  ) && completedActivities;
-
   const handleStartLesson = (lessonId) => {
     navigate(`/courses/${courseName}/lesson`, {
       state: { lessonId }
@@ -70,8 +114,26 @@ const LessonList = () => {
   };
 
   const handlePostAssessment = () => {
-    navigate(`/courses/${courseName}/post-assessment`);
+    if (!postAssessmentUnlocked) {
+      // Show Teki dialog with unlock reason
+      setUnlockReason(progressData?.unlock_reason || "Post-Assessment is locked.");
+      return;
+    }
+    navigate(`/courses/${courseName}/Post-assessment`);
   };
+
+  const TekiDialog = ({ message, onClose }) => (
+    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+      <div className="bg-white border-2 border-[#6B708D] rounded-2xl shadow-lg p-4 flex items-center gap-4 max-w-lg">
+        <img src={placeholderimg} alt="Teki" className="w-14 h-14 rounded-full border border-black" />
+        <div className="flex-1">
+          <p className="font-bold text-[#4C5173]">Teki</p>
+          <p className="text-sm">{message}</p>
+        </div>
+        <button onClick={onClose} className="text-lg font-bold text-gray-600">✖</button>
+      </div>
+    </div>
+  );
 
   if (!lessonsData) {
     return <div className="p-10 text-[20px] font-bold text-center">Loading lessons...</div>;
@@ -124,12 +186,17 @@ const LessonList = () => {
           {/* Post-Assessment */}
           <div className="mt-6">
             <button
-              onClick={handlePostAssessment}
+              onClick={() => {
+                if (postAssessmentUnlocked) {
+                  handlePostAssessment();
+                } else {
+                  setUnlockReason("Hold on! You need to finish your recommended lessons before unlocking this assessment!");
+                }
+              }}
               className={`w-full px-4 py-3 rounded font-bold text-[16px] ${postAssessmentUnlocked
-                ? 'bg-[#B6C44D] text-black hover:bg-[#a5b83d]'
-                : 'bg-gray-400 text-white cursor-not-allowed'
+                  ? "bg-[#B6C44D] text-black hover:bg-[#a5b83d]"
+                  : "bg-gray-400 text-white hover:bg-gray-500"
                 }`}
-              disabled={!postAssessmentUnlocked}
             >
               Post-Assessment
             </button>
@@ -223,6 +290,14 @@ const LessonList = () => {
                 </div>
               </>
             )
+
+          )}
+          {/* Global Teki Dialog */}
+          {unlockReason && (
+            <TekiDialog
+              message={unlockReason}
+              onClose={() => setUnlockReason("")}
+            />
           )}
         </div>
       </div>

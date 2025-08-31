@@ -3,7 +3,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 1,
-    "question_id": 1,
+    "question_id": 101,
     "question": "What is a computer used for?",
     "options": [
       "Only for calling people",
@@ -17,7 +17,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 1,
-    "question_id": 2,
+    "question_id": 102,
     "question": "Which of these is an example of a computer?",
     "options": [
       "Television",
@@ -31,7 +31,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 2,
-    "question_id": 3,
+    "question_id": 103,
     "question": "Click on the picture that shows a computer mouse.",
     "options": [
       {
@@ -51,7 +51,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 2,
-    "question_id": 4,
+    "question_id": 104,
     "question": "Which part is called the brain of the computer?",
     "options": [
       "Monitor",
@@ -65,7 +65,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 2,
-    "question_id": 5,
+    "question_id": 105,
     "question": "What is the keyboard used for?",
     "options": [
       "Watching videos",
@@ -79,7 +79,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 3,
-    "question_id": 6,
+    "question_id": 106,
     "question": "Which icon symbolizes ‘POWER ON’?",
     "options": [
       {
@@ -99,7 +99,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 3,
-    "question_id": 7,
+    "question_id": 107,
     "question": "Before turning OFF the computer, what should you always do?",
     "options": [
       "Save your work, click the Start Menu, then click Shut Down",
@@ -113,7 +113,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 4,
-    "question_id": 8,
+    "question_id": 108,
     "question": "Where is the Taskbar usually located?",
     "options": [
       "Bottom of the screen",
@@ -127,7 +127,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 4,
-    "question_id": 9,
+    "question_id": 109,
     "question": "Click the icon that opens a folder of files.",
     "options": [
       {
@@ -147,7 +147,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 6,
-    "question_id": 10,
+    "question_id": 110,
     "question": "If you see a program icon on the desktop, how do you open it?",
     "options": [
       "Double-click the icon",
@@ -161,7 +161,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 5,
-    "question_id": 11,
+    "question_id": 111,
     "question": "What happens when you double-click a file?",
     "options": [
       "It opens",
@@ -175,7 +175,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 6,
-    "question_id": 12,
+    "question_id": 112,
     "question": "Which button closes a program window?",
     "options": [
       {
@@ -195,7 +195,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 5,
-    "question_id": 13,
+    "question_id": 113,
     "question": "You accidentally opened a program. What should you do to close it?",
     "options": [
       "Click the X button",
@@ -209,7 +209,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 7,
-    "question_id": 14,
+    "question_id": 114,
     "question": "How can you switch between open windows?",
     "options": [
       "Click their icons on the Taskbar",
@@ -223,7 +223,7 @@
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 8,
-    "question_id": 15,
+    "question_id": 115,
     "question": "Click on the Start Menu button.",
     "options": [
       {
@@ -237,6 +237,232 @@
       }
     ],
     "answer_image": "CB_q15_A.png",
+    "image": null
+  },
+
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 116,
+    "question": "You just bought a computer and want to learn how it helps in daily life. What is the main purpose of a computer?",
+    "options": [
+      "For storing and processing information",
+      "For only watching TV",
+      "For charging other devices",
+      "For displaying pictures only"
+    ],
+    "answer": "For storing and processing information",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 117,
+    "question": "You're teaching a friend how to move a mouse pointer. Which action moves the cursor on the screen?",
+    "options": [
+      "Moving the mouse gently on the table",
+      "Clicking buttons repeatedly",
+      "Turning off the monitor",
+      "Pressing the spacebar repeatedly"
+    ],
+    "answer": "Moving the mouse gently on the table",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 118,
+    "question": "Before you can use your computer, what should you do first?",
+    "options": [
+      "Press the power button and wait for it to load",
+      "Plug in a USB",
+      "Open a web browser",
+      "Turn off the monitor"
+    ],
+    "answer": "Press the power button and wait for it to load",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 119,
+    "question": "Your desktop screen shows small pictures like “This PC” and “Recycle Bin”. What are these called?",
+    "options": [
+      "Icons",
+      "Files",
+      "Passwords",
+      "Shortcuts list"
+    ],
+    "answer": "Icons",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 120,
+    "question": "You want to check the time and open running apps. Where should you look on the desktop?",
+    "options": [
+      "Taskbar at the bottom of the screen",
+      "Folder on the desktop",
+      "Printer settings",
+      "Start Menu background"
+    ],
+    "answer": "Taskbar at the bottom of the screen",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 121,
+    "question": "To select a photo and drag it to a folder, what steps should you follow with the mouse?",
+    "options": [
+      "Click, hold, and drag the photo to the folder",
+      "Double-click the photo",
+      "Right-click and press refresh",
+      "Scroll the mouse wheel up"
+    ],
+    "answer": "Click, hold, and drag the photo to the folder",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 6,
+    "question_id": 122,
+    "question": "You want to write a letter. How do you open the Word program?",
+    "options": [
+      "Double-click the Word icon",
+      "Click on the desktop wallpaper",
+      "Open calculator",
+      "Use the volume control"
+    ],
+    "answer": "Double-click the Word icon",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 7,
+    "question_id": 123,
+    "question": "You’re browsing the internet and want to switch to your email. Which action helps you quickly switch windows?",
+    "options": [
+      "Click the window on the taskbar",
+      "Restart the computer",
+      "Pressing the Power button",
+      "Change desktop wallpaper"
+    ],
+    "answer": "Click the window on the taskbar",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 8,
+    "question_id": 124,
+    "question": "You want to open a game from the Start Menu. What do you do?",
+    "options": [
+      "Click Start Menu, find the game, and open it",
+      "Type the name in a Word document",
+      "Press Ctrl + Alt + Delete",
+      "Shut down the computer"
+    ],
+    "answer": "Click Start Menu, find the game, and open it",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 6,
+    "question_id": 125,
+    "question": "If your program is frozen, what is a safe way to close it?",
+    "options": [
+      "Right-click on taskbar, then click “Close Window”",
+      "Turn off the monitor",
+      "Unplug the computer",
+      "Press Enter repeatedly"
+    ],
+    "answer": "Right-click on taskbar, then click “Close Window”",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 126,
+    "question": "You saved a photo but forgot where. Which icon on the desktop helps you search for files?",
+    "options": [
+      "This PC",
+      "Volume Control",
+      "Task Manager",
+      "Recycle Bin"
+    ],
+    "answer": "This PC",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 127,
+    "question": "Which part of the computer is used to type words and numbers?",
+    "options": [
+      "Keyboard",
+      "Monitor",
+      "Mouse",
+      "CPU"
+    ],
+    "answer": "Keyboard",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 8,
+    "question_id": 128,
+    "question": "You want to check if your printer is working. Where can you find the printer settings?",
+    "options": [
+      "In the Start Menu > Settings",
+      "On the desktop wallpaper",
+      "By opening a browser",
+      "In Microsoft Paint"
+    ],
+    "answer": "In the Start Menu > Settings",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 7,
+    "question_id": 129,
+    "question": "If you accidentally open many windows, how can you quickly minimize all of them?",
+    "options": [
+      "Click “Show Desktop” on the taskbar",
+      "Restart the computer",
+      "Turn off the speakers",
+      "Delete a desktop icon"
+    ],
+    "answer": "Click “Show Desktop” on the taskbar",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 130,
+    "question": "Before shutting down, why should you close all programs properly?",
+    "options": [
+      "To prevent data loss and keep the computer safe",
+      "To charge the battery faster",
+      "To clean the screen",
+      "To refresh the wallpaper"
+    ],
+    "answer": "To prevent data loss and keep the computer safe",
     "image": null
   }
 ]

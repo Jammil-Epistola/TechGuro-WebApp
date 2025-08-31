@@ -29,22 +29,22 @@ const PreAssessment = () => {
   }, [user]);
 
   useEffect(() => {
-  fetch(`http://localhost:8000/assessment/questions/1?assessment_type=pre`)
-    .then(response => response.json())
-    .then(data => {
-      const formattedQuestions = data.map(q => ({
-        question_id: q.id,
-        question: q.text,
-        answer: q.correct_answer,
-        options: q.choices ? JSON.parse(q.choices) : []
-      }));
-      setQuestions(formattedQuestions);
-    })
-    .catch(error => console.error("Failed to load questions:", error));
-}, []);
+    fetch(`http://localhost:8000/assessment/questions/1?assessment_type=pre`)
+      .then(response => response.json())
+      .then(data => {
+        const formattedQuestions = data.map(q => ({
+          question_id: q.id,
+          question: q.text,
+          answer: q.correct_answer,
+          options: q.choices ? JSON.parse(q.choices) : []
+        }));
+        setQuestions(formattedQuestions);
+      })
+      .catch(error => console.error("Failed to load questions:", error));
+  }, []);
 
   const handleDialogueNext = () => {
-    if (dialogueStep === 1) {
+    if (dialogueStep === 2) {
       setStartTest(true);
     } else {
       setDialogueStep(dialogueStep + 1);
@@ -83,7 +83,7 @@ const PreAssessment = () => {
     const finalScore = calculateScore();
     setScore(finalScore);
     setIsSubmitting(true);
-    setIsGeneratingRecommendations(true); // Trigger UI message
+    setIsGeneratingRecommendations(true);
 
     const responses = questions.map((q, idx) => {
       const selected = selectedAnswers[idx];
@@ -107,32 +107,51 @@ const PreAssessment = () => {
       user_id: user?.user_id || 1,
       course_id: 1,
       assessment_type: "pre",
-      score: finalScore,
       responses: responses
     };
 
+    // Submit assessment first
     fetch("http://localhost:8000/assessment/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     })
       .then(res => res.json())
-      .then(() => {
-        return fetch("http://localhost:8000/bkt/update-from-pre", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: user?.user_id || 1, course_id: 1 })
-        });
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log("BKT Update Success:", data);
-        setTimeout(() => {
-          navigate(`/courses/${courseName}`, { replace: true });
-        }, 2500); // Delay to show animation
+      .then(async data => {
+        console.log("Pre-assessment submitted:", data);
+
+        // UPDATED: Process with BKT system to establish baseline mastery
+        try {
+          console.log("Processing BKT baseline mastery...");
+
+          const bktRes = await fetch(`http://localhost:8000/bkt/update-from-pre?user_id=${user?.user_id || 1}&course_id=1`, {
+            method: "POST"
+          });
+
+          if (!bktRes.ok) {
+            throw new Error(`BKT request failed: ${bktRes.status} ${bktRes.statusText}`);
+          }
+
+          const bktData = await bktRes.json();
+          console.log("BKT pre-assessment processing complete:", bktData);
+
+          // Show success and navigate after BKT processing
+          setTimeout(() => {
+            navigate(`/courses/${courseName}`, { replace: true });
+          }, 2000);
+
+        } catch (bktError) {
+          console.error('BKT pre-assessment processing failed:', bktError);
+
+          // Fallback: Navigate anyway but log the error
+          console.log("Continuing without BKT processing...");
+          setTimeout(() => {
+            navigate(`/courses/${courseName}`, { replace: true });
+          }, 2000);
+        }
       })
       .catch(error => {
-        console.error("Submission failed:", error);
+        console.error("Pre-assessment submission failed:", error);
         setIsSubmitting(false);
         setIsGeneratingRecommendations(false);
       });
@@ -154,26 +173,46 @@ const PreAssessment = () => {
           <div className="bg-white border border-black rounded-lg p-10 max-w-[1000px] w-full relative">
             <img src={Teki1} alt="Teki" className="w-[180px] h-[180px] absolute top-[-90px] right-[-90px]" />
             <h2 className="text-[32px] font-bold mb-6 text-left">Teki</h2>
-            <p className="text-[24px] text-justify mb-6">
+            <div className="text-[24px] text-justify mb-6">
               {dialogueStep === 0 && (
                 <>
                   Before you begin, please answer the following multiple-choice questions honestly.
                   This questionnaire helps us recommend the right lessons for you.
                 </>
               )}
+
+              {/* 🔹 New Step (BKT explanation) */}
               {dialogueStep === 1 && (
+                <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-md text-[20px] leading-relaxed">
+                  <p className="mb-2">
+                    We use the <strong>Bayesian Knowledge Tracing (BKT)</strong> model to measure your learning progress.
+                  </p>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li><strong>P(known)</strong>: Chance you already know a skill before answering.</li>
+                    <li><strong>P(will learn)</strong>: Chance you learn a skill after practicing.</li>
+                    <li><strong>P(slip)</strong>: Chance you answer wrong even if you know the skill.</li>
+                    <li><strong>P(guess)</strong>: Chance you answer right even if you don’t know it.</li>
+                  </ul>
+                  <p className="mt-2 text-sm text-gray-600">
+                    This helps us personalize your recommended lessons and track mastery growth.
+                  </p>
+                </div>
+              )}
+
+              {dialogueStep === 2 && (
                 <>
                   There is no time limit, so take your time and choose the answers that best reflect what you know.
                   Good luck!
                 </>
               )}
-            </p>
+            </div>
+
             <div className="flex justify-end mt-6">
               <button
                 onClick={handleDialogueNext}
                 className="px-8 py-4 bg-blue-500 text-white text-[20px] rounded hover:bg-blue-600 transition"
               >
-                {dialogueStep === 1 ? "Start Pre-Assessment" : "Next"}
+                {dialogueStep === 2 ? "Start Pre-Assessment" : "Next"}
               </button>
             </div>
           </div>
