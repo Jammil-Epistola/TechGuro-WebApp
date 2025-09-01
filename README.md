@@ -12,6 +12,9 @@ Local Host Set-up<br>
 DATABASE:<br>
   TGbackend/.env : DATABASE_URL=postgresql://postgres:[password]localhost:5432/techguro_db
   <br>
+ALEMBIC MIGRATION:<br>
+  alembic revision --autogenerate -m "Initial migration"<br>
+  alembic upgrade head<br>
 BACKEND:<br>
   cd TGbackend<br>
   venv\Scripts\activate<br>
