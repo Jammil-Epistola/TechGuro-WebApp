@@ -1,3 +1,4 @@
+#progressRoutes.py
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -189,8 +190,11 @@ def get_progress_with_recommendations(user_id: int, course_id: int, db: Session 
         len(completed_recommended) == len(recommended_lessons)
     )
 
-    # === Unlock logic ===
-    post_assessment_unlocked = all_recommended_done  # ✅ NEW FIELD
+    # ✅ FIXED: Post-assessment unlock logic
+    # Allow retry if they completed recommended lessons, regardless of previous attempts
+    # Only lock if they already passed (post_passed = True)
+    post_assessment_unlocked = all_recommended_done and not post_passed
+
     course_completed = all_recommended_done and post_passed
 
     return {
@@ -202,7 +206,7 @@ def get_progress_with_recommendations(user_id: int, course_id: int, db: Session 
         "post_assessment_completed": post_completed,
         "post_assessment_passed": post_passed,
         "course_completed": course_completed,
-        "post_assessment_unlocked": all_recommended_done and not post_completed,
+        "post_assessment_unlocked": post_assessment_unlocked, 
         "unlock_reason": None if all_recommended_done else "Complete all recommended lessons first!"
     }
 

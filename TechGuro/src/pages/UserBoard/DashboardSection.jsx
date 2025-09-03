@@ -45,12 +45,12 @@ const DashboardSection = () => {
   ];
 
   const courseLessonCounts = {
-    "Computer Basics": 15,
-    "File & Document Handling": 15,
-    "Office Tools & Typing Essentials": 15,
-    "Internet Safety": 15,
-    "Digital Communication": 15,
-    "Intro to Online Selling": 15
+    "Computer Basics": 8,
+    "File & Document Handling": 8,
+    "Office Tools & Typing Essentials": 8,
+    "Internet Safety": 8,
+    "Digital Communication": 8,
+    "Intro to Online Selling": 8
   };
 
   const unaccessedCourses = [

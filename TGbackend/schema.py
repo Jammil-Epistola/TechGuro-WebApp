@@ -1,5 +1,5 @@
 # TGbackend/schemas.py
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import List
 
 # -------------------------
@@ -19,6 +19,20 @@ class ProgressUpdate(BaseModel):
     lesson_id: int
     completed: bool = True
 
+# -------------------------
+# Milestone response
+# -------------------------
+class MilestoneEarnedOut(BaseModel):
+    id: int
+    title: str
+    description: str
+    exp_reward: int
+    icon_url: str
+    status: str
+
+    class Config:
+        orm_mode = True
+        
 # -------------------------
 # Question response (single answer in an assessment)
 # -------------------------

@@ -1,3 +1,4 @@
+//LessonPage.jsx
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CourseNavbar from "./courseNavbar";
@@ -15,8 +16,10 @@ const LessonPage = () => {
   const [lessonsData, setLessonsData] = useState(null);
   const [currentLesson, setCurrentLesson] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeSectionIndex, setActiveSectionIndex] = useState(0); // 0 = Recommended
+  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [recommendedLessons, setRecommendedLessons] = useState([]);
+  const [progressData, setProgressData] = useState(null);
+
 
   const formattedTitle = courseName.replace(/([A-Z])/g, " $1").trim();
 
@@ -32,7 +35,10 @@ const LessonPage = () => {
     // Fetch recommendations
     fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/1`)
       .then(res => res.json())
-      .then(data => setRecommendedLessons(data.recommended_lessons || []))
+      .then(data => {
+        setProgressData(data);
+        setRecommendedLessons(data.recommended_lessons || []);
+      })
       .catch(err => console.error("Failed to fetch recommendations:", err));
   }, [user]);
 
@@ -43,8 +49,8 @@ const LessonPage = () => {
     fetch(`http://localhost:8000/lessons/${lessonId}`)
       .then(res => res.json())
       .then(data => {
-        const normalizedSlides = normalizeSlides(data.slides || []);
-        setCurrentLesson({ ...data, slides: normalizedSlides });
+        const normalized = { ...data, slides: normalizeSlides(data.slides || []) };
+        setCurrentLesson(normalized);
       })
       .catch(err => console.error("Failed to load lesson detail:", err));
   }, [lessonId]);
@@ -64,11 +70,20 @@ const LessonPage = () => {
   const getAllLessonsInSection = () => {
     if (!lessonsData) return [];
     if (activeSectionIndex === 0) {
-      return lessonsData.units.flatMap((unit) =>
-        unit.lessons.filter((l) => recommendedLessons.includes(l.lesson_id))
+      
+      const lessonMap = new Map(
+        lessonsData.units.flatMap(u => u.lessons).map(l => [l.lesson_id, l])
       );
+
+      // Get recommended lessons and sort them by lesson_id
+      const recommendedLessonsData = recommendedLessons
+        .map(id => lessonMap.get(id))
+        .filter(Boolean)
+        .sort((a, b) => a.lesson_id - b.lesson_id);
+
+      return recommendedLessonsData;
     } else if (activeSectionIndex === lessonsData.units.length + 1) {
-      return []; // Activities placeholder
+      return [];
     } else {
       const unit = lessonsData.units[activeSectionIndex - 1];
       return unit?.lessons || [];
@@ -86,8 +101,8 @@ const LessonPage = () => {
       fetch(`http://localhost:8000/lessons/${nextLesson.lesson_id}`)
         .then(res => res.json())
         .then(data => {
-          const normalizedSlides = normalizeSlides(data.slides || []);
-          setCurrentLesson({ ...data, slides: normalizedSlides });
+          const normalized = { ...data, slides: normalizeSlides(data.slides || []) };
+          setCurrentLesson(normalized);
           setCurrentSlide(0);
         })
         .catch(err => console.error("Failed to load next lesson detail:", err));
@@ -110,7 +125,16 @@ const LessonPage = () => {
       }),
     })
       .then((res) => res.json())
-      .then(() => proceedToNextLesson())
+      .then(() => {
+        // 🔄 Refresh progress so button updates immediately
+        return fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/1`);
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setProgressData(data);
+        setRecommendedLessons(data.recommended_lessons || []);
+        proceedToNextLesson();
+      })
       .catch((err) => console.error("Failed to update progress:", err));
   };
 
@@ -118,7 +142,8 @@ const LessonPage = () => {
     fetch(`http://localhost:8000/lessons/${lesson.lesson_id}`)
       .then(res => res.json())
       .then(data => {
-        setCurrentLesson(data);
+        const normalized = { ...data, slides: normalizeSlides(data.slides || []) };
+        setCurrentLesson(normalized);
         setCurrentSlide(0);
       })
       .catch(err => console.error("Failed to load lesson detail:", err));
@@ -134,6 +159,10 @@ const LessonPage = () => {
     if (!lessonsData) return;
     const totalSections = lessonsData.units.length + 2;
     setActiveSectionIndex((prev) => (prev - 1 + totalSections) % totalSections);
+  };
+
+  const isLessonCompleted = (lessonId) => {
+    return progressData?.completed_lessons?.includes(lessonId);
   };
 
   if (!lessonsData || !currentLesson) {
@@ -236,13 +265,11 @@ const LessonPage = () => {
               <span className="text-gray-700">Media Placeholder</span>
             </div>
 
-            {/* ✅ Display content as bullet points */}
-            <ul className="list-disc list-inside space-y-2">
+            {/*Display content as bullet points */}
+            <ul className="list-disc pl-6 space-y-2">
               {slide.content.map((text, idx) => (
                 <li key={idx} className="text-lg text-justify">
-                  {typeof text === "string"
-                    ? text.replace(/[{}"]/g, "").replace(/"/g, "").trim()
-                    : text}
+                  {text}
                 </li>
               ))}
             </ul>
@@ -262,12 +289,21 @@ const LessonPage = () => {
             </button>
 
             {currentSlide === currentLesson.slides.length - 1 ? (
-              <button
-                onClick={markLessonComplete}
-                className="px-4 py-2 rounded-md font-semibold bg-[#B6C44D] text-black hover:bg-[#a5b83d]"
-              >
-                Mark Complete
-              </button>
+              isLessonCompleted(currentLesson.lesson_id) ? (
+                <button
+                  onClick={proceedToNextLesson}
+                  className="px-4 py-2 rounded-md font-semibold text-white bg-[#0077FF] hover:bg-[#17559D] active:bg-[#17559D]"
+                >
+                  Done Reviewing
+                </button>
+              ) : (
+                <button
+                  onClick={markLessonComplete}
+                  className="px-4 py-2 rounded-md font-semibold bg-[#B6C44D] text-black hover:bg-[#a5b83d]"
+                >
+                  Mark Complete
+                </button>
+              )
             ) : (
               <button
                 onClick={handleNextSlide}

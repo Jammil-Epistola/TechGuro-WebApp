@@ -4,46 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from TGbackend.database import engine
 from TGbackend.database import SessionLocal
 from TGbackend import models
-from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes
+from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes, milestoneRoutes
 
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
-
-def seed_milestones():
-    db = SessionLocal()
-    existing = db.query(models.Milestone).first()
-    if existing:
-        print("Milestones already seeded.")
-        db.close()
-        return
-
-    milestones = [
-        models.Milestone(
-            title="Welcome to TechGuro",
-            description="Sign in to TechGuro for the first time.",
-            exp_reward=10,
-            icon_url="placeholderimg"
-        ),
-        models.Milestone(
-            title="First Steps",
-            description="Choose a course and complete the Pre-Assessment.",
-            exp_reward=10,
-            icon_url="placeholderimg"
-        ),
-        models.Milestone(
-            title="First Lesson",
-            description="Complete your first lesson.",
-            exp_reward=10,
-            icon_url="placeholderimg"
-        )
-    ]
-
-    db.add_all(milestones)
-    db.commit()
-    db.close()
-    print("Milestones seeded successfully.")
-
-seed_milestones()
 
 # Initialize
 print("Before FastAPI instance")
@@ -71,6 +35,9 @@ app.include_router(userRoutes.router)
 
 # Progress tracking
 app.include_router(progressRoutes.router)
+
+#Milestones
+app.include_router(milestoneRoutes.router)
 
 # Lessons and courses
 app.include_router(lessonsRoutes.router)

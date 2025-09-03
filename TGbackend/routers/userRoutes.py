@@ -40,36 +40,6 @@ def check_level_up(user):
 
     return leveled_up
 
-# Helper: Award Milestone
-def award_milestone(user: models.User, milestone_title: str, db: Session):
-    # Find the milestone by title
-    milestone = db.query(models.Milestone).filter_by(title=milestone_title).first()
-    if not milestone:
-        return False  # Milestone not found, exit safely
-
-    # Check if user already earned it
-    existing = db.query(models.MilestoneEarned).filter_by(
-        user_id=user.id,
-        milestone_id=milestone.id
-    ).first()
-
-    if existing:
-        return False  # Already earned
-
-    # Award milestone
-    earned = models.MilestoneEarned(
-        user_id=user.id,
-        milestone_id=milestone.id,
-        earned_at=datetime.utcnow()
-    )
-    db.add(earned)
-
-    # Give EXP reward
-    user.exp += milestone.exp_reward
-
-    leveled_up = check_level_up(user)  # Reuse level-up logic
-    return True
-
 # Register endpoint
 @router.post("/register")
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
@@ -103,34 +73,6 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
     )
     is_elderly = age >= 60
 
-    # Award milestone: Welcome to TechGuro
-    milestone_awarded = False
-    leveled_up = False 
-
-    milestone = db.query(models.Milestone).filter_by(title="Welcome to TechGuro").first()
-
-    if milestone:
-        already_earned = db.query(models.MilestoneEarned).filter_by(
-            user_id=db_user.id,
-            milestone_id=milestone.id
-        ).first()
-
-        if not already_earned:
-            new_earned = models.MilestoneEarned(
-                user_id=db_user.id,
-                milestone_id=milestone.id,
-                earned_at=datetime.utcnow()
-            )
-            db.add(new_earned)
-            db_user.exp += milestone.exp_reward  # ✅ Use exp_reward from model
-            milestone_awarded = True
-
-            # Level up check
-            leveled_up = check_level_up(db_user)
-            db.commit()
-    else:
-        raise HTTPException(status_code=500, detail="Milestone 'Welcome to TechGuro' not found in database")
-
     return {
         "user_id": db_user.id,
         "username": db_user.username,
@@ -139,8 +81,6 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         "is_elderly": is_elderly,
         "exp": db_user.exp,
         "level": db_user.level,
-        "milestone_awarded": milestone_awarded,
-        "leveled_up": leveled_up
     }
 
 # -------------------------
@@ -179,11 +119,3 @@ def clear_all_user_data(user_id: int, db: Session = Depends(get_db)):
         "reset_fields": {"exp": 0, "level": 1},
         "user_id": user_id
     }
-
-# -------------------------
-# Milestones
-# -------------------------
-@router.get("/milestones/{user_id}")
-def get_earned_milestones(user_id: int, db: Session = Depends(get_db)):
-    earned = db.query(models.MilestoneEarned).filter(models.MilestoneEarned.user_id == user_id).all()
-    return earned

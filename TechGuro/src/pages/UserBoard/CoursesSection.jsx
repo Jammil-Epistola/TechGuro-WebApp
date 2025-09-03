@@ -11,7 +11,6 @@ import {
 } from "react-icons/fa";
 import { useUser } from "../../context/UserContext";
 
-// --- added: match DashboardSection helpers ---
 const COURSES = [
   "Computer Basics",
   "File & Document Handling",
@@ -22,19 +21,18 @@ const COURSES = [
 ];
 
 const courseLessonCounts = {
-  "Computer Basics": 15,
-  "File & Document Handling": 15,
-  "Office Tools & Typing Essentials": 15,
-  "Internet Safety": 15,
-  "Digital Communication": 15,
-  "Intro to Online Selling": 15,
+  "Computer Basics": 8,
+  "File & Document Handling": 8,
+  "Office Tools & Typing Essentials": 8,
+  "Internet Safety": 8,
+  "Digital Communication": 8,
+  "Intro to Online Selling": 8,
 };
 
 const getCourseName = (courseId) => {
   const index = courseId - 1;
   return COURSES[index] || "Unknown Course";
 };
-// --- end added ---
 
 const CoursesSection = () => {
   const navigate = useNavigate();

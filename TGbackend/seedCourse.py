@@ -12,7 +12,7 @@ BASE_LESSON_IMG_PATH = "/images/lessons/"
 # Create tables if they don't exist
 Base.metadata.create_all(bind=engine)
 
-SEED_FOLDER = os.path.join(os.path.dirname(__file__), "seed_data")
+SEED_FOLDER = os.path.join(os.path.dirname(__file__), "seed_course_data")
 
 
 def add_image_path(filename: str, base_path: str) -> str:
