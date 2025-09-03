@@ -26,5 +26,7 @@ FRONTEND:<br>
   npm run dev<br>
   <br>
 DATABASE SEED:<br>
-  python -m TGbackend.seedCourse<br>
+  python -m TGbackend.seeders.seedCourse<br>
+  python -m TGbackend.seeders.seedMilestone<br>
+
 
