@@ -20,7 +20,6 @@ const DashboardSection = () => {
   const [selectedCourse, setSelectedCourse] = useState("Computer Basics");
   const [selectedAssessment, setSelectedAssessment] = useState("Pre-Assessment");
   const [recommended, setRecommended] = useState([]);
-  const [carouselIndex, setCarouselIndex] = useState(0);
   const [courseProgress, setCourseProgress] = useState({});
   const [overallProgress, setOverallProgress] = useState(0);
 
@@ -32,6 +31,14 @@ const DashboardSection = () => {
   const [modalResponses, setModalResponses] = useState([]);
   const [loadingModal, setLoadingModal] = useState(false);
   const [modalError, setModalError] = useState(null);
+  //Milestones
+  const [milestones, setMilestones] = useState([]);
+  const [milestonesLoading, setMilestonesLoading] = useState(true);
+  const [milestonesError, setMilestonesError] = useState(null);
+
+  // Loading states
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -67,76 +74,117 @@ const DashboardSection = () => {
     setRecommended(shuffled.slice(0, 3));
   }, []);
 
-  // Fetch course progress and assessments when user changes
-  useEffect(() => {
-    const fetchProgress = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/progress/${user.user_id}`
-        );
-        const data = await response.json();
+  // Centralized data fetching function
+  const fetchAllDashboardData = async () => {
+    if (!user?.user_id) return;
 
-        const completedPerCourse = {};
-        data.forEach(entry => {
-          if (entry.completed) {
-            const courseName = getCourseName(entry.course_id);
-            if (completedPerCourse[courseName]) {
-              completedPerCourse[courseName] += 1;
-            } else {
-              completedPerCourse[courseName] = 1;
-            }
-          }
-        });
+    setIsLoading(true);
+    setFetchError(null);
 
-        const progressPercents = {};
-        let totalCompleted = 0;
-        let totalLessons = 0;
+    try {
+      const baseURL = import.meta.env.VITE_API_URL;
+      
+      // Execute all fetch operations in parallel
+      const [progressResponse, assessmentsResponse, milestonesResponse] = await Promise.all([
+        fetch(`${baseURL}/progress/${user.user_id}`),
+        fetch(`${baseURL}/assessment/${user.user_id}`),
+        fetch(`${baseURL}/milestones/earned/${user.user_id}`)
+      ]);
 
-        Object.keys(courseLessonCounts).forEach(course => {
-          const completed = completedPerCourse[course] || 0;
-          const total = courseLessonCounts[course];
-          const percent = Math.round((completed / total) * 100);
-          progressPercents[course] = percent;
-          totalCompleted += completed;
-          totalLessons += total;
-        });
+      // Check if all responses are successful
+      const responses = [
+        { name: 'progress', response: progressResponse },
+        { name: 'assessments', response: assessmentsResponse },
+        { name: 'milestones', response: milestonesResponse }
+      ];
 
-        const overall = Math.round((totalCompleted / totalLessons) * 100);
-        setCourseProgress(progressPercents);
-        setOverallProgress(overall);
-      } catch (error) {
-        console.error("Failed to fetch progress data:", error);
+      const failedRequests = responses.filter(r => !r.response.ok);
+      if (failedRequests.length > 0) {
+        const failedNames = failedRequests.map(r => r.name).join(', ');
+        throw new Error(`Failed to fetch: ${failedNames}`);
       }
-    };
 
-    const fetchAssessments = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/assessment/${user.user_id}`);
-        const data = await res.json();
-        setAssessments(data);
-      } catch (error) {
-        console.error("Error fetching assessments:", error);
-        setAssessments([]);
-      }
-    };
+      // Parse all responses in parallel
+      const [progressData, assessmentsData, milestonesData] = await Promise.all([
+        progressResponse.json(),
+        assessmentsResponse.json(),
+        milestonesResponse.json()
+      ]);
 
-    if (user?.user_id) {
-      fetchProgress();
-      fetchAssessments();
+      // Process progress data
+      processProgressData(progressData);
+
+      // Set assessments data
+      setAssessments(Array.isArray(assessmentsData) ? assessmentsData : []);
+
+      // Process milestones data
+      processMilestonesData(milestonesData);
+
+    } catch (error) {
+      console.error("Failed to fetch dashboard data:", error);
+      setFetchError(error.message);
+      
+      // Set default values on error
+      setCourseProgress({});
+      setOverallProgress(0);
+      setAssessments([]);
+      setMilestones([]);
+      setMilestonesError(error.message);
+    } finally {
+      setIsLoading(false);
+      setMilestonesLoading(false);
     }
+  };
+
+  // Helper function to process progress data
+  const processProgressData = (data) => {
+    const completedPerCourse = {};
+    data.forEach(entry => {
+      if (entry.completed) {
+        const courseName = getCourseName(entry.course_id);
+        if (completedPerCourse[courseName]) {
+          completedPerCourse[courseName] += 1;
+        } else {
+          completedPerCourse[courseName] = 1;
+        }
+      }
+    });
+
+    const progressPercents = {};
+    let totalCompleted = 0;
+    let totalLessons = 0;
+
+    Object.keys(courseLessonCounts).forEach(course => {
+      const completed = completedPerCourse[course] || 0;
+      const total = courseLessonCounts[course];
+      const percent = Math.round((completed / total) * 100);
+      progressPercents[course] = percent;
+      totalCompleted += completed;
+      totalLessons += total;
+    });
+
+    const overall = Math.round((totalCompleted / totalLessons) * 100);
+    setCourseProgress(progressPercents);
+    setOverallProgress(overall);
+  };
+
+  // Helper function to process milestones data
+  const processMilestonesData = (data) => {
+    // Sort milestones by date_earned if available
+    const sorted = [...data].sort((a, b) =>
+      new Date(b.date_earned) - new Date(a.date_earned)
+    );
+    setMilestones(sorted);
+  };
+
+  // Fetch all data when user changes
+  useEffect(() => {
+    fetchAllDashboardData();
   }, [user]);
 
   const getCourseName = (courseId) => {
     const index = courseId - 1;
     return courses[index] || "Unknown Course";
-  };
-
-  const handlePrev = () => {
-    setCarouselIndex((prev) => (prev === 0 ? 3 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCarouselIndex((prev) => (prev === 3 ? 0 : prev + 1));
   };
 
   // Extract pre and post assessment scores for the selected course
@@ -181,69 +229,127 @@ const DashboardSection = () => {
     (selectedAssessment === "Pre-Assessment" ? preAssessment : postAssessment)
   );
 
-  // Dynamic units instead of hardcoded 18
-  const totalUnits = Object.values(courseLessonCounts).reduce((a, b) => a + b, 0);
-  const completedUnits = Math.round((overallProgress / 100) * totalUnits);
+  const calculateAverageScores = () => {
+    const courseAverages = {};
+    const courseColors = [
+      "#4C5173", "#6B708D", "#8E8FAD", "#A5A6C4", "#B8B9D1", "#CBCCDE"
+    ];
 
-  const carouselContent = [
-    <div className="w-full text-center" key="score-improvement">
-      <h4 className="text-lg font-semibold mb-2">Score Improvement</h4>
-      <Bar data={barData} options={barOptions} className="mx-auto max-w-xs" />
-    </div>,
-    <div className="w-full text-center" key="lessons-completed">
-      <h4 className="text-lg font-semibold mb-2">Lessons Completed</h4>
-      <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden mb-2">
-        <div className="bg-[#4C5173] h-full" style={{ width: `${overallProgress}%` }}></div>
-      </div>
-      <p>{overallProgress}% of lessons completed</p>
-    </div>,
-    <div className="w-full text-center" key="time-spent">
-      <h4 className="text-lg font-semibold mb-2">Time Spent Learning</h4>
-      <div className="w-32 h-32 mx-auto">
-        <Doughnut data={donutData} />
-      </div>
-      <p className="mt-2">{Math.round(overallProgress / 10)} hrs spent</p>
-    </div>,
-    <div className="w-full text-center" key="units-completed">
-      <h4 className="text-lg font-semibold mb-2">Units Completed</h4>
-      <p className="text-xl font-bold">{completedUnits} / {totalUnits} Units</p>
-    </div>
-  ];
+    courses.forEach((courseName, index) => {
+      const courseId = index + 1;
+      const courseAssessments = assessments.filter(a => a.course_id === courseId);
+
+      if (courseAssessments.length > 0) {
+        // Calculate average of all assessments for this course
+        const totalScore = courseAssessments.reduce((sum, assessment) => sum + assessment.score, 0);
+        const totalPossible = courseAssessments.reduce((sum, assessment) => sum + (assessment.total || 20), 0);
+        const averagePercentage = Math.round((totalScore / totalPossible) * 100);
+
+        courseAverages[courseName] = {
+          percentage: averagePercentage,
+          color: courseColors[index % courseColors.length]
+        };
+      }
+    });
+
+    return courseAverages;
+  };
+
+  const averageScores = calculateAverageScores();
+  const hasAverageData = Object.keys(averageScores).length > 0;
+
+  const averageDonutData = hasAverageData ? {
+    labels: Object.keys(averageScores),
+    datasets: [{
+      data: Object.values(averageScores).map(course => course.percentage),
+      backgroundColor: Object.values(averageScores).map(course => course.color),
+      borderWidth: 2,
+      borderColor: '#fff'
+    }]
+  } : {
+    labels: ['No Data'],
+    datasets: [{
+      data: [100],
+      backgroundColor: ['#E5E5E5']
+    }]
+  };
+
+  const averageDonutOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          usePointStyle: true,
+          padding: 15,
+          font: {
+            size: 12
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return `${context.label}: ${context.parsed}%`;
+          }
+        }
+      }
+    }
+  };
 
   // Modal functions
   const openResultsModal = async () => {
     setShowModal(true);
     setLoadingModal(true);
     setModalError(null);
+    setModalQuestions([]);
+    setModalResponses([]);
 
     try {
       const courseId = courses.indexOf(selectedCourse) + 1;
-      const assessmentType = selectedAssessment.toLowerCase();
+      const rawType = (selectedAssessment || "").toLowerCase();
+      const assessmentType = rawType.startsWith("pre") ? "pre" : rawType.startsWith("post") ? "post" : rawType;
 
-      const questionsRes = await fetch(
-        `${import.meta.env.VITE_API_URL}/assessment/questions/${courseId}?assessment_type=${assessmentType}`
-      );
-      if (!questionsRes.ok) throw new Error("Failed to fetch questions");
+      // 1) fetch user assessments summary
+      const assessRes = await fetch(`${import.meta.env.VITE_API_URL}/assessment/${user.user_id}`);
+      if (!assessRes.ok) throw new Error(`Failed to fetch assessments (${assessRes.status})`);
+      const assessAll = await assessRes.json();
+
+      // filter by course & type and pick latest by date (or id if date missing)
+      const matches = (assessAll || []).filter(a => a.course_id === courseId && (a.assessment_type === assessmentType || a.assessment_type === assessmentType[0] /* tolerate 'pre'/'post' vs 'p' */));
+      if (!matches.length) {
+        setModalError(`No ${selectedAssessment} found for ${selectedCourse}.`);
+        return;
+      }
+      const latest = matches.sort((a, b) => {
+        const ta = new Date(a.date_taken || a.date || 0).getTime();
+        const tb = new Date(b.date_taken || b.date || 0).getTime();
+        if (ta === tb) return (b.id || 0) - (a.id || 0);
+        return tb - ta;
+      })[0];
+
+      // 2) fetch questions for this course/type
+      const questionsRes = await fetch(`${import.meta.env.VITE_API_URL}/assessment/questions/${courseId}?assessment_type=${assessmentType}`);
+      if (!questionsRes.ok) throw new Error("Failed to fetch questions for this assessment");
       const questions = await questionsRes.json();
 
-      const assessmentResult = assessments.find(
-        a => a.course_id === courseId && a.assessment_type === assessmentType
-      );
-      if (!assessmentResult) {
-        throw new Error("No assessment result found");
+      // 3) fetch responses for the latest assessment
+      const responsesRes = await fetch(`${import.meta.env.VITE_API_URL}/assessment/responses/${latest.id}`);
+      if (!responsesRes.ok) {
+        // if responses not ready, show questions but inform user
+        setModalQuestions(Array.isArray(questions) ? questions : []);
+        setModalResponses([]);
+        setModalError("Responses not available yet for the latest assessment.");
+        return;
       }
-
-      const responsesRes = await fetch(
-        `${import.meta.env.VITE_API_URL}/assessment/responses/${assessmentResult.id}`
-      );
-      if (!responsesRes.ok) throw new Error("Responses not available yet");
       const responses = await responsesRes.json();
 
-      setModalQuestions(questions);
-      setModalResponses(responses);
+      setModalQuestions(Array.isArray(questions) ? questions : []);
+      setModalResponses(Array.isArray(responses) ? responses : []);
     } catch (err) {
-      console.error(err);
-      setModalError(err.message);
+      console.error("openResultsModal error:", err);
+      setModalError(err.message || "Failed to load assessment results");
       setModalQuestions([]);
       setModalResponses([]);
     } finally {
@@ -257,6 +363,36 @@ const DashboardSection = () => {
     setModalResponses([]);
     setModalError(null);
   };
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="bg-[#DFDFEE] min-h-screen p-6 text-black text-[18px] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#4C5173] mx-auto mb-4"></div>
+          <p className="text-[20px] font-semibold">Loading Dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (fetchError) {
+    return (
+      <div className="bg-[#DFDFEE] min-h-screen p-6 text-black text-[18px] flex items-center justify-center">
+        <div className="text-center bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded">
+          <h2 className="text-[20px] font-bold mb-2">Error Loading Dashboard</h2>
+          <p className="mb-4">{fetchError}</p>
+          <button
+            onClick={fetchAllDashboardData}
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#DFDFEE] min-h-screen p-6 text-black text-[18px]">
@@ -297,13 +433,23 @@ const DashboardSection = () => {
           <h2 className="text-[20px] font-bold mb-4 text-left">Recent Milestones:</h2>
 
           <div className="flex flex-col items-center justify-center flex-1">
-            <img
-              src={placeholderimg}
-              alt="Milestone"
-              className="w-20 h-20 rounded-full border border-black mb-2"
-            />
-            <p className="text-[18px] font-semibold">Welcome to TechGuro</p>
-            <p className="text-sm text-gray-600">Click to view achievements</p>
+            {milestonesLoading ? (
+              <p>Loading milestones...</p>
+            ) : milestonesError ? (
+              <p className="text-red-600">Error loading milestones</p>
+            ) : milestones.length === 0 ? (
+              <p className="text-[18px] font-semibold">No Milestones Achieved at the moment</p>
+            ) : (
+              <>
+                <img
+                  src={milestones[0].icon_url || placeholderimg}
+                  alt="Milestone"
+                  className="w-20 h-20 rounded-full border border-black mb-2"
+                />
+                <p className="text-[18px] font-semibold">{milestones[0].title}</p>
+                <p className="text-sm text-gray-600">{milestones[0].description || "Click to view achievements"}</p>
+              </>
+            )}
           </div>
         </div>
         {/* Assessment Scores */}
@@ -341,7 +487,6 @@ const DashboardSection = () => {
       <div className="mt-8 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6">
         <h2 className="text-[20px] font-bold mb-4">Your Performance:</h2>
 
-        {/* Row with TechGuro Progression and Learning Growth side by side */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           {/* TechGuro Progression */}
           <div className="flex-1 border border-black rounded-md p-4 flex flex-col items-center justify-center">
@@ -361,26 +506,50 @@ const DashboardSection = () => {
             <p className="text-center text-[#4C5173] mt-2">TechGuro Progress</p>
           </div>
 
-          {/* Learning Growth Carousel */}
-          <div className="flex-1 border border-black rounded-md p-4 relative flex flex-col items-center justify-center w-[444.5px] h-[277px]">
-            <h3 className="font-semibold text-lg mb-4">Learning Growth</h3>
-            <div className="w-full h-full flex items-center justify-center">
-              {carouselContent[carouselIndex]}
-            </div>
+          {/* Learning Growth*/}
+          <div className="flex-1 border border-black rounded-md p-4 flex flex-col">
+            <h3 className="font-semibold text-lg mb-4 text-center">Learning Growth</h3>
 
-            {/* Carousel Arrow Buttons - centered vertically and larger */}
-            <button onClick={handlePrev}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-[#4C5173] font-bold text-3xl px-2 py-1 rounded hover:bg-gray-200">
-              &lt;
-            </button>
-            <button onClick={handleNext}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#4C5173] font-bold text-3xl px-2 py-1 rounded hover:bg-gray-200">
-              &gt;
-            </button>
+            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+              {/* Score Improvement*/}
+              <div className="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-4">
+                <h4 className="text-md font-semibold mb-3 text-center">Score Improvement</h4>
+                <div className="w-full max-w-[200px]">
+                  <Bar data={barData} options={barOptions} />
+                </div>
+                <div className="mt-2 text-sm text-center">
+                  <p className="text-gray-600">Course: {selectedCourse}</p>
+                  <p className="font-medium">
+                    {postScore > 0
+                      ? postScore - preScore >= 0
+                        ? `Improvement: +${postScore - preScore}`
+                        : `Change: ${postScore - preScore}`
+                      : 'No post-assessment yet'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Average Assessment Score*/}
+              <div className="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-4">
+                <h4 className="text-md font-semibold mb-3 text-center">Average Assessment Score</h4>
+                <div className="w-full max-w-[180px] h-[140px]">
+                  <Doughnut data={averageDonutData} options={averageDonutOptions} />
+                </div>
+                <div className="mt-2 text-sm text-center">
+                  {hasAverageData ? (
+                    <p className="text-gray-600">
+                      Overall Performance: {Math.round(Object.values(averageScores).reduce((sum, course) => sum + course.percentage, 0) / Object.keys(averageScores).length)}%
+                    </p>
+                  ) : (
+                    <p className="text-gray-500">Take assessments to see your performance</p>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Course Progression below */}
+        {/* Course Progression*/}
         <div className="border border-black rounded-md p-4">
           <h3 className="font-semibold text-lg mb-4 text-center">Course Progression</h3>
           <div className="grid md:grid-cols-2 gap-4 max-h-[300px] overflow-y-auto pr-2">
@@ -414,7 +583,7 @@ const DashboardSection = () => {
 
       {/* Modal for Assessment Details */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-100">
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto p-6 relative">
             <button
               onClick={closeResultsModal}
@@ -427,19 +596,41 @@ const DashboardSection = () => {
             </h2>
 
             {loadingModal && <p>Loading assessment details...</p>}
-            {modalError && <p className="text-red-600">Error: {modalError}</p>}
+
+            {!loadingModal && modalError && (
+              <div className="text-red-600 mb-4">
+                <p>{modalError}</p>
+              </div>
+            )}
+
+            {!loadingModal && !modalError && modalQuestions.length === 0 && (
+              <p>No questions found for this assessment.</p>
+            )}
 
             {!loadingModal && !modalError && modalQuestions.length > 0 && (
               <div>
                 {modalQuestions.map((q) => {
-                  const userResp = modalResponses.find(r => r.question_id === q.id);
+                  // safely get choices (either array or JSON string)
+                  let choices = [];
+                  try {
+                    choices = Array.isArray(q.choices)
+                      ? q.choices
+                      : q.choices
+                        ? JSON.parse(q.choices)
+                        : [];
+                  } catch (e) {
+                    choices = [];
+                  }
+
+                  const userResp = modalResponses.find(r => r.question_id === q.id || r.question_id === q.question_id);
+
                   return (
                     <div key={q.id} className="mb-4 border-b border-gray-300 pb-2">
-                      <p className="font-semibold">{q.text}</p>
+                      <p className="font-semibold">{q.text || q.question || q.question_text}</p>
                       <ul className="list-disc list-inside">
-                        {q.choices.map((choice, idx) => {
-                          const isCorrectAnswer = choice === q.correct_answer;
-                          const isUserChoice = userResp && choice === userResp.selected_choice;
+                        {choices.map((choice, idx) => {
+                          const isCorrectAnswer = choice === (q.correct_answer || q.answer || q.correct);
+                          const isUserChoice = userResp && (choice === (userResp.selected_choice || userResp.user_answer));
                           return (
                             <li
                               key={idx}
@@ -453,7 +644,7 @@ const DashboardSection = () => {
                         })}
                       </ul>
                       <p className="text-sm text-gray-600 mt-1">
-                        {userResp?.selected_choice ? (
+                        {userResp?.selected_choice || userResp?.user_answer ? (
                           <span>
                             Your answer was:{" "}
                             <span className={userResp.is_correct ? "text-green-600" : "text-red-600"}>

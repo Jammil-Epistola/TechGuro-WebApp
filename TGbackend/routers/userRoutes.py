@@ -65,6 +65,26 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if not db_user or not pwd_context.verify(user.password, db_user.password_hash):
         raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    # -------------------------
+    # Award Milestone #1: "Welcome to TechGuro!"
+    # -------------------------
+    earned = db.query(models.MilestoneEarned).filter(
+        models.MilestoneEarned.user_id == db_user.id,
+        models.MilestoneEarned.milestone_id == 1
+    ).first()
+
+    if not earned:
+        milestone_earned = models.MilestoneEarned(user_id=db_user.id, milestone_id=1)
+        db.add(milestone_earned)
+
+        # Check milestone rewards
+        milestone = db.query(models.Milestone).filter(models.Milestone.id == 1).first()
+        if milestone and milestone.exp_reward:
+            db_user.exp += milestone.exp_reward
+            check_level_up(db_user)
+
+        db.commit()
 
     # Calculate age
     today = date.today()

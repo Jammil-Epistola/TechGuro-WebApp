@@ -20,33 +20,30 @@ def save_assessment_and_responses(data: schema.AssessmentSubmission, db: Session
     """
     Saves assessment responses, computes score, returns (score, total, responses_to_save)
     """
-
-    # Hardcoded question -> lesson mapping for Computer Basics (customize if needed)
-    question_lesson_map = {
-        1: 1, 2: 1, 3: 2, 4: 2, 5: 2, 6: 3, 7: 3, 8: 4,
-        9: 4, 10: 6, 11: 5, 12: 6, 13: 5, 14: 7, 15: 8
-    }
-
     total = len(data.responses)
     correct = 0
     responses_to_save = []
 
     for r in data.responses:
-        if r.is_correct:
+        # Fetch the question from DB
+        question = db.query(Question).filter(Question.id == r.question_id).first()
+
+        # Mark correct if user’s choice matches
+        is_correct = (r.selected_choice == question.correct_answer)
+        if is_correct:
             correct += 1
 
-        lesson_id = question_lesson_map.get(r.question_id, None)
         response_obj = AssessmentQuestionResponse(
             user_id=data.user_id,
             question_id=r.question_id,
-            selected_choice=r.selected_choice,  # FIX: Save the selected_choice from request
-            is_correct=r.is_correct,
-            lesson_id=lesson_id,
-            assessment_id=None 
+            selected_choice=r.selected_choice,
+            is_correct=is_correct,
+            lesson_id=question.lesson_id,   # pulled from DB
+            assessment_id=None              # link if needed later
         )
         responses_to_save.append(response_obj)
 
-    # Score should be raw count of correct answers (not percentage)
+    # Raw correct count
     score = correct
     return score, total, responses_to_save
 
@@ -105,7 +102,7 @@ def get_assessment_responses(assessment_id: int, db: Session = Depends(get_db)):
             "user_id": r.user_id,
             "assessment_id": r.assessment_id,
             "question_id": r.question_id,
-            "selected_choice": r.selected_choice,  # FIX: Include selected_choice in response
+            "selected_choice": r.selected_choice,  
             "is_correct": r.is_correct,
             "lesson_id": r.lesson_id,
             "timestamp": r.timestamp.isoformat()
@@ -176,6 +173,7 @@ def submit_assessment(data: schema.AssessmentSubmission, db: Session = Depends(g
         # 4. EVENT-DRIVEN: Immediately trigger BKT updates with enhanced logic
         if data.assessment_type == "pre":
             bkt_result = teki_bkt.update_from_pre(user_id=data.user_id, course_id=data.course_id, db=db)
+
         elif data.assessment_type == "post":
             bkt_result = teki_bkt.update_from_post(user_id=data.user_id, course_id=data.course_id, db=db)
             _persist_post_eligibility(result, bkt_result, db)   
@@ -208,12 +206,6 @@ def submit_assessment(data: schema.AssessmentSubmission, db: Session = Depends(g
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Assessment submission failed: {str(e)}")
 
-
-@router.get("/assessment/{user_id}")
-def get_assessments(user_id: int, db: Session = Depends(get_db)):
-    results = db.query(AssessmentResults).filter(AssessmentResults.user_id == user_id).all()
-    return results
-
 @router.get("/assessment/check/{user_id}/{course_id}")
 def check_pre_assessment(user_id: int, course_id: int, db: Session = Depends(get_db)):
     pre = db.query(AssessmentResults).filter(
@@ -222,6 +214,12 @@ def check_pre_assessment(user_id: int, course_id: int, db: Session = Depends(get
         AssessmentResults.assessment_type == "pre"
     ).first()
     return {"taken": pre is not None}
+
+@router.get("/assessment/{user_id}")
+def get_assessments(user_id: int, db: Session = Depends(get_db)):
+    results = db.query(AssessmentResults).filter(AssessmentResults.user_id == user_id).all()
+    return results
+
 
 # ----------------------------
 # SIMPLIFIED: Read-Only Recommendation Routes

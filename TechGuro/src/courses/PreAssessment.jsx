@@ -22,7 +22,7 @@ const PreAssessment = () => {
       .then(res => res.json())
       .then(data => {
         if (data.taken) {
-          navigate(`/courses/${courseName}`, { replace: true }); // Avoid flash
+          navigate(`/courses/${courseName}`, { replace: true }); 
         }
       })
       .catch(err => console.error("Failed to check pre-assessment:", err));
