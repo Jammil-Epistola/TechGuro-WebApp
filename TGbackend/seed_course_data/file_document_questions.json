@@ -1,0 +1,582 @@
+[
+    {
+        "question_id": 201,
+        "course_id": 2,
+        "lesson_id": 1,
+        "assessment_type": "pre",
+        "question_text": "What is a 'file' on a computer?",
+        "options": [
+            "A physical paper",
+            "A piece of digital information stored on a device",
+            "A part of the keyboard"
+        ],
+        "answer": "A piece of digital information stored on a device",
+        "image": null
+    },
+    {
+        "question_id": 202,
+        "course_id": 2,
+        "lesson_id": 1,
+        "assessment_type": "pre",
+        "question_text": "Which icon usually represents a 'folder' on the computer?",
+        "options": [
+            "Recycle Bin",
+            "Folder",
+            "Desktop"
+        ],
+        "answer": "Folder",
+        "image": "folder_icon.png"
+    },
+    {
+        "question_id": 203,
+        "course_id": 2,
+        "lesson_id": 1,
+        "assessment_type": "pre",
+        "question_text": "How do you create a new folder?",
+        "options": [
+            "Right-click and choose 'New Folder'",
+            "Press Enter key",
+            "Click the Close button"
+        ],
+        "answer": "Right-click and choose 'New Folder'",
+        "image": null
+    },
+    {
+        "question_id": 204,
+        "course_id": 2,
+        "lesson_id": 2,
+        "assessment_type": "pre",
+        "question_text": "What is one way to copy a file to another folder?",
+        "options": [
+            "Right-click > Copy, then Paste",
+            "Press Delete key",
+            "Drag file to Recycle Bin"
+        ],
+        "answer": "Right-click > Copy, then Paste",
+        "image": null
+    },
+    {
+        "question_id": 205,
+        "course_id": 2,
+        "lesson_id": 2,
+        "assessment_type": "pre",
+        "question_text": "You want to move a file to another folder. What should you do?",
+        "options": [
+            "Drag and drop the file to the folder",
+            "Press Esc key",
+            "Restart the computer"
+        ],
+        "answer": "Drag and drop the file to the folder",
+        "image": null
+    },
+    {
+        "question_id": 206,
+        "course_id": 2,
+        "lesson_id": 2,
+        "assessment_type": "pre",
+        "question_text": "What happens when you delete a file?",
+        "options": [
+            "It disappears forever immediately",
+            "It moves to the Recycle Bin",
+            "It goes to Downloads"
+        ],
+        "answer": "It moves to the Recycle Bin",
+        "image": null
+    },
+    {
+        "question_id": 207,
+        "course_id": 2,
+        "lesson_id": 3,
+        "assessment_type": "pre",
+        "question_text": "Which shortcut is commonly used to save a file?",
+        "options": [
+            "Ctrl + S",
+            "Ctrl + C",
+            "Alt + F4"
+        ],
+        "answer": "Ctrl + S",
+        "image": null
+    },
+    {
+        "question_id": 208,
+        "course_id": 2,
+        "lesson_id": 3,
+        "assessment_type": "pre",
+        "question_text": "What happens when you rename a file?",
+        "options": [
+            "The file gets a new name",
+            "The file is deleted permanently",
+            "The file moves to another folder automatically"
+        ],
+        "answer": "The file gets a new name",
+        "image": null
+    },
+    {
+        "question_id": 209,
+        "course_id": 2,
+        "lesson_id": 4,
+        "assessment_type": "pre",
+        "question_text": "Which file extension is used for photos?",
+        "options": [
+            ".jpg",
+            ".docx",
+            ".mp3"
+        ],
+        "answer": ".jpg",
+        "image": null
+    },
+    {
+        "question_id": 210,
+        "course_id": 2,
+        "lesson_id": 4,
+        "assessment_type": "pre",
+        "question_text": "Which program would you use to open a .pdf file?",
+        "options": [
+            "WordPad",
+            "PDF Reader or browser",
+            "Calculator"
+        ],
+        "answer": "PDF Reader or browser",
+        "image": null
+    },
+    {
+        "question_id": 211,
+        "course_id": 2,
+        "lesson_id": 4,
+        "assessment_type": "pre",
+        "question_text": "What does a file extension like '.docx' or '.jpg' tell you?",
+        "options": [
+            "The file type",
+            "The file size",
+            "The folder name"
+        ],
+        "answer": "The file type",
+        "image": null
+    },
+    {
+        "question_id": 212,
+        "course_id": 2,
+        "lesson_id": 5,
+        "assessment_type": "pre",
+        "question_text": "Why do people convert Word files into PDF format?",
+        "options": [
+            "To keep formatting the same",
+            "To change text into music",
+            "To delete the file faster"
+        ],
+        "answer": "To keep formatting the same",
+        "image": null
+    },
+    {
+        "question_id": 213,
+        "course_id": 2,
+        "lesson_id": 5,
+        "assessment_type": "pre",
+        "question_text": "Which option correctly converts a Word document to PDF?",
+        "options": [
+            "File > Save As > PDF",
+            "File > Delete",
+            "Right-click > Rename"
+        ],
+        "answer": "File > Save As > PDF",
+        "image": null
+    },
+    {
+        "question_id": 214,
+        "course_id": 2,
+        "lesson_id": 6,
+        "assessment_type": "pre",
+        "question_text": "Where can you type a file name to quickly find it?",
+        "options": [
+            "In the File Explorer search bar",
+            "In the Recycle Bin",
+            "In the wallpaper settings"
+        ],
+        "answer": "In the File Explorer search bar",
+        "image": null
+    },
+    {
+        "question_id": 215,
+        "course_id": 2,
+        "lesson_id": 6,
+        "assessment_type": "pre",
+        "question_text": "Which search method would help you find all Word documents?",
+        "options": [
+            "Search for '.docx'",
+            "Open every folder manually",
+            "Restart the computer"
+        ],
+        "answer": "Search for '.docx'",
+        "image": null
+    },
+    {
+        "question_id": 216,
+        "course_id": 2,
+        "lesson_id": 7,
+        "assessment_type": "pre",
+        "question_text": "Which shortcut lets you select multiple files in a row?",
+        "options": [
+            "Shift + Click",
+            "Ctrl + Alt + Del",
+            "Spacebar"
+        ],
+        "answer": "Shift + Click",
+        "image": null
+    },
+    {
+        "question_id": 217,
+        "course_id": 2,
+        "lesson_id": 7,
+        "assessment_type": "pre",
+        "question_text": "Which shortcut lets you select specific files one by one?",
+        "options": [
+            "Ctrl + Click",
+            "Shift + Enter",
+            "Esc"
+        ],
+        "answer": "Ctrl + Click",
+        "image": null
+    },
+    {
+        "question_id": 218,
+        "course_id": 2,
+        "lesson_id": 7,
+        "assessment_type": "pre",
+        "question_text": "Which is a good habit when organizing files?",
+        "options": [
+            "Keep personal, work, and photos in separate folders",
+            "Save everything on the desktop",
+            "Give all files the same name"
+        ],
+        "answer": "Keep personal, work, and photos in separate folders",
+        "image": null
+    },
+    {
+        "question_id": 219,
+        "course_id": 2,
+        "lesson_id": 8,
+        "assessment_type": "pre",
+        "question_text": "Why is it important to back up files?",
+        "options": [
+            "To protect them from loss or damage",
+            "To make the computer faster",
+            "To delete old files"
+        ],
+        "answer": "To protect them from loss or damage",
+        "image": null
+    },
+    {
+        "question_id": 220,
+        "course_id": 2,
+        "lesson_id": 8,
+        "assessment_type": "pre",
+        "question_text": "Which of these is an example of a backup method?",
+        "options": [
+            "Copying files to a USB drive",
+            "Sending files to the Recycle Bin",
+            "Renaming files with 'backup'"
+        ],
+        "answer": "Copying files to a USB drive",
+        "image": null
+    },
+    {
+        "question_id": 221,
+        "course_id": 2,
+        "lesson_id": 1,
+        "assessment_type": "post",
+        "question_text": "You downloaded photos and want to organize them. What should you create first?",
+        "options": [
+            "A new folder",
+            "A new printer",
+            "A new email",
+            "A new account"
+        ],
+        "answer": "A new folder",
+        "image": null
+    },
+    {
+        "question_id": 222,
+        "course_id": 2,
+        "lesson_id": 1,
+        "assessment_type": "post",
+        "question_text": "To make a new folder for receipts, where would you right-click?",
+        "options": [
+            "On the desktop or inside a folder window",
+            "On the taskbar",
+            "On a browser tab",
+            "On the screen saver"
+        ],
+        "answer": "On the desktop or inside a folder window",
+        "image": null
+    },
+    {
+        "question_id": 223,
+        "course_id": 2,
+        "lesson_id": 1,
+        "assessment_type": "post",
+        "question_text": "Which of these is a proper folder name?",
+        "options": [
+            "Project_Math",
+            "Project*#",
+            "Project@13",
+            "Project_#24"
+        ],
+        "answer": "Project_Math",
+        "image": null
+    },
+    {
+        "question_id": 224,
+        "course_id": 2,
+        "lesson_id": 2,
+        "assessment_type": "post",
+        "question_text": "You want to move a file from Downloads to Documents. What should you do?",
+        "options": [
+            "Drag the file into the Documents folder",
+            "Reinstall the app",
+            "Change the file’s icon",
+            "Type the folder name repeatedly"
+        ],
+        "answer": "Drag the file into the Documents folder",
+        "image": null
+    },
+    {
+        "question_id": 225,
+        "course_id": 2,
+        "lesson_id": 2,
+        "assessment_type": "post",
+        "question_text": "What does it mean to copy a file?",
+        "options": [
+            "Create a duplicate in another location while keeping the original",
+            "Move it permanently",
+            "Delete it immediately",
+            "Rename it automatically"
+        ],
+        "answer": "Create a duplicate in another location while keeping the original",
+        "image": null
+    },
+    {
+        "question_id": 226,
+        "course_id": 2,
+        "lesson_id": 2,
+        "assessment_type": "post",
+        "question_text": "After deleting a file by mistake, where can you usually recover it?",
+        "options": [
+            "From the Recycle Bin",
+            "From the Start Menu",
+            "From Downloads folder",
+            "From the printer queue"
+        ],
+        "answer": "From the Recycle Bin",
+        "image": null
+    },
+    {
+        "question_id": 227,
+        "course_id": 2,
+        "lesson_id": 3,
+        "assessment_type": "post",
+        "question_text": "While editing a document, what must you do to keep your changes?",
+        "options": [
+            "Click Save",
+            "Press Power button",
+            "Change wallpaper",
+            "Take a screenshot"
+        ],
+        "answer": "Click Save",
+        "image": null
+    },
+    {
+        "question_id": 228,
+        "course_id": 2,
+        "lesson_id": 3,
+        "assessment_type": "post",
+        "question_text": "How can you rename a photo file correctly?",
+        "options": [
+            "Right-click, select Rename, and type the new name",
+            "Delete and recreate the file",
+            "Open Paint and print it",
+            "Press the power button"
+        ],
+        "answer": "Right-click, select Rename, and type the new name",
+        "image": null
+    },
+    {
+        "question_id": 229,
+        "course_id": 2,
+        "lesson_id": 4,
+        "assessment_type": "post",
+        "question_text": "You received a file named “report.docx”. What type of file is this?",
+        "options": [
+            "Word Document",
+            "Image",
+            "Video",
+            "Shortcut file"
+        ],
+        "answer": "Word Document",
+        "image": null
+    },
+    {
+        "question_id": 230,
+        "course_id": 2,
+        "lesson_id": 4,
+        "assessment_type": "post",
+        "question_text": "A photo file usually ends with which of these?",
+        "options": [
+            ".jpg or .png",
+            ".docx",
+            ".pdf",
+            ".txt"
+        ],
+        "answer": ".jpg or .png",
+        "image": null
+    },
+    {
+        "question_id": 231,
+        "course_id": 2,
+        "lesson_id": 4,
+        "assessment_type": "post",
+        "question_text": "You need to open a PDF file for reading. Which program do you use?",
+        "options": [
+            "PDF Reader or Browser",
+            "Calculator",
+            "Excel",
+            "Media Player"
+        ],
+        "answer": "PDF Reader or Browser",
+        "image": null
+    },
+    {
+        "question_id": 232,
+        "course_id": 2,
+        "lesson_id": 5,
+        "assessment_type": "post",
+        "question_text": "You want to send a report as a PDF instead of Word. What action do you take?",
+        "options": [
+            "Save As > Choose PDF format",
+            "Change file name only",
+            "Copy into Notepad",
+            "Print and scan it back"
+        ],
+        "answer": "Save As > Choose PDF format",
+        "image": null
+    },
+    {
+        "question_id": 233,
+        "course_id": 2,
+        "lesson_id": 5,
+        "assessment_type": "post",
+        "question_text": "Why is converting a Word document to PDF useful?",
+        "options": [
+            "It keeps formatting the same when shared",
+            "It reduces internet speed",
+            "It renames the file automatically",
+            "It deletes the original"
+        ],
+        "answer": "It keeps formatting the same when shared",
+        "image": null
+    },
+    {
+        "question_id": 234,
+        "course_id": 2,
+        "lesson_id": 6,
+        "assessment_type": "post",
+        "question_text": "To quickly find a document by name, what tool should you use?",
+        "options": [
+            "Search bar in File Explorer",
+            "Volume Control",
+            "Clock settings",
+            "Display Settings"
+        ],
+        "answer": "Search bar in File Explorer",
+        "image": null
+    },
+    {
+        "question_id": 235,
+        "course_id": 2,
+        "lesson_id": 6,
+        "assessment_type": "post",
+        "question_text": "You forgot where you saved a photo. How can you still find it?",
+        "options": [
+            "Search using its file type (.jpg/.png)",
+            "Restart the computer",
+            "Change the wallpaper",
+            "Open the printer queue"
+        ],
+        "answer": "Search using its file type (.jpg/.png)",
+        "image": null
+    },
+    {
+        "question_id": 236,
+        "course_id": 2,
+        "lesson_id": 7,
+        "assessment_type": "post",
+        "question_text": "You want to organize old pictures by year. Which method is best?",
+        "options": [
+            "Create folders for each year and move pictures inside",
+            "Rename everything “new photo”",
+            "Copy everything to desktop",
+            "Sort only by size"
+        ],
+        "answer": "Create folders for each year and move pictures inside",
+        "image": null
+    },
+    {
+        "question_id": 237,
+        "course_id": 2,
+        "lesson_id": 7,
+        "assessment_type": "post",
+        "question_text": "What is the benefit of keeping files in organized folders?",
+        "options": [
+            "Easier to find and manage later",
+            "Makes the internet faster",
+            "Avoids pop-up ads",
+            "Increases computer brightness"
+        ],
+        "answer": "Easier to find and manage later",
+        "image": null
+    },
+    {
+        "question_id": 238,
+        "course_id": 2,
+        "lesson_id": 7,
+        "assessment_type": "post",
+        "question_text": "What’s a good tip for organizing files?",
+        "options": [
+            "Use subfolders like Photos > 2024 > January",
+            "Put all files on desktop",
+            "Rename all files to “A”",
+            "Store personal and work files together"
+        ],
+        "answer": "Use subfolders like Photos > 2024 > January",
+        "image": null
+    },
+    {
+        "question_id": 239,
+        "course_id": 2,
+        "lesson_id": 8,
+        "assessment_type": "post",
+        "question_text": "Why is it important to back up important files?",
+        "options": [
+            "To protect them in case of computer problems",
+            "To delete old files",
+            "To install apps",
+            "To make the computer faster"
+        ],
+        "answer": "To protect them in case of computer problems",
+        "image": null
+    },
+    {
+        "question_id": 240,
+        "course_id": 2,
+        "lesson_id": 8,
+        "assessment_type": "post",
+        "question_text": "Which of the following is a backup method?",
+        "options": [
+            "External hard drive or USB",
+            "Paint application",
+            "Task Manager",
+            "Screensaver"
+        ],
+        "answer": "External hard drive or USB",
+        "image": null
+    }
+]

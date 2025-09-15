@@ -1,6 +1,9 @@
+#milestoneRoutes.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
-from TGbackend import models, database, schema
+from sqlalchemy.exc import IntegrityError
+from TGbackend import models, database
+from TGbackend.schema import MilestoneEarnedOut, MilestoneOut
 from typing import List
 
 router = APIRouter(prefix="/milestones", tags=["Milestones"])
@@ -9,7 +12,7 @@ router = APIRouter(prefix="/milestones", tags=["Milestones"])
 get_db = database.get_db
 
 
-@router.get("/{user_id}")
+@router.get("/{user_id}", response_model=List[MilestoneOut])
 def get_all_milestones(user_id: int, db: Session = Depends(get_db)):
     """
     Fetch all milestones with locked/unlocked status for a specific user.
@@ -17,6 +20,7 @@ def get_all_milestones(user_id: int, db: Session = Depends(get_db)):
     milestones = (
         db.query(models.Milestone)
         .options(joinedload(models.Milestone.users_earned))
+        .order_by(models.Milestone.id)
         .all()
     )
 
@@ -42,26 +46,31 @@ def get_all_milestones(user_id: int, db: Session = Depends(get_db)):
 
 @router.post("/award/{user_id}/{milestone_id}")
 def award_milestone(user_id: int, milestone_id: int, db: Session = Depends(get_db)):
-    """
-    Award a milestone to a user if not already earned.
-    """
     milestone = db.query(models.Milestone).filter(models.Milestone.id == milestone_id).first()
     if not milestone:
         raise HTTPException(status_code=404, detail="Milestone not found")
 
-    already_earned = db.query(models.MilestoneEarned).filter(
-        models.MilestoneEarned.user_id == user_id,
-        models.MilestoneEarned.milestone_id == milestone_id
-    ).first()
-
-    if already_earned:
-        return {"message": "Milestone already earned"}
-
     earned = models.MilestoneEarned(user_id=user_id, milestone_id=milestone_id)
     db.add(earned)
-    db.commit()
 
-    return {"message": f"Milestone '{milestone.title}' awarded to user {user_id}"}
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        return {"message": "Milestone already earned"}
+
+    # Award EXP if milestone has reward
+    if milestone.exp_reward:
+        user = db.query(models.User).filter(models.User.id == user_id).first()
+        if user:
+            user.exp += milestone.exp_reward
+            db.commit()
+
+    return {
+        "message": f"Milestone '{milestone.title}' awarded to user {user_id}",
+        "exp_awarded": milestone.exp_reward,
+    }
+
 
 
 @router.get("/earned/{user_id}")

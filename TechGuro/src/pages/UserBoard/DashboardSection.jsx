@@ -150,7 +150,7 @@ const DashboardSection = () => {
   // Calculate bar chart data
   const preScore = preAssessment ? preAssessment.score : 0;
   const postScore = postAssessment ? postAssessment.score : 0;
-  const totalQuestions = 15; // default fallback
+  const totalQuestions = 20; // default fallback
   const maxQuestions = postAssessment?.total || preAssessment?.total || totalQuestions;
 
   const barData = {
@@ -323,7 +323,7 @@ const DashboardSection = () => {
               selectedAssessment === "Pre-Assessment" && preAssessment
                 ? `Pre-Assessment: ${Math.round(preAssessment.score)}/${preAssessment.total || totalQuestions}`
                 : selectedAssessment === "Post-Assessment" && postAssessment
-                  ? `Post-Assessment: ${Math.round(postAssessment.score)}/${postAssessment.total || totalQuestions}l}`
+                  ? `Post-Assessment: ${Math.round(postAssessment.score)}/${postAssessment.total || totalQuestions}`
                   : `You have not taken ${selectedAssessment}`
             )}
           </p>

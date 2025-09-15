@@ -32,7 +32,15 @@ class MilestoneEarnedOut(BaseModel):
 
     class Config:
         orm_mode = True
-        
+
+class MilestoneOut(BaseModel):
+    id: int
+    title: str
+    description: str
+    exp_reward: int
+    icon_url: str
+    status: str
+
 # -------------------------
 # Question response (single answer in an assessment)
 # -------------------------

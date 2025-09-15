@@ -1,115 +1,76 @@
-//AchivementsSection.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useUser } from "../../context/UserContext";
 import placeholderimg from "../../assets/Dashboard/placeholder_teki.png";
 
 const AchievementsSection = () => {
   const [filter, setFilter] = useState("all");
+  const [milestones, setMilestones] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { user } = useUser();
 
-  const achievements = [
-    {
-      title: "Welcome to TechGuro",
-      description: "Sign in to TechGuro for the first time.",
-      status: "Achievement Get!",
-      image: placeholderimg,
-    },
-    {
-      title: "First Steps",
-      description: "Choose a course and complete the Pre-Assessment.",
-      status: "Achievement Get!",
-      image: placeholderimg,
-    },
-    {
-      title: "First Lesson",
-      description: "Complete your first lesson.",
-      status: "Achievement Get!",
-      image: placeholderimg,
-    },
-    {
-      title: "Course Champ",
-      description: "Complete all lessons and assessments in a course.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Pop Quiz Pro",
-      description: "Complete your first quiz.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Perfect Score!",
-      description: "Get a perfect 100% on any quiz.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Quiz Machine",
-      description: "Get 100% on 6 different quizzes.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Practice Makes Perfect",
-      description: "Complete 10 practice quizzes.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "On a Roll!",
-      description: "Complete your very first course.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Computer Basics Master",
-      description: "Finish the Computer Basics course.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "File Savvy",
-      description: "Complete File & Document Handling course.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Office Ninja",
-      description: "Complete the Microsoft Essentials course.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Web Guardian",
-      description: "Complete the Internet Safety course.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Fix It Pro",
-      description: "Complete the Computer Maintenance course.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "Creative Whiz",
-      description: "Complete the Creative Tools course.",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-    {
-      title: "TechGuru",
-      description: "Complete all TechGuro courses!",
-      status: "Achievement Locked",
-      image: placeholderimg,
-    },
-  ];
+  const API_BASE = import.meta.env?.VITE_API_URL || 'http://localhost:8000';
+
+  useEffect(() => {
+    const fetchMilestones = async () => {
+      if (!user?.user_id) return;
+
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE}/milestones/${user.user_id}`);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch milestones: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setMilestones(data);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching milestones:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMilestones();
+  }, [user, API_BASE]);
 
   // Filter logic
-  const filteredAchievements = achievements.filter((achievement) => {
-    if (filter === "unlocked") return achievement.status === "Achievement Get!";
-    if (filter === "locked") return achievement.status === "Achievement Locked";
+  const filteredMilestones = milestones.filter((milestone) => {
+    if (filter === "unlocked") return milestone.status === "earned";
+    if (filter === "locked") return milestone.status === "not earned";
     return true;
   });
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="bg-[#DFDFEE] p-6 min-h-screen text-[#4C5173]">
+        <h1 className="text-[30px] font-bold mb-6">MILESTONES</h1>
+        <div className="text-center text-lg">Loading milestones...</div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="bg-[#DFDFEE] p-6 min-h-screen text-[#4C5173]">
+        <h1 className="text-[30px] font-bold mb-6">MILESTONES</h1>
+        <div className="text-center text-red-600">
+          <p>Error loading milestones: {error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-4 py-2 bg-[#4C5173] text-white rounded-md hover:bg-[#3a3f5c]"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#DFDFEE] p-6 min-h-screen text-[#4C5173]">
@@ -123,7 +84,7 @@ const AchievementsSection = () => {
             filter === "all" ? "bg-[#BFC4D7] font-bold" : "bg-white"
           }`}
         >
-          All Milestones
+          All Milestones ({milestones.length})
         </button>
         <button
           onClick={() => setFilter("unlocked")}
@@ -131,7 +92,7 @@ const AchievementsSection = () => {
             filter === "unlocked" ? "bg-[#BFC4D7] font-bold" : "bg-white"
           }`}
         >
-          Unlocked Milestones
+          Unlocked Milestones ({milestones.filter(m => m.status === "earned").length})
         </button>
         <button
           onClick={() => setFilter("locked")}
@@ -139,48 +100,79 @@ const AchievementsSection = () => {
             filter === "locked" ? "bg-[#BFC4D7] font-bold" : "bg-white"
           }`}
         >
-          Locked Milestones
+          Locked Milestones ({milestones.filter(m => m.status === "not earned").length})
         </button>
       </div>
 
-      {/* Achievement Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredAchievements.map((achievement, index) => (
-          <div
-            key={index}
-            className="relative flex items-center bg-[#F9F8FE] text-black p-6 rounded-2xl overflow-hidden border border-[#6B708D]"
-          >
-            {/* Overlay for Locked */}
-            {achievement.status === "Achievement Locked" && (
-              <div className="absolute inset-0 bg-black opacity-50 z-10 rounded-2xl" />
-            )}
+      {/* No milestones state */}
+      {milestones.length === 0 ? (
+        <div className="text-center text-gray-600 mt-10">
+          <p className="text-lg">No milestones available yet.</p>
+          <p className="text-sm mt-2">Check back later for new achievements!</p>
+        </div>
+      ) : (
+        /* Milestone Cards */
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {filteredMilestones.map((milestone) => (
+            <div
+              key={milestone.id}
+              className="relative flex items-center bg-[#F9F8FE] text-black p-6 rounded-2xl overflow-hidden border border-[#6B708D]"
+            >
+              {/* Overlay for Locked */}
+              {milestone.status === "not earned" && (
+                <div className="absolute inset-0 bg-black opacity-50 z-10 rounded-2xl" />
+              )}
 
-            {/* Left Image */}
-            <div className="w-[80px] h-[80px] mr-4 z-20 flex items-center justify-center">
-              <img
-                src={achievement.image}
-                alt={achievement.title}
-                className="w-full h-full object-contain rounded-full"
-              />
-            </div>
+              {/* Left Image */}
+              <div className="w-[80px] h-[80px] mr-4 z-20 flex items-center justify-center">
+                <img
+                  src={milestone.icon_url && milestone.icon_url !== "placeholderimg" 
+                    ? milestone.icon_url 
+                    : placeholderimg
+                  }
+                  alt={milestone.title}
+                  className="w-full h-full object-contain rounded-full"
+                  onError={(e) => {
+                    e.target.src = placeholderimg;
+                  }}
+                />
+              </div>
 
-            {/* Details */}
-            <div className="flex-1 z-20">
-              <h2 className="text-[22px] font-bold">{achievement.title}</h2>
-              <p className="text-[16px] text-gray-800">{achievement.description}</p>
-              <span
-                className={`block text-right font-bold text-[16px] mt-2 ${
-                  achievement.status === "Achievement Get!"
-                    ? "text-green-600"
-                    : "text-red-600"
-                }`}
-              >
-                {achievement.status}
-              </span>
+              {/* Details */}
+              <div className="flex-1 z-20">
+                <h2 className="text-[22px] font-bold">{milestone.title}</h2>
+                <p className="text-[16px] text-gray-800">{milestone.description}</p>
+                
+                {/* EXP Reward Display */}
+                {milestone.exp_reward > 0 && (
+                  <p className="text-[14px] text-blue-300 font-medium mt-1">
+                    +{milestone.exp_reward} EXP
+                  </p>
+                )}
+                
+                {/* Status Display */}
+                <span
+                  className={`block text-right font-bold text-[16px] mt-2 ${
+                    milestone.status === "earned"
+                      ? "text-green-700"
+                      : "text-red-300"
+                  }`}
+                >
+                  {milestone.status === "earned" ? "Milestone Achieved!" : "Milestone Locked"}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
+      {/* No filtered results */}
+      {filteredMilestones.length === 0 && milestones.length > 0 && (
+        <div className="text-center text-gray-600 mt-10">
+          <p className="text-lg">No {filter === "unlocked" ? "unlocked" : "locked"} milestones found.</p>
+          <p className="text-sm mt-2">Try a different filter to see your milestones!</p>
+        </div>
+      )}
     </div>
   );
 };

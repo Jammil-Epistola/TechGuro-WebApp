@@ -239,12 +239,81 @@
     "answer_image": "CB_q15_A.png",
     "image": null
   },
-
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 6,
+    "question_id": 116,
+    "question": "What happens if you click the 'Minimize' button in a program window?",
+    "options": [
+      "The window closes completely",
+      "The window is hidden but stays running on the Taskbar",
+      "The computer shuts down"
+    ],
+    "answer": "The window is hidden but stays running on the Taskbar",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 7,
+    "question_id": 117,
+    "question": "Which keyboard shortcut can also switch between open windows?",
+    "options": [
+      "Ctrl + C",
+      "Alt + Tab",
+      "Shift + Enter"
+    ],
+    "answer": "Alt + Tab",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 7,
+    "question_id": 118,
+    "question": "If two programs are open, how can you view the one behind?",
+    "options": [
+      "Click its icon on the Taskbar",
+      "Turn off the monitor",
+      "Press the Spacebar"
+    ],
+    "answer": "Click its icon on the Taskbar",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 8,
+    "question_id": 119,
+    "question": "What can you find in the Start Menu?",
+    "options": [
+      "Only games",
+      "Programs, settings, and shut down options",
+      "Only pictures and videos"
+    ],
+    "answer": "Programs, settings, and shut down options",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 8,
+    "question_id": 120,
+    "question": "From the Start Menu, which option is used to safely turn off the computer?",
+    "options": [
+      "Shut Down",
+      "Restart",
+      "Log Out"
+    ],
+    "answer": "Shut Down",
+    "image": null
+  },
   {
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 1,
-    "question_id": 116,
+    "question_id": 121,
     "question": "You just bought a computer and want to learn how it helps in daily life. What is the main purpose of a computer?",
     "options": [
       "For storing and processing information",
@@ -259,7 +328,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 5,
-    "question_id": 117,
+    "question_id": 122,
     "question": "You're teaching a friend how to move a mouse pointer. Which action moves the cursor on the screen?",
     "options": [
       "Moving the mouse gently on the table",
@@ -274,7 +343,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 3,
-    "question_id": 118,
+    "question_id": 123,
     "question": "Before you can use your computer, what should you do first?",
     "options": [
       "Press the power button and wait for it to load",
@@ -289,7 +358,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 4,
-    "question_id": 119,
+    "question_id": 124,
     "question": "Your desktop screen shows small pictures like “This PC” and “Recycle Bin”. What are these called?",
     "options": [
       "Icons",
@@ -304,7 +373,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 4,
-    "question_id": 120,
+    "question_id": 125,
     "question": "You want to check the time and open running apps. Where should you look on the desktop?",
     "options": [
       "Taskbar at the bottom of the screen",
@@ -319,7 +388,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 5,
-    "question_id": 121,
+    "question_id": 126,
     "question": "To select a photo and drag it to a folder, what steps should you follow with the mouse?",
     "options": [
       "Click, hold, and drag the photo to the folder",
@@ -334,7 +403,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 6,
-    "question_id": 122,
+    "question_id": 127,
     "question": "You want to write a letter. How do you open the Word program?",
     "options": [
       "Double-click the Word icon",
@@ -349,7 +418,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 7,
-    "question_id": 123,
+    "question_id": 128,
     "question": "You’re browsing the internet and want to switch to your email. Which action helps you quickly switch windows?",
     "options": [
       "Click the window on the taskbar",
@@ -364,7 +433,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 8,
-    "question_id": 124,
+    "question_id": 129,
     "question": "You want to open a game from the Start Menu. What do you do?",
     "options": [
       "Click Start Menu, find the game, and open it",
@@ -379,7 +448,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 6,
-    "question_id": 125,
+    "question_id": 130,
     "question": "If your program is frozen, what is a safe way to close it?",
     "options": [
       "Right-click on taskbar, then click “Close Window”",
@@ -394,7 +463,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 4,
-    "question_id": 126,
+    "question_id": 131,
     "question": "You saved a photo but forgot where. Which icon on the desktop helps you search for files?",
     "options": [
       "This PC",
@@ -409,7 +478,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 2,
-    "question_id": 127,
+    "question_id": 132,
     "question": "Which part of the computer is used to type words and numbers?",
     "options": [
       "Keyboard",
@@ -424,7 +493,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 8,
-    "question_id": 128,
+    "question_id": 133,
     "question": "You want to check if your printer is working. Where can you find the printer settings?",
     "options": [
       "In the Start Menu > Settings",
@@ -439,7 +508,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 7,
-    "question_id": 129,
+    "question_id": 134,
     "question": "If you accidentally open many windows, how can you quickly minimize all of them?",
     "options": [
       "Click “Show Desktop” on the taskbar",
@@ -454,7 +523,7 @@
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 3,
-    "question_id": 130,
+    "question_id": 135,
     "question": "Before shutting down, why should you close all programs properly?",
     "options": [
       "To prevent data loss and keep the computer safe",
@@ -463,6 +532,81 @@
       "To refresh the wallpaper"
     ],
     "answer": "To prevent data loss and keep the computer safe",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 136,
+    "question": "You explain to a friend that a computer can do many things. Which of these is NOT a common use of a computer?",
+    "options": [
+      "Typing documents",
+      "Browsing the internet",
+      "Cooking food automatically",
+      "Watching movies"
+    ],
+    "answer": "Cooking food automatically",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 137,
+    "question": "You saved a file but want to rename it. What should you do?",
+    "options": [
+      "Right-click the file and choose Rename",
+      "Double-click to open it",
+      "Press the spacebar",
+      "Turn off the computer"
+    ],
+    "answer": "Right-click the file and choose Rename",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 138,
+    "question": "Your folder is messy. What is the BEST way to organize files?",
+    "options": [
+      "Put files into clearly named folders",
+      "Change the wallpaper",
+      "Delete random files",
+      "Move everything to the desktop"
+    ],
+    "answer": "Put files into clearly named folders",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 7,
+    "question_id": 139,
+    "question": "You have Word and a browser open. How can you switch to the browser quickly?",
+    "options": [
+      "Click the browser icon on the taskbar",
+      "Restart the computer",
+      "Turn off the monitor",
+      "Press Caps Lock repeatedly"
+    ],
+    "answer": "Click the browser icon on the taskbar",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 8,
+    "question_id": 140,
+    "question": "You need to adjust the volume of your speakers. Where can you usually find this option?",
+    "options": [
+      "On the Taskbar near the clock",
+      "Inside a Word document",
+      "In the Recycle Bin",
+      "In the printer settings"
+    ],
+    "answer": "On the Taskbar near the clock",
     "image": null
   }
 ]

@@ -269,9 +269,8 @@
             }
           ]
         }
-       
       ]
-    }, 
+    },
     {
       "unit_title": "Basic Navigation Skills",
       "lessons": [
@@ -320,7 +319,7 @@
             }
           ]
         },
-         {
+        {
           "lesson_id": 6,
           "lesson_title": "Lesson 6: Opening and Closing Programs",
           "slides": [
@@ -364,7 +363,7 @@
             }
           ]
         },
-         {
+        {
           "lesson_id": 7,
           "lesson_title": "Lesson 7: Switching Between Windows",
           "slides": [
@@ -407,7 +406,7 @@
             }
           ]
         },
-         {
+        {
           "lesson_id": 8,
           "lesson_title": "Lesson 8: Using the Start Menu",
           "slides": [
