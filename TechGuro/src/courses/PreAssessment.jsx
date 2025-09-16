@@ -181,7 +181,7 @@ const PreAssessment = () => {
                 </>
               )}
 
-              {/* 🔹 New Step (BKT explanation) */}
+              {/* BKT explanation */}
               {dialogueStep === 1 && (
                 <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-md text-[20px] leading-relaxed">
                   <p className="mb-2">

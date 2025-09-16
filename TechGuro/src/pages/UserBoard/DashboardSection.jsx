@@ -83,7 +83,7 @@ const DashboardSection = () => {
 
     try {
       const baseURL = import.meta.env.VITE_API_URL;
-      
+
       // Execute all fetch operations in parallel
       const [progressResponse, assessmentsResponse, milestonesResponse] = await Promise.all([
         fetch(`${baseURL}/progress/${user.user_id}`),
@@ -123,7 +123,7 @@ const DashboardSection = () => {
     } catch (error) {
       console.error("Failed to fetch dashboard data:", error);
       setFetchError(error.message);
-      
+
       // Set default values on error
       setCourseProgress({});
       setOverallProgress(0);
@@ -442,9 +442,12 @@ const DashboardSection = () => {
             ) : (
               <>
                 <img
-                  src={milestones[0].icon_url || placeholderimg}
-                  alt="Milestone"
+                  src={milestones[0]?.icon_url || placeholderimg}
+                  alt={milestones[0]?.title || "Milestone"}
                   className="w-20 h-20 rounded-full border border-black mb-2"
+                  onError={(e) => {
+                    e.target.src = placeholderimg;
+                  }}
                 />
                 <p className="text-[18px] font-semibold">{milestones[0].title}</p>
                 <p className="text-sm text-gray-600">{milestones[0].description || "Click to view achievements"}</p>

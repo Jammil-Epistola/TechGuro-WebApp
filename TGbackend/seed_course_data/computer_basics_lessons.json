@@ -18,7 +18,7 @@
                 "Computers are used in homes, offices, schools, and many other places.",
                 "They help make work easier and faster."
               ],
-              "media": ""
+              "media_url": "C1_Lesson1_Slide1.png"
             },
             {
               "slide_number": 2,
@@ -29,7 +29,7 @@
                 "Tablet/Smartphone: are ‘Touchscreen’ computers that are very portable",
                 "All of these devices are types of computers."
               ],
-              "media": ""
+              "media_url": "C1_Lesson1_Slide2.png"
             },
             {
               "slide_number": 3,
@@ -39,7 +39,7 @@
                 "Software: the programs and apps that run inside the computer",
                 "Both hardware and software work together to make the computer useful."
               ],
-              "media": ""
+              "media_url": "C1_Lesson1_Slide3.png"
             },
             {
               "slide_number": 4,
@@ -49,7 +49,7 @@
                 "Without software, the computer cannot do anything.",
                 "Software gives instructions that tell the hardware what to do."
               ],
-              "media": ""
+              "media_url": "C1_Lesson1_Slide4.png"
             },
             {
               "slide_number": 5,
@@ -59,7 +59,7 @@
                 "Types include desktop, laptop, and tablet/smartphone",
                 "Hardware and software are both needed for a computer to function"
               ],
-              "media": ""
+              "media_url": "Tekis_Summary.png"
             },
             {
               "slide_number": 6,
@@ -68,7 +68,7 @@
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
               ],
-              "media": ""
+              "media_url": ""
             }
           ]
         },
@@ -84,7 +84,7 @@
                 "It displays text, images, and videos.",
                 "It is similar to a television screen but is used with a computer."
               ],
-              "media": ""
+              "media_url": "C1_Lesson2_Slide1.png"
             },
             {
               "slide_number": 2,
@@ -94,7 +94,7 @@
                 "Each key sends a command or input to the computer.",
                 "Common keys include letters (A-Z), numbers (0-9), and special keys like Enter and Spacebar."
               ],
-              "media": ""
+              "media_url": "C1_Lesson2_Slide2.png"
             },
             {
               "slide_number": 3,
@@ -104,7 +104,7 @@
                 "You can click to select items, double-click to open them, or drag to move things.",
                 "Some computers use a touchpad instead of a mouse."
               ],
-              "media": ""
+              "media_url": "C1_Lesson2_Slide3.png"
             },
             {
               "slide_number": 4,
@@ -114,7 +114,7 @@
                 "It processes all the instructions from the software and controls what happens.",
                 "On desktops, the CPU is usually in a large box or tower. On laptops, it is built inside."
               ],
-              "media": ""
+              "media_url": "C1_Lesson2_Slide4.png"
             },
             {
               "slide_number": 5,
@@ -125,7 +125,7 @@
                 "Webcam – for video calls",
                 "These are called “peripherals” and help add more functions."
               ],
-              "media": ""
+              "media_url": "C1_Lesson2_Slide5.png"
             },
             {
               "slide_number": 6,
@@ -134,7 +134,7 @@
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
               ],
-              "media": ""
+              "media_url": ""
             }
           ]
         },
@@ -150,7 +150,7 @@
                 "Wait for a few seconds while the computer loads.",
                 "When it is ready, you will see the desktop screen."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 2,
@@ -160,7 +160,7 @@
                 "Do not unplug the computer or press the power button to turn it off.",
                 "Shutting down properly keeps the computer safe and working well."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 3,
@@ -170,7 +170,7 @@
                 "Restarting closes all programs and turns the computer off and on again.",
                 "This often fixes small computer problems"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 4,
@@ -180,7 +180,7 @@
                 "It processes all the instructions from the software and controls what happens.",
                 "On desktops, the CPU is usually in a large box or tower. On laptops, it is built inside."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 5,
@@ -190,7 +190,7 @@
                 "✅ Avoid turning off power suddenly",
                 "✅ Restart if your computer is frozen or slow"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 6,
@@ -199,7 +199,7 @@
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
               ],
-              "media": ""
+              "media_url": ""
             }
           ]
         },
@@ -215,7 +215,7 @@
                 "It shows icons, the taskbar, and the background image.",
                 "You can start many actions from the desktop."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 2,
@@ -225,7 +225,7 @@
                 "Double-click an icon to open it.",
                 "Icons help you quickly access what you need."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 3,
@@ -235,7 +235,7 @@
                 "It shows open programs and quick tools like volume and internet in the system tray.",
                 "You can click on taskbar icons to switch between programs."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 4,
@@ -245,7 +245,7 @@
                 "You can also shut down or restart the computer from the Start Menu.",
                 "The Start Menu is your main control panel."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 5,
@@ -256,7 +256,7 @@
                 "✅ The taskbar shows what’s running",
                 "✅ The Start Button opens programs and settings(helps you access everything)"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 6,
@@ -265,7 +265,7 @@
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
               ],
-              "media": ""
+              "media_url": ""
             }
           ]
         }
@@ -286,7 +286,7 @@
                 "It usually has two buttons: left and right, and sometimes a scroll wheel.",
                 "The pointer follows your hand movements using the mouse."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 2,
@@ -296,7 +296,7 @@
                 "Double-click: Press the left button twice quickly to open a file or program",
                 "Right-click: Press the right button to open a menu of options"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 3,
@@ -306,7 +306,7 @@
                 "Move the mouse to drag it",
                 "Release the button to place it in a new location"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 4,
@@ -315,7 +315,7 @@
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
               ],
-              "media": ""
+              "media_url": ""
             }
           ]
         },
@@ -331,7 +331,7 @@
                 "- Double-clicking its icon on the desktop",
                 "- Clicking the Start menu and selecting the program from the list"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 2,
@@ -340,7 +340,7 @@
                 "To close a program, click the 'X' at the top-right corner of its window.",
                 "Closing programs you’re not using helps your computer run smoothly."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 3,
@@ -350,7 +350,7 @@
                 "- Maximize: Makes the window full screen (click the square button)",
                 "- Restore Down: Shrinks it back to original size"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 4,
@@ -359,7 +359,7 @@
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
               ],
-              "media": ""
+              "media_url": ""
             }
           ]
         },
@@ -374,7 +374,7 @@
                 "You may need to use two or more programs at the same time.",
                 "Instead of closing them, you can switch between them easily."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 2,
@@ -383,7 +383,7 @@
                 "Click on a program’s icon in the taskbar to bring it to the front.",
                 "The taskbar is the row of icons at the bottom of the screen."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 3,
@@ -393,7 +393,7 @@
                 "Hold the Alt key, tap Tab, and release when you see the one you want.",
                 "A pretty help[ful shortcut for multitasking!"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 4,
@@ -402,7 +402,7 @@
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
               ],
-              "media": ""
+              "media_url": ""
             }
           ]
         },
@@ -417,7 +417,7 @@
                 "The Start Menu is where you find programs, settings, and power options.",
                 "Click the Start button at the bottom-left corner of the screen to open it."
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 2,
@@ -427,7 +427,7 @@
                 "- Scroll through the list of apps",
                 "- Type the name of a program in the search bar to find it quickly"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 3,
@@ -438,7 +438,7 @@
                 "- Restart it",
                 "- Put it to Sleep (low-power mode)"
               ],
-              "media": ""
+              "media_url": ""
             },
             {
               "slide_number": 4,
@@ -447,7 +447,7 @@
                 "Watch this short video that explains this lesson in Tagalog.",
                 "Subtitles are available in Tagalog and English."
               ],
-              "media": ""
+              "media_url": ""
             }
           ]
         }

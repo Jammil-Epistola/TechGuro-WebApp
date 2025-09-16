@@ -7,6 +7,9 @@ from TGbackend.models import Base, Milestone
 # Create tables if they don't exist
 Base.metadata.create_all(bind=engine)
 
+# Base path for milestone icons in public folder
+BASE_MILESTONE_IMG_PATH = "/images/milestones/"
+
 SEED_FOLDER = os.path.join(os.path.dirname(__file__), "seed_milestones")
 
 
@@ -48,7 +51,8 @@ def seed_database(session: Session, filename: str, data):
             existing.title = m_data.get("title", existing.title)
             existing.description = m_data.get("description", existing.description)
             existing.exp_reward = m_data.get("exp_reward", existing.exp_reward)
-            existing.icon_url = m_data.get("icon_url", existing.icon_url)
+            icon_file = m_data.get("icon_url", "placeholder.png")
+            existing.icon_url = BASE_MILESTONE_IMG_PATH + icon_file
             print(f"🔄 Updated milestone {milestone_id} → {existing.title}")
         else:
             new_milestone = Milestone(
@@ -56,7 +60,7 @@ def seed_database(session: Session, filename: str, data):
                 title=m_data.get("title", ""),
                 description=m_data.get("description", ""),
                 exp_reward=m_data.get("exp_reward", 0),
-                icon_url=m_data.get("icon_url", "placeholderimg")
+                icon_url=BASE_MILESTONE_IMG_PATH + m_data.get("icon_url", "placeholder.png")
             )
             session.add(new_milestone)
             print(f"➕ Inserted milestone {milestone_id} → {new_milestone.title}")

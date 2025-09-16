@@ -28,7 +28,7 @@
     "icon_url": "course_conqueror.png"
   },
   {
-    "milestone_id": 5,
+    "id": 5,
     "title": "Byte-Sized Genius",
     "description": "Complete the Computer Basics Course.",
     "exp_reward": 10,
