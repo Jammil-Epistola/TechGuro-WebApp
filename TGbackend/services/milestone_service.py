@@ -1,5 +1,4 @@
-#milestone_service.py
-# TGbackend/services/milestone_service.py
+# services/milestone_service.py
 
 from sqlalchemy.orm import Session
 from datetime import datetime

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaRegCalendarAlt } from "react-icons/fa";
+import { Home } from "lucide-react";
 import Teki1 from "../assets/Teki 1.png";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -14,16 +16,38 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [birthday, setBirthday] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
+
+  // Handle Enter key
+  useEffect(() => {
+    const handleEnter = (e) => {
+      if (e.key === "Enter") handleRegister();
+    };
+    window.addEventListener("keydown", handleEnter);
+    return () => window.removeEventListener("keydown", handleEnter);
+  }, [email, username, password, confirmPassword, birthday, termsAccepted]);
+
+  // Fade out error message
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => setErrorMessage(""), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
 
   const handleRegister = async () => {
-    if (!termsAccepted) {
-      setMessage("Please accept the Terms and Conditions.");
+    if (!email || !username || !password || !confirmPassword || !birthday) {
+      setErrorMessage("Please fill in all required fields.");
       return;
     }
-
+    if (!termsAccepted) {
+      setErrorMessage("Please accept the Terms and Conditions.");
+      return;
+    }
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match.");
+      setErrorMessage("Passwords do not match.");
       return;
     }
 
@@ -41,24 +65,48 @@ const RegisterPage = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setMessage("Registered successfully!");
+        setShowSuccessModal(true);
       } else {
-        setMessage(data.detail || "Registration failed");
+        setErrorMessage(data.detail || "Registration failed");
       }
-    } catch (error) {
-      setMessage("Error connecting to server.");
+    } catch {
+      setErrorMessage("Error connecting to server.");
     }
   };
 
+  const handleCloseSuccess = () => {
+    setShowSuccessModal(false);
+    navigate("/login");
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#4C5173]">
-      <div className="bg-white rounded-xl shadow-lg w-full max-w-[600px] p-10 text-black relative z-10">
+    <div className="min-h-screen flex items-center justify-center bg-[#4C5173] px-4">
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-[750px] p-8 md:p-10 text-black relative z-10">
+
+        <Link to="/" className="absolute top-6 right-6 group flex items-center">
+          <Home className="w-6 h-6 text-[#4C5173]" />
+          <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-sm bg-white px-2 py-1 rounded shadow-md absolute top-0 -right-36 whitespace-nowrap">
+            Return to Home Page
+          </span>
+        </Link>
+
+        {/* Error Message Popup */}
+        {errorMessage && (
+          <div className="absolute top-16 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded shadow-md animate-fadeInOut z-50">
+            {errorMessage}
+          </div>
+        )}
+
+        {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-6">
           <img src={Teki1} alt="TechGuro Logo" className="w-16 h-16" />
           <h1 className="text-[32px] font-bold text-[#4C5173]">TechGuro.</h1>
         </div>
 
-        <h2 className="text-2xl font-bold text-center mb-6">Create An Account</h2>
+        {/* Heading */}
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Mag-Sign Up sa TechGuro
+        </h2>
 
         <div className="space-y-4">
           <input
@@ -146,15 +194,14 @@ const RegisterPage = () => {
         </div>
 
         <p className="text-center mt-4 text-sm text-black">
-          Already have an account?{" "}
+          Meron nang account?{" "}
           <Link to="/login" className="text-[#697DFF] underline">
-            Log In
+            Mag-Log In dito
           </Link>
         </p>
-
-        {message && <p className="mt-4 text-center text-sm text-black">{message}</p>}
       </div>
 
+      {/* Terms Modal */}
       {showTerms && (
         <>
           <div
@@ -167,7 +214,6 @@ const RegisterPage = () => {
               <p>This is a placeholder for the Terms and Conditions text.</p>
               <p>
                 By using TechGuro, you agree to our data privacy and usage policies.
-                Please read thoroughly before proceeding with registration.
               </p>
             </div>
             <div className="mt-6 text-right">
@@ -181,6 +227,34 @@ const RegisterPage = () => {
           </div>
         </>
       )}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <>
+          <div className="fixed inset-0 bg-black/50 z-40"></div>
+          <div className="fixed top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-6 w-[90%] max-w-md text-black text-center">
+            <h2 className="text-xl font-bold mb-4">Account Created!</h2>
+            <p className="mb-6">Ang iyong Account ay nagawa na.</p>
+            <button
+              onClick={handleCloseSuccess}
+              className="bg-[#697DFF] text-white px-6 py-2 rounded hover:bg-[#5d71e0] font-bold"
+            >
+              Go to Log In
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* Fade Animation */}
+      <style>{`
+        @keyframes fadeInOut {
+          0% { opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+        .animate-fadeInOut { animation: fadeInOut 5s forwards; }
+      `}</style>
     </div>
   );
 };

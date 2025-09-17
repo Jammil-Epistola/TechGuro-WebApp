@@ -1,81 +1,44 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import Navbar from "./HomeNavbar";
-import {
-  FaEnvelope,
-  FaPhone,
-  FaLaptop,
-  FaFileAlt,
-  FaTools,
-  FaGlobe,
-  FaPaintBrush,
-  FaBookOpen,
-} from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper/modules";
+import { FaEnvelope, FaPhone, FaBookOpen } from "react-icons/fa";
 import home_background1 from "../assets/Home/home_background1.jpg";
-import home_background2 from "../assets/Home/home_background2.jpg";
+import about_image from "../assets/Home/about_image.png";
 import jammil_img from "../assets/Home/jammil_photo.png";
 import raquel_img from "../assets/Home/raquel_photo.jpg";
 import angel_img from "../assets/Home/angel_photo.jpg";
+import CB_img from "../assets/Home/computer_basics_imghead.png";
+import DCM_img from "../assets/Home/digi_comms_imghead.png";
+import IS_img from "../assets/Home/internet_safety_imghead.png";
 
 const courses = [
   {
-    icon: <FaLaptop />,
     title: "Computer Basics",
+    image: CB_img,
     description: "Learn how to navigate and use a computer for daily tasks with ease.",
-    lessons: 6,
-    imageClass: "computer-basics",
+    lessons: 8,
     keyPoints: [
       "Using a mouse and keyboard",
       "Managing files and folders",
       "Installing applications",
       "Basic troubleshooting"
-    ]
+    ],
   },
   {
-    icon: <FaFileAlt />,
-    title: "File & Document Handling",
-    description: "Learn about managing, sharing, and converting different file formats.",
-    lessons: 6,
-    imageClass: "online-transactions",
-    keyPoints: [
-      "Understanding different file types (PDF, DOCX, JPG, etc.)",
-      "How to organize files into folders",
-      "Saving and renaming documents",
-      "Converting files (e.g., Word to PDF)"
-    ]
-  },
-  {
-    icon: <FaBookOpen />,
-    title: "Office Tools & Typing Essentials",
-    description: "Get started with Word, Excel, and improve your typing skills.",
-    lessons: 6,
-    keyPoints: [
-      "Typing practice and accuracy",
-      "Formatting documents",
-      "Spreadsheets basics",
-      "Editing tools"
-    ]
-  },
-  {
-    icon: <FaGlobe />,
     title: "Internet Safety",
+    image: IS_img,
     description: "Stay safe online by understanding how to protect your information.",
     lessons: 6,
-    imageClass: "internet-safety",
     keyPoints: [
       "Recognizing fake news",
       "Safe social media practices",
       "Avoiding malware",
       "Online privacy tips"
-    ]
+    ],
   },
   {
-    icon: <FaPaintBrush />,
     title: "Digital Communication",
+    image: DCM_img,
     description: "Learn how to communicate effectively online using different platforms.",
     lessons: 6,
     keyPoints: [
@@ -83,212 +46,254 @@ const courses = [
       "Online etiquette and safety",
       "Video conferencing basics",
       "Effective digital writing"
-    ]
+    ],
   },
-  {
-    icon: <FaTools />,
-    title: "Intro to Online Selling",
-    description: "Use Facebook Pages and other tools to start a small online business.",
-    lessons: 6,
-    keyPoints: [
-      "Creating a Facebook Page",
-      "Posting and promoting products",
-      "Handling customer messages",
-      "Online selling tips"
-    ]
-  }
 ];
 
 const HomePage = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const swiperRef = useRef(null);
+  const [activeTab, setActiveTab] = useState("About");
 
   return (
     <div>
-      <Navbar />
+      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Home Section */}
       <section
         id="home"
-        className="relative flex flex-col justify-center h-screen bg-cover bg-center bg-no-repeat text-white pl-48 pt-[100px]"
+        className="relative flex items-center h-screen bg-cover bg-center bg-no-repeat text-white"
         style={{ backgroundImage: `url(${home_background1})` }}
       >
-        <div className="absolute inset-0 bg-black/50 z-0"></div>
-
-        <div className="relative z-10 max-w-7xl">
-          <h2 className="text-[3.2rem] font-bold mb-[-1.5rem]">LEARNING</h2>
-          <h1 className="text-[4.2rem] font-bold">COMPUTER LITERACY</h1>
-          <p className="text-[2rem] mt-2 mr-[10rem] text-justify">
-            TechGuro is a learning platform focused on building essential computer literacy skills for adults and the elderly.
-            From understanding basic computer functions to navigating the internet and using everyday applications,
-            TechGuro provides step-by-step lessons tailored for beginners. Our platform uses AI to recommend personalized
-            learning paths based on each user's progress, helping them learn at their own pace and gain confidence in using digital
-            tools for daily life.
+        <div className="absolute inset-0 bg-gradient-to-r from-black from-0% via-black/90 via-50% to-black/20 to-100% z-0"></div>
+        <div className="relative z-10 max-w-3xl px-6 md:px-16 lg:px-24">
+          <h2 className="text-[2rem] md:text-[2.5rem] font-bold mb-[-0.5rem]">LEARNING</h2>
+          <h1 className="text-[2.5rem] md:text-[3.5rem] font-bold leading-tight">COMPUTER LITERACY</h1>
+          <p className="text-[1.2rem] md:text-[1.5rem] mt-4 text-justify">
+            TechGuro helps adults and elderly learners build essential computer skills through beginner-friendly lessons and AI-based learning paths.
           </p>
-
-          <div className="mt-10 flex gap-4">
+          <div className="mt-8 flex justify-center md:justify-start">
             <a
               href="#about"
-              className="px-6 py-4 text-[1.5rem] font-bold rounded bg-[#6b6f92] text-white hover:bg-[#5a5d85] transition-colors"
+              className="px-6 py-3 md:px-8 md:py-4 text-[1.2rem] md:text-[1.5rem] font-bold rounded bg-[#6b6f92] text-white hover:bg-[#5a5d85] transition-colors"
             >
               Learn More
-            </a>
-            <a
-              href="/register"
-              className="px-6 py-4 text-[1.5rem] font-bold rounded bg-[#4c5173] text-white hover:bg-[#3b3f65] transition-colors"
-            >
-              Join Now
             </a>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="min-h-screen flex justify-center items-center bg-[#4C5173] px-8 py-12 pt-[100px]">
-        <Swiper
-          modules={[Navigation, Pagination]}
-          spaceBetween={50}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          className="w-full h-full"
-        >
-          <SwiperSlide>
-            <div className="flex flex-col lg:flex-row w-full max-w-[1780px] min-h-[83vh] bg-[#6B708D] rounded-xl mt-14 overflow-hidden shadow-lg">
-              <div
-                className="flex-1 bg-[#282c4a] bg-cover bg-center bg-no-repeat hidden lg:block"
-                style={{ backgroundImage: `url(${home_background2})` }}
-              ></div>
-              <div className="flex-1 flex flex-col justify-center items-end text-right text-white p-8 bg-[#6B708D]">
-                <h2 className="text-[2.5rem] font-bold pr-10 pb-20">About TechGuro</h2>
-                <p className="text-[1.3rem] leading-relaxed pr-10 text-justify">
-                  TechGuro is a web-based learning platform dedicated to improving computer literacy among adults and elderly users.
-                  The platform addresses the growing need for foundational computer knowledge by offering accessible, easy-to-follow
-                  lessons on essential computer skills. From learning how to operate a computer and manage files to navigating software
-                  and staying safe online, TechGuro equips users with the practical skills needed for everyday digital tasks.
-                  <br /><br />
-                  By equipping adults and seniors with essential computer literacy, TechGuro unlocks new opportunities for independence,
-                  confidence, and connection. Whether it's reconnecting with loved ones online, managing personal tasks, or navigating
-                  the digital world with ease, learners gain not just skills—but the freedom to thrive in a technology-driven society.
-                </p>
-              </div>
-            </div>
-          </SwiperSlide>
+      <section
+        id="about"
+        className="relative flex flex-col justify-center items-center min-h-screen bg-[#229799] px-4 md:px-8 pt-6"
+      >
+        <div className="relative w-full max-w-[1400px] min-h-[80vh] bg-[#48CFCB] shadow-lg overflow-hidden text-black flex flex-col">
+          {/* Tab Contents */}
+          <div className="flex-1 overflow-hidden">
+            <AnimatePresence mode="wait">
+              {activeTab === "About" && (
+                <motion.div
+                  key="about-tab"
+                  className="flex flex-col lg:flex-row h-full"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  {/* Left Side Image */}
+                  <motion.div className="w-full lg:w-1/3 h-64 lg:h-full flex-shrink-0 flex justify-center items-center overflow-hidden p-2 md:p-4 bg-[#282c4a]">
+                    <img
+                      src={about_image}
+                      alt="About TechGuro"
+                      className="w-full h-full object-cover object-[10%_40%] scale-[1.1] lg:object-scale-down lg:scale-[1.2]"
+                    />
+                  </motion.div>
 
-          <SwiperSlide>
-            <div className="flex flex-col items-center text-center w-full max-w-[1780px] min-h-[83vh] mt-14 bg-[#6B708D] text-white p-8">
-              <div className="text-left w-full max-w-[1200px] mb-8">
-                <h3 className="text-[2.5rem] mb-2">ABOUT</h3>
-                <h2 className="text-[3rem] mb-4">TECHGURO: THE RESEARCHERS</h2>
-                <hr className="w-full max-w-[100rem] h-[3px] bg-white border-none mx-auto" />
-              </div>
+                  {/* Right Side Text */}
+                  <motion.div className="w-full lg:w-2/3 flex flex-col justify-center items-start text-left p-4 md:p-8 overflow-y-auto max-h-[60vh] lg:max-h-full">
+                    <h2 className="text-[2.2rem] font-bold mb-4">About TechGuro</h2>
+                    <p className="text-[1.2rem] leading-relaxed text-justify">
+                      TechGuro is a platform that helps adults and seniors gain essential computer skills.
+                      It addresses digital illiteracy by offering beginner-friendly lessons on everyday tasks—like managing files, using software, and staying safe online.
+                      <br /><br />
+                      By bridging the digital gap, TechGuro empowers learners with independence, confidence, and stronger connections in a technology-driven world.
+                    </p>
+                  </motion.div>
+                </motion.div>
+              )}
 
-              <div className="flex flex-col md:flex-row justify-between gap-8 w-full max-w-[1200px]">
-                {[{
-                  name: "Jammil C. Epistola",
-                  email: "epistolajammil45@gmail.com",
-                  phone: "0921 729 4657",
-                  image: jammil_img
-                },
-                {
-                  name: "Raquel H. Javier",
-                  email: "raquelhiraojavier@gmail.com",
-                  phone: "0991 584 9104",
-                  image: raquel_img
-                },
-                {
-                  name: "Angel B. Ojoy",
-                  email: "ojoyangel14@gmail.com",
-                  phone: "0992 627 6650",
-                  image: angel_img
-                }].map((res, idx) => (
-                  <div key={idx} className="flex-1 bg-[#4C5173] p-6 rounded-lg shadow-md flex flex-col items-center transition-transform hover:-translate-y-1">
-                    <div
-                      className="w-[200px] h-[300px] rounded-xl mb-4 shadow-md bg-cover bg-center"
-                      style={{ backgroundImage: `url(${res.image})` }}
-                    ></div>
-                    <div className="bg-[#BFC4D7] text-black text-center p-6 rounded-lg w-full">
-                      <h3 className="text-[1.5rem] font-bold mb-2">{res.name}</h3>
-                      <p className="flex items-center justify-center gap-2">
-                        <FaEnvelope className="text-black" />
-                        {res.email}
-                      </p>
-                      <p className="flex items-center justify-center gap-2 mt-1">
-                        <FaPhone className="text-black" />
-                        {res.phone}
-                      </p>
-                    </div>
+              {activeTab === "Researchers" && (
+                <motion.div
+                  key="researchers-tab"
+                  className="flex flex-col h-full p-4 md:p-6"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, y: 50 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h2 className="text-[2.2rem] text-center mb-4">THE RESEARCHERS</h2>
+                  <hr className="w-full max-w-[50rem] mx-auto h-[3px] bg-white border-none mb-6" />
+
+                  <div className="flex lg:grid lg:grid-cols-3 gap-4 lg:gap-6 w-full overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-2 justify-center lg:justify-items-center">
+                    {[
+                      { name: "Jammil C. Epistola", email: "epistolajammil45@gmail.com", phone: "0921 729 4657", image: jammil_img },
+                      { name: "Raquel H. Javier", email: "raquelhiraojavier@gmail.com", phone: "0991 584 9104", image: raquel_img },
+                      { name: "Angel B. Ojoy", email: "ojoyangel14@gmail.com", phone: "0992 627 6650", image: angel_img },
+                    ].map((res, idx) => (
+                      <motion.div
+                        key={idx}
+                        className="flex-shrink-0 w-[320px] sm:w-[320px] md:w-[270px] lg:w-[290px] rounded-lg shadow-md overflow-hidden snap-start"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0, y: 50 }}
+                        transition={{ delay: idx * 0.3, duration: 0.6 }}
+                      >
+                        <div className="bg-[#4C5173] flex justify-center items-center p-4">
+                          <div
+                            className="w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] rounded-full bg-cover bg-center"
+                            style={{ backgroundImage: `url(${res.image})` }}
+                          ></div>
+                        </div>
+                        <div className="bg-[#F9F8FE] text-black text-center p-4 md:p-6">
+                          <h3 className="text-[1.3rem] font-bold mb-2">{res.name}</h3>
+                          <p className="flex items-center justify-center gap-2"><FaEnvelope className="text-black" />{res.email}</p>
+                          <p className="flex items-center justify-center gap-2 mt-1"><FaPhone className="text-black" />{res.phone}</p>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </section>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
-      {/* Courses Section */}
-      <section id="courses" className="min-h-[95vh] flex flex-col justify-center items-center text-center bg-[#8B91B8] text-white px-8 py-12 pt-[100px]">
-        <h2 className="text-[2.5rem] font-bold">TechGuro Courses</h2>
-        <p className="text-[1.2rem] font-bold text-black mb-8">| We have the Following Categories |</p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full max-w-[1500px]">
-          {courses.map((course, index) => (
-            <div
-              key={index}
-              className="w-full max-w-[25rem] h-[25rem] bg-white rounded-xl shadow-md flex flex-col justify-center items-center cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg text-center p-8 mx-auto"
-              onClick={() => setSelectedCourse(course)}
+          {/* Tab Bar overlay */}
+          <div className="absolute bottom-0 left-0 right-0 flex flex-col sm:flex-row items-end">
+            <button
+              onClick={() => setActiveTab("About")}
+              className={`w-full sm:flex-1 font-bold border transition-all duration-200
+          ${activeTab === "About"
+                  ? "bg-[#6B708D] border-[#F9F8FE] text-white h-[4rem] sm:h-[4rem] text-[1rem] sm:text-[1.2rem]"
+                  : "bg-[#F9F8FE] border-[#6B708D] text-black h-[3.5rem] sm:h-[3.5rem] text-[0.9rem] sm:text-[1rem] hover:bg-[#e7e6f1]"
+                }`}
             >
-              <div className="text-[#4c5173] text-[5rem] mb-8">{course.icon}</div>
-              <p className="text-[2rem] font-semibold text-[#333]">{course.title}</p>
-            </div>
-          ))}
+              About
+            </button>
+            <button
+              onClick={() => setActiveTab("Researchers")}
+              className={`w-full sm:flex-1 font-bold border transition-all duration-200
+          ${activeTab === "Researchers"
+                  ? "bg-[#6B708D] border-[#F9F8FE] text-white h-[4rem] sm:h-[4rem] text-[1rem] sm:text-[1.2rem]"
+                  : "bg-[#F9F8FE] border-[#6B708D] text-black h-[3.5rem] sm:h-[3.5rem] text-[0.9rem] sm:text-[1rem] hover:bg-[#e7e6f1]"
+                }`}
+            >
+              Researchers
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Course Modal */}
-      {selectedCourse && (
-        <>
-          <div className="fixed inset-0 bg-black bg-opacity-60 z-[200] flex justify-center items-center" onClick={() => setSelectedCourse(null)}></div>
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-xl w-[95%] max-w-[1400px] h-[80vh] z-[200] flex flex-col lg:flex-row overflow-hidden">
-            <div className="w-full lg:w-[45%] bg-white flex justify-center items-center p-4">
-              <div
-                className={`w-full h-full bg-center bg-no-repeat bg-contain rounded-lg`}
-                style={{
-                  backgroundImage: selectedCourse.imageClass
-                    ? `url('/assets/Home/${selectedCourse.imageClass === 'computer-basics' ? 'CB_img.png' :
-                      selectedCourse.imageClass === 'online-transactions' ? 'OT_img.jpg' :
-                        selectedCourse.imageClass === 'internet-safety' ? 'IS_img.png' : ''}')`
-                    : 'none'
-                }}
-              ></div>
-            </div>
-            <div className="w-full lg:w-[55%] bg-[#f5f5f5] p-8 flex flex-col overflow-y-auto">
-              <h2 className="text-[3rem] font-bold mb-6 text-[#333]">{selectedCourse.title}</h2>
-              <div className="flex items-center gap-2 text-[1.4rem] text-[#666] mb-8">
-                <FaBookOpen className="text-[1.6rem] text-[#4c5173]" />
-                <span>{selectedCourse.lessons} Lessons Available</span>
+
+      {/* Courses Section */}
+      <section
+        id="courses"
+        className="min-h-screen flex flex-col justify-center items-center text-center bg-[#BFC4D7] text-white px-4 md:px-8 pt-[100px] pb-12"
+      >
+        <h2 className="text-[2.5rem] font-bold">TechGuro Courses</h2>
+        <p className="text-[1.2rem] font-bold text-black mb-8">| We have the Following Categories |</p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full max-w-[1500px]">
+          {courses.map((course, index) => (
+            <motion.div
+              key={index}
+              className="w-full max-w-[25rem] h-[25rem] rounded-xl shadow-md overflow-hidden cursor-pointer mx-auto bg-[#F9F8FE] border border-[#6B708D] flex justify-center items-center"
+              whileHover={{ scale: 1.05 }}
+              onClick={() => setSelectedCourse(course)}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <div className="w-full h-full flex justify-center items-center p-4 shadow-lg rounded-xl">
+                <img src={course.image} alt={course.title} className="w-full h-full object-contain rounded-xl" />
               </div>
-              <p className="text-[1.3rem] leading-relaxed text-[#555] mb-10">{selectedCourse.description}</p>
-              <ul className="list-none mb-8">
-                {selectedCourse.keyPoints.map((point, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center gap-2 text-[1.2rem] text-[#444] mb-3 bg-white p-4 rounded-lg shadow-sm"
-                  >
-                    ✅ {point}
-                  </li>
-                ))}
-              </ul>
-              <button
-                className="bg-[#4c5173] text-white w-full text-center py-4 rounded-lg text-[1.4rem] font-bold transition-colors hover:bg-[#3b3f65] mt-auto"
-                onClick={() => (window.location.href = "/login")}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Course Modal */}
+        <AnimatePresence>
+          {selectedCourse && (
+            <>
+              {/* Overlay */}
+              <motion.div
+                className="fixed inset-0 bg-black z-[200]"
+                style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+                onClick={() => setSelectedCourse(null)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+
+              {/* Modal */}
+              <motion.div
+                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl shadow-xl w-[95%] max-w-[1400px] h-[85vh] sm:h-[90vh] z-[201] flex flex-col lg:flex-row overflow-hidden"
+                layoutId={selectedCourse.title}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.4 }}
               >
-                Start Course
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+                {/* Left: Image */}
+                <div className="w-full lg:w-[45%] h-[40%] lg:h-full bg-[#BFC4D7] flex justify-center items-center p-2 md:p-4">
+                  <motion.img
+                    src={selectedCourse.image}
+                    alt={selectedCourse.title}
+                    className="w-full h-full object-cover lg:object-contain rounded-lg shadow-lg"
+                    layoutId={selectedCourse.title}
+                  />
+                </div>
+
+                {/* Right: Text / Content */}
+                <div className="w-full lg:w-[55%] h-[60%] lg:h-full bg-[#F9F8FE] p-4 md:p-8 flex flex-col overflow-y-auto">
+                  <h2 className="text-[2.2rem] md:text-[3rem] font-bold mb-6 text-[#333]">{selectedCourse.title}</h2>
+
+                  <div className="flex items-center gap-2 text-[1.2rem] md:text-[1.4rem] text-[#666] mb-6 md:mb-8">
+                    <FaBookOpen className="text-[1.4rem] md:text-[1.6rem] text-[#4c5173]" />
+                    <span>{selectedCourse.lessons} Lessons Available</span>
+                  </div>
+
+                  <p className="text-[1.1rem] md:text-[1.3rem] leading-relaxed text-[#555] mb-6 md:mb-10">
+                    {selectedCourse.description}
+                  </p>
+
+                  <ul className="list-none mb-6 md:mb-8">
+                    {selectedCourse.keyPoints.map((point, index) => (
+                      <li key={index} className="flex items-center gap-2 text-[1rem] md:text-[1.2rem] text-[#444] mb-3 bg-white p-3 md:p-4 rounded-lg shadow-sm">
+                        ✅ {point}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-col sm:flex-row gap-4 mt-auto">
+                    <button
+                      className="bg-[#4c5173] text-white w-full sm:w-1/2 py-3 md:py-4 rounded-lg text-[1.2rem] md:text-[1.4rem] font-bold transition-colors hover:bg-[#3b3f65]"
+                      onClick={() => (window.location.href = "/login")}
+                    >
+                      Start Course
+                    </button>
+                    <button
+                      className="bg-[#880808] text-white w-full sm:w-1/2 py-3 md:py-4 rounded-lg text-[1.2rem] md:text-[1.4rem] font-bold transition-colors hover:bg-[#FF0000]"
+                      onClick={() => setSelectedCourse(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </section>
     </div>
   );
 };
