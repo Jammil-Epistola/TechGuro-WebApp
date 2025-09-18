@@ -15,9 +15,8 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
     birthday = Column(DateTime, nullable=False)
-    exp = Column(Integer, default=0)
-    level = Column(Integer, default=1)
     bio = Column(String, default="")
+    profile_icon = Column(String, default="avatar_default.png")
     date_created = Column(DateTime(timezone=True), server_default=func.now())
 
     progress = relationship("Progress", back_populates="user")
@@ -44,11 +43,9 @@ class Milestone(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     description = Column(String, nullable=False)
-    exp_reward = Column(Integer, default=0)
     icon_url = Column(String, default="placeholderimg")
 
     users_earned = relationship("MilestoneEarned", back_populates="milestone")
-
 
 class MilestoneEarned(Base):
     __tablename__ = "milestones_earned"
@@ -146,7 +143,6 @@ class Lesson(Base):
 
     unit = relationship("Unit", back_populates="lessons")
     questions = relationship("Question", back_populates="lesson")
-    activities = relationship("Activity", back_populates="lesson")
     
     slides = relationship("LessonSlides", back_populates="lesson", cascade="all, delete-orphan")
 
@@ -179,13 +175,3 @@ class Question(Base):
 
     lesson = relationship("Lesson", back_populates="questions")
     course = relationship("Course") 
-
-class Activity(Base):
-    __tablename__ = "activities"
-    id = Column(Integer, primary_key=True, index=True)
-    lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)
-    type = Column(String, nullable=False)
-    instructions = Column(String, nullable=False)
-    content = Column(String, nullable=False)
-
-    lesson = relationship("Lesson", back_populates="activities")

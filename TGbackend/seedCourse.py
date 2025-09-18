@@ -2,7 +2,7 @@ import os
 import json
 from sqlalchemy.orm import Session
 from TGbackend.database import SessionLocal, engine
-from TGbackend.models import Base, Course, Unit, Lesson, LessonSlides, Question, Activity
+from TGbackend.models import Base, Course, Unit, Lesson, LessonSlides, Question
 
 # Base paths for images
 BASE_COURSE_IMG_PATH = "/images/courses/"
@@ -241,17 +241,6 @@ def seed_database(session: Session, filename: str, data):
                     lesson_id=lesson.id,
                     filename=filename
                 )
-
-            # --- ACTIVITIES ---
-            for activity_data in lesson_data.get("activities", []):
-                if not isinstance(activity_data, dict):
-                    print(f"⚠️ Skipping malformed activity in {filename}: {activity_data}")
-                    continue
-                session.add(Activity(
-                    lesson_id=lesson.id,
-                    type=activity_data.get("type", "quiz"),
-                    content=activity_data.get("content", "")
-                ))
 
             # --- QUESTIONS ---
             for q_data in lesson_data.get("questions", []):

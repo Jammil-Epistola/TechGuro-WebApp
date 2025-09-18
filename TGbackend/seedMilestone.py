@@ -50,7 +50,6 @@ def seed_database(session: Session, filename: str, data):
         if existing:
             existing.title = m_data.get("title", existing.title)
             existing.description = m_data.get("description", existing.description)
-            existing.exp_reward = m_data.get("exp_reward", existing.exp_reward)
             icon_file = m_data.get("icon_url", "placeholder.png")
             existing.icon_url = BASE_MILESTONE_IMG_PATH + icon_file
             print(f"🔄 Updated milestone {milestone_id} → {existing.title}")
@@ -59,7 +58,6 @@ def seed_database(session: Session, filename: str, data):
                 id=milestone_id,
                 title=m_data.get("title", ""),
                 description=m_data.get("description", ""),
-                exp_reward=m_data.get("exp_reward", 0),
                 icon_url=BASE_MILESTONE_IMG_PATH + m_data.get("icon_url", "placeholder.png")
             )
             session.add(new_milestone)

@@ -1,8 +1,8 @@
 """Initial migration
 
-Revision ID: 9ddef4a282ca
+Revision ID: f752012a09d1
 Revises: 
-Create Date: 2025-09-17 09:39:26.255953
+Create Date: 2025-09-18 17:39:18.048855
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '9ddef4a282ca'
+revision: str = 'f752012a09d1'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -33,7 +33,6 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=False),
-    sa.Column('exp_reward', sa.Integer(), nullable=True),
     sa.Column('icon_url', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -44,9 +43,8 @@ def upgrade() -> None:
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('password_hash', sa.String(), nullable=False),
     sa.Column('birthday', sa.DateTime(), nullable=False),
-    sa.Column('exp', sa.Integer(), nullable=True),
-    sa.Column('level', sa.Integer(), nullable=True),
     sa.Column('bio', sa.String(), nullable=True),
+    sa.Column('profile_icon', sa.String(), nullable=True),
     sa.Column('date_created', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -146,16 +144,6 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_lessons_id'), 'lessons', ['id'], unique=False)
-    op.create_table('activities',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('lesson_id', sa.Integer(), nullable=False),
-    sa.Column('type', sa.String(), nullable=False),
-    sa.Column('instructions', sa.String(), nullable=False),
-    sa.Column('content', sa.String(), nullable=False),
-    sa.ForeignKeyConstraint(['lesson_id'], ['lessons.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_index(op.f('ix_activities_id'), 'activities', ['id'], unique=False)
     op.create_table('lesson_slides',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('lesson_id', sa.Integer(), nullable=False),
@@ -192,8 +180,6 @@ def downgrade() -> None:
     op.drop_table('questions')
     op.drop_index(op.f('ix_lesson_slides_id'), table_name='lesson_slides')
     op.drop_table('lesson_slides')
-    op.drop_index(op.f('ix_activities_id'), table_name='activities')
-    op.drop_table('activities')
     op.drop_index(op.f('ix_lessons_id'), table_name='lessons')
     op.drop_table('lessons')
     op.drop_index(op.f('ix_assessment_question_responses_id'), table_name='assessment_question_responses')

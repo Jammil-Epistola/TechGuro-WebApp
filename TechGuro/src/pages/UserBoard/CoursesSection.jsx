@@ -13,20 +13,14 @@ import { useUser } from "../../context/UserContext";
 
 const COURSES = [
   "Computer Basics",
-  "File & Document Handling",
-  "Office Tools & Typing Essentials",
   "Internet Safety",
-  "Digital Communication",
-  "Intro to Online Selling",
+  "Digital Communication and Messaging",
 ];
 
 const courseLessonCounts = {
   "Computer Basics": 8,
-  "File & Document Handling": 8,
-  "Office Tools & Typing Essentials": 8,
   "Internet Safety": 8,
-  "Digital Communication": 8,
-  "Intro to Online Selling": 8,
+  "Digital Communication and Messaging": 8,
 };
 
 const getCourseName = (courseId) => {
@@ -70,51 +64,28 @@ const CoursesSection = () => {
         ],
       },
       {
-        name: "File & Document Handling",
-        icon: <FaFolderOpen />,
-        description:
-          "Master saving, organizing, and locating digital files and folders.",
-        available: false,
-      },
-      {
-        name: "Office Tools & Typing Essentials",
-        icon: <FaKeyboard />,
-        description:
-          "Practice typing and learn to use Word, Excel, and more.",
-        available: false,
-      },
-      {
         name: "Internet Safety",
         icon: <FaShieldAlt />,
         description:
           "Stay secure online by recognizing risks and protecting your data.",
-        available: false,
+        available: true,
       },
       {
-        name: "Digital Communication",
+        name: "Digital Communication and Messaging",
         icon: <FaComments />,
         description:
           "Use email, messaging apps, and video calls effectively.",
-        available: false,
-      },
-      {
-        name: "Intro to Online Selling",
-        icon: <FaStore />,
-        description:
-          "Set up a Facebook Page and start selling online in your area.",
-        available: false,
+        available: true,
       },
     ];
 
     const fetchCourses = async () => {
       try {
-        // same approach as DashboardSection
         const res = await fetch(
           `${import.meta.env.VITE_API_URL}/progress/${user.user_id}`
         );
         const progressData = await res.json();
 
-        // count completed lessons per courseId -> name
         const completedPerCourse = {};
         progressData.forEach((entry) => {
           if (entry.completed) {
@@ -124,10 +95,7 @@ const CoursesSection = () => {
           }
         });
 
-        // compute percentage using the same courseLessonCounts as DashboardSection
         const updatedCourses = mockCourses.map((course) => {
-          if (!course.available) return course;
-
           const completed = completedPerCourse[course.name] || 0;
           const total = courseLessonCounts[course.name] || 1;
           const percent = Math.round((completed / total) * 100);
@@ -146,7 +114,6 @@ const CoursesSection = () => {
       fetchCourses();
     }
   }, [user.user_id]);
-
   const handleCourseClick = (course) => {
     if (course.available) {
       setSelectedCourse(course);
@@ -184,47 +151,43 @@ const CoursesSection = () => {
     <div className="text-[#4C5173]">
       <h2 className="text-left text-[40px] font-bold mb-5">COURSES</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 p-5">
-        {courseData.map((course, index) => (
-          <div
-            key={index}
-            onClick={() => handleCourseClick(course)}
-            className={`flex items-center bg-white p-5 rounded-lg cursor-pointer min-h-[200px] transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg ${
-              course.available
-                ? "border-2 border-green-600"
-                : "border-2 border-gray-300 opacity-80"
-            }`}
-          >
-            <div className="flex flex-col items-center w-[300px] p-2">
-              <div className="text-[40px] mb-2">{course.icon}</div>
-              <h3 className="text-[24px] font-bold text-[#333] break-words whitespace-normal text-center mb-2">
-                {course.name}
-              </h3>
-            </div>
+      <div className="text-[#4C5173] flex justify-center">
+        <div className="w-full max-w-[1200px] px-5 py-20 grid grid-cols-1 md:grid-cols-3 gap-10">
+          {courseData.map((course, index) => (
+            <div
+              key={index}
+              onClick={() => handleCourseClick(course)}
+              className={`flex flex-col bg-white border rounded-lg cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg ${course.available ? "border-4 border-[#4C5173]" : "border-4 border-gray-300 opacity-80"
+                }`}
+            >
+              {/* Top Section*/}
+              <div className="flex justify-center items-center bg-[#f0f0f0] p-6">
+                <div className="text-[90px]">{course.icon}</div>
+              </div>
 
-            <div className="w-[3px] h-full bg-white mx-5"></div>
+              {/* Bottom Section - Text + Progress */}
+              <div className="flex flex-col p-5 gap-3">
+                <h3 className="text-[24px] font-bold text-center text-[#333]">{course.name}</h3>
+                <p className="text-[14px] text-[#666] text-center">{course.description}</p>
 
-            <div className="flex-1">
-              <p className="text-[14px] leading-relaxed text-[#666] mb-3">
-                {course.description}
-              </p>
-              <div className="flex flex-col mt-2">
-                <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden">
-                  <div
-                    className="bg-[#6B708D] h-full"
-                    style={{ width: `${course.progress || 0}%` }}
-                  ></div>
+                {/* Progress Bar */}
+                <div className="flex flex-col items-center mt-3">
+                  <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden">
+                    <div
+                      className="bg-[#6B708D] h-full"
+                      style={{ width: `${course.progress || 0}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-sm mt-1 text-[#4C5173]">
+                    {course.available ? `${course.progress || 0}% completed` : "Not Available"}
+                  </p>
                 </div>
-                <p className="text-sm mt-1 text-center">
-                  {course.available
-                    ? `${course.progress || 0}% completed`
-                    : "Not Available"}
-                </p>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+
 
       {/* Course Modal */}
       {selectedCourse && (
@@ -233,18 +196,19 @@ const CoursesSection = () => {
           onClick={() => setSelectedCourse(null)}
         >
           <div
-            className="bg-white rounded-xl shadow-xl w-[95%] max-w-[1300px] h-[80vh] z-[201] flex flex-col lg:flex-row overflow-hidden"
+            className="bg-white rounded-xl shadow-xl w-[95%] max-w-[1300px] h-[80vh] z-[201] flex flex-col lg:flex-row overflow-hidden relative"
             onClick={(e) => e.stopPropagation()}
           >
+
             {/* Left */}
             <div className="w-full lg:w-[40%] bg-[#4C5173] text-white p-8 flex flex-col justify-center">
-              <div className="text-[4rem] mb-6">{selectedCourse.icon}</div>
-              <h2 className="text-[2.5rem] font-bold">{selectedCourse.name}</h2>
-              <p className="mt-4 text-[1.2rem] leading-relaxed">
+              <div className="text-[4.5rem] mb-6">{selectedCourse.icon}</div>
+              <h2 className="text-[3rem] font-bold">{selectedCourse.name}</h2>
+              <p className="mt-4 text-[1.7rem] leading-relaxed">
                 {selectedCourse.description}
               </p>
               {selectedCourse.lessons && (
-                <div className="mt-6 flex items-center gap-2 text-[1.1rem] text-white">
+                <div className="mt-6 flex items-center gap-2 text-[1.4rem] text-white">
                   <FaBookOpen />
                   <span>{selectedCourse.lessons} Lessons</span>
                 </div>
@@ -252,46 +216,56 @@ const CoursesSection = () => {
             </div>
 
             {/* Right */}
-            <div className="w-full lg:w-[60%] bg-[#f8f8f8] p-8 overflow-y-auto">
-              {selectedCourse.units ? (
-                <>
-                  <h3 className="text-[1.5rem] font-bold text-[#333] mb-4">
-                    📘 What You'll Learn
-                  </h3>
-                  {selectedCourse.units.map((unit, idx) => (
-                    <div key={idx} className="mb-6">
-                      <h4 className="text-[1.2rem] font-semibold text-[#4C5173] mb-2">
-                        {unit.unit}
-                      </h4>
-                      <ul className="list-disc list-inside text-[1rem] text-[#555]">
-                        {unit.lessons.map((lesson, lid) => (
-                          <li key={lid}>{lesson}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </>
-              ) : selectedCourse.locked ? (
-                <div className="mt-8 text-center">
-                  <p className="text-[1.2rem] text-[#666] mb-5">
-                    This course is still being developed.
-                  </p>
-                  <button
-                    onClick={() => setSelectedCourse(null)}
-                    className="px-6 py-3 bg-[#4C5173] text-white rounded-md text-[1.1rem] hover:bg-[#3a3f5c]"
-                  >
-                    Okay
-                  </button>
-                </div>
-              ) : null}
+            <div className="w-full lg:w-[60%] bg-[#f8f8f8] p-8 overflow-y-auto flex flex-col justify-between">
+              <div>
+                {selectedCourse.units ? (
+                  <>
+                    <h3 className="text-[2rem] font-bold text-[#333] mb-4">
+                      📘 What You'll Learn
+                    </h3>
+                    {selectedCourse.units.map((unit, idx) => (
+                      <div key={idx} className="mb-6">
+                        <h4 className="text-[1.7rem] font-semibold text-[#4C5173] mb-2">
+                          {unit.unit}
+                        </h4>
+                        <ul className="list-disc list-inside text-[1.5rem] text-[#555]">
+                          {unit.lessons.map((lesson, lid) => (
+                            <li key={lid}>{lesson}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </>
+                ) : selectedCourse.locked ? (
+                  <div className="mt-8 text-center">
+                    <p className="text-[1.7rem] text-[#666] mb-5">
+                      This course is still being developed.
+                    </p>
+                    <button
+                      onClick={() => setSelectedCourse(null)}
+                      className="px-6 py-3 bg-[#4F7942] text-white rounded-md text-[1.6rem] hover:bg-[#3a3f5c]"
+                    >
+                      Okay
+                    </button>
+                  </div>
+                ) : null}
+              </div>
 
               {!selectedCourse.locked && (
-                <button
-                  onClick={handleStartCourse}
-                  className="w-full mt-8 bg-[#4C5173] text-white py-4 text-[1.2rem] font-bold rounded-md hover:bg-[#3a3f5c]"
-                >
-                  Start Course
-                </button>
+                <div className="flex gap-4 mt-8">
+                  <button
+                    onClick={handleStartCourse}
+                    className="flex-1 bg-[#4F7942] text-white py-4 text-[1.7rem] font-bold rounded-md hover:bg-[#478778]"
+                  >
+                    Start Course
+                  </button>
+                  <button
+                    onClick={() => setSelectedCourse(null)}
+                    className="flex-1 bg-[#880808] text-white py-4 text-[1.7rem] font-bold rounded-md hover:bg-[#5c0505]"
+                  >
+                    Cancel
+                  </button>
+                </div>
               )}
             </div>
           </div>

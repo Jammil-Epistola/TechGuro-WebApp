@@ -1,6 +1,26 @@
 # TGbackend/schemas.py
 from pydantic import BaseModel, EmailStr
+from datetime import datetime
 from typing import List
+
+# -------------------------
+# Schema for Users
+# -------------------------
+class UserCreate(BaseModel):
+    email: EmailStr
+    username: str
+    password: str
+    birthday: datetime
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class UserProfileUpdate(BaseModel):
+    username: str | None = None
+    bio: str | None = None
+    profile_icon: str | None = None 
+
 
 # -------------------------
 # Progress Inputs and Update (detects user Progress)
@@ -26,7 +46,6 @@ class MilestoneEarnedOut(BaseModel):
     id: int
     title: str
     description: str
-    exp_reward: int
     icon_url: str
     status: str
 
@@ -37,7 +56,6 @@ class MilestoneOut(BaseModel):
     id: int
     title: str
     description: str
-    exp_reward: int
     icon_url: str
     status: str
 

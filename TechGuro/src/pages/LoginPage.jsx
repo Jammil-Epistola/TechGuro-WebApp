@@ -1,3 +1,4 @@
+//LoginPage.jsx
 import React, { useState, useEffect } from "react";
 import { Home } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,11 +9,11 @@ import { useUser } from "../context/UserContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { setUser } = useUser();
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useUser();
 
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -46,10 +47,10 @@ const LoginPage = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      const data = await response.json(); // only once
+
       if (response.ok) {
-        setUser(data);
-        localStorage.setItem("user", JSON.stringify(data));
+        login(data); // normalized login
         navigate("/UserDashboard");
       } else {
         setErrorMessage(data.detail || "Login failed");

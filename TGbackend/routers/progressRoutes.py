@@ -11,24 +11,6 @@ from TGbackend.models import Progress
 
 router = APIRouter(tags=["Progress Tracking"])
 
-# Helper: EXP and Leveling
-def check_level_up(user):
-    exp_needed = int(100 * (1.3 ** (user.level - 1)))
-    leveled_up = False
-    level_up_attempts = 0  
-
-    while user.exp >= exp_needed:
-        user.exp -= exp_needed
-        user.level += 1
-        leveled_up = True
-        exp_needed = int(100 * (1.3 ** (user.level - 1)))
-
-        level_up_attempts += 1 
-        if level_up_attempts > 100:  
-            break 
-
-    return leveled_up
-
 @router.post("/progress/update")
 def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(get_db)):
     # Check if progress already exists
@@ -43,7 +25,6 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    exp_gained = 0
     message = ""
     lesson_newly_completed = False
 
@@ -51,7 +32,6 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
         if progress_data.completed and not existing.completed:
             existing.completed = True
             existing.completed_at = datetime.utcnow()
-            exp_gained += 10  # Lesson completion
             message = "Progress updated. "
             lesson_newly_completed = True
         else:
@@ -67,45 +47,13 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
         )
         db.add(new_progress)
         if progress_data.completed:
-            exp_gained += 10
             lesson_newly_completed = True
         message = "Progress created. "
-
-    # Unit completion check
-    if progress_data.completed:
-        unit_lessons = db.query(models.Progress).filter_by(
-            user_id=progress_data.user_id,
-            course_id=progress_data.course_id,
-            unit_id=progress_data.unit_id
-        ).all()
-
-        if unit_lessons and all(p.completed for p in unit_lessons):
-            exp_gained += 50
-            message += "Unit completed! "
-
-        # Course completion check
-        course_progress = db.query(models.Progress).filter_by(
-            user_id=progress_data.user_id,
-            course_id=progress_data.course_id
-        ).all()
-
-        units_by_id = {}
-        for p in course_progress:
-            if p.unit_id not in units_by_id:
-                units_by_id[p.unit_id] = []
-            units_by_id[p.unit_id].append(p)
-
-        all_units_completed = all(all(l.completed for l in lessons) for lessons in units_by_id.values())
-
-        if course_progress and all_units_completed:
-            exp_gained += 100
-            message += "Course completed! "
 
     # EVENT-DRIVEN BKT INTEGRATION: Update mastery when lesson is completed
     bkt_update_result = None
     if lesson_newly_completed:
         try:
-            # Trigger BKT update to refresh mastery calculations
             bkt_update_result = teki_bkt.update_from_assessments(
                 user_id=progress_data.user_id, 
                 course_id=progress_data.course_id, 
@@ -113,26 +61,15 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
                 source="lesson_completion"
             )
         except Exception as e:
-            # Don't fail progress update if BKT fails - log it instead
             print(f"BKT update failed for user {progress_data.user_id}, lesson {progress_data.lesson_id}: {e}")
 
-    user.exp += exp_gained
-    leveled_up = check_level_up(user)
     db.commit()
 
-    if leveled_up:
-        message += "Level Up!"
-
-    # Enhanced response with BKT insights (optional)
     response_data = {
         "message": message.strip(),
-        "exp_gained": exp_gained,
-        "new_level": user.level,
-        "current_exp": user.exp,
         "lesson_completed": lesson_newly_completed
     }
 
-    # Add BKT insights if available (for frontend to show mastery updates)
     if bkt_update_result and bkt_update_result.get("updated_masteries"):
         response_data["mastery_updates"] = bkt_update_result["updated_masteries"]
 

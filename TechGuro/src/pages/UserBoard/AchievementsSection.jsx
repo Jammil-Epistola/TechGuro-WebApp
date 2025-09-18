@@ -143,13 +143,6 @@ const AchievementsSection = () => {
                 <h2 className="text-[22px] font-bold">{milestone.title}</h2>
                 <p className="text-[16px] text-gray-800">{milestone.description}</p>
                 
-                {/* EXP Reward Display */}
-                {milestone.exp_reward > 0 && (
-                  <p className="text-[14px] text-blue-300 font-medium mt-1">
-                    +{milestone.exp_reward} EXP
-                  </p>
-                )}
-                
                 {/* Status Display */}
                 <span
                   className={`block text-right font-bold text-[16px] mt-2 ${

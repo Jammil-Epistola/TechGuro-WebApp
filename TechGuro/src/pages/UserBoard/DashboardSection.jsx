@@ -12,14 +12,16 @@ import {
   Legend
 } from "chart.js";
 import placeholderimg from "../../assets/Dashboard/placeholder_teki.png";
-
+import CB_img from "../../assets/Home/computer_basics_imghead.png";
+import DCM_img from "../../assets/Home/digi_comms_imghead.png";
+import IS_img from "../../assets/Home/internet_safety_imghead.png";
+import ProfileSection from "./ProfileSection";
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
-const DashboardSection = () => {
+const DashboardSection = ({ goToProfile }) => {
   const { user } = useUser();
   const [selectedCourse, setSelectedCourse] = useState("Computer Basics");
   const [selectedAssessment, setSelectedAssessment] = useState("Pre-Assessment");
-  const [recommended, setRecommended] = useState([]);
   const [courseProgress, setCourseProgress] = useState({});
   const [overallProgress, setOverallProgress] = useState(0);
 
@@ -41,38 +43,25 @@ const DashboardSection = () => {
   const [fetchError, setFetchError] = useState(null);
 
   const navigate = useNavigate();
+  const profileRef = React.useRef(null);
+
+  useEffect(() => {
+    if (goToProfile && profileRef.current) {
+      profileRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [goToProfile]);
 
   const courses = [
     "Computer Basics",
-    "File & Document Handling",
-    "Office Tools & Typing Essentials",
     "Internet Safety",
-    "Digital Communication",
-    "Intro to Online Selling"
+    "Digital Communication and Messaging"
   ];
 
   const courseLessonCounts = {
     "Computer Basics": 8,
-    "File & Document Handling": 8,
-    "Office Tools & Typing Essentials": 8,
     "Internet Safety": 8,
-    "Digital Communication": 8,
-    "Intro to Online Selling": 8
+    "Digital Communication and Messaging": 8
   };
-
-  const unaccessedCourses = [
-    "File & Document Handling",
-    "Office Tools & Typing Essentials",
-    "Internet Safety",
-    "Digital Communication",
-    "Intro to Online Selling",
-    "Creative Tools (Photos & Design)"
-  ];
-
-  useEffect(() => {
-    const shuffled = [...unaccessedCourses].sort(() => 0.5 - Math.random());
-    setRecommended(shuffled.slice(0, 3));
-  }, []);
 
   // Centralized data fetching function
   const fetchAllDashboardData = async () => {
@@ -397,31 +386,11 @@ const DashboardSection = () => {
   return (
     <div className="bg-[#DFDFEE] min-h-screen p-6 text-black text-[18px]">
       {/* Profile Section */}
-      <div className="flex items-center justify-between bg-[#F9F8FE] border-[1.5px] border-[#6B708D] p-6 rounded-lg mb-8">
-        <div className="flex gap-6 items-center">
-          <img
-            src={placeholderimg}
-            alt="User Avatar"
-            className="w-24 h-24 rounded-full object-cover border border-black"
-          />
-          <div>
-            <h2 className="text-[24px] font-bold">{user?.username || "User"}</h2>
-            <p className="text-[18px]">{user?.email || "No Email"}</p>
-            <p className="text-[18px]">{user?.bio || "Welcome to TechGuro!"}</p>
-          </div>
-        </div>
-        <div className="flex flex-col items-end gap-4">
-          <button className="border border-black px-4 py-2 rounded-md font-semibold text-[16px] hover:bg-gray-200">
-            Edit Profile
-          </button>
-          <div className="text-[18px] font-semibold flex items-center gap-2">
-            <span className="text-yellow-500 text-[24px]">🏅</span>
-            <span>{user?.milestone_awarded ? 1 : 0}</span>
-          </div>
-        </div>
+      <div ref={profileRef}>
+        <ProfileSection />
       </div>
 
-      <h1 className="text-[24px] font-bold text-[#4C5173] mb-4">USER DASHBOARD</h1>
+      <h1 className="text-[30px] font-bold text-[#4C5173] mb-4">USER DASHBOARD</h1>
 
       {/* Recent Achievements + Assessment Scores */}
       <div className="flex flex-col lg:flex-row gap-6">
@@ -430,7 +399,7 @@ const DashboardSection = () => {
           className="flex-1 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6 cursor-pointer hover:bg-[#f0f0ff] flex flex-col"
           onClick={() => navigate("/UserDashboard/achievements")}
         >
-          <h2 className="text-[20px] font-bold mb-4 text-left">Recent Milestones:</h2>
+          <h2 className="text-[25px] font-bold mb-4 text-left">Recent Milestones:</h2>
 
           <div className="flex flex-col items-center justify-center flex-1">
             {milestonesLoading ? (
@@ -457,7 +426,7 @@ const DashboardSection = () => {
         </div>
         {/* Assessment Scores */}
         <div className="flex-1 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6 min-h-[180px]">
-          <h2 className="text-[20px] font-bold mb-4">Assessment Scores:</h2>
+          <h2 className="text-[25px] font-bold mb-4">Assessment Scores:</h2>
           <select value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)}
             className="w-full border border-black px-4 py-2 rounded text-[18px] mb-3">
             {courses.map((course) => <option key={course}>{course}</option>)}
@@ -488,12 +457,12 @@ const DashboardSection = () => {
 
       {/* Performance Section */}
       <div className="mt-8 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6">
-        <h2 className="text-[20px] font-bold mb-4">Your Performance:</h2>
+        <h2 className="text-[25px] font-bold mb-4">Your Performance:</h2>
 
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           {/* TechGuro Progression */}
           <div className="flex-1 border border-black rounded-md p-4 flex flex-col items-center justify-center">
-            <h3 className="font-semibold text-lg mb-2">TechGuro Progression:</h3>
+            <h3 className="font-semibold text-[23px] mb-10">TechGuro Progression:</h3>
             <div className="relative w-32 h-32 flex items-center justify-center">
               <svg viewBox="0 0 36 36" className="w-full h-full">
                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -511,7 +480,7 @@ const DashboardSection = () => {
 
           {/* Learning Growth*/}
           <div className="flex-1 border border-black rounded-md p-4 flex flex-col">
-            <h3 className="font-semibold text-lg mb-4 text-center">Learning Growth</h3>
+            <h3 className="font-semibold text-[23px] mb-4 text-center">Learning Growth</h3>
 
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
               {/* Score Improvement*/}
@@ -554,33 +523,42 @@ const DashboardSection = () => {
 
         {/* Course Progression*/}
         <div className="border border-black rounded-md p-4">
-          <h3 className="font-semibold text-lg mb-4 text-center">Course Progression</h3>
-          <div className="grid md:grid-cols-2 gap-4 max-h-[300px] overflow-y-auto pr-2">
+          <h3 className="font-semibold text-[23px] mb-4 text-center">Course Progression</h3>
+          <div className="grid grid-cols-1 gap-4 max-h-[300px] overflow-y-auto pr-2">
             {courses.map((course, index) => {
               const percent = courseProgress[course] || 0;
               return (
-                <div key={index} className="bg-white border border-gray-400 rounded-lg p-3">
-                  <h4 className="font-semibold text-[18px] mb-2">{course}</h4>
-                  <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden">
-                    <div className="bg-[#6B708D] h-full" style={{ width: `${percent}%` }}></div>
+                <div key={index} className="bg-white border border-gray-400 rounded-lg p-3 flex items-center gap-4 min-h-[200px]">
+                  {/* Left Side */}
+                  <div className="w-1/3 flex justify-center">
+                    <img
+                      src={
+                        course === "Computer Basics"
+                          ? CB_img
+                          : course === "Digital Communication and Messaging"
+                            ? DCM_img
+                            : IS_img
+                      }
+                      alt={course}
+                      className="w-full h-20 object-contain rounded-md scale-230"
+                    />
                   </div>
-                  <p className="text-center mt-1 text-sm">{percent}% completed</p>
+
+                  {/* Right Side */}
+                  <div className="w-2/3 ">
+                    <h4 className="font-semibold text-[25px] mb-2">{course}</h4>
+                    <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden">
+                      <div
+                        className="bg-[#6B708D] h-full"
+                        style={{ width: `${percent}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-center mt-1 text-lg">{percent}% completed</p>
+                  </div>
                 </div>
               );
             })}
           </div>
-        </div>
-      </div>
-
-      {/* Recommendations */}
-      <div className="mt-8 border border-black rounded-md p-4 bg-white">
-        <h2 className="text-[20px] font-bold mb-3 text-center">Courses to Explore</h2>
-        <div className="grid grid-cols-3 gap-4">
-          {recommended.map((course, index) => (
-            <div key={index} className="border border-gray-400 rounded-lg p-3 text-center cursor-pointer hover:bg-gray-100">
-              {course}
-            </div>
-          ))}
         </div>
       </div>
 

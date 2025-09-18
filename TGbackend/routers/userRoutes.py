@@ -5,40 +5,12 @@ from passlib.context import CryptContext
 from datetime import datetime, date
 from TGbackend import models
 from TGbackend.database import get_db
+from TGbackend.schema import UserCreate, UserLogin, UserProfileUpdate
 
 router = APIRouter(tags=["User Management"])
 
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Pydantic schemas
-class UserCreate(BaseModel):
-    email: EmailStr
-    username: str
-    password: str
-    birthday: datetime
-
-class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
-
-# Helper: EXP and Leveling
-def check_level_up(user):
-    exp_needed = int(100 * (1.3 ** (user.level - 1)))
-    leveled_up = False
-    level_up_attempts = 0  
-
-    while user.exp >= exp_needed:
-        user.exp -= exp_needed
-        user.level += 1
-        leveled_up = True
-        exp_needed = int(100 * (1.3 ** (user.level - 1)))
-
-        level_up_attempts += 1 
-        if level_up_attempts > 100:  
-            break 
-
-    return leveled_up
 
 # Register endpoint
 @router.post("/register")
@@ -59,6 +31,7 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return {"message": "User registered successfully", "user_id": new_user.id}
 
+
 # Login endpoint
 @router.post("/login")
 def login_user(user: UserLogin, db: Session = Depends(get_db)):
@@ -77,13 +50,6 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
     if not earned:
         milestone_earned = models.MilestoneEarned(user_id=db_user.id, milestone_id=1)
         db.add(milestone_earned)
-
-        # Check milestone rewards
-        milestone = db.query(models.Milestone).filter(models.Milestone.id == 1).first()
-        if milestone and milestone.exp_reward:
-            db_user.exp += milestone.exp_reward
-            check_level_up(db_user)
-
         db.commit()
 
     # Calculate age
@@ -99,8 +65,34 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         "email": db_user.email,
         "age": age,
         "is_elderly": is_elderly,
-        "exp": db_user.exp,
-        "level": db_user.level,
+    }
+
+@router.put("/user/update/{user_id}")
+def update_user_profile(user_id: int, update: UserProfileUpdate, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    
+    if update.username is not None:
+        user.username = update.username
+    if update.bio is not None:  
+        user.bio = update.bio
+    if update.profile_icon is not None:
+        user.profile_icon = update.profile_icon
+
+    db.commit()
+    db.refresh(user)
+
+    return {
+        "message": "User profile updated successfully",
+        "user": {
+            "user_id": user.id,
+            "username": user.username,
+            "email": user.email,  
+            "bio": user.bio,
+            "profile_icon": user.profile_icon
+        }
     }
 
 # -------------------------
@@ -121,11 +113,10 @@ def clear_all_user_data(user_id: int, db: Session = Depends(get_db)):
     # 4. Delete earned milestones
     db.query(models.MilestoneEarned).filter(models.MilestoneEarned.user_id == user_id).delete()
 
-    # 5. Reset user EXP and level
+    # 5. Reset user profile extras (no more exp/level)
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if user:
-        user.exp = 0
-        user.level = 1
+        user.bio = ""
 
     db.commit()
 
@@ -136,6 +127,5 @@ def clear_all_user_data(user_id: int, db: Session = Depends(get_db)):
             "Progress", "AssessmentQuestionResponse", "AssessmentResults",
             "UserLessonMastery", "MilestoneEarned"
         ],
-        "reset_fields": {"exp": 0, "level": 1},
         "user_id": user_id
     }

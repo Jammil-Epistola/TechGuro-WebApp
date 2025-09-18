@@ -1,9 +1,8 @@
-#milestoneRoutes.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy.exc import IntegrityError
 from TGbackend import models, database
-from TGbackend.schema import MilestoneEarnedOut, MilestoneOut
+from TGbackend.schema import MilestoneOut
 from typing import List
 
 router = APIRouter(prefix="/milestones", tags=["Milestones"])
@@ -36,7 +35,6 @@ def get_all_milestones(user_id: int, db: Session = Depends(get_db)):
             "id": m.id,
             "title": m.title,
             "description": m.description,
-            "exp_reward": m.exp_reward,
             "icon_url": m.icon_url,
             "status": "earned" if m.id in earned_ids else "not earned",
         }
@@ -59,18 +57,9 @@ def award_milestone(user_id: int, milestone_id: int, db: Session = Depends(get_d
         db.rollback()
         return {"message": "Milestone already earned"}
 
-    # Award EXP if milestone has reward
-    if milestone.exp_reward:
-        user = db.query(models.User).filter(models.User.id == user_id).first()
-        if user:
-            user.exp += milestone.exp_reward
-            db.commit()
-
     return {
-        "message": f"Milestone '{milestone.title}' awarded to user {user_id}",
-        "exp_awarded": milestone.exp_reward,
+        "message": f"Milestone '{milestone.title}' awarded to user {user_id}"
     }
-
 
 
 @router.get("/earned/{user_id}")
@@ -90,7 +79,6 @@ def get_user_milestones(user_id: int, db: Session = Depends(get_db)):
             "id": m.id,
             "title": m.title,
             "description": m.description,
-            "exp_reward": m.exp_reward,
             "icon_url": m.icon_url,
             "status": "earned",
         }
