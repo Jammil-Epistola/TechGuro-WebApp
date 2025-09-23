@@ -1,0 +1,604 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11001, 
+    "type": "image_mcq",
+    "question": "Alin dito ang desktop computer?",
+    "options": [
+      {"image": "desktop_pc.png"},
+      {"image": "laptop.png"},
+      {"image": "tablet.png"}
+    ],
+    "answer": "desktop_pc.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11002, 
+    "type": "image_mcq",
+    "question": "Ano ang tawag sa portable na computer?",
+    "options": [
+      {"image": "desktop_pc.png"},
+      {"image": "laptop.png"},
+      {"image": "mouse.png"}
+    ],
+    "answer": "laptop.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11003, 
+    "type": "image_mcq",
+    "question": "Alin ang touchscreen device?",
+    "options": [
+      {"image": "keyboard.png"},
+      {"image": "tablet.png"},
+      {"image": "desktop_pc.png"}
+    ],
+    "answer": "tablet.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11004, 
+    "type": "image_mcq",
+    "question": "Saan makikita ang computer sa bahay?",
+    "options": [
+      {"image": "home_office.png"},
+      {"image": "kitchen.png"},
+      {"image": "bathroom.png"}
+    ],
+    "answer": "home_office.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11005, 
+    "type": "image_mcq",
+    "question": "Ano ang makina na tumutulong sa atin gumawa ng iba't ibang gawain?",
+    "options": [
+      {"image": "computer.png"},
+      {"image": "television.png"},
+      {"image": "radio.png"}
+    ],
+    "answer": "computer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11006,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng hardware?",
+    "options": [
+      {"image": "monitor.png"},
+      {"image": "google_chrome.png"},
+      {"image": "messenger.png"}
+    ],
+    "answer": "monitor.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11007,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng software?",
+    "options": [
+      {"image": "ms_word.png"},
+      {"image": "keyboard.png"},
+      {"image": "mouse.png"}
+    ],
+    "answer": "ms_word.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11008,
+    "type": "image_mcq",
+    "question": "Ano ang ginagamit para mag-type ng letters at numbers?",
+    "options": [
+      {"image": "keyboard.png"},
+      {"image": "monitor.png"},
+      {"image": "printer.png"}
+    ],
+    "answer": "keyboard.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11009,
+    "type": "image_mcq",
+    "question": "Ano ang ginagamit para mag-navigate at mag-click?",
+    "options": [
+      {"image": "mouse.png"},
+      {"image": "keyboard.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "mouse.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11010,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng images at videos?",
+    "options": [
+      {"image": "monitor.png"},
+      {"image": "keyboard.png"},
+      {"image": "laptop.png"}
+    ],
+    "answer": "monitor.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11011,
+    "type": "image_mcq",
+    "question": "Alin ang operating system?",
+    "options": [
+      {"image": "windows_logo.png"},
+      {"image": "mouse.png"},
+      {"image": "keyboard.png"}
+    ],
+    "answer": "windows_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11012,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng laptop?",
+    "options": [
+      {"image": "laptop.png"},
+      {"image": "desktop_pc.png"},
+      {"image": "tablet.png"}
+    ],
+    "answer": "laptop.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11013,
+    "type": "image_mcq",
+    "question": "Alin ang maliit at touchscreen na device?",
+    "options": [
+      {"image": "tablet.png"},
+      {"image": "desktop_pc.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "tablet.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11014,
+    "type": "image_mcq",
+    "question": "Alin ang HINDI kabilang sa hardware?",
+    "options": [
+      {"image": "chrome_logo.png"},
+      {"image": "mouse.png"},
+      {"image": "keyboard.png"}
+    ],
+    "answer": "chrome_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11015,
+    "type": "image_mcq",
+    "question": "Alin ang hindi kabilang sa software?",
+    "options": [
+      {"image": "keyboard.png"},
+      {"image": "ms_word.png"},
+      {"image": "windows_logo.png"}
+    ],
+    "answer": "keyboard.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11016,
+    "type": "image_mcq",
+    "question": "Alin ang example ng desktop computer?",
+    "options": [
+      {"image": "desktop_pc.png"},
+      {"image": "laptop.png"},
+      {"image": "tablet.png"}
+    ],
+    "answer": "desktop_pc.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 110017,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit upang makinig ng tunog?",
+    "options": [
+      {"image": "speakers.png"},
+      {"image": "keyboard.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "speakers.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11018,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit upang mag-print ng documents?",
+    "options": [
+      {"image": "printer.png"},
+      {"image": "monitor.png"},
+      {"image": "keyboard.png"}
+    ],
+    "answer": "printer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11019,
+    "type": "image_mcq",
+    "question": "Alin ang software para sa pag-type ng documents?",
+    "options": [
+      {"image": "ms_word.png"},
+      {"image": "windows_logo.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "ms_word.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11020,
+    "type": "image_mcq",
+    "question": "Alin ang software na ginagamit sa pag-browse ng internet?",
+    "options": [
+      {"image": "chrome_logo.png"},
+      {"image": "keyboard.png"},
+      {"image": "desktop_pc.png"}
+    ],
+    "answer": "chrome_logo.png",
+    "image": null
+  },
+   {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11021,
+    "type": "drag_drop",
+    "question": "I-match ang mga uri ng computer sa tamang larawan: I-drag ang Desktop, Laptop, at Tablet sa kani-kanilang larawan.",
+    "drag_items": [
+      {"id": "item1", "text": "Desktop", "type": "draggable"},
+      {"id": "item2", "text": "Laptop", "type": "draggable"},
+      {"id": "item3", "text": "Tablet", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "desktop_zone", "position": "box", "label": "DESKTOP", "accepts_multiple": false},
+      {"id": "laptop_zone", "position": "box", "label": "LAPTOP", "accepts_multiple": false},
+      {"id": "tablet_zone", "position": "box", "label": "TABLET", "accepts_multiple": false}
+    ],
+    "answer": "{\"desktop_zone\": [\"Desktop\"], \"laptop_zone\": [\"Laptop\"], \"tablet_zone\": [\"Tablet\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11022,
+    "type": "drag_drop",
+    "question": "Kumpletuhin ang pangungusap: 'Ang _____ ay ginagamit para mag-type ng letters at numbers.'",
+    "drag_items": [
+      {"id": "item1", "text": "Keyboard", "type": "draggable"},
+      {"id": "item2", "text": "Mouse", "type": "draggable"},
+      {"id": "item3", "text": "Monitor", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Keyboard\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11023,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: 'Ang _____ ay screen na nagpapakita ng images at videos.'",
+    "drag_items": [
+      {"id": "item1", "text": "Monitor", "type": "draggable"},
+      {"id": "item2", "text": "Keyboard", "type": "draggable"},
+      {"id": "item3", "text": "Mouse", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Monitor\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11024,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga hardware sa tamang grupo.",
+    "drag_items": [
+      {"id": "item1", "text": "Keyboard", "type": "draggable"},
+      {"id": "item2", "text": "Mouse", "type": "draggable"},
+      {"id": "item3", "text": "Monitor", "type": "draggable"},
+      {"id": "item4", "text": "Google Chrome", "type": "draggable"},
+      {"id": "item5", "text": "Microsoft Word", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "hardware_zone", "position": "box", "label": "HARDWARE", "accepts_multiple": true}
+    ],
+    "answer": "{\"hardware_zone\": [\"Keyboard\", \"Mouse\", \"Monitor\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11025,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga software sa tamang grupo.",
+    "drag_items": [
+      {"id": "item1", "text": "Windows", "type": "draggable"},
+      {"id": "item2", "text": "Microsoft Word", "type": "draggable"},
+      {"id": "item3", "text": "Google Chrome", "type": "draggable"},
+      {"id": "item4", "text": "Mouse", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "software_zone", "position": "box", "label": "SOFTWARE", "accepts_multiple": true}
+    ],
+    "answer": "{\"software_zone\": [\"Windows\", \"Microsoft Word\", \"Google Chrome\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ at _____ ay magkasama para magamit mo ang computer.'",
+    "drag_items": [
+      {"id": "item1", "text": "Hardware", "type": "draggable"},
+      {"id": "item2", "text": "Software", "type": "draggable"},
+      {"id": "item3", "text": "Internet", "type": "draggable"},
+      {"id": "item4", "text": "Virus", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"},
+      {"id": "blank_2", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Hardware\", \"blank_2\": \"Software\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11027,
+    "type": "drag_drop",
+    "question": "I-drag ang mga halimbawa sa tamang kategorya: Hardware o Software?",
+    "drag_items": [
+      {"id": "item1", "text": "Keyboard", "type": "draggable"},
+      {"id": "item2", "text": "Mouse", "type": "draggable"},
+      {"id": "item3", "text": "Microsoft Word", "type": "draggable"},
+      {"id": "item4", "text": "Google Chrome", "type": "draggable"},
+      {"id": "item5", "text": "Monitor", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "hardware_zone", "position": "box", "label": "HARDWARE", "accepts_multiple": true},
+      {"id": "software_zone", "position": "box", "label": "SOFTWARE", "accepts_multiple": true}
+    ],
+    "answer": "{\"hardware_zone\": [\"Keyboard\", \"Mouse\", \"Monitor\"], \"software_zone\": [\"Microsoft Word\", \"Google Chrome\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11028,
+    "type": "drag_drop",
+    "question": "I-drag ang mga lugar kung saan makikita ang computer: Bahay, Opisina, o Paaralan?",
+    "drag_items": [
+      {"id": "item1", "text": "Bahay", "type": "draggable"},
+      {"id": "item2", "text": "Opisina", "type": "draggable"},
+      {"id": "item3", "text": "Paaralan", "type": "draggable"},
+      {"id": "item4", "text": "Kalsada", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "location_zone", "position": "box", "label": "WHERE COMPUTERS ARE FOUND", "accepts_multiple": true}
+    ],
+    "answer": "{\"location_zone\": [\"Bahay\", \"Opisina\", \"Paaralan\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11029,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Puwedeng manood ng videos, makinig ng music, at mag-video call gamit ang _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "Desktop", "type": "draggable"},
+      {"id": "item2", "text": "Computer", "type": "draggable"},
+      {"id": "item3", "text": "Tablet", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Computer\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11030,
+    "type": "drag_drop",
+    "question": "I-drag ang mga tamang halimbawa ng portable computers: Laptop o Tablet?",
+    "drag_items": [
+      {"id": "item1", "text": "Desktop", "type": "draggable"},
+      {"id": "item2", "text": "Laptop", "type": "draggable"},
+      {"id": "item3", "text": "Tablet", "type": "draggable"},
+      {"id": "item4", "text": "Monitor", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "portable_zone", "position": "box", "label": "PORTABLE COMPUTERS", "accepts_multiple": true}
+    ],
+    "answer": "{\"portable_zone\": [\"Laptop\", \"Tablet\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa makina na tumutulong sa atin gumawa ng iba’t ibang gawain?",
+    "options": null,
+    "answer": "computer",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dalawang pangunahing bahagi ng computer na nagtutulungan?",
+    "options": null,
+    "answer": "hardware at software",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa pisikal na parte ng computer na nahahawakan mo?",
+    "options": null,
+    "answer": "hardware",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa mga apps at programs na nagpapatakbo ng computer?",
+    "options": null,
+    "answer": "software",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong klase ng computer ang malaki at ginagamit sa iisang lugar?",
+    "options": null,
+    "answer": "desktop",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang portable at madaling dalhin kahit saan na klase ng computer?",
+    "options": null,
+    "answer": "laptop",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong maliit na touchscreen device ang puwedeng gamitin sa pag-browse o apps?",
+    "options": null,
+    "answer": "tablet",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ginagamit para mag-type ng letters at numbers sa computer?",
+    "options": null,
+    "answer": "keyboard",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ginagamit para mag-navigate at mag-click sa screen?",
+    "options": null,
+    "answer": "mouse",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 11040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ginagamit na software para mag-browse ng internet?",
+    "options": null,
+    "answer": "web browser",
+    "image": null
+  }
+]

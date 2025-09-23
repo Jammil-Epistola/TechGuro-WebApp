@@ -1,0 +1,601 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12001,
+    "type": "image_mcq",
+    "question": "Gusto mong mag-type ng report para sa trabaho. Alin sa mga ito ang dapat mong gamitin?",
+    "options": [
+      {"image": "keyboard.png"},
+      {"image": "monitor.png"},
+      {"image": "printer.png"}
+    ],
+    "answer": "keyboard.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12002,
+    "type": "image_mcq",
+    "question": "Kailangan mong makita ang output ng design na ginawa mo. Alin ang gagamitin mo?",
+    "options": [
+      {"image": "keyboard.png"},
+      {"image": "monitor.png"},
+      {"image": "mouse.png"}
+    ],
+    "answer": "monitor.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12003,
+    "type": "image_mcq",
+    "question": "May mga files ka sa computer na gusto mong i-save para sa backup. Alin sa mga ito ang gagamitin?",
+    "options": [
+      {"image": "flash_drive.png"},
+      {"image": "mouse.png"},
+      {"image": "keyboard.png"}
+    ],
+    "answer": "flash_drive.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12004,
+    "type": "image_mcq",
+    "question": "Ang utak ng computer na nagpo-proseso ng lahat ng instructions ay",
+    "options": [
+      {"image": "cpu.png"},
+      {"image": "printer.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "cpu.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12005,
+    "type": "image_mcq",
+    "question": "Gusto mong mag-install ng bagong app sa selpon mo. Alin dito ang gagamitin mong software?",
+    "options": [
+      {"image": "google_play.png"},
+      {"image": "mouse.png"},
+      {"image": "keyboard.png"}
+    ],
+    "answer": "google_play.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12006,
+    "type": "image_mcq",
+    "question": "Gusto mong mag-record ng boses para sa isang presentation. Alin ang gagamitin mo?",
+    "options": [
+      {"image": "microphone.png"},
+      {"image": "monitor.png"},
+      {"image": "printer.png"}
+    ],
+    "answer": "microphone.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12007,
+    "type": "image_mcq",
+    "question": "Kailangan mong marinig ang tunog ng video na pinanood mo. Alin ang gagamitin mo?",
+    "options": [
+      {"image": "speakers.png"},
+      {"image": "keyboard.png"},
+      {"image": "mouse.png"}
+    ],
+    "answer": "speakers.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12008,
+    "type": "image_mcq",
+    "question": "Alin dito ang operating system na 'Android'?",
+    "options": [
+      {"image": "android.png"},
+      {"image": "flash_drive.png"},
+      {"image": "printer.png"}
+    ],
+    "answer": "android.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12009,
+    "type": "image_mcq",
+    "question": "Kailangan mong gumawa ng dokumento para sa school project. Alin sa mga ito ang software na puwede mong gamitin?",
+    "options": [
+      {"image": "ms_word.png"},
+      {"image": "keyboard.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "ms_word.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12010,
+    "type": "image_mcq",
+    "question": "Gusto mong mag-search ng impormasyon online. Alin sa mga ito ang ginagamit na browser?",
+    "options": [
+      {"image": "chrome_logo.png"},
+      {"image": "cpu.png"},
+      {"image": "mouse.png"}
+    ],
+    "answer": "chrome_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12011,
+    "type": "image_mcq",
+    "question": "May mga photos ka na gusto mong ilipat sa ibang device. Alin ang gagamitin mo bilang storage device?",
+    "options": [
+      {"image": "flash_drive.png"},
+      {"image": "keyboard.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "flash_drive.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12012,
+    "type": "image_mcq",
+    "question": "Gusto mong i-scan ang isang dokumento papunta sa computer. Alin ang gagamitin mo?",
+    "options": [
+      {"image": "scanner.png"},
+      {"image": "speakers.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "scanner.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12013,
+    "type": "image_mcq",
+    "question": "Kailangan mong mag-print ng invitation para sa party. Alin ang gagamitin mo?",
+    "options": [
+      {"image": "printer.png"},
+      {"image": "keyboard.png"},
+      {"image": "mouse.png"}
+    ],
+    "answer": "printer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12014,
+    "type": "image_mcq",
+    "question": "Gusto mong gamitin ang iPad mo. Alin ang operating system na tumatakbo dito?",
+    "options": [
+      {"image": "ios.png"},
+      {"image": "windows_logo.png"},
+      {"image": "android.png"}
+    ],
+    "answer": "ios.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12015,
+    "type": "image_mcq",
+    "question": "Gusto mong i-compute ang data sa isang program. Alin sa mga ito ang utak ng computer?",
+    "options": [
+      {"image": "cpu.png"},
+      {"image": "flash_drive.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "cpu.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12016,
+    "type": "image_mcq",
+    "question": "Maglalaro ka ng online game at kailangan mo ng control. Alin sa input devices ang gagamitin?",
+    "options": [
+      {"image": "mouse.png"},
+      {"image": "monitor.png"},
+      {"image": "printer.png"}
+    ],
+    "answer": "mouse.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12017,
+    "type": "image_mcq",
+    "question": "Gusto mong mag-chat sa kaibigan gamit ang app. Alin ang example ng software?",
+    "options": [
+      {"image": "messenger.png"},
+      {"image": "keyboard.png"},
+      {"image": "printer.png"}
+    ],
+    "answer": "messenger.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12018,
+    "type": "image_mcq",
+    "question": "Gumagamit ka ng smartphone. Alin ang OS nito?",
+    "options": [
+      {"image": "android.png"},
+      {"image": "windows_logo.png"},
+      {"image": "cpu.png"}
+    ],
+    "answer": "android.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12019,
+    "type": "image_mcq",
+    "question": "Gusto mong magsulat ng essay para sa school. Alin ang software na gagamitin?",
+    "options": [
+      {"image": "ms_word.png"},
+      {"image": "chrome_logo.png"},
+      {"image": "cpu.png"}
+    ],
+    "answer": "ms_word.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12020,
+    "type": "image_mcq",
+    "question": "Kailangan mong mag-search ng impormasyon online. Alin sa mga ito ang browser na gagamitin?",
+    "options": [
+      {"image": "chrome_logo.png"},
+      {"image": "windows_logo.png"},
+      {"image": "keyboard.png"}
+    ],
+    "answer": "chrome_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12021,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ ang ginagamit mo para mag-type ng documents sa computer.'",
+    "drag_items": [
+      {"id": "item1", "text": "keyboard", "type": "draggable"},
+      {"id": "item2", "text": "mouse", "type": "draggable"},
+      {"id": "item3", "text": "Microsoft Word", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"keyboard\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12022,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Para makakita ng output ng gawa mo, kailangan mong gamitin ang _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "monitor", "type": "draggable"},
+      {"id": "item2", "text": "printer", "type": "draggable"},
+      {"id": "item3", "text": "keyboard", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"monitor\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12023,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga input devices sa tamang grupo.",
+    "drag_items": [
+      {"id": "item1", "text": "keyboard", "type": "draggable"},
+      {"id": "item2", "text": "mouse", "type": "draggable"},
+      {"id": "item3", "text": "monitor", "type": "draggable"},
+      {"id": "item4", "text": "microphone", "type": "draggable"},
+      {"id": "item5", "text": "printer", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "input_zone", "position": "box", "label": "INPUT DEVICES", "accepts_multiple": true}
+    ],
+    "answer": "{\"input_zone\": [\"keyboard\", \"mouse\", \"microphone\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12024,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga output devices sa tamang grupo.",
+    "drag_items": [
+      {"id": "item1", "text": "monitor", "type": "draggable"},
+      {"id": "item2", "text": "printer", "type": "draggable"},
+      {"id": "item3", "text": "speaker", "type": "draggable"},
+      {"id": "item4", "text": "keyboard", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "output_zone", "position": "box", "label": "OUTPUT DEVICES", "accepts_multiple": true}
+    ],
+    "answer": "{\"output_zone\": [\"monitor\", \"printer\", \"speaker\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12025,
+    "type": "drag_drop",
+    "question": "I-match ang tamang software sa kanilang gamit: Word processor, Browser, OS.",
+    "drag_items": [
+      {"id": "item1", "text": "Microsoft Word", "type": "draggable"},
+      {"id": "item2", "text": "Google Chrome", "type": "draggable"},
+      {"id": "item3", "text": "Windows", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "word_zone", "position": "box", "label": "WORD PROCESSOR", "accepts_multiple": true},
+      {"id": "browser_zone", "position": "box", "label": "BROWSER", "accepts_multiple": true},
+      {"id": "os_zone", "position": "box", "label": "OPERATING SYSTEM", "accepts_multiple": true}
+    ],
+    "answer": "{\"word_zone\": [\"Microsoft Word\"], \"browser_zone\": [\"Google Chrome\"], \"os_zone\": [\"Windows\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Para maglaro ng music o video, kailangan mong gamitin ang _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "speaker", "type": "draggable"},
+      {"id": "item2", "text": "keyboard", "type": "draggable"},
+      {"id": "item3", "text": "monitor", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"speaker\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12027,
+    "type": "drag_drop",
+    "question": "I-categorize: Alin ang hardware at alin ang software?",
+    "drag_items": [
+      {"id": "item1", "text": "printer", "type": "draggable"},
+      {"id": "item2", "text": "Microsoft Word", "type": "draggable"},
+      {"id": "item3", "text": "CPU", "type": "draggable"},
+      {"id": "item4", "text": "Google Chrome", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "hardware_zone", "position": "box", "label": "HARDWARE", "accepts_multiple": true},
+      {"id": "software_zone", "position": "box", "label": "SOFTWARE", "accepts_multiple": true}
+    ],
+    "answer": "{\"hardware_zone\": [\"printer\", \"CPU\"], \"software_zone\": [\"Microsoft Word\", \"Google Chrome\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12028,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ ay tumatakbo sa lahat ng apps at nagko-control sa computer.'",
+    "drag_items": [
+      {"id": "item1", "text": "Windows", "type": "draggable"},
+      {"id": "item2", "text": "mouse", "type": "draggable"},
+      {"id": "item3", "text": "keyboard", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Windows\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12029,
+    "type": "drag_drop",
+    "question": "I-categorize: Alin ang input at alin ang output devices para sa isang office setup?",
+    "drag_items": [
+      {"id": "item1", "text": "keyboard", "type": "draggable"},
+      {"id": "item2", "text": "printer", "type": "draggable"},
+      {"id": "item3", "text": "mouse", "type": "draggable"},
+      {"id": "item4", "text": "monitor", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "input_zone", "position": "box", "label": "INPUT", "accepts_multiple": true},
+      {"id": "output_zone", "position": "box", "label": "OUTPUT", "accepts_multiple": true}
+    ],
+    "answer": "{\"input_zone\": [\"keyboard\", \"mouse\"], \"output_zone\": [\"printer\", \"monitor\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12030,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Para ilipat ang files sa ibang device, puwede mong gamitin ang _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "USB", "type": "draggable"},
+      {"id": "item2", "text": "CPU", "type": "draggable"},
+      {"id": "item3", "text": "Windows", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"USB\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong device ang ginagamit mo para mag-click at mag-navigate sa screen?",
+    "options": null,
+    "answer": "mouse",
+    "image": "mouse.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong software ang ginagamit mo para mag-type ng documents?",
+    "options": null,
+    "answer": "Microsoft Word",
+    "image": "microsoft_word.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong OS ang kadalasang ginagamit sa desktop computers?",
+    "options": null,
+    "answer": "Windows",
+    "image": "windows.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong device ang ginagamit para marinig ang tunog mula sa computer?",
+    "options": null,
+    "answer": "speaker",
+    "image": "speaker.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong input device ang ginagamit para mag-record ng boses?",
+    "options": null,
+    "answer": "microphone",
+    "image": "microphone.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong device ang nagpapakita ng images at videos sa computer?",
+    "options": null,
+    "answer": "monitor",
+    "image": "monitor.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong software ang ginagamit para mag-browse ng internet?",
+    "options": null,
+    "answer": "Google Chrome",
+    "image": "google_chrome.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong storage device ang portable at puwedeng gamitin sa paglipat ng files?",
+    "options": null,
+    "answer": "USB",
+    "image": "usb.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong OS ang ginagamit sa smartphones bukod sa Android?",
+    "options": null,
+    "answer": "iOS",
+    "image": "ios.png"
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 12040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong device ang ginagamit para mag-print ng documents?",
+    "options": null,
+    "answer": "printer",
+    "image": "printer.png"
+  }
+]

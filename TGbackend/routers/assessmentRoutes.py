@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from datetime import datetime
-from typing import List
+import json, random
 
 from TGbackend.database import get_db
 from TGbackend.services.bkt_service import teki_bkt
 from TGbackend import schema
 from TGbackend.models import (
-    Question, AssessmentResults, AssessmentQuestionResponse,UserLessonMastery, UserLessonMasteryHistory
+    Question, AssessmentResults, AssessmentQuestionResponse
 )
 
 router = APIRouter(tags=["Assessment Management"])
@@ -17,19 +17,35 @@ router = APIRouter(tags=["Assessment Management"])
 # Helper function: Save responses & compute score
 # -------------------------
 def save_assessment_and_responses(data: schema.AssessmentSubmission, db: Session):
-    """
-    Saves assessment responses, computes score, returns (score, total, responses_to_save)
-    """
     total = len(data.responses)
     correct = 0
     responses_to_save = []
 
     for r in data.responses:
-        # Fetch the question from DB
         question = db.query(Question).filter(Question.id == r.question_id).first()
+        if not question:
+            continue
 
-        # Mark correct if user’s choice matches
-        is_correct = (r.selected_choice == question.correct_answer)
+        # Enhanced answer checking for different question types
+        is_correct = False
+        
+        if question.type == "image_mcq":
+            # For image MCQ, compare with the image filename in correct_answer
+            # Handle both full path and just filename
+            correct_answer = question.correct_answer
+            selected_choice = r.selected_choice
+            
+            # Extract filename from paths if needed
+            if "/" in correct_answer:
+                correct_answer = correct_answer.split("/")[-1]
+            if "/" in selected_choice:
+                selected_choice = selected_choice.split("/")[-1]
+                
+            is_correct = (selected_choice == correct_answer)
+        else:
+            # For text_mcq and true_false: direct string comparison
+            is_correct = (r.selected_choice == question.correct_answer)
+
         if is_correct:
             correct += 1
 
@@ -38,12 +54,11 @@ def save_assessment_and_responses(data: schema.AssessmentSubmission, db: Session
             question_id=r.question_id,
             selected_choice=r.selected_choice,
             is_correct=is_correct,
-            lesson_id=question.lesson_id,   # pulled from DB
-            assessment_id=None              # link if needed later
+            lesson_id=question.lesson_id,
+            assessment_id=None
         )
         responses_to_save.append(response_obj)
 
-    # Raw correct count
     score = correct
     return score, total, responses_to_save
 
@@ -70,19 +85,44 @@ def get_assessment_questions(course_id: int, assessment_type: str = None, db: Se
     if not questions:
         raise HTTPException(status_code=404, detail="No questions found for given parameters.")
 
+    # Randomize the question order
+    random.shuffle(questions)
+
     result = []
     for q in questions:
-        result.append({
+        # Load options from JSON
+        try:
+            options = json.loads(q.options) if q.options else []
+        except json.JSONDecodeError:
+            options = []
+
+        # Handle different question types
+        question_data = {
             "id": q.id,
             "lesson_id": q.lesson_id,
             "course_id": q.course_id,
             "text": q.text,
             "type": q.type,
             "assessment_type": q.assessment_type,
-            "choices": q.choices.split("|"),
-            "correct_answer": q.correct_answer,
-            "image_url": q.image_url
-        })
+            "correct_answer": q.correct_answer
+        }
+        
+        # Add media_url if available (for main question image)
+        if hasattr(q, 'media_url') and q.media_url:
+            question_data["image"] = q.media_url
+        else:
+            question_data["image"] = None
+
+        # Handle options based on question type
+        if q.type == "image_mcq":
+            # Don't randomize image MCQ options as they're objects with images
+            question_data["options"] = options
+        else:
+            # Randomize text options for text_mcq and true_false
+            random.shuffle(options)
+            question_data["options"] = options
+
+        result.append(question_data)
 
     return result
 

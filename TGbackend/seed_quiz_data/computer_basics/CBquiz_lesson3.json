@@ -1,0 +1,612 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13001,
+    "type": "image_mcq",
+    "question": "Gusto mong i-on ang computer. Alin ang pindutin mo?",
+    "options": [
+      {"image": "power_button.png"},
+      {"image": "monitor.png"},
+      {"image": "keyboard.png"}
+    ],
+    "answer": "power_button.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13002,
+    "type": "image_mcq",
+    "question": "Nasa desktop ka na. Alin dito ang tinatawag na 'App Icon'?",
+    "options": [
+      {"image": "app_icon.png"},
+      {"image": "volume_icon.png"},
+      {"image": "taskbar.png"}
+    ],
+    "answer": "app_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13003,
+    "type": "image_mcq",
+    "question": "Gusto mong buksan ang Start Menu. Alin ang i-click?",
+    "options": [
+      {"image": "windows_start.png"},
+      {"image": "close_button.png"},
+      {"image": "power_button.png"}
+    ],
+    "answer": "windows_start.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13004,
+    "type": "image_mcq",
+    "question": "Gusto mong pumili ng file. Alin ang tamang mouse action?",
+    "options": [
+      {"image": "left_click.png"},
+      {"image": "right_click.png"},
+      {"image": "double_click.png"}
+    ],
+    "answer": "left_click.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13005,
+    "type": "image_mcq",
+    "question": "Gusto mong mag-refresh ng computer. Alin ang pipindutin para mabuksan ang option na ito?",
+    "options": [
+      {"image": "right_click.png"},
+      {"image": "left_click.png"},
+      {"image": "double_click.png"}
+    ],
+    "answer": "right_click.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13006,
+    "type": "image_mcq",
+    "question": "Gusto mong mag-type. Alin ang gagamitin?",
+    "options": [
+      {"image": "keyboard.png"},
+      {"image": "mouse.png"},
+      {"image": "monitor.png"}
+    ],
+    "answer": "keyboard.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13007,
+    "type": "image_mcq",
+    "question": "Gusto mong burahin ang isang character habang nagta-type. Alin ang pipindutin?",
+    "options": [
+      {"image": "backspace_key.png"},
+      {"image": "enter_key.png"},
+      {"image": "shift_key.png"}
+    ],
+    "answer": "backspace_key.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13008,
+    "type": "image_mcq",
+    "question": "Gusto mong lumipat sa bagong line habang nagta-type. Alin ang pipindutin?",
+    "options": [
+      {"image": "enter_key.png"},
+      {"image": "backspace_key.png"},
+      {"image": "spacebar.png"}
+    ],
+    "answer": "enter_key.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13009,
+    "type": "image_mcq",
+    "question": "Gusto mong i-resize ang window ng app. Ano ang pipindutin?",
+    "options": [
+      {"image": "resize_corner.png"},
+      {"image": "double_click.png"},
+      {"image": "right_click.png"}
+    ],
+    "answer": "resize_corner.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13010,
+    "type": "image_mcq",
+    "question": "Gusto mong isara ang window ng app. Ano ang pipindutin?",
+    "options": [
+      {"image": "close_button.png"},
+      {"image": "minimize_button.png"},
+      {"image": "maximize_button.png"}
+    ],
+    "answer": "close_button.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13011,
+    "type": "image_mcq",
+    "question": "Gusto mong i-minimize ang window ng app. Ano ang pipindutin?",
+    "options": [
+      {"image": "minimize_button.png"},
+      {"image": "close_button.png"},
+      {"image": "maximize_button.png"}
+    ],
+    "answer": "minimize_button.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13012,
+    "type": "image_mcq",
+    "question": "Gusto mong palakihin ang luimiit na window. Ano ang gagawin mo?",
+    "options": [
+      {"image": "maximize_button.png"},
+      {"image": "close_button.png"},
+      {"image": "right_click.png"}
+    ],
+    "answer": "maximize_button.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13013,
+    "type": "image_mcq",
+    "question": "Alin dito ang tinatawag na taskbar?",
+    "options": [
+      {"image": "taskbar.png"},
+      {"image": "start_button.png"},
+      {"image": "app_icon.png"}
+    ],
+    "answer": "taskbar.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13014,
+    "type": "image_mcq",
+    "question": "Gusto mong i-off ang computer. Alin ang pipindutin sa Start Menu?",
+    "options": [
+      {"image": "shut_down.png"},
+      {"image": "restart.png"},
+      {"image": "sleep.png"}
+    ],
+    "answer": "shut_down.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13015,
+    "type": "image_mcq",
+    "question": "Gusto mong i-restart ang computer. Alin ang pipindutin?",
+    "options": [
+      {"image": "restart.png"},
+      {"image": "shut_down.png"},
+      {"image": "sleep.png"}
+    ],
+    "answer": "restart.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13016,
+    "type": "image_mcq",
+    "question": "Gusto mong mag open ng isang App. Alin ang gagamitin?",
+    "options": [
+      {"image": "mouse_hand.png"},
+      {"image": "right_click.png"},
+      {"image": "double_click.png"}
+    ],
+    "answer": "double_click.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13017,
+    "type": "image_mcq",
+    "question": "Gusto mong i-copy ang text. Ano ang key na pipindutin kasama ng Ctrl?",
+    "options": [
+      {"image": "ctrl_c.png"},
+      {"image": "ctrl_v.png"},
+      {"image": "ctrl_z.png"}
+    ],
+    "answer": "ctrl_c.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13018,
+    "type": "image_mcq",
+    "question": "Gusto mong i-paste ang text. Ano ang key na pipindutin kasama ng Ctrl?",
+    "options": [
+      {"image": "ctrl_v.png"},
+      {"image": "ctrl_c.png"},
+      {"image": "ctrl_z.png"}
+    ],
+    "answer": "ctrl_v.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13019,
+    "type": "image_mcq",
+    "question": "Gusto mong burahin ang isang bahagi ng text. Alin ang pipindutin?",
+    "options": [
+      {"image": "backspace_key.png"},
+      {"image": "enter_key.png"},
+      {"image": "shift_key.png"}
+    ],
+    "answer": "backspace_key.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13020,
+    "type": "image_mcq",
+    "question": "Gusto mong lumipat sa bagong line habang nagta-type. Alin ang pipindutin?",
+    "options": [
+      {"image": "enter_key.png"},
+      {"image": "backspace_key.png"},
+      {"image": "spacebar.png"}
+    ],
+    "answer": "enter_key.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13021,
+    "type": "drag_drop",
+    "question": "I-match ang tamang mouse action: Alin ang Left-Click, Right-Click, at Double-Click?",
+    "drag_items": [
+      {"id": "item1", "text": "Left-Click", "type": "draggable"},
+      {"id": "item2", "text": "Right-Click", "type": "draggable"},
+      {"id": "item3", "text": "Double-Click", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "left_zone", "position": "box", "label": "LEFT-CLICK", "accepts_multiple": false},
+      {"id": "right_zone", "position": "box", "label": "RIGHT-CLICK", "accepts_multiple": false},
+      {"id": "double_zone", "position": "box", "label": "DOUBLE-CLICK", "accepts_multiple": false}
+    ],
+    "answer": "{\"left_zone\": [\"Left-Click\"], \"right_zone\": [\"Right-Click\"], \"double_zone\": [\"Double-Click\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13022,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang key para sa bawat function: Enter, Backspace, Spacebar.",
+    "drag_items": [
+      {"id": "item1", "text": "Enter", "type": "draggable"},
+      {"id": "item2", "text": "Backspace", "type": "draggable"},
+      {"id": "item3", "text": "Spacebar", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "enter_zone", "position": "box", "label": "CONFIRM / NEW LINE", "accepts_multiple": false},
+      {"id": "backspace_zone", "position": "box", "label": "DELETE CHARACTER", "accepts_multiple": false},
+      {"id": "space_zone", "position": "box", "label": "SPACE BETWEEN WORDS", "accepts_multiple": false}
+    ],
+    "answer": "{\"enter_zone\": [\"Enter\"], \"backspace_zone\": [\"Backspace\"], \"space_zone\": [\"Spacebar\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13023,
+    "type": "drag_drop",
+    "question": "I-categorize: Alin ang bahagi ng Desktop – Icons, Taskbar, Wallpaper?",
+    "drag_items": [
+      {"id": "item1", "text": "Icons", "type": "draggable"},
+      {"id": "item2", "text": "Taskbar", "type": "draggable"},
+      {"id": "item3", "text": "Wallpaper", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "icons_zone", "position": "box", "label": "SHORTCUTS TO APPS", "accepts_multiple": false},
+      {"id": "taskbar_zone", "position": "box", "label": "MENU AND OPEN APPS", "accepts_multiple": false},
+      {"id": "wallpaper_zone", "position": "box", "label": "BACKGROUND IMAGE", "accepts_multiple": false}
+    ],
+    "answer": "{\"icons_zone\": [\"Icons\"], \"taskbar_zone\": [\"Taskbar\"], \"wallpaper_zone\": [\"Wallpaper\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13024,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang button para sa bawat window action: Close, Minimize, Resize.",
+    "drag_items": [
+      {"id": "item1", "text": "Close", "type": "draggable"},
+      {"id": "item2", "text": "Minimize", "type": "draggable"},
+      {"id": "item3", "text": "Resize", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "close_zone", "position": "box", "label": "CLOSE WINDOW", "accepts_multiple": false},
+      {"id": "minimize_zone", "position": "box", "label": "MINIMIZE WINDOW", "accepts_multiple": false},
+      {"id": "resize_zone", "position": "box", "label": "RESIZE WINDOW", "accepts_multiple": false}
+    ],
+    "answer": "{\"close_zone\": [\"Close\"], \"minimize_zone\": [\"Minimize\"], \"resize_zone\": [\"Resize\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13025,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang icon kapag gusto mong i-on, i-restart, o i-shut down ang computer.",
+    "drag_items": [
+      {"id": "item1", "text": "Power", "type": "draggable"},
+      {"id": "item2", "text": "Restart", "type": "draggable"},
+      {"id": "item3", "text": "Shut Down", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "power_zone", "position": "box", "label": "TURN ON COMPUTER", "accepts_multiple": false},
+      {"id": "restart_zone", "position": "box", "label": "RESTART COMPUTER", "accepts_multiple": false},
+      {"id": "shutdown_zone", "position": "box", "label": "SHUT DOWN COMPUTER", "accepts_multiple": false}
+    ],
+    "answer": "{\"power_zone\": [\"Power\"], \"restart_zone\": [\"Restart\"], \"shutdown_zone\": [\"Shut Down\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13026,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang icon sa tamang aksyon: Search, Open App, Close App.",
+    "drag_items": [
+      {"id": "item1", "text": "Search", "type": "draggable"},
+      {"id": "item2", "text": "Open App", "type": "draggable"},
+      {"id": "item3", "text": "Close App", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "search_zone", "position": "box", "label": "FIND APPS OR FILES", "accepts_multiple": false},
+      {"id": "open_zone", "position": "box", "label": "OPEN APPLICATION", "accepts_multiple": false},
+      {"id": "close_zone", "position": "box", "label": "CLOSE APPLICATION", "accepts_multiple": false}
+    ],
+    "answer": "{\"search_zone\": [\"Search\"], \"open_zone\": [\"Open App\"], \"close_zone\": [\"Close App\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13027,
+    "type": "drag_drop",
+    "question": "I-match ang function ng mouse gestures: Click, Drag, Hover.",
+    "drag_items": [
+      {"id": "item1", "text": "Click", "type": "draggable"},
+      {"id": "item2", "text": "Drag", "type": "draggable"},
+      {"id": "item3", "text": "Hover", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "click_zone", "position": "box", "label": "SELECT ITEM", "accepts_multiple": false},
+      {"id": "drag_zone", "position": "box", "label": "MOVE ITEM", "accepts_multiple": false},
+      {"id": "hover_zone", "position": "box", "label": "SHOW TOOLTIP", "accepts_multiple": false}
+    ],
+    "answer": "{\"click_zone\": [\"Click\"], \"drag_zone\": [\"Drag\"], \"hover_zone\": [\"Hover\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13028,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang key combination: Copy, Paste, Cut.",
+    "drag_items": [
+      {"id": "item1", "text": "Ctrl+C", "type": "draggable"},
+      {"id": "item2", "text": "Ctrl+V", "type": "draggable"},
+      {"id": "item3", "text": "Ctrl+X", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "copy_zone", "position": "box", "label": "COPY", "accepts_multiple": false},
+      {"id": "paste_zone", "position": "box", "label": "PASTE", "accepts_multiple": false},
+      {"id": "cut_zone", "position": "box", "label": "CUT", "accepts_multiple": false}
+    ],
+    "answer": "{\"copy_zone\": [\"Ctrl+C\"], \"paste_zone\": [\"Ctrl+V\"], \"cut_zone\": [\"Ctrl+X\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13029,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang button para sa mga actions sa Start Menu: Search, Shut Down, Restart.",
+    "drag_items": [
+      {"id": "item1", "text": "Search", "type": "draggable"},
+      {"id": "item2", "text": "Shut Down", "type": "draggable"},
+      {"id": "item3", "text": "Restart", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "search_zone", "position": "box", "label": "FIND APPS", "accepts_multiple": false},
+      {"id": "shutdown_zone", "position": "box", "label": "TURN OFF COMPUTER", "accepts_multiple": false},
+      {"id": "restart_zone", "position": "box", "label": "RESTART COMPUTER", "accepts_multiple": false}
+    ],
+    "answer": "{\"search_zone\": [\"Search\"], \"shutdown_zone\": [\"Shut Down\"], \"restart_zone\": [\"Restart\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13030,
+    "type": "drag_drop",
+    "question": "I-match ang tamang keys para sa keyboard shortcuts: Select All, Undo, Redo.",
+    "drag_items": [
+      {"id": "item1", "text": "Ctrl+A", "type": "draggable"},
+      {"id": "item2", "text": "Ctrl+Z", "type": "draggable"},
+      {"id": "item3", "text": "Ctrl+Y", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "select_zone", "position": "box", "label": "SELECT ALL", "accepts_multiple": false},
+      {"id": "undo_zone", "position": "box", "label": "UNDO ACTION", "accepts_multiple": false},
+      {"id": "redo_zone", "position": "box", "label": "REDO ACTION", "accepts_multiple": false}
+    ],
+    "answer": "{\"select_zone\": [\"Ctrl+A\"], \"undo_zone\": [\"Ctrl+Z\"], \"redo_zone\": [\"Ctrl+Y\"]}",
+    "image": null
+  },
+   {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang button na pinipindot para i-on ang computer?",
+    "options": null,
+    "answer": "power button",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa shortcut papunta sa apps o files sa desktop?",
+    "options": null,
+    "answer": "icon",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang nasa baba ng desktop at may Start Menu at bukas na apps?",
+    "options": null,
+    "answer": "taskbar",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Alin ang gamit ng left-click sa mouse?",
+    "options": null,
+    "answer": "pumili o mag-open ng app",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Alin ang gamit ng right-click sa mouse?",
+    "options": null,
+    "answer": "extra options",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ginagamit para mag-type ng letters at numbers?",
+    "options": null,
+    "answer": "keyboard",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang button sa keyboard na ginagamit para mag-confirm o lumipat ng line?",
+    "options": null,
+    "answer": "enter",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang button sa keyboard na ginagamit para magbura ng characters?",
+    "options": null,
+    "answer": "backspace",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa background ng desktop?",
+    "options": null,
+    "answer": "wallpaper",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 13040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang pinipindot sa Start Menu para ligtas na i-off ang computer?",
+    "options": null,
+    "answer": "shut down",
+    "image": null
+  }
+]

@@ -1,0 +1,604 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14001,
+    "type": "image_mcq",
+    "question": "Alin ang tamang installer mula sa trusted source?",
+    "options": [
+      {"image": "microsoft_store.png"},
+      {"image": "unknown_website.png"},
+      {"image": "shady_installer.png"}
+    ],
+    "answer": "microsoft_store.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14002,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng messaging app na ligtas i-install?",
+    "options": [
+      {"image": "messenger.png"},
+      {"image": "random_chat.png"},
+      {"image": "fake_messenger.png"}
+    ],
+    "answer": "messenger.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14003,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ay word processor app?",
+    "options": [
+      {"image": "ms_word.png"},
+      {"image": "google_chrome.png"},
+      {"image": "vlc_player.png"}
+    ],
+    "answer": "ms_word.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14004,
+    "type": "image_mcq",
+    "question": "Alin ang browser na ligtas i-download?",
+    "options": [
+      {"image": "google_chrome.png"},
+      {"image": "fake_browser.png"},
+      {"image": "unknown_browser.png"}
+    ],
+    "answer": "google_chrome.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14005,
+    "type": "image_mcq",
+    "question": "Alin ang indikasyon ng shady installer?",
+    "options": [
+      {"image": "popup_ads.png"},
+      {"image": "normal_installer.png"},
+      {"image": "official_store.png"}
+    ],
+    "answer": "popup_ads.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14006,
+    "type": "image_mcq",
+    "question": "Alin ang installer na may maraming extra offers?",
+    "options": [
+      {"image": "extra_offers.png"},
+      {"image": "clean_installer.png"},
+      {"image": "app_store_installer.png"}
+    ],
+    "answer": "extra_offers.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14007,
+    "type": "image_mcq",
+    "question": "Alin ang tamang paraan ng pag-uninstall ng app?",
+    "options": [
+      {"image": "control_panel_uninstall.png"},
+      {"image": "delete_program_folder.png"},
+      {"image": "random_button.png"}
+    ],
+    "answer": "control_panel_uninstall.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14008,
+    "type": "image_mcq",
+    "question": "Alin ang tamang icon para sa App Store?",
+    "options": [
+      {"image": "app_store.png"},
+      {"image": "fake_store.png"},
+      {"image": "unknown_store.png"}
+    ],
+    "answer": "app_store.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14009,
+    "type": "image_mcq",
+    "question": "Alin ang tamang installer sequence para sa Windows?",
+    "options": [
+      {"image": "next_next_finish.png"},
+      {"image": "random_sequence.png"},
+      {"image": "skip_install.png"}
+    ],
+    "answer": "next_next_finish.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14010,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng safe game app?",
+    "options": [
+      {"image": "candy_crush.png"},
+      {"image": "fake_game.png"},
+      {"image": "virus_game.png"}
+    ],
+    "answer": "candy_crush.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14011,
+    "type": "image_mcq",
+    "question": "Alin ang dapat iwasan dahil posibleng virus?",
+    "options": [
+      {"image": "shady_installer.png"},
+      {"image": "trusted_installer.png"},
+      {"image": "store_installer.png"}
+    ],
+    "answer": "shady_installer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14012,
+    "type": "image_mcq",
+    "question": "Alin ang tamang icon para sa Google Play Store?",
+    "options": [
+      {"image": "google_play.png"},
+      {"image": "fake_play.png"},
+      {"image": "unknown_play.png"}
+    ],
+    "answer": "google_play.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14013,
+    "type": "image_mcq",
+    "question": "Alin ang word processor na puwedeng i-install safely?",
+    "options": [
+      {"image": "libre_office.png"},
+      {"image": "fake_office.png"},
+      {"image": "virus_office.png"}
+    ],
+    "answer": "libre_office.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14014,
+    "type": "image_mcq",
+    "question": "Alin ang tamang screenshot ng installer mula sa official website?",
+    "options": [
+      {"image": "official_installer.png"},
+      {"image": "shady_website.png"},
+      {"image": "random_download.png"}
+    ],
+    "answer": "official_installer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14015,
+    "type": "image_mcq",
+    "question": "Alin ang safe browser installer?",
+    "options": [
+      {"image": "chrome_installer.png"},
+      {"image": "unknown_browser.png"},
+      {"image": "virus_browser.png"}
+    ],
+    "answer": "chrome_installer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14016,
+    "type": "image_mcq",
+    "question": "Alin ang dapat i-click para matapos ang installation process?",
+    "options": [
+      {"image": "finish_button.png"},
+      {"image": "cancel_button.png"},
+      {"image": "skip_button.png"}
+    ],
+    "answer": "finish_button.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14017,
+    "type": "image_mcq",
+    "question": "Alin ang tamang paraan para uninstall ang app sa Settings?",
+    "options": [
+      {"image": "settings_uninstall.png"},
+      {"image": "random_uninstall.png"},
+      {"image": "delete_folder.png"}
+    ],
+    "answer": "settings_uninstall.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14018,
+    "type": "image_mcq",
+    "question": "Alin ang ligtas na game app installer?",
+    "options": [
+      {"image": "official_game.png"},
+      {"image": "shady_game.png"},
+      {"image": "virus_game.png"}
+    ],
+    "answer": "official_game.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14019,
+    "type": "image_mcq",
+    "question": "Alin ang installer na hindi dapat i-download?",
+    "options": [
+      {"image": "unknown_installer.png"},
+      {"image": "official_installer.png"},
+      {"image": "store_installer.png"}
+    ],
+    "answer": "unknown_installer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14020,
+    "type": "image_mcq",
+    "question": "Alin ang ligtas na source ng apps para sa iPhone?",
+    "options": [
+      {"image": "app_store.png"},
+      {"image": "fake_store.png"},
+      {"image": "unknown_source.png"}
+    ],
+    "answer": "app_store.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14021,
+    "type": "drag_drop",
+    "question": "I-match ang installer sa tamang source: I-drag ang Microsoft Store, Google Play, at Unknown Website sa kanilang kategorya.",
+    "drag_items": [
+      {"id": "item1", "text": "Microsoft Store", "type": "draggable"},
+      {"id": "item2", "text": "Google Play", "type": "draggable"},
+      {"id": "item3", "text": "Unknown Website", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "trusted_zone", "position": "box", "label": "TRUSTED SOURCES", "accepts_multiple": true},
+      {"id": "untrusted_zone", "position": "box", "label": "UNTRUSTED SOURCES", "accepts_multiple": true}
+    ],
+    "answer": "{\"trusted_zone\": [\"Microsoft Store\", \"Google Play\"], \"untrusted_zone\": [\"Unknown Website\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14022,
+    "type": "drag_drop",
+    "question": "I-categorize ang apps: I-drag ang Word Processor, Browser, at Game App sa kanilang kategorya.",
+    "drag_items": [
+      {"id": "item1", "text": "Word Processor", "type": "draggable"},
+      {"id": "item2", "text": "Browser", "type": "draggable"},
+      {"id": "item3", "text": "Game App", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "productivity_zone", "position": "box", "label": "PRODUCTIVITY", "accepts_multiple": true},
+      {"id": "entertainment_zone", "position": "box", "label": "ENTERTAINMENT", "accepts_multiple": true}
+    ],
+    "answer": "{\"productivity_zone\": [\"Word Processor\", \"Browser\"], \"entertainment_zone\": [\"Game App\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14023,
+    "type": "drag_drop",
+    "question": "I-match ang installer sa tamang status: Legit Installer, Fake Installer, Installer with Extra Offers.",
+    "drag_items": [
+      {"id": "item1", "text": "Legit Installer", "type": "draggable"},
+      {"id": "item2", "text": "Fake Installer", "type": "draggable"},
+      {"id": "item3", "text": "Installer with Extra Offers", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_zone", "position": "box", "label": "SAFE", "accepts_multiple": true},
+      {"id": "danger_zone", "position": "box", "label": "DANGEROUS", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_zone\": [\"Legit Installer\"], \"danger_zone\": [\"Fake Installer\", \"Installer with Extra Offers\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14024,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang steps sa pag-install ng app sa tamang order: Next, Finish, Cancel, Skip.",
+    "drag_items": [
+      {"id": "item1", "text": "Next", "type": "draggable"},
+      {"id": "item2", "text": "Finish", "type": "draggable"},
+      {"id": "item3", "text": "Cancel", "type": "draggable"},
+      {"id": "item4", "text": "Skip", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "correct_steps", "position": "box", "label": "CORRECT STEPS", "accepts_multiple": true},
+      {"id": "wrong_steps", "position": "box", "label": "WRONG STEPS", "accepts_multiple": true}
+    ],
+    "answer": "{\"correct_steps\": [\"Next\", \"Finish\"], \"wrong_steps\": [\"Cancel\", \"Skip\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14025,
+    "type": "drag_drop",
+    "question": "I-match ang icons sa tamang kategorya: App Store, Fake Installer, Google Play.",
+    "drag_items": [
+      {"id": "item1", "text": "App Store", "type": "draggable"},
+      {"id": "item2", "text": "Fake Installer", "type": "draggable"},
+      {"id": "item3", "text": "Google Play", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "trusted_sources", "position": "box", "label": "TRUSTED SOURCES", "accepts_multiple": true},
+      {"id": "untrusted_sources", "position": "box", "label": "UNTRUSTED SOURCES", "accepts_multiple": true}
+    ],
+    "answer": "{\"trusted_sources\": [\"App Store\", \"Google Play\"], \"untrusted_sources\": [\"Fake Installer\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14026,
+    "type": "drag_drop",
+    "question": "I-categorize ang apps ayon sa kanilang purpose: Browser, Game, Word Processor.",
+    "drag_items": [
+      {"id": "item1", "text": "Browser", "type": "draggable"},
+      {"id": "item2", "text": "Game", "type": "draggable"},
+      {"id": "item3", "text": "Word Processor", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "work_zone", "position": "box", "label": "WORK", "accepts_multiple": true},
+      {"id": "fun_zone", "position": "box", "label": "FUN", "accepts_multiple": true}
+    ],
+    "answer": "{\"work_zone\": [\"Browser\", \"Word Processor\"], \"fun_zone\": [\"Game\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14027,
+    "type": "drag_drop",
+    "question": "I-match ang installer sa tamang uri: Clean Installer, Shady Installer, Unknown Installer.",
+    "drag_items": [
+      {"id": "item1", "text": "Clean Installer", "type": "draggable"},
+      {"id": "item2", "text": "Shady Installer", "type": "draggable"},
+      {"id": "item3", "text": "Unknown Installer", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_zone", "position": "box", "label": "SAFE", "accepts_multiple": true},
+      {"id": "unsafe_zone", "position": "box", "label": "UNSAFE", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_zone\": [\"Clean Installer\"], \"unsafe_zone\": [\"Shady Installer\", \"Unknown Installer\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14028,
+    "type": "drag_drop",
+    "question": "I-match ang tamang actions para sa installer: Next, Finish, Cancel, Ignore.",
+    "drag_items": [
+      {"id": "item1", "text": "Next", "type": "draggable"},
+      {"id": "item2", "text": "Finish", "type": "draggable"},
+      {"id": "item3", "text": "Cancel", "type": "draggable"},
+      {"id": "item4", "text": "Ignore", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "correct_zone", "position": "box", "label": "CORRECT ACTIONS", "accepts_multiple": true},
+      {"id": "wrong_zone", "position": "box", "label": "WRONG ACTIONS", "accepts_multiple": true}
+    ],
+    "answer": "{\"correct_zone\": [\"Next\", \"Finish\"], \"wrong_zone\": [\"Cancel\", \"Ignore\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14029,
+    "type": "drag_drop",
+    "question": "I-categorize ang apps sa tamang kategorya: Microsoft Word, Candy Crush, Google Chrome.",
+    "drag_items": [
+      {"id": "item1", "text": "Microsoft Word", "type": "draggable"},
+      {"id": "item2", "text": "Candy Crush", "type": "draggable"},
+      {"id": "item3", "text": "Google Chrome", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "work_zone", "position": "box", "label": "WORK", "accepts_multiple": true},
+      {"id": "fun_zone", "position": "box", "label": "FUN", "accepts_multiple": true}
+    ],
+    "answer": "{\"work_zone\": [\"Microsoft Word\", \"Google Chrome\"], \"fun_zone\": [\"Candy Crush\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14030,
+    "type": "drag_drop",
+    "question": "I-match ang installer screenshot sa tamang status: Trusted, Shady, Unknown.",
+    "drag_items": [
+      {"id": "item1", "text": "Trusted", "type": "draggable"},
+      {"id": "item2", "text": "Shady", "type": "draggable"},
+      {"id": "item3", "text": "Unknown", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_zone", "position": "box", "label": "SAFE", "accepts_multiple": true},
+      {"id": "danger_zone", "position": "box", "label": "DANGEROUS", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_zone\": [\"Trusted\"], \"danger_zone\": [\"Shady\", \"Unknown\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa mga program na tumutulong sa iba't ibang gawain sa computer?",
+    "options": null,
+    "answer": "application",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang pinaka-ligtas na source para mag-install ng apps sa Windows?",
+    "options": null,
+    "answer": "microsoft store",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa hindi ligtas o pekeng installer na may kasamang ads o extra offers?",
+    "options": null,
+    "answer": "shady installer",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Saang lugar mo puwedeng i-uninstall ang apps sa Windows?",
+    "options": null,
+    "answer": "control panel",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Isa sa mga trusted sources ng apps para sa Android devices.",
+    "options": null,
+    "answer": "google play",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang unang hakbang sa pag-install ng app mula sa website?",
+    "options": null,
+    "answer": "download installer",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat mong piliin sa installer upang matapos ang installation?",
+    "options": null,
+    "answer": "finish",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa apps tulad ng browser, games, o word processor?",
+    "options": null,
+    "answer": "software",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat mong iwasan kapag nag-iinstall ng apps upang maiwasan ang virus?",
+    "options": null,
+    "answer": "unknown websites",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 14040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ginagamit na software para mag-browse ng internet?",
+    "options": null,
+    "answer": "web browser",
+    "image": null
+  }
+]

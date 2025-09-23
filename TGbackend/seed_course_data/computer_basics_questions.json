@@ -4,13 +4,14 @@
     "course_id": 1,
     "lesson_id": 1,
     "question_id": 101,
-    "question": "What is a computer used for?",
+    "type": "text_mcq",
+    "question": "Ano ang gamit ng computer?",
     "options": [
-      "Only for calling people",
-      "Storing, processing, and showing information",
-      "Only playing games"
+      "Pang-tawag",
+      "Paglaro ng Games",
+      "Mag-store at mag-process ng info"
     ],
-    "answer": "Storing, processing, and showing information",
+    "answer": "Mag-store at mag-process ng info",
     "image": null
   },
   {
@@ -18,47 +19,40 @@
     "course_id": 1,
     "lesson_id": 1,
     "question_id": 102,
-    "question": "Which of these is an example of a computer?",
+    "type": "image_mcq",
+    "question": "Alin dito ang desktop computer?",
     "options": [
-      "Television",
-      "Smartphone",
-      "Refrigerator"
+      {"image": "desktop_pc.png"},
+      {"image": "smartphone.png"},
+      {"image": "tablet.png"}
     ],
-    "answer": "Smartphone",
+    "answer_image": "desktop_pc.png",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 2,
+    "lesson_id": 1,
     "question_id": 103,
-    "question": "Click on the picture that shows a computer mouse.",
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang example ng Software?",
     "options": [
-      {
-        "image": "CB_q3_A.png"
-      },
-      {
-        "image": "CB_q3_B.png"
-      },
-      {
-        "image": "CB_q3_C.png"
-      }
+      {"image": "keyboard.png"},
+      {"image": "chrome_logo.png"},
+      {"image": "mouse.png"}
     ],
-    "answer_image": "CB_q3_A.png",
+    "answer_image": "chrome_logo.png",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 2,
+    "lesson_id": 1,
     "question_id": 104,
-    "question": "Which part is called the brain of the computer?",
-    "options": [
-      "Monitor",
-      "CPU",
-      "Keyboard"
-    ],
-    "answer": "CPU",
+    "type": "true_false",
+    "question": "Ang “Hardware” ay mga parte ng computer na puwede mong hawakan.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
     "image": null
   },
   {
@@ -66,487 +60,475 @@
     "course_id": 1,
     "lesson_id": 2,
     "question_id": 105,
-    "question": "What is the keyboard used for?",
+    "type": "text_mcq",
+    "question": "Ano ang trabaho ng CPU?",
     "options": [
-      "Watching videos",
-      "Typing letters and numbers",
-      "Moving the mouse"
+      "Utak ng computer",
+      "Speaker ng sounds",
+      "Screen ng display"
     ],
-    "answer": "Typing letters and numbers",
+    "answer": "A. Utak ng computer",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 3,
+    "lesson_id": 2,
     "question_id": 106,
-    "question": "Which icon symbolizes ‘POWER ON’?",
+      "type": "image_mcq",
+    "question": "Piliin ang Input Device.",
     "options": [
-      {
-        "image": "CB_q6_A.png"
-      },
-      {
-        "image": "CB_q6_B.png"
-      },
-      {
-        "image": "CB_q6_C.png"
-      }
+      {"image": "mouse.png"},
+      {"image": "printer.png"},
+      {"image": "monitor.png"}
     ],
-    "answer_image": "CB_q6_B.png",
+    "answer_image": "mouse.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 107,
+    "type": "image_mcq",
+    "question": "Alin dito ang Operating System?",
+    "options": [
+      {"image": "windows_logo.png"},
+      {"image": "flash_drive.png"},
+      {"image": "keyboard.png"}
+    ],
+    "answer_image": "windows_logo.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 108,
+    "type": "true_false",
+    "question": "Ang Microsoft Word ay isang Hardware.",
+    "options": ["Tama", "Mali"],
+    "answer": "Mali",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 3,
-    "question_id": 107,
-    "question": "Before turning OFF the computer, what should you always do?",
-    "options": [
-      "Save your work, click the Start Menu, then click Shut Down",
-      "Unplug it directly",
-      "Close your eyes and wait"
-    ],
-    "answer": "Save your work, click the Start Menu, then click Shut Down",
-    "image": null
-  },
-  {
-    "assessment_type": "pre",
-    "course_id": 1,
-    "lesson_id": 4,
-    "question_id": 108,
-    "question": "Where is the Taskbar usually located?",
-    "options": [
-      "Bottom of the screen",
-      "Top of the keyboard",
-      "Inside the monitor"
-    ],
-    "answer": "Bottom of the screen",
-    "image": null
-  },
-  {
-    "assessment_type": "pre",
-    "course_id": 1,
-    "lesson_id": 4,
     "question_id": 109,
-    "question": "Click the icon that opens a folder of files.",
+    "type": "text_mcq",
+    "question": "Paano mo i-o-off ang computer nang tama?",
     "options": [
-      {
-        "image": "CB_q9_A.png"
-      },
-      {
-        "image": "CB_q9_B.png"
-      },
-      {
-        "image": "CB_q9_C.png"
-      }
+      "Bunutin ang plug",
+      "Gumamit ng Shut Down option",
+      "Iwanan lang na naka-on"
     ],
-    "answer_image": "CB_q9_A.png",
+    "answer": "Gumamit ng Shut Down option",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 6,
+    "lesson_id": 3,
     "question_id": 110,
-    "question": "If you see a program icon on the desktop, how do you open it?",
+    "type": "image_mcq",
+    "question": "Alin ang Left-Click sa mouse?",
     "options": [
-      "Double-click the icon",
-      "Press the Esc key",
-      "Right-click and choose Delete"
+      {"image": "left_click.png"},
+      {"image": "right_click.png"},
+      {"image": "scroll_wheel.png"}
     ],
-    "answer": "Double-click the icon",
+    "answer_image": "left_click.png",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 5,
+    "lesson_id": 3,
     "question_id": 111,
-    "question": "What happens when you double-click a file?",
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang Start Menu icon?",
     "options": [
-      "It opens",
-      "It closes",
-      "It restarts the computer"
+      {"image": "windows_start.png"},
+      {"image": "folder_icon.png"},
+      {"image": "chrome_logo.png"}
     ],
-    "answer": "It opens",
+    "answer_image": "windows_start.png",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 6,
+    "lesson_id": 3,
     "question_id": 112,
-    "question": "Which button closes a program window?",
+    "type": "true_false",
+    "question": "Ang Right-click sa mouse ay nagbibigay ng extra options.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 113,
+    "type": "text_mcq",
+    "question": "Saan pinakamainam mag-install ng apps?",
     "options": [
-      {
-        "image": "CB_q12_A.png"
-      },
-      {
-        "image": "CB_q12_B.png"
-      },
-      {
-        "image": "CB_q12_C.png"
-      }
+      "Google Play / App Store",
+      "Random website na hindi kilala",
+      "Pop-up ads"
     ],
-    "answer_image": "CB_q12_C.png",
+    "answer": "Google Play / App Store",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 114,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng “Install from Trusted Source”?",
+    "options": [
+      {"image": "google_play.png"},
+      {"image": "unknown_exe.png"},
+      {"image": "random_ad.png"}
+    ],
+    "answer_image": "google_play.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 115,
+    "type": "image_mcq",
+    "question": "Alin ang button para i-attach o magdagdag ng file sa installer?",
+    "options": [
+      {"image": "attach_file.png"},
+      {"image": "recycle_bin.png"},
+      {"image": "power_button.png"}
+    ],
+    "answer_image": "attach_file.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 116,
+    "type": "true_false",
+    "question": "Kung ang installer ay may sobrang daming pop-ups at ads, dapat itong iwasan.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
     "lesson_id": 5,
-    "question_id": 113,
-    "question": "You accidentally opened a program. What should you do to close it?",
-    "options": [
-      "Click the X button",
-      "Unplug the computer",
-      "Click on the Taskbar"
-    ],
-    "answer": "Click the X button",
-    "image": null
-  },
-  {
-    "assessment_type": "pre",
-    "course_id": 1,
-    "lesson_id": 7,
-    "question_id": 114,
-    "question": "How can you switch between open windows?",
-    "options": [
-      "Click their icons on the Taskbar",
-      "Press the Spacebar",
-      "Turn off the computer"
-    ],
-    "answer": "Click their icons on the Taskbar",
-    "image": null
-  },
-  {
-    "assessment_type": "pre",
-    "course_id": 1,
-    "lesson_id": 8,
-    "question_id": 115,
-    "question": "Click on the Start Menu button.",
-    "options": [
-      {
-        "image": "CB_q15_A.png"
-      },
-      {
-        "image": "CB_q12_B.png"
-      },
-      {
-        "image": "CB_q6_B.png"
-      }
-    ],
-    "answer_image": "CB_q15_A.png",
-    "image": null
-  },
-  {
-    "assessment_type": "pre",
-    "course_id": 1,
-    "lesson_id": 6,
-    "question_id": 116,
-    "question": "What happens if you click the 'Minimize' button in a program window?",
-    "options": [
-      "The window closes completely",
-      "The window is hidden but stays running on the Taskbar",
-      "The computer shuts down"
-    ],
-    "answer": "The window is hidden but stays running on the Taskbar",
-    "image": null
-  },
-  {
-    "assessment_type": "pre",
-    "course_id": 1,
-    "lesson_id": 7,
     "question_id": 117,
-    "question": "Which keyboard shortcut can also switch between open windows?",
+    "type": "text_mcq",
+    "question": "Ano ang unang dapat gawin kung nagyeyelo ang screen?",
     "options": [
-      "Ctrl + C",
-      "Alt + Tab",
-      "Shift + Enter"
+      "I-restart ang computer",
+      "Bumili agad ng bagong computer",
+      "Tawagan ang repair shop kaagad"
     ],
-    "answer": "Alt + Tab",
+    "answer": "I-restart ang computer",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 7,
+    "lesson_id": 5,
     "question_id": 118,
-    "question": "If two programs are open, how can you view the one behind?",
+    "type": "image_mcq",
+    "question": "Alin ang tamang paraan para siguraduhin kung may internet connection?",
     "options": [
-      "Click its icon on the Taskbar",
-      "Turn off the monitor",
-      "Press the Spacebar"
+      {"image": "wifi_icon.png"},
+      {"image": "volume_icon.png"},
+      {"image": "paint_brush.png"}
     ],
-    "answer": "Click its icon on the Taskbar",
+    "answer_image": "wifi_icon.png",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 8,
+    "lesson_id": 5,
     "question_id": 119,
-    "question": "What can you find in the Start Menu?",
+    "type": "image_mcq",
+    "question": "Kung walang tunog, alin ang dapat i-check muna?",
     "options": [
-      "Only games",
-      "Programs, settings, and shut down options",
-      "Only pictures and videos"
+      {"image": "speaker_cable.png"},
+      {"image": "keyboard.png"},
+      {"image": "mouse_cursor.png"}
     ],
-    "answer": "Programs, settings, and shut down options",
+    "answer_image": "speaker_cable.png",
     "image": null
   },
   {
     "assessment_type": "pre",
     "course_id": 1,
-    "lesson_id": 8,
+    "lesson_id": 5,
     "question_id": 120,
-    "question": "From the Start Menu, which option is used to safely turn off the computer?",
+    "type": "true_false",
+    "question": "Kung hindi pa rin gumagana ang app kahit i-close/open, subukang i-reinstall.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
+    "image": null
+  },
+   {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 1,
+    "question_id": 121,
+    "type": "text_mcq",
+    "question": "Habang nasa bahay si Ana, gusto niyang mag-type ng homework at sabay makinig ng music. Alin ang tamang gamit ng computer dito?",
     "options": [
-      "Shut Down",
-      "Restart",
-      "Log Out"
+      "Pang-display lang ng oras",
+      "Pagsusulat at paglalaro lang",
+      "Pagsusulat, pakikinig ng music, at iba pang gawain",
+      "Pambukas ng ilaw"
     ],
-    "answer": "Shut Down",
+    "answer": "Pagsusulat, pakikinig ng music, at iba pang gawain",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 1,
-    "question_id": 121,
-    "question": "You just bought a computer and want to learn how it helps in daily life. What is the main purpose of a computer?",
-    "options": [
-      "For storing and processing information",
-      "For only watching TV",
-      "For charging other devices",
-      "For displaying pictures only"
-    ],
-    "answer": "For storing and processing information",
-    "image": null
-  },
-  {
-    "assessment_type": "post",
-    "course_id": 1,
-    "lesson_id": 5,
     "question_id": 122,
-    "question": "You're teaching a friend how to move a mouse pointer. Which action moves the cursor on the screen?",
+    "type": "text_mcq",
+    "question": "Si Pedro ay nagdadala ng computer sa kanyang biyahe. Madali niya itong binubuksan sa coffee shop. Anong uri ng computer ang gamit niya?",
     "options": [
-      "Moving the mouse gently on the table",
-      "Clicking buttons repeatedly",
-      "Turning off the monitor",
-      "Pressing the spacebar repeatedly"
+      "Desktop",
+      "Laptop",
+      "Tablet",
+      "Smartwatch"
     ],
-    "answer": "Moving the mouse gently on the table",
+    "answer": "Laptop",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
-    "lesson_id": 3,
+    "lesson_id": 1,
     "question_id": 123,
-    "question": "Before you can use your computer, what should you do first?",
+    "type": "image_mcq",
+    "question": "Alin sa mga larawan ang halimbawa ng hardware?",
     "options": [
-      "Press the power button and wait for it to load",
-      "Plug in a USB",
-      "Open a web browser",
-      "Turn off the monitor"
+      {"image": "monitor.png"},
+      {"image": "ms_word.png"},
+      {"image": "chrome_logo.png"}
     ],
-    "answer": "Press the power button and wait for it to load",
+    "answer_image": "monitor.png",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
-    "lesson_id": 4,
+    "lesson_id": 1,
     "question_id": 124,
-    "question": "Your desktop screen shows small pictures like “This PC” and “Recycle Bin”. What are these called?",
+    "type": "true_false",
+    "question": "Ang “keyboard” ay isang uri ng hardware. Ang “Google Chrome” ay isang uri ng software.",
     "options": [
-      "Icons",
-      "Files",
-      "Passwords",
-      "Shortcuts list"
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
     ],
-    "answer": "Icons",
-    "image": null
-  },
-  {
-    "assessment_type": "post",
-    "course_id": 1,
-    "lesson_id": 4,
-    "question_id": 125,
-    "question": "You want to check the time and open running apps. Where should you look on the desktop?",
-    "options": [
-      "Taskbar at the bottom of the screen",
-      "Folder on the desktop",
-      "Printer settings",
-      "Start Menu background"
-    ],
-    "answer": "Taskbar at the bottom of the screen",
-    "image": null
-  },
-  {
-    "assessment_type": "post",
-    "course_id": 1,
-    "lesson_id": 5,
-    "question_id": 126,
-    "question": "To select a photo and drag it to a folder, what steps should you follow with the mouse?",
-    "options": [
-      "Click, hold, and drag the photo to the folder",
-      "Double-click the photo",
-      "Right-click and press refresh",
-      "Scroll the mouse wheel up"
-    ],
-    "answer": "Click, hold, and drag the photo to the folder",
-    "image": null
-  },
-  {
-    "assessment_type": "post",
-    "course_id": 1,
-    "lesson_id": 6,
-    "question_id": 127,
-    "question": "You want to write a letter. How do you open the Word program?",
-    "options": [
-      "Double-click the Word icon",
-      "Click on the desktop wallpaper",
-      "Open calculator",
-      "Use the volume control"
-    ],
-    "answer": "Double-click the Word icon",
-    "image": null
-  },
-  {
-    "assessment_type": "post",
-    "course_id": 1,
-    "lesson_id": 7,
-    "question_id": 128,
-    "question": "You’re browsing the internet and want to switch to your email. Which action helps you quickly switch windows?",
-    "options": [
-      "Click the window on the taskbar",
-      "Restart the computer",
-      "Pressing the Power button",
-      "Change desktop wallpaper"
-    ],
-    "answer": "Click the window on the taskbar",
-    "image": null
-  },
-  {
-    "assessment_type": "post",
-    "course_id": 1,
-    "lesson_id": 8,
-    "question_id": 129,
-    "question": "You want to open a game from the Start Menu. What do you do?",
-    "options": [
-      "Click Start Menu, find the game, and open it",
-      "Type the name in a Word document",
-      "Press Ctrl + Alt + Delete",
-      "Shut down the computer"
-    ],
-    "answer": "Click Start Menu, find the game, and open it",
-    "image": null
-  },
-  {
-    "assessment_type": "post",
-    "course_id": 1,
-    "lesson_id": 6,
-    "question_id": 130,
-    "question": "If your program is frozen, what is a safe way to close it?",
-    "options": [
-      "Right-click on taskbar, then click “Close Window”",
-      "Turn off the monitor",
-      "Unplug the computer",
-      "Press Enter repeatedly"
-    ],
-    "answer": "Right-click on taskbar, then click “Close Window”",
-    "image": null
-  },
-  {
-    "assessment_type": "post",
-    "course_id": 1,
-    "lesson_id": 4,
-    "question_id": 131,
-    "question": "You saved a photo but forgot where. Which icon on the desktop helps you search for files?",
-    "options": [
-      "This PC",
-      "Volume Control",
-      "Task Manager",
-      "Recycle Bin"
-    ],
-    "answer": "This PC",
+    "answer": "Tama Parehas",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 2,
-    "question_id": 132,
-    "question": "Which part of the computer is used to type words and numbers?",
+    "question_id": 125,
+    "type": "text_mcq",
+    "question": "Gusto ni Juan mag-print ng kanyang project mula sa Microsoft Word. Alin ang output device na dapat gamitin?",
     "options": [
       "Keyboard",
-      "Monitor",
+      "Printer",
       "Mouse",
       "CPU"
     ],
-    "answer": "Keyboard",
+    "answer": "Printer",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
-    "lesson_id": 8,
-    "question_id": 133,
-    "question": "You want to check if your printer is working. Where can you find the printer settings?",
+    "lesson_id": 2,
+    "question_id": 126,
+    "type": "text_mcq",
+    "question": "Alin sa mga sumusunod ang hindi input device?",
     "options": [
-      "In the Start Menu > Settings",
-      "On the desktop wallpaper",
-      "By opening a browser",
-      "In Microsoft Paint"
+      "Keyboard",
+      "Mouse",
+      "Monitor",
+      "Microphone"
     ],
-    "answer": "In the Start Menu > Settings",
+    "answer": "Monitor",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
-    "lesson_id": 7,
-    "question_id": 134,
-    "question": "If you accidentally open many windows, how can you quickly minimize all of them?",
+    "lesson_id": 2,
+    "question_id": 127,
+    "type": "image_mcq",
+    "question": "Alin ang tamang halimbawa ng Operating System?",
     "options": [
-      "Click “Show Desktop” on the taskbar",
-      "Restart the computer",
-      "Turn off the speakers",
-      "Delete a desktop icon"
+      {"image": "windows_logo.png"},
+      {"image": "printer.png"},
+      {"image": "candycrush_logo.png"}
     ],
-    "answer": "Click “Show Desktop” on the taskbar",
+    "answer_image": "windows_logo.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 2,
+    "question_id": 128,
+    "type": "true_false",
+    "question": "Ang CPU ay tinatawag na “utak” ng computer. Ang Operating System ay tumutulong lang sa pag-print ng documents.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama, ang Statement 1",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
     "lesson_id": 3,
-    "question_id": 135,
-    "question": "Before shutting down, why should you close all programs properly?",
+    "question_id": 129,
+    "type": "text_mcq",
+    "question": "Si Liza ay nagbukas ng computer. Pagkatapos lumabas ang desktop, gusto niyang maghanap ng Microsoft Word. Ano ang dapat niyang gawin?",
     "options": [
-      "To prevent data loss and keep the computer safe",
-      "To charge the battery faster",
-      "To clean the screen",
-      "To refresh the wallpaper"
+      "Hanapin sa wallpaper",
+      "I-click ang Start Menu at hanapin ang app",
+      "I-right click ang taskbar",
+      "Pindutin ang power button ulit"
     ],
-    "answer": "To prevent data loss and keep the computer safe",
+    "answer": "I-click ang Start Menu at hanapin ang app",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
-    "lesson_id": 1,
-    "question_id": 136,
-    "question": "You explain to a friend that a computer can do many things. Which of these is NOT a common use of a computer?",
+    "lesson_id": 3,
+    "question_id": 130,
+    "type": "text_mcq",
+    "question": "Kung gusto mong i-resize o i-close ang isang window, anong parte ng computer ang ginagamit?",
     "options": [
-      "Typing documents",
-      "Browsing the internet",
-      "Cooking food automatically",
-      "Watching movies"
+      "Keyboard space bar",
+      "Taskbar",
+      "Mouse cursor",
+      "Speaker"
     ],
-    "answer": "Cooking food automatically",
+    "answer": "Mouse cursor",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 131,
+    "type": "image_mcq",
+    "question": "Alin sa mga larawan ang tamang hakbang para i-shut down ang computer?",
+    "options": [
+      {"image": "shutdown_menu.png"},
+      {"image": "unplug_powercord.png"},
+      {"image": "close_button.png"}
+    ],
+    "answer_image": "shutdown_menu.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 3,
+    "question_id": 132,
+    "type": "true_false",
+    "question": "Ang left-click ng mouse ay ginagamit para magbukas ng apps. Ang right-click ay ginagamit para sa extra options.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama Parehas",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 133,
+    "type": "text_mcq",
+    "question": "Si Carlo ay nag-download ng app mula sa hindi kilalang website. Biglang may lumabas na maraming ads. Ano ang dapat niyang gawin?",
+    "options": [
+      "Ituloy ang installation",
+      "I-install lahat ng offers",
+      "I-cancel ang installer at hanapin ang trusted source",
+      "I-restart lang ang computer"
+    ],
+    "answer": "I-cancel ang installer at hanapin ang trusted source",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 134,
+    "type": "text_mcq",
+    "question": "Saan ligtas mag-install ng apps sa smartphone?",
+    "options": [
+      "Random links sa Facebook",
+      "Google Play Store / App Store",
+      "Pop-up ads",
+      "Torrent websites"
+    ],
+    "answer": "Google Play Store / App Store",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 135,
+    "type": "image_mcq",
+    "question": "Alin ang mukhang legit installer?",
+    "options": [
+      {"image": "microsoft_store.png"},
+      {"image": "fake_win_popup.png"},
+      {"image": "random_download.png"}
+    ],
+    "answer_image": "microsoft_store.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 1,
+    "lesson_id": 4,
+    "question_id": 136,
+    "type": "true_false",
+    "question": "Laging mas ligtas mag-install ng apps mula sa App Store o Play Store. Ang shady installers ay madalas may kasamang extra offers.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama Parehas",
     "image": null
   },
   {
@@ -554,14 +536,15 @@
     "course_id": 1,
     "lesson_id": 5,
     "question_id": 137,
-    "question": "You saved a file but want to rename it. What should you do?",
+    "type": "text_mcq",
+    "question": "Habang ginagamit ni Mia ang kanyang computer, bigla itong nagyeyelo (nag-freeze). Ano ang unang dapat gawin?",
     "options": [
-      "Right-click the file and choose Rename",
-      "Double-click to open it",
-      "Press the spacebar",
-      "Turn off the computer"
+      "Bumili ng bagong computer",
+      "Mag-restart ng computer",
+      "Tanggalin agad ang hard drive",
+      "Mag-install ng random apps"
     ],
-    "answer": "Right-click the file and choose Rename",
+    "answer": "Mag-restart ng computer",
     "image": null
   },
   {
@@ -569,44 +552,46 @@
     "course_id": 1,
     "lesson_id": 5,
     "question_id": 138,
-    "question": "Your folder is messy. What is the BEST way to organize files?",
+    "type": "text_mcq",
+    "question": "Nawala ang internet connection ni Mark. Ano ang tamang susunod na hakbang?",
     "options": [
-      "Put files into clearly named folders",
-      "Change the wallpaper",
-      "Delete random files",
-      "Move everything to the desktop"
+      "I-off ang monitor",
+      "I-restart ang router",
+      "Palitan agad ng bagong mouse",
+      "I-shut down ang printer"
     ],
-    "answer": "Put files into clearly named folders",
+    "answer": "I-restart ang router",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
-    "lesson_id": 7,
+    "lesson_id": 5,
     "question_id": 139,
-    "question": "You have Word and a browser open. How can you switch to the browser quickly?",
+    "type": "image_mcq",
+    "question": "Alin sa mga larawan ang tamang troubleshooting step kapag walang internet?",
     "options": [
-      "Click the browser icon on the taskbar",
-      "Restart the computer",
-      "Turn off the monitor",
-      "Press Caps Lock repeatedly"
+      {"image": "wifi_on.png"},
+      {"image": "unplug_powercord.png"},
+      {"image": "random_ad.png"}
     ],
-    "answer": "Click the browser icon on the taskbar",
+    "answer_image": "wifi_on.png",
     "image": null
   },
   {
     "assessment_type": "post",
     "course_id": 1,
-    "lesson_id": 8,
+    "lesson_id": 5,
     "question_id": 140,
-    "question": "You need to adjust the volume of your speakers. Where can you usually find this option?",
+    "type": "true_false",
+    "question": "Ang simpleng restart ay minsan sapat para ayusin ang problema. Kung hindi maayos ang problema, puwede nang humingi ng tulong.",
     "options": [
-      "On the Taskbar near the clock",
-      "Inside a Word document",
-      "In the Recycle Bin",
-      "In the printer settings"
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
     ],
-    "answer": "On the Taskbar near the clock",
+    "answer": "Tama Parehas",
     "image": null
   }
 ]

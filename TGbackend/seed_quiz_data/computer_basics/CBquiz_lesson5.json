@@ -1,0 +1,595 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15001,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang nagpapakita ng 'Mabagal ang computer'?",
+    "options": [
+      {"image": "slow_computer.png"},
+      {"image": "frozen_screen.png"},
+      {"image": "no_internet.png"}
+    ],
+    "answer": "slow_computer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15002,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng 'Nagha-hang ang computer'?",
+    "options": [
+      {"image": "frozen_screen.png"},
+      {"image": "slow_computer.png"},
+      {"image": "wifi_off.png"}
+    ],
+    "answer": "frozen_screen.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15003,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng 'Walang internet connection'?",
+    "options": [
+      {"image": "no_internet.png"},
+      {"image": "router_restart.png"},
+      {"image": "wifi_icon_off.png"}
+    ],
+    "answer": "no_internet.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15004,
+    "type": "image_mcq",
+    "question": "Alin ang tamang aksyon para sa simpleng problema, tulad ng nagha-hang na computer?",
+    "options": [
+      {"image": "restart_computer.png"},
+      {"image": "call_tech_support.png"},
+      {"image": "pull_power_cable.png"}
+    ],
+    "answer": "restart_computer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15005,
+    "type": "image_mcq",
+    "question": "Alin ang icon ng Power/On button?",
+    "options": [
+      {"image": "power_button.png"},
+      {"image": "restart_icon.png"},
+      {"image": "shutdown_icon.png"}
+    ],
+    "answer": "power_button.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15006,
+    "type": "image_mcq",
+    "question": "Alin ang dapat suriin kung walang nakaka-connect na mouse o keyboard?",
+    "options": [
+      {"image": "check_cables.png"},
+      {"image": "wifi_icon_off.png"},
+      {"image": "restart_computer.png"}
+    ],
+    "answer": "check_cables.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15007,
+    "type": "image_mcq",
+    "question": "Alin ang tamang aksyon kapag walang internet?",
+    "options": [
+      {"image": "restart_router.png"},
+      {"image": "restart_computer.png"},
+      {"image": "call_tech_support.png"}
+    ],
+    "answer": "restart_router.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15008,
+    "type": "image_mcq",
+    "question": "Alin ang icon ng Wi-Fi kung naka-off?",
+    "options": [
+      {"image": "wifi_icon_off.png"},
+      {"image": "wifi_icon_on.png"},
+      {"image": "ethernet_icon.png"}
+    ],
+    "answer": "wifi_icon_off.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15009,
+    "type": "image_mcq",
+    "question": "Alin ang tamang aksyon kapag isang program ay hindi gumana?",
+    "options": [
+      {"image": "reopen_program.png"},
+      {"image": "pull_power_cable.png"},
+      {"image": "call_tech_support.png"}
+    ],
+    "answer": "reopen_program.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15010,
+    "type": "image_mcq",
+    "question": "Alin ang icon para mag-reinstall ng app kung hindi gumana?",
+    "options": [
+      {"image": "reinstall_app.png"},
+      {"image": "restart_computer.png"},
+      {"image": "shutdown_icon.png"}
+    ],
+    "answer": "reinstall_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15011,
+    "type": "image_mcq",
+    "question": "Alin ang tamang aksyon kapag problema na hindi mo kaya ayusin?",
+    "options": [
+      {"image": "ask_for_help.png"},
+      {"image": "restart_computer.png"},
+      {"image": "pull_power_cable.png"}
+    ],
+    "answer": "ask_for_help.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15012,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng problema: 'Screen Nagyeyelo'?",
+    "options": [
+      {"image": "frozen_screen.png"},
+      {"image": "slow_computer.png"},
+      {"image": "wifi_icon_off.png"}
+    ],
+    "answer": "frozen_screen.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15013,
+    "type": "image_mcq",
+    "question": "Alin ang dapat pindutin para mag-shut down ng computer?",
+    "options": [
+      {"image": "shutdown_icon.png"},
+      {"image": "restart_icon.png"},
+      {"image": "power_button.png"}
+    ],
+    "answer": "shutdown_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15014,
+    "type": "image_mcq",
+    "question": "Alin ang tamang icon para mag-restart ng computer?",
+    "options": [
+      {"image": "restart_icon.png"},
+      {"image": "shutdown_icon.png"},
+      {"image": "sleep_icon.png"}
+    ],
+    "answer": "restart_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15015,
+    "type": "image_mcq",
+    "question": "Alin ang icon ng Mouse na dapat ikabit para gumana?",
+    "options": [
+      {"image": "mouse_icon.png"},
+      {"image": "keyboard_icon.png"},
+      {"image": "monitor_icon.png"}
+    ],
+    "answer": "mouse_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15016,
+    "type": "image_mcq",
+    "question": "Alin ang icon ng Keyboard na dapat ikabit para gumana?",
+    "options": [
+      {"image": "keyboard_icon.png"},
+      {"image": "mouse_icon.png"},
+      {"image": "monitor_icon.png"}
+    ],
+    "answer": "keyboard_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15017,
+    "type": "image_mcq",
+    "question": "Alin ang icon para i-check ang power cables?",
+    "options": [
+      {"image": "check_cables.png"},
+      {"image": "wifi_icon_off.png"},
+      {"image": "restart_computer.png"}
+    ],
+    "answer": "check_cables.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15018,
+    "type": "image_mcq",
+    "question": "Alin ang icon para mag-restart ng Router?",
+    "options": [
+      {"image": "restart_router.png"},
+      {"image": "wifi_icon_off.png"},
+      {"image": "shutdown_icon.png"}
+    ],
+    "answer": "restart_router.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15019,
+    "type": "image_mcq",
+    "question": "Alin ang icon para i-reopen ang program kung nag-crash?",
+    "options": [
+      {"image": "reopen_program.png"},
+      {"image": "shutdown_icon.png"},
+      {"image": "restart_computer.png"}
+    ],
+    "answer": "reopen_program.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15020,
+    "type": "image_mcq",
+    "question": "Alin ang icon para humingi ng tulong kung hindi kaya ayusin ang problema?",
+    "options": [
+      {"image": "ask_for_help.png"},
+      {"image": "restart_computer.png"},
+      {"image": "pull_power_cable.png"}
+    ],
+    "answer": "ask_for_help.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15021,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung mabagal ang computer, subukan mo munang _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "restart", "type": "draggable"},
+      {"id": "item2", "text": "call tech support", "type": "draggable"},
+      {"id": "item3", "text": "uninstall app", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"restart\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15022,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung nagha-hang ang computer, subukan mo muna itong _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "restart", "type": "draggable"},
+      {"id": "item2", "text": "pull power cable", "type": "draggable"},
+      {"id": "item3", "text": "ignore it", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"restart\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15023,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung walang internet connection, subukan mo munang _____ ang router.'",
+    "drag_items": [
+      {"id": "item1", "text": "restart", "type": "draggable"},
+      {"id": "item2", "text": "turn off the computer", "type": "draggable"},
+      {"id": "item3", "text": "call repair shop", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"restart\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15024,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Siguraduhin na nakakabit ang _____ at _____ bago magpatuloy sa troubleshooting.'",
+    "drag_items": [
+      {"id": "item1", "text": "mouse", "type": "draggable"},
+      {"id": "item2", "text": "keyboard", "type": "draggable"},
+      {"id": "item3", "text": "printer", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"},
+      {"id": "blank_2", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"mouse\", \"blank_2\": \"keyboard\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15025,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung hindi gumana ang program, subukan mo itong _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "close at i-open muli", "type": "draggable"},
+      {"id": "item2", "text": "ignore it", "type": "draggable"},
+      {"id": "item3", "text": "pull power cable", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"close at i-open muli\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung hindi pa rin gumana ang program, maaari mo itong _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "i-reinstall", "type": "draggable"},
+      {"id": "item2", "text": "ignore it", "type": "draggable"},
+      {"id": "item3", "text": "restart computer", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"i-reinstall\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15027,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung di mo na kaya ayusin ang problema, pinakamahusay na _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "humingi ng tulong", "type": "draggable"},
+      {"id": "item2", "text": "patuloy lang sa computer", "type": "draggable"},
+      {"id": "item3", "text": "buntunin ang kable", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"humingi ng tulong\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15028,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Bago mag-troubleshoot, siguraduhin na ang _____ ay nakakabit sa computer.'",
+    "drag_items": [
+      {"id": "item1", "text": "power cable", "type": "draggable"},
+      {"id": "item2", "text": "printer", "type": "draggable"},
+      {"id": "item3", "text": "monitor", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"power cable\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15029,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung nagha-hang at mabagal ang computer, unang gawin ay _____ at pagkatapos ay tingnan ang _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "restart", "type": "draggable"},
+      {"id": "item2", "text": "check connections", "type": "draggable"},
+      {"id": "item3", "text": "ignore", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"},
+      {"id": "blank_2", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"restart\", \"blank_2\": \"check connections\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15030,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kapag walang internet, unang hakbang ay _____ at kung hindi pa rin gumana, _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "restart router", "type": "draggable"},
+      {"id": "item2", "text": "call tech support", "type": "draggable"},
+      {"id": "item3", "text": "restart computer", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"},
+      {"id": "blank_2", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"restart router\", \"blank_2\": \"call tech support\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang unang hakbang kapag mabagal ang computer?",
+    "options": null,
+    "answer": "restart",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang unang dapat gawin kung nagha-hang ang computer?",
+    "options": null,
+    "answer": "restart",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat suriin kung walang internet connection?",
+    "options": null,
+    "answer": "wifi icon",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat i-restart kung walang internet?",
+    "options": null,
+    "answer": "router",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang unang dapat gawin kapag hindi gumana ang isang program?",
+    "options": null,
+    "answer": "close at i-open muli",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang susunod na hakbang kung hindi pa rin gumana ang program?",
+    "options": null,
+    "answer": "i-reinstall",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Sino ang puwede mong tawagan kapag hindi mo na kaya ayusin ang problema?",
+    "options": null,
+    "answer": "tech support",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat siguraduhin bago simulan ang troubleshooting ng hardware?",
+    "options": null,
+    "answer": "nakasaksak ang power",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang simpleng solusyon kapag nagyeyelo ang screen?",
+    "options": null,
+    "answer": "restart computer",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 1,
+    "lesson_id": 5,
+    "question_id": 15040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gawin kung walang solusyon sa simpleng troubleshooting?",
+    "options": null,
+    "answer": "humingi ng tulong",
+    "image": null
+  }
+]

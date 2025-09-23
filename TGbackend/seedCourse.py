@@ -1,12 +1,13 @@
+#seedCourse.py
 import os
 import json
 from sqlalchemy.orm import Session
 from TGbackend.database import SessionLocal, engine
-from TGbackend.models import Base, Course, Unit, Lesson, LessonSlides, Question
+from TGbackend.models import Base, Course, Lesson, LessonSlides, Question
 
 # Base paths for images
-BASE_COURSE_IMG_PATH = "/images/courses/"
-BASE_PRE_ASSESSMENT_IMG_PATH = "/images/pre-assessment/"
+BASE_COURSE_IMG_PATH = "/images/course_icons/"
+BASE_PRE_ASSESSMENT_IMG_PATH = "/images/assessments_quizzes/"
 BASE_LESSON_IMG_PATH = "/images/lessons/"
 
 # Create tables if they don't exist
@@ -25,20 +26,31 @@ def add_image_path(filename: str, base_path: str) -> str:
 
 
 def load_json_files(folder_path):
-    """Load all JSON files from a folder."""
+    """Load all JSON files from a folder, separated by type."""
     json_files = [f for f in os.listdir(folder_path) if f.endswith(".json")]
-    data_list = []
+    course_files = []
+    question_files = []
 
     for file_name in json_files:
         file_path = os.path.join(folder_path, file_name)
         with open(file_path, "r", encoding="utf-8") as f:
             try:
                 data = json.load(f)
-                data_list.append((file_name, data))
-                print(f"✅ Loaded {file_name}")
+                
+                # Categorize files based on structure
+                if isinstance(data, dict) and "lessons" in data:
+                    course_files.append((file_name, data))
+                    print(f"✅ Loaded course file: {file_name}")
+                elif isinstance(data, list):
+                    question_files.append((file_name, data))
+                    print(f"✅ Loaded question file: {file_name}")
+                else:
+                    print(f"⚠️ Unknown file structure: {file_name}")
+                    
             except json.JSONDecodeError as e:
                 print(f"❌ Error parsing {file_name}: {e}")
-    return data_list
+                
+    return course_files, question_files
 
 
 def get_title(data, filename: str, level: str) -> str:
@@ -48,7 +60,6 @@ def get_title(data, filename: str, level: str) -> str:
 
     key_map = {
         "course": ["course_title", "course_name", "title"],
-        "unit": ["unit_title", "title"],
         "lesson": ["lesson_title", "title"],
         "slide": ["slide_title", "title"]
     }
@@ -61,70 +72,91 @@ def get_title(data, filename: str, level: str) -> str:
 
 
 def insert_or_update_question(session, q_data, lesson_id=None, course_id=None, filename=None):
-    """Insert or update a question."""
+    """Insert or update a question with proper handling for all 3 question types."""
     if not isinstance(q_data, dict):
         print(f"⚠️ Skipping malformed question in {filename}: {q_data}")
         return
 
-    # Handle missing lesson_id warning
-    if not lesson_id and not q_data.get("lesson_id"):
-        print(f"⚠️ No lesson_id provided for question in {filename}. Linking only to course_id={course_id}.")
+    # Get basic question info
+    final_course_id = q_data.get("course_id", course_id)
+    final_lesson_id = q_data.get("lesson_id", lesson_id)
+    final_type = q_data.get("type", "text_mcq")
+    final_assessment_type = q_data.get("assessment_type")
+    question_text = q_data.get("question", "")
+    
+    # Handle main question image
+    main_image = q_data.get("image", "")
+    if main_image:
+        main_image = add_image_path(main_image, BASE_PRE_ASSESSMENT_IMG_PATH)
 
-    # Fix image paths
-    if q_data.get("image"):
-        q_data["image"] = add_image_path(q_data["image"], BASE_PRE_ASSESSMENT_IMG_PATH)
-
-    if "options" in q_data and isinstance(q_data["options"], list):
-        for opt in q_data["options"]:
+    # Process options and correct answer based on question type
+    options = q_data.get("options", [])
+    
+    if final_type == "text_mcq" or final_type == "true_false":
+        # Simple text options - keep as is
+        final_options = json.dumps(options)
+        final_correct = q_data.get("answer", "")
+        
+    elif final_type == "image_mcq":
+        # Handle image options - add image paths
+        processed_options = []
+        for opt in options:
             if isinstance(opt, dict) and "image" in opt:
-                opt["image"] = add_image_path(opt["image"], BASE_PRE_ASSESSMENT_IMG_PATH)
+                processed_options.append({
+                    "image": add_image_path(opt["image"], BASE_PRE_ASSESSMENT_IMG_PATH)
+                })
+            else:
+                processed_options.append(opt)
+        
+        final_options = json.dumps(processed_options)
+        
+        # For image MCQ, correct answer comes from answer_image field
+        answer_image = q_data.get("answer_image", "")
+        if answer_image:
+            final_correct = add_image_path(answer_image, BASE_PRE_ASSESSMENT_IMG_PATH)
+        else:
+            final_correct = q_data.get("answer", "")
+    else:
+        # Fallback for unknown types
+        final_options = json.dumps(options)
+        final_correct = q_data.get("answer", "")
 
-    if q_data.get("answer_image"):
-        q_data["answer_image"] = add_image_path(q_data["answer_image"], BASE_PRE_ASSESSMENT_IMG_PATH)
-
-    # Decide final_lesson_id
-    final_lesson_id = lesson_id or q_data.get("lesson_id")
-
-    # Calculate prepared fields
-    final_type = q_data.get("type", "multiple-choice")
-    final_assessment_type = q_data.get("assessment_type")  # could be None
-    final_choices = json.dumps(q_data.get("options", []))
-    final_correct = q_data.get("answer", q_data.get("answer_image", ""))
-    final_image = q_data.get("image", "")
-
-    # existing question check
+    # Check if question already exists
     existing_q = session.query(Question).filter_by(
-        text=q_data.get("question") or q_data.get("text", ""),
+        text=question_text,
+        course_id=final_course_id,
         lesson_id=final_lesson_id
     ).first()
 
     if existing_q:
         existing_q.type = final_type
         existing_q.assessment_type = final_assessment_type
-        existing_q.choices = final_choices
+        existing_q.options = final_options
         existing_q.correct_answer = final_correct
-        # only set if Question model actually has image_url column
-        if hasattr(existing_q, "image_url"):
-            existing_q.image_url = final_image
-        print(f"🔄 Updated Q in {filename} → lesson {final_lesson_id or 'None'}")
+        if hasattr(existing_q, 'media_url'):
+            existing_q.media_url = main_image
+        print(f"🔄 Updated {final_type} Q in {filename} → course {final_course_id}, lesson {final_lesson_id or 'None'}")
     else:
         q_kwargs = dict(
             lesson_id=final_lesson_id,
-            course_id=course_id or q_data.get("course_id"),
-            text=q_data.get("question") or q_data.get("text", ""),
+            course_id=final_course_id,
+            text=question_text,
             type=final_type,
             assessment_type=final_assessment_type,
-            choices=final_choices,
+            options=final_options,
             correct_answer=final_correct
         )
-        if hasattr(Question, "image_url"):
-            q_kwargs["image_url"] = final_image
-
+        
+        # Add media_url if the model supports it
+        if hasattr(Question, 'media_url'):
+            q_kwargs["media_url"] = main_image
+            
         session.add(Question(**q_kwargs))
-        print(f"➕ Inserted Q in {filename} → lesson {final_lesson_id or 'None'}")
+        print(f"➕ Inserted {final_type} Q in {filename} → course {final_course_id}, lesson {final_lesson_id or 'None'}")
+
 
 def insert_or_update_slide(session, slide_data, lesson_id=None, filename=None):
-    """Insert or update a lesson slide."""
+    """Insert or update a lesson slide with TTS and layout support."""
     if not isinstance(slide_data, dict):
         print(f"⚠️ Skipping malformed slide in {filename}: {slide_data}")
         return
@@ -139,131 +171,122 @@ def insert_or_update_slide(session, slide_data, lesson_id=None, filename=None):
         slide_number=slide_number
     ).first()
 
+    content_text = slide_data.get("content", "")
+    if isinstance(content_text, list):
+        content_text = "\n".join(content_text)  # Flatten list
+
+    tts_text = slide_data.get("tts_text")
+    layout_type = slide_data.get("layout_type", "default")
+
     if existing_slide:
-        existing_slide.content = slide_data.get("content", "")
+        existing_slide.content = content_text
         existing_slide.media_url = slide_data.get("media_url", "")
         print(f"🔄 Updated slide #{slide_number} for lesson {lesson_id}")
     else:
-        session.add(LessonSlides(
+        slide_kwargs = dict(
             lesson_id=lesson_id,
             slide_number=slide_number,
-            content=slide_data.get("content", ""),
+            content=content_text,
             media_url=slide_data.get("media_url", "")
-        ))
+        )
+        
+        session.add(LessonSlides(**slide_kwargs))
         print(f"➕ Inserted slide #{slide_number} for lesson {lesson_id}")
 
-def seed_database(session: Session, filename: str, data):
-    """Seed database based on JSON data structure."""
 
-    # CASE 1: Standalone pre-assessment or question-only JSON
-    if isinstance(data, list):
-        print(f"📄 Detected standalone question file: {filename}")
-        for q in data:
-            insert_or_update_question(
-                session,
-                q,
-                lesson_id=q.get("lesson_id"),  # Auto-link if provided
-                course_id=q.get("course_id"),
-                filename=filename
-            )
-        return
-
-    # CASE 2: Course/unit/lesson structure
+def seed_courses(session: Session, filename: str, data):
+    """Seed courses and lessons from JSON structure."""
     if not isinstance(data, dict):
-        print(f"⚠️ Skipping file {filename} because top-level JSON is not object or list.")
+        print(f"⚠️ Skipping {filename}, expected course object structure.")
         return
 
     # --- COURSE ---
     course_title = get_title(data, filename, "course")
     course_desc = data.get("description", "")
-    course_image = add_image_path(data.get("image", ""), BASE_COURSE_IMG_PATH)
+    course_image = add_image_path(data.get("image_url", ""), BASE_COURSE_IMG_PATH)
 
     course = session.query(Course).filter_by(title=course_title).first()
     if not course:
         course = Course(title=course_title, description=course_desc, image_url=course_image)
         session.add(course)
-        session.flush()
-        print(f"➕ Inserted course: {course_title}")
+        session.flush()  # assign course.id for FK
+        print(f"➕ Inserted course: {course_title} (ID: {course.id})")
     else:
         course.description = course_desc
         course.image_url = course_image
-        print(f"🔄 Updated course: {course_title}")
+        print(f"🔄 Updated course: {course_title} (ID: {course.id})")
 
-    # --- UNITS ---
-    for unit_data in data.get("units", []):
-        if not isinstance(unit_data, dict):
-            print(f"⚠️ Skipping malformed unit in {filename}: {unit_data}")
+    # --- LESSONS ---
+    for lesson_data in data.get("lessons", []):
+        if not isinstance(lesson_data, dict):
+            print(f"⚠️ Skipping malformed lesson in {filename}: {lesson_data}")
             continue
 
-        unit_title = get_title(unit_data, filename, "unit")
-        unit = session.query(Unit).filter_by(course_id=course.id, title=unit_title).first()
-        if not unit:
-            unit = Unit(course_id=course.id, title=unit_title, description=unit_data.get("description", ""))
-            session.add(unit)
+        lesson_title = get_title(lesson_data, filename, "lesson")
+        lesson_media = lesson_data.get("media", "")
+        if isinstance(lesson_media, str) and lesson_media.endswith((".png", ".jpg", ".jpeg", ".gif")):
+            lesson_media = add_image_path(lesson_media, BASE_LESSON_IMG_PATH)
+
+        lesson = session.query(Lesson).filter_by(course_id=course.id, title=lesson_title).first()
+        if not lesson:
+            lesson = Lesson(
+                course_id=course.id,
+                title=lesson_title,
+                content=lesson_data.get("content", ""),
+                media_url=lesson_media
+            )
+            session.add(lesson)
             session.flush()
-            print(f"➕ Inserted unit: {unit_title}")
+            print(f"➕ Inserted lesson: {lesson_title} (ID: {lesson.id})")
         else:
-            unit.description = unit_data.get("description", "")
-            print(f"🔄 Updated unit: {unit_title}")
+            lesson.content = lesson_data.get("content", "")
+            lesson.media_url = lesson_media
+            print(f"🔄 Updated lesson: {lesson_title} (ID: {lesson.id})")
 
-        # --- LESSONS ---
-        for lesson_data in unit_data.get("lessons", []):
-            if not isinstance(lesson_data, dict):
-                print(f"⚠️ Skipping malformed lesson in {filename}: {lesson_data}")
-                continue
+        # --- SLIDES ---
+        for slide_data in lesson_data.get("slides", []):
+            insert_or_update_slide(session, slide_data, lesson_id=lesson.id, filename=filename)
 
-            lesson_title = get_title(lesson_data, filename, "lesson")
-            lesson_media = lesson_data.get("media", "")
-            if isinstance(lesson_media, str) and lesson_media.endswith((".png", ".jpg", ".jpeg", ".gif")):
-                lesson_media = add_image_path(lesson_media, BASE_LESSON_IMG_PATH)
 
-            lesson = session.query(Lesson).filter_by(unit_id=unit.id, title=lesson_title).first()
-            if not lesson:
-                lesson = Lesson(
-                    unit_id=unit.id,
-                    title=lesson_title,
-                    content=lesson_data.get("content", ""),
-                    media_url=lesson_media
-                )
-                session.add(lesson)
-                session.flush()
-                print(f"➕ Inserted lesson: {lesson_title}")
-            else:
-                lesson.content = lesson_data.get("content", "")
-                lesson.media_url = lesson_media
-                print(f"🔄 Updated lesson: {lesson_title}")
-            
-            # --- SLIDES ---
-            for slide_data in lesson_data.get("slides", []):
-                insert_or_update_slide(
-                    session,
-                    slide_data,
-                    lesson_id=lesson.id,
-                    filename=filename
-                )
+def seed_questions(session: Session, filename: str, data):
+    """Seed standalone questions from JSON array."""
+    if not isinstance(data, list):
+        print(f"⚠️ Expected question array in {filename}, got {type(data).__name__}")
+        return
 
-            # --- QUESTIONS ---
-            for q_data in lesson_data.get("questions", []):
-                insert_or_update_question(
-                    session,
-                    q_data,
-                    lesson_id=lesson.id,
-                    course_id=course.id,
-                    filename=filename
-                )
+    print(f"📄 Processing standalone question file: {filename}")
+    for q_data in data:
+        insert_or_update_question(session, q_data, filename=filename)
 
 
 def main():
     db = SessionLocal()
     try:
-        files_data = load_json_files(SEED_FOLDER)
-        for filename, data in files_data:
-            seed_database(db, filename, data)
+        # Load and categorize files
+        course_files, question_files = load_json_files(SEED_FOLDER)
+        
+        # First, seed all courses and lessons
+        print("\n🏗️ PHASE 1: Seeding Courses and Lessons")
+        for filename, data in course_files:
+            seed_courses(db, filename, data)
+        
+        # Commit courses before seeding questions
         db.commit()
-        print("✅ All JSON files seeded successfully without duplicates!")
+        print("✅ Courses and lessons committed to database")
+        
+        # Then, seed all questions
+        print("\n❓ PHASE 2: Seeding Questions")
+        for filename, data in question_files:
+            seed_questions(db, filename, data)
+            
+        # Final commit
+        db.commit()
+        print("✅ All JSON files seeded successfully!")
+        
     except Exception as e:
         db.rollback()
         print(f"❌ Error seeding database: {e}")
+        raise e
     finally:
         db.close()
 

@@ -63,6 +63,8 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         "user_id": db_user.id,
         "username": db_user.username,
         "email": db_user.email,
+        "bio": db_user.bio or "",  
+        "profile_icon": db_user.profile_icon or "avatar_default.png",
         "age": age,
         "is_elderly": is_elderly,
     }

@@ -1,6 +1,4 @@
-#progressRoutes.py
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from datetime import datetime
 from TGbackend.database import get_db
@@ -17,7 +15,6 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
     existing = db.query(models.Progress).filter_by(
         user_id=progress_data.user_id,
         course_id=progress_data.course_id,
-        unit_id=progress_data.unit_id,
         lesson_id=progress_data.lesson_id
     ).first()
 
@@ -40,7 +37,6 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
         new_progress = models.Progress(
             user_id=progress_data.user_id,
             course_id=progress_data.course_id,
-            unit_id=progress_data.unit_id,
             lesson_id=progress_data.lesson_id,
             completed=progress_data.completed,
             completed_at=datetime.utcnow() if progress_data.completed else None
@@ -75,12 +71,12 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
 
     return response_data
 
+
 @router.post("/progress/bkt-update")
 def update_progress_bkt(data: schema.ProgressUpdate, db: Session = Depends(get_db)):
     progress = Progress(
         user_id=data.user_id,
         course_id=data.course_id,
-        unit_id=data.unit_id,
         lesson_id=data.lesson_id,
         completed=data.completed,
         completed_at=datetime.utcnow()
@@ -89,10 +85,12 @@ def update_progress_bkt(data: schema.ProgressUpdate, db: Session = Depends(get_d
     db.commit()
     return {"status": "Lesson marked as completed."}
 
+
 @router.get("/progress/{user_id}")
 def get_progress(user_id: int, db: Session = Depends(get_db)):
     progress = db.query(Progress).filter(Progress.user_id == user_id).all()
     return progress
+
 
 # -------------------------
 # Lesson Recommendations
@@ -128,8 +126,6 @@ def get_progress_with_recommendations(user_id: int, course_id: int, db: Session 
     )
 
     # ✅ FIXED: Post-assessment unlock logic
-    # Allow retry if they completed recommended lessons, regardless of previous attempts
-    # Only lock if they already passed (post_passed = True)
     post_assessment_unlocked = all_recommended_done and not post_passed
 
     course_completed = all_recommended_done and post_passed

@@ -1,10 +1,13 @@
 //LessonPage.jsx
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { motion, AnimatePresence } from "motion/react";
 import CourseNavbar from "./courseNavbar";
 import { useUser } from "../context/UserContext";
 import { normalizeSlides } from "../utility/normalizeContent";
+import useTTS from "../hooks/useTTS";
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
+import { Volume2, VolumeX, Play, ChevronLeft, ChevronRight } from "lucide-react";
 
 const LessonPage = () => {
   const { courseName } = useParams();
@@ -20,9 +23,38 @@ const LessonPage = () => {
   const [recommendedLessons, setRecommendedLessons] = useState([]);
   const [progressData, setProgressData] = useState(null);
 
+  // Use the simplified TTS hook
+  const { isPlaying, speak, stop, isSupported } = useTTS();
+
   const formattedTitle = courseName.replace(/([A-Z])/g, " $1").trim();
   const normalize = (str) => str.toLowerCase().replace(/[\s_-]+/g, '');
 
+  // Simple TTS Functions
+  const handleTTSClick = () => {
+    if (!currentLesson) return;
+
+    const slide = currentLesson.slides[currentSlide];
+    const textToRead = slide.tts_text || slide.content.join(' ');
+
+    if (!textToRead) {
+      console.warn("No text to read for this slide");
+      return;
+    }
+
+    console.log("Reading text:", textToRead);
+
+    // Use the simple speak function - it toggles play/stop automatically
+    speak(textToRead);
+  };
+
+  // Stop TTS when slide changes
+  useEffect(() => {
+    if (isPlaying) {
+      stop();
+    }
+  }, [currentSlide]);
+
+  // Existing useEffect hooks remain the same...
   useEffect(() => {
     if (!user) return;
 
@@ -37,7 +69,7 @@ const LessonPage = () => {
         const matchedCourse = courses.find(
           c => normalize(c.title) === normalize(courseName)
         );
-        
+
         if (!matchedCourse) {
           console.error(`No course found for ${courseName}`);
           return;
@@ -72,7 +104,7 @@ const LessonPage = () => {
 
         } catch (bktError) {
           console.error("BKT recommendations failed:", bktError);
-          
+
           // Fallback to old endpoint if BKT fails
           try {
             const progressRes = await fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`);
@@ -123,9 +155,9 @@ const LessonPage = () => {
   const getAllLessonsInSection = () => {
     if (!lessonsData) return [];
     if (activeSectionIndex === 0) {
-
+      // Get recommended lessons from the flat lessons array
       const lessonMap = new Map(
-        lessonsData.units.flatMap(u => u.lessons).map(l => [l.lesson_id, l])
+        lessonsData.lessons.map(l => [l.lesson_id, l])
       );
 
       // Get recommended lessons and sort them by lesson_id
@@ -135,11 +167,12 @@ const LessonPage = () => {
         .sort((a, b) => a.lesson_id - b.lesson_id);
 
       return recommendedLessonsData;
-    } else if (activeSectionIndex === lessonsData.units.length + 1) {
-      return [];
+    } else if (activeSectionIndex === 1) {
+      // All lessons section
+      return lessonsData.lessons || [];
     } else {
-      const unit = lessonsData.units[activeSectionIndex - 1];
-      return unit?.lessons || [];
+      // Quizzes section (empty for now)
+      return [];
     }
   };
 
@@ -166,13 +199,15 @@ const LessonPage = () => {
   };
 
   const markLessonComplete = () => {
+    // Get the correct course ID from lessonsData
+    const courseId = lessonsData?.course_id || 1;
+
     fetch("http://localhost:8000/progress/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         user_id: user?.user_id,
-        course_id: 1,
-        unit_id: 1,
+        course_id: courseId,
         lesson_id: currentLesson.lesson_id,
         completed: true,
       }),
@@ -180,7 +215,7 @@ const LessonPage = () => {
       .then((res) => res.json())
       .then(() => {
         // 🔄 Refresh progress so button updates immediately
-        return fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/1`);
+        return fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`);
       })
       .then((res) => res.json())
       .then((data) => {
@@ -204,23 +239,150 @@ const LessonPage = () => {
 
   const handleNextSection = () => {
     if (!lessonsData) return;
-    const totalSections = lessonsData.units.length + 2;
+    const totalSections = 3; // Recommended, All Lessons, Quizzes
     setActiveSectionIndex((prev) => (prev + 1) % totalSections);
   };
 
   const handlePrevSection = () => {
     if (!lessonsData) return;
-    const totalSections = lessonsData.units.length + 2;
+    const totalSections = 3; // Recommended, All Lessons, Quizzes
     setActiveSectionIndex((prev) => (prev - 1 + totalSections) % totalSections);
   };
 
   const isLessonCompleted = (lessonId) => {
     return progressData?.completed_lessons?.includes(lessonId);
   };
+  
+  // Render content 
+  const renderSlideContent = (slide) => {
+    // Left side - Media content
+    const mediaElement = slide.media_url ? (
+      slide.media_url.endsWith(".mp4") ? (
+        <motion.video
+          controls
+          className="w-full h-full rounded-lg shadow-sm object-contain"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          <source src={`/images/lessons/${slide.media_url}`} type="video/mp4" />
+          Your browser does not support the video tag.
+        </motion.video>
+      ) : (
+        <motion.img
+          src={`/images/lessons/${slide.media_url}`}
+          alt={slide.slide_title || `Slide ${currentSlide + 1}`}
+          className="w-full h-full object-contain rounded-lg shadow-sm"
+          onError={(e) => { e.target.src = placeholderimg; }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        />
+      )
+    ) : (
+      <motion.div
+        className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex justify-center items-center shadow-sm border-2 border-dashed border-gray-300"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
+        <div className="text-center text-gray-500">
+          <div className="text-4xl mb-2">🖼️</div>
+          <span className="text-lg">Walang media available</span>
+        </div>
+      </motion.div>
+    );
+
+    // Right side - Text content with proper bullet handling
+    const contentElement = (
+      <motion.div
+        className="h-full flex flex-col"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+      >
+        {/* Slide title if available */}
+        {slide.slide_title && (
+          <motion.h3
+            className="text-xl font-bold text-[#4C5173] mb-4 pb-2 border-b border-gray-200"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
+            {slide.slide_title}
+          </motion.h3>
+        )}
+
+        {/* Content with proper bullet points */}
+        <div className="flex-1 overflow-y-auto">
+          {slide.content && slide.content.length > 0 ? (
+            <motion.div
+              className="space-y-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              {slide.content.map((text, idx) => (
+                <motion.div
+                  key={idx}
+                  className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.4 + (idx * 0.1) }}
+                >
+                  <motion.div
+                    className="w-3 h-3 bg-[#4C5173] rounded-full mt-2 flex-shrink-0"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.2, delay: 0.5 + (idx * 0.1) }}
+                  />
+                  <p className="text-lg text-gray-800 leading-relaxed flex-1">
+                    {text}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              className="flex-1 flex items-center justify-center text-gray-500"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.3 }}
+            >
+              <div className="text-center">
+                <div className="text-4xl mb-2">📝</div>
+                <span className="text-lg">Walang content available</span>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </motion.div>
+    );
+    return (
+      <div className="h-full flex flex-col lg:flex-row gap-4">
+        {/* Left Side - Media */}
+        <div className="lg:w-1/2 h-64 lg:h-full min-h-[300px] bg-white rounded-lg border border-gray-200 p-4">
+          <div className="w-full h-full">
+            {mediaElement}
+          </div>
+        </div>
+
+        {/* Right Side - Text Content */}
+        <div className="lg:w-1/2 flex-1 min-h-[300px] bg-white rounded-lg border border-gray-200 p-6">
+          {contentElement}
+        </div>
+      </div>
+    );
+  };
 
   if (!lessonsData || !currentLesson) {
     return (
-      <div className="p-10 text-center text-lg font-bold">Loading lesson...</div>
+      <div className="bg-[#DFDFEE] min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#4C5173] mb-4"></div>
+          <p className="text-lg font-semibold text-[#4C5173]">Naglo-load ng lesson...</p>
+        </div>
+      </div>
     );
   }
 
@@ -228,8 +390,10 @@ const LessonPage = () => {
 
   if (!slide) {
     return (
-      <div className="p-10 text-center text-lg font-bold">
-        No slide data available.
+      <div className="bg-[#DFDFEE] min-h-screen flex items-center justify-center">
+        <div className="text-center text-lg font-bold text-red-600">
+          Walang slide data available.
+        </div>
       </div>
     );
   }
@@ -238,129 +402,221 @@ const LessonPage = () => {
 
   const getSectionTitle = () => {
     if (activeSectionIndex === 0) return "TEKI'S RECOMMENDED LESSONS";
-    if (activeSectionIndex === lessonsData.units.length + 1) return "ACTIVITIES";
-    return `UNIT ${activeSectionIndex}: ${lessonsData.units[activeSectionIndex - 1].unit_title}`;
+    if (activeSectionIndex === 1) return "ALL LESSONS";
+    if (activeSectionIndex === 2) return "QUIZZES";
+    return "LESSONS";
   };
 
   return (
-    <div className="bg-[#DFDFEE] min-h-screen text-black flex flex-col">
+    <div className="bg-gradient-to-br from-[#DFDFEE] to-[#E8E8F5] min-h-screen text-black flex flex-col">
       <CourseNavbar courseTitle={formattedTitle} />
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <div className="w-[300px] bg-[#BFC4D7] p-4 overflow-y-auto border-r border-gray-400">
-          <div className="flex items-center gap-4 mb-6">
-            <img
-              src={placeholderimg}
-              alt="Teki"
-              className="w-16 h-16 rounded-full border border-black"
-            />
-            <h2 className="text-[20px] font-bold">{formattedTitle}</h2>
+        {/* Enhanced Sidebar */}
+        <div className="w-full lg:w-[320px] bg-[#BFC4D7] border-r border-gray-200 shadow-lg flex flex-col lg:relative absolute z-50 lg:z-auto">
+          <div className="p-6 border-b border-gray-100">
+            <div className="flex items-center gap-4">
+              <img
+                src={lessonsData?.image_url || placeholderimg}
+                alt={formattedTitle}
+                className="w-16 h-16 rounded-full border-2 border-[#4C5173] shadow-sm"
+              />
+              <h2 className="text-xl font-bold text-[#4C5173]">{formattedTitle}</h2>
+            </div>
           </div>
 
-          {/* Section Navigation */}
-          <div className="flex justify-between items-center mb-4">
-            <button
-              onClick={handlePrevSection}
-              className="p-2 rounded bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
-            >
-              {"<"}
-            </button>
-            <p className="font-bold text-center text-sm mx-2">{getSectionTitle()}</p>
-            <button
-              onClick={handleNextSection}
-              className="p-2 rounded bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
-            >
-              {">"}
-            </button>
-          </div>
-
-          {/* Lessons in Section */}
-          <div className="mt-2">
-            {sectionLessons.length === 0 ? (
-              <p className="text-sm italic text-gray-600">No lessons available.</p>
-            ) : (
-              sectionLessons.map((lesson) => (
-                <div
-                  key={lesson.lesson_id}
-                  onClick={() => handleLessonClick(lesson)}
-                  className={`p-2 rounded mb-1 cursor-pointer text-sm transition ${currentLesson.lesson_id === lesson.lesson_id
-                    ? "bg-[#F4EDD9] font-semibold border border-[#6B708D]"
-                    : "hover:bg-[#e2e6f1]"
-                    }`}
+          <div className="flex-1 overflow-y-auto p-4">
+            {/* Section Navigation with Animation */}
+            <div className="flex justify-between items-center mb-6 bg-gray-50 rounded-lg p-3">
+              <button
+                onClick={handlePrevSection}
+                className="p-2 rounded-lg bg-[#4C5173] text-white hover:bg-[#3a3f5c] transition-colors shadow-sm"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={activeSectionIndex}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2 }}
+                  className="font-semibold text-center text-sm mx-3 text-[#4C5173]"
                 >
-                  {lesson.lesson_title}
-                </div>
-              ))
-            )}
+                  {getSectionTitle()}
+                </motion.p>
+              </AnimatePresence>
+              <button
+                onClick={handleNextSection}
+                className="p-2 rounded-lg bg-[#4C5173] text-white hover:bg-[#3a3f5c] transition-colors shadow-sm"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+
+            {/* Lessons in Section with Staggered Animation */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`section-${activeSectionIndex}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-2"
+              >
+                {sectionLessons.length === 0 ? (
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    className="text-sm italic text-gray-500 text-center py-8"
+                  >
+                    Walang lessons available.
+                  </motion.p>
+                ) : (
+                  sectionLessons.map((lesson, index) => (
+                    <motion.div
+                      key={lesson.lesson_id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: index * 0.05,
+                        ease: "easeOut"
+                      }}
+                      onClick={() => handleLessonClick(lesson)}
+                      className={`p-4 rounded-lg cursor-pointer text-sm transition-all transform hover:scale-105 ${currentLesson.lesson_id === lesson.lesson_id
+                        ? "bg-gradient-to-r from-[#F4EDD9] to-[#FFF8E1] font-semibold border-2 border-[#4C5173] shadow-md"
+                        : "bg-gray-50 hover:bg-gray-100 border border-gray-200"
+                        }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-800">{lesson.lesson_title}</span>
+                        {isLessonCompleted(lesson.lesson_id) && (
+                          <motion.span
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: index * 0.05 + 0.2, type: "spring", stiffness: 500 }}
+                            className="text-green-600 text-xs"
+                          >
+                            ✓
+                          </motion.span>
+                        )}
+                      </div>
+                    </motion.div>
+                  ))
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Back Button */}
-          <button
-            onClick={() => navigate(`/courses/${courseName}`)}
-            className="w-full py-2 mt-6 bg-[#4C5173] text-white rounded-md text-sm font-semibold hover:bg-[#3a3f5c] transition"
-          >
-            Back to Lesson List
-          </button>
+          <div className="p-4 border-t border-gray-100">
+            <button
+              onClick={() => navigate(`/courses/${courseName}`)}
+              className="w-full py-3 bg-gradient-to-r from-[#4C5173] to-[#6B708D] text-white rounded-lg font-semibold hover:from-[#3a3f5c] hover:to-[#5a5f7a] transition-all transform hover:scale-105 shadow-lg"
+            >
+              Bumalik sa Lesson List
+            </button>
+          </div>
         </div>
 
-        {/* Lesson Content */}
-        <div className="flex-1 p-8 relative flex flex-col">
-          <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold mb-2">{currentLesson.lesson_title}</h1>
-            <h2 className="text-xl font-semibold text-[#4C5173]">
-              Slide {currentSlide + 1} of {currentLesson.slides.length}
-            </h2>
-          </div>
+        {/* Enhanced Lesson Content */}
+        <div className="flex-1 p-4 lg:p-8 flex flex-col">
+          {/* Header with TTS Controls */}
+          <div className="text-center mb-4 bg-white rounded-xl shadow-sm p-6">
+            <h1 className="text-2xl lg:text-3xl font-bold mb-2 text-[#4C5173]">
+              {currentLesson.lesson_title}
+            </h1>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <h2 className="text-lg lg:text-xl font-semibold text-gray-600">
+                Slide {currentSlide + 1} of {currentLesson.slides.length}
+              </h2>
 
-          {/* White Container*/}
-          <div className="bg-white rounded-lg border border-gray-300 shadow-md p-6 mb-6 flex-1 flex flex-col">
-            {/* Media Section */}
-            <div className="w-full h-[300px] mb-6 flex justify-center items-center bg-gray-100 rounded-md">
-              {slide.media_url ? (
-                slide.media_url.endsWith(".mp4") ? (
-                  <video controls className="w-full h-full rounded-md">
-                    <source src={`/images/lessons/${slide.media_url}`} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                ) : (
-                  <img
-                    src={`/images/lessons/${slide.media_url}`}
-                    alt={slide.slide_title}
-                    className="w-full h-full object-contain rounded-md"
-                    onError={(e) => { e.target.src = placeholderimg; }}
-                  />
-                )
-              ) : (
-                <div className="w-full h-full bg-gray-300 rounded-md flex justify-center items-center">
-                  <span className="text-gray-700">No media available</span>
+              {/* Simplified TTS Controls */}
+              {isSupported && (
+                <div className="flex items-center gap-2">
+                  {!isPlaying ? (
+                    <motion.button
+                      onClick={handleTTSClick}
+                      className="relative flex items-center gap-2 px-4 py-2 bg-[#B6C44D] text-black rounded-lg hover:bg-[#a5b83d] transition-colors shadow-sm overflow-hidden"
+                      title="Basahin ang slide content"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Volume2 size={16} />
+                      <span className="hidden sm:inline">Basahin</span>
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      onClick={handleTTSClick}
+                      className="relative flex items-center gap-2 px-4 py-2 bg-[#4C5173] text-white rounded-lg hover:bg-[#3a3f5c] transition-colors shadow-sm overflow-hidden"
+                      title="Stop ang audio"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      animate={{
+                        boxShadow: [
+                          "0 0 0 0px rgba(76, 81, 115, 0.4)",
+                          "0 0 0 10px rgba(76, 81, 115, 0.1)",
+                          "0 0 0 20px rgba(76, 81, 115, 0)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeOut"
+                      }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 border-2 border-white rounded-lg"
+                        animate={{
+                          scale: [1, 1.1, 1],
+                          opacity: [1, 0.8, 1]
+                        }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <VolumeX size={16} />
+                      <span className="hidden sm:inline">Stop</span>
+                    </motion.button>
+                  )}
                 </div>
               )}
             </div>
 
-            {/* Content Section */}
-            <div className="flex-1 mb-8">
-              <ul className="list-disc pl-6 space-y-2">
-                {slide.content.map((text, idx) => (
-                  <li key={idx} className="text-lg text-justify">
-                    {text}
-                  </li>
-                ))}
-              </ul>
+            {/* Progress Bar */}
+            <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div
+                className="bg-gradient-to-r from-[#B6C44D] to-[#4C5173] h-2 rounded-full transition-all duration-300"
+                style={{
+                  width: `${((currentSlide + 1) / currentLesson.slides.length) * 100}%`
+                }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Enhanced White Container */}
+          <div className="bg-white rounded-xl shadow-lg p-6 lg:p-8 mb-6 flex-1 flex flex-col overflow-hidden">
+            {/* Dynamic Content Layout */}
+            <div className="flex-1 mb-4 overflow-hidden">
+              {renderSlideContent(slide)}
             </div>
 
-            {/* Slide Navigation - Inside the white container, below content */}
-            <div className="flex justify-between items-center">
+            {/* Enhanced Slide Navigation */}
+            <div className="flex justify-between items-center pt-6 border-t border-gray-100">
               {/* Left side - Previous button */}
               <button
                 onClick={handlePrevSlide}
                 disabled={currentSlide === 0}
-                className={`px-6 py-3 rounded-md font-semibold text-lg transform scale-120 ${currentSlide === 0
-                    ? "bg-gray-400 text-white cursor-not-allowed"
-                    : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
+                className={`px-6 py-3 rounded-xl font-semibold text-lg transition-all transform ${currentSlide === 0
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gradient-to-r from-[#4C5173] to-[#6B708D] text-white hover:from-[#3a3f5c] hover:to-[#5a5f7a] hover:scale-105 shadow-lg"
                   }`}
               >
-                Previous
+                ← Previous
               </button>
 
               {/* Right side - Next/Complete buttons */}
@@ -369,24 +625,24 @@ const LessonPage = () => {
                   isLessonCompleted(currentLesson.lesson_id) ? (
                     <button
                       onClick={proceedToNextLesson}
-                      className="px-6 py-3 rounded-md font-semibold text-lg transform scale-120 text-white bg-[#0077FF] hover:bg-[#17559D] active:bg-[#17559D]"
+                      className="px-6 py-3 rounded-xl font-semibold text-lg transform hover:scale-105 text-white bg-gradient-to-r from-[#0077FF] to-[#17559D] hover:from-[#0066CC] hover:to-[#144A82] shadow-lg transition-all"
                     >
-                      Done Reviewing
+                      Done Reviewing ✓
                     </button>
                   ) : (
                     <button
                       onClick={markLessonComplete}
-                      className="px-6 py-3 rounded-md font-semibold text-lg transform scale-120 bg-[#B6C44D] text-black hover:bg-[#a5b83d]"
+                      className="px-6 py-3 rounded-xl font-semibold text-lg transform hover:scale-105 bg-gradient-to-r from-[#B6C44D] to-[#A5B83D] text-black hover:from-[#a5b83d] hover:to-[#94A535] shadow-lg transition-all"
                     >
-                      Mark Complete
+                      Mark Complete ✓
                     </button>
                   )
                 ) : (
                   <button
                     onClick={handleNextSlide}
-                    className="px-6 py-3 rounded-md font-semibold text-lg transform scale-120 bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
+                    className="px-6 py-3 rounded-xl font-semibold text-lg transform hover:scale-105 bg-gradient-to-r from-[#4C5173] to-[#6B708D] text-white hover:from-[#3a3f5c] hover:to-[#5a5f7a] shadow-lg transition-all"
                   >
-                    Next
+                    Next →
                   </button>
                 )}
               </div>

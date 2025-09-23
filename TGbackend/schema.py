@@ -1,7 +1,7 @@
-# TGbackend/schemas.py
+# TGbackend/schema.py
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import List
+from typing import List, Optional, Any
 
 # -------------------------
 # Schema for Users
@@ -28,14 +28,12 @@ class UserProfileUpdate(BaseModel):
 class ProgressCreate(BaseModel):
     user_id: int
     course_id: int
-    unit_id: int
     lesson_id: int
     completed: bool  
 
 class ProgressUpdate(BaseModel):
     user_id: int
     course_id: int
-    unit_id: int
     lesson_id: int
     completed: bool = True
 
@@ -64,8 +62,8 @@ class MilestoneOut(BaseModel):
 # -------------------------
 class QuestionResponse(BaseModel):
     question_id: int
-    is_correct: bool
-    selected_choice: str = None 
+    is_correct: bool = False
+    selected_choice: str | None = None
 
 # -------------------------
 # Incoming payload when submitting an assessment
@@ -90,3 +88,30 @@ class AssessmentResult(BaseModel):
 
     class Config:
         orm_mode = True
+
+#--------------------------
+# Quiz-related Schema
+#---------------------------
+class QuizSubmission(BaseModel):
+    answers: List[Any]  # Can be strings, objects, etc. depending on quiz type
+    time_taken: Optional[int] = None  # in seconds
+    
+class QuizCreate(BaseModel):
+    course_id: int
+    quiz_title: str
+    quiz_type: str  # "drag_drop", "typing", "multiple_choice"
+    difficulty: Optional[str] = None
+    time_limit: Optional[int] = None
+    description: Optional[str] = None
+    related_lessons: Optional[List[int]] = None
+    
+class QuizQuestionCreate(BaseModel):
+    quiz_id: int
+    question_number: int
+    question_text: str
+    question_type: str
+    correct_answer: Optional[str] = None
+    options: Optional[List[Any]] = None
+    drag_items: Optional[List[Any]] = None
+    drop_zones: Optional[List[Any]] = None
+    question_image: Optional[str] = None

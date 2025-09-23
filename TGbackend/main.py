@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from TGbackend.database import engine
 from TGbackend.database import SessionLocal
 from TGbackend import models
-from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes, milestoneRoutes
+from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes, milestoneRoutes, quizRoutes
 
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
@@ -44,6 +44,9 @@ app.include_router(lessonsRoutes.router)
 
 # Assessment management 
 app.include_router(assessmentRoutes.router)
+
+# Quiz
+app.include_router(quizRoutes.router)
 
 # BKT (Bayesian Knowledge Tracing)
 app.include_router(bktRoutes.router) 

@@ -2,12 +2,12 @@ import json
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from TGbackend.database import get_db
-from TGbackend.models import Course, Unit, Lesson, LessonSlides
+from TGbackend.models import Course, Lesson, LessonSlides
 
 router = APIRouter(tags=["Lessons & Courses"])
 
 # =========================
-# 1. GET ALL COURSES
+# 1. GET ALL COURSES (with lessons)
 # =========================
 @router.get("/courses")
 def get_all_courses(db: Session = Depends(get_db)):
@@ -18,23 +18,17 @@ def get_all_courses(db: Session = Depends(get_db)):
             "title": c.title,
             "description": c.description,
             "image_url": c.image_url,
-            "units": [
+            "lessons": [
                 {
-                    "unit_id": u.id,
-                    "unit_title": u.title,
-                    "lessons": [
-                        {
-                            "lesson_id": l.id,
-                            "lesson_title": l.title
-                        }
-                        for l in sorted(u.lessons, key=lambda x: x.id)
-                    ]
+                    "lesson_id": l.id,
+                    "lesson_title": l.title
                 }
-                for u in sorted(c.units, key=lambda x: x.id)
+                for l in sorted(c.lessons, key=lambda x: x.id)
             ]
         }
         for c in sorted(courses, key=lambda x: x.id)
     ]
+
 
 # =========================
 # 2. LESSON LIST (per course)
@@ -50,34 +44,22 @@ def get_lessons_by_course(course_id: int, db: Session = Depends(get_db)):
         "course_title": course.title,
         "description": course.description,
         "image_url": course.image_url,
-        "units": [
+        "lessons": [
             {
-                "unit_id": unit.id,
-                "unit_title": unit.title,
-                "lessons": [
-                    {
-                        "lesson_id": lesson.id,
-                        "lesson_title": lesson.title
-                    }
-                    for lesson in unit.lessons
-                ]
+                "lesson_id": lesson.id,
+                "lesson_title": lesson.title
             }
-            for unit in course.units
+            for lesson in sorted(course.lessons, key=lambda l: l.id)
         ]
     }
+
 
 # =========================
 # 3. LESSON PAGE (detail with slides)
 # =========================
 @router.get("/lessons/{lesson_id}")
 def get_lesson_detail(lesson_id: int, db: Session = Depends(get_db)):
-    lesson = (
-        db.query(Lesson)
-        .join(Unit, Lesson.unit_id == Unit.id)
-        .join(Course, Unit.course_id == Course.id)
-        .filter(Lesson.id == lesson_id)
-        .first()
-    )
+    lesson = db.query(Lesson).filter(Lesson.id == lesson_id).first()
 
     if not lesson:
         raise HTTPException(status_code=404, detail="Lesson not found")
@@ -98,10 +80,8 @@ def get_lesson_detail(lesson_id: int, db: Session = Depends(get_db)):
         })
 
     return {
-        "course_id": lesson.unit.course.id,
-        "course_title": lesson.unit.course.title,
-        "unit_id": lesson.unit.id,
-        "unit_title": lesson.unit.title,
+        "course_id": lesson.course.id,
+        "course_title": lesson.course.title,
         "lesson_id": lesson.id,
         "lesson_title": lesson.title,
         "slides": slides_data

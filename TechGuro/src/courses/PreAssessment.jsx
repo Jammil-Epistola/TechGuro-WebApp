@@ -1,267 +1,298 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import CourseNavbar from './courseNavbar.jsx';
-import { useUser } from '../context/UserContext.jsx';
-import Teki1 from "../assets/Teki 1.png";
+// src/pages/PreAssessmentPage.jsx
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import CourseNavbar from "./courseNavbar";
+import TekiDialog from "../components/TekiDialog";
+import QuestionCard from "../components/QuestionCard";
+import AssessmentInstructions from "../components/AssessmentInstructions";
+import AssessmentResults from "../components/AssessmentResults";
+import SubmitConfirmationModal from "../components/SubmitConfirmationModal";
+import { useUser } from "../context/UserContext";
 
 const PreAssessment = () => {
-  const navigate = useNavigate();
   const { courseName } = useParams();
+  const navigate = useNavigate();
   const { user } = useUser();
-  const [dialogueStep, setDialogueStep] = useState(0);
-  const [startTest, setStartTest] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [score, setScore] = useState(null);
+
   const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [unlockReason, setUnlockReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isGeneratingRecommendations, setIsGeneratingRecommendations] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(true);
+  const [showSelectAnswer, setShowSelectAnswer] = useState(false);
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const [lastQuestionTimer, setLastQuestionTimer] = useState(null);
+
+  // New states for results
+  const [showResults, setShowResults] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/assessment/check/${user?.user_id || 1}/1`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.taken) {
-          navigate(`/courses/${courseName}`, { replace: true }); 
+    const fetchQuestions = async () => {
+      try {
+        const resCourses = await fetch("http://localhost:8000/courses");
+        if (!resCourses.ok) throw new Error("Failed to fetch courses");
+        const courses = await resCourses.json();
+
+        const course = courses.find(
+          (c) => c.title.replace(/\s+/g, "").toLowerCase() === courseName.toLowerCase()
+        );
+        if (!course) {
+          setUnlockReason(`Course "${courseName}" not found.`);
+          return;
         }
-      })
-      .catch(err => console.error("Failed to check pre-assessment:", err));
-  }, [user]);
 
-  useEffect(() => {
-    fetch(`http://localhost:8000/assessment/questions/1?assessment_type=pre`)
-      .then(response => response.json())
-      .then(data => {
-        const formattedQuestions = data.map(q => ({
-          question_id: q.id,
-          question: q.text,
-          answer: q.correct_answer,
-          options: q.choices ? JSON.parse(q.choices) : []
-        }));
-        setQuestions(formattedQuestions);
-      })
-      .catch(error => console.error("Failed to load questions:", error));
-  }, []);
-
-  const handleDialogueNext = () => {
-    if (dialogueStep === 2) {
-      setStartTest(true);
-    } else {
-      setDialogueStep(dialogueStep + 1);
-    }
-  };
-
-  const handleAnswerSelect = (selectedOption) => {
-    setSelectedAnswers(prev => ({
-      ...prev,
-      [currentQuestion]: selectedOption
-    }));
-
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else if (Object.keys(selectedAnswers).length === questions.length - 1) {
-      handleSubmit();
-    }
-  };
-
-  const calculateScore = () => {
-    let correctAnswers = 0;
-    questions.forEach((q, idx) => {
-      const selected = selectedAnswers[idx];
-      if (!selected) return;
-
-      if (q.answer_image) {
-        if (selected.image === q.answer_image) correctAnswers++;
-      } else {
-        if (selected === q.answer) correctAnswers++;
+        const resQuestions = await fetch(
+          `http://localhost:8000/assessment/questions/${course.id}?assessment_type=pre`
+        );
+        if (!resQuestions.ok) throw new Error("Failed to fetch questions");
+        const data = await resQuestions.json();
+        setQuestions(data);
+      } catch (err) {
+        console.error(err);
+        setUnlockReason("Could not load questions. Please try again.");
       }
-    });
-    return correctAnswers;
-  };
-
-  const handleSubmit = () => {
-    const finalScore = calculateScore();
-    setScore(finalScore);
-    setIsSubmitting(true);
-    setIsGeneratingRecommendations(true);
-
-    const responses = questions.map((q, idx) => {
-      const selected = selectedAnswers[idx];
-      let isCorrect = false;
-
-      if (!selected) return { question_id: q.question_id, is_correct: false };
-
-      if (q.answer_image) {
-        isCorrect = selected.image === q.answer_image;
-      } else {
-        isCorrect = selected === q.answer;
-      }
-
-      return {
-        question_id: q.question_id,
-        is_correct: isCorrect
-      };
-    });
-
-    const payload = {
-      user_id: user?.user_id || 1,
-      course_id: 1,
-      assessment_type: "pre",
-      responses: responses
     };
 
-    // Submit assessment first
-    fetch("http://localhost:8000/assessment/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    })
-      .then(res => res.json())
-      .then(async data => {
-        console.log("Pre-assessment submitted:", data);
+    fetchQuestions();
+  }, [courseName]);
 
-        // UPDATED: Process with BKT system to establish baseline mastery
-        try {
-          console.log("Processing BKT baseline mastery...");
+  //  timer when component unmounts or question changes
+  useEffect(() => {
+    return () => {
+      if (lastQuestionTimer) {
+        clearTimeout(lastQuestionTimer);
+      }
+    };
+  }, [lastQuestionTimer, currentQuestionIndex]);
 
-          const bktRes = await fetch(`http://localhost:8000/bkt/update-from-pre?user_id=${user?.user_id || 1}&course_id=1`, {
-            method: "POST"
-          });
+  const handleAnswerChange = (questionId, option) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: option }));
 
-          if (!bktRes.ok) {
-            throw new Error(`BKT request failed: ${bktRes.status} ${bktRes.statusText}`);
-          }
+    // Clear any existing timer
+    if (lastQuestionTimer) {
+      clearTimeout(lastQuestionTimer);
+    }
 
-          const bktData = await bktRes.json();
-          console.log("BKT pre-assessment processing complete:", bktData);
-
-          // Show success and navigate after BKT processing
-          setTimeout(() => {
-            navigate(`/courses/${courseName}`, { replace: true });
-          }, 2000);
-
-        } catch (bktError) {
-          console.error('BKT pre-assessment processing failed:', bktError);
-
-          // Fallback: Navigate anyway but log the error
-          console.log("Continuing without BKT processing...");
-          setTimeout(() => {
-            navigate(`/courses/${courseName}`, { replace: true });
-          }, 2000);
-        }
-      })
-      .catch(error => {
-        console.error("Pre-assessment submission failed:", error);
-        setIsSubmitting(false);
-        setIsGeneratingRecommendations(false);
-      });
+    // If this is the last question, set timer for modal
+    if (currentQuestionIndex === questions.length - 1) {
+      const timer = setTimeout(() => {
+        setShowSubmitModal(true);
+      }, 1000);
+      setLastQuestionTimer(timer);
+    } else {
+      // Auto-advance for non-last questions
+      if (currentQuestionIndex < questions.length - 1) {
+        setTimeout(() => setCurrentQuestionIndex(currentQuestionIndex + 1), 800);
+      }
+    }
   };
 
-  const formattedTitle = courseName.replace(/([A-Z])/g, ' $1').trim();
+  const handleNext = () => {
+    const currentAnswer = answers[questions[currentQuestionIndex]?.id];
+    if (!currentAnswer) {
+      setShowSelectAnswer(true);
+      return;
+    }
+
+    // If it's the last question, show confirmation modal
+    if (currentQuestionIndex === questions.length - 1) {
+      setShowSubmitModal(true);
+      return;
+    }
+
+    // Otherwise, go to next question
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!user) {
+      setUnlockReason("Please log in to submit your assessment.");
+      return;
+    }
+
+    const unansweredQuestions = questions.filter(q => !answers[q.id]);
+    if (unansweredQuestions.length > 0) {
+      setUnlockReason(`Please answer all questions. ${unansweredQuestions.length} questions remaining.`);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const resCourses = await fetch("http://localhost:8000/courses");
+      const courses = await resCourses.json();
+      const course = courses.find(
+        (c) => c.title.replace(/\s+/g, "").toLowerCase() === courseName.toLowerCase()
+      );
+
+      const submissionData = {
+        user_id: user.user_id,
+        course_id: course.id,
+        assessment_type: "pre",
+        responses: questions.map(q => ({
+          question_id: q.id,
+          selected_choice: answers[q.id]
+        }))
+      };
+
+      const response = await fetch("http://localhost:8000/assessment/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(submissionData),
+      });
+
+      if (!response.ok) throw new Error("Failed to submit assessment");
+
+      const result = await response.json();
+      setFinalScore(result.score || 0);
+      setShowResults(true);
+
+    } catch (err) {
+      console.error(err);
+      setUnlockReason("Failed to submit assessment. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleStartAssessment = () => setShowInstructions(false);
+
+  // Show instructions first
+  if (showInstructions) {
+    return (
+      <AssessmentInstructions
+        assessmentType="pre"
+        courseName={courseName}
+        onStart={handleStartAssessment}
+      />
+    );
+  }
+
+  // Show results after submission
+  if (showResults) {
+    return (
+      <AssessmentResults
+        assessmentType="pre"
+        courseName={courseName}
+        score={finalScore}
+        totalQuestions={questions.length}
+        isProcessing={isSubmitting}
+        onComplete={() => navigate(`/courses/${courseName}`)}
+      />
+    );
+  }
+
+  if (questions.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#DFDFEE]">
+        <CourseNavbar courseTitle={`${courseName} Pre-Assessment`} />
+        <div className="max-w-4xl mx-auto p-6 text-center">
+          <p className="text-xl text-black">Loading questions...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const currentQuestion = questions[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
+  const currentAnswer = answers[currentQuestion?.id];
 
   return (
-    <div className="bg-[#DFDFEE] min-h-screen text-black">
-      <CourseNavbar courseTitle={formattedTitle} />
+    <div className="min-h-screen bg-[#DFDFEE]">
+      <CourseNavbar courseTitle={`${courseName} Pre-Assessment`} />
+      <div className="max-w-6xl mx-auto p-5">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl font-bold text-black mb-2">
+            Pre-Assessment: {courseName}
+          </h1>
+          <div className="text-xl text-black">
+            Question {currentQuestionIndex + 1} of {questions.length}
+          </div>
+          <div className="w-full bg-gray-300 rounded-full h-3 mt-4">
+            <div
+              className="bg-[#4C5173] h-3 rounded-full transition-all duration-300"
+              style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
+            ></div>
+          </div>
+        </div>
 
-      <div className="text-center py-8">
-        <h1 className="text-[42px] font-bold">{formattedTitle.toUpperCase()}</h1>
-        <h2 className="text-[36px] font-semibold">Pre-Assessment Test</h2>
+        {/* QuestionCard with side navigation buttons */}
+        <div className="flex items-end justify-center gap-6">
+          {/* Previous Button - Left Side */}
+          <div className="flex items-end">
+            <button
+              onClick={handlePrevious}
+              disabled={currentQuestionIndex === 0}
+              className={`px-6 py-3 rounded-lg text-lg font-semibold transition-all ${currentQuestionIndex === 0
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-600 text-white hover:bg-gray-700 transform hover:scale-105 shadow-lg"
+                }`}
+            >
+              Previous
+            </button>
+          </div>
+
+          {/* Question Card - Center (fixed width, not flex-1) */}
+          <div className="flex justify-center">
+            <QuestionCard
+              question={{ ...currentQuestion, questionNumber: currentQuestionIndex + 1 }}
+              selectedAnswer={currentAnswer}
+              onAnswerChange={handleAnswerChange}
+            />
+          </div>
+
+          {/* Next Button - Invisible on last question to maintain layout */}
+          <div className="flex items-end">
+            <button
+              onClick={handleNext}
+              className={`px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg ${isLastQuestion ? "invisible" : ""
+                }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center p-8">
-        {!startTest ? (
-          <div className="bg-white border border-black rounded-lg p-10 max-w-[1000px] w-full relative">
-            <img src={Teki1} alt="Teki" className="w-[180px] h-[180px] absolute top-[-90px] right-[-90px]" />
-            <h2 className="text-[32px] font-bold mb-6 text-left">Teki</h2>
-            <div className="text-[24px] text-justify mb-6">
-              {dialogueStep === 0 && (
-                <>
-                  Before you begin, please answer the following multiple-choice questions honestly.
-                  This questionnaire helps us recommend the right lessons for you.
-                </>
-              )}
+      {/* Submit Confirmation Modal */}
+      <SubmitConfirmationModal
+        isOpen={showSubmitModal}
+        onConfirm={handleSubmit}
+        onCancel={() => {
+          setShowSubmitModal(false);
+          // Clear the timer when cancelled
+          if (lastQuestionTimer) {
+            clearTimeout(lastQuestionTimer);
+            setLastQuestionTimer(null);
+          }
+        }}
+        isSubmitting={isSubmitting}
+      />
 
-              {/* BKT explanation */}
-              {dialogueStep === 1 && (
-                <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-md text-[20px] leading-relaxed">
-                  <p className="mb-2">
-                    We use the <strong>Bayesian Knowledge Tracing (BKT)</strong> model to measure your learning progress.
-                  </p>
-                  <ul className="list-disc list-inside space-y-1">
-                    <li><strong>P(known)</strong>: Chance you already know a skill before answering.</li>
-                    <li><strong>P(will learn)</strong>: Chance you learn a skill after practicing.</li>
-                    <li><strong>P(slip)</strong>: Chance you answer wrong even if you know the skill.</li>
-                    <li><strong>P(guess)</strong>: Chance you answer right even if you don’t know it.</li>
-                  </ul>
-                  <p className="mt-2 text-sm text-gray-600">
-                    This helps us personalize your recommended lessons and track mastery growth.
-                  </p>
-                </div>
-              )}
+      {/* TekiDialog for "Please select an answer" message */}
+      {showSelectAnswer && (
+        <TekiDialog
+          message="Please select an answer before proceeding to the next question."
+          onClose={() => setShowSelectAnswer(false)}
+        />
+      )}
 
-              {dialogueStep === 2 && (
-                <>
-                  There is no time limit, so take your time and choose the answers that best reflect what you know.
-                  Good luck!
-                </>
-              )}
-            </div>
-
-            <div className="flex justify-end mt-6">
-              <button
-                onClick={handleDialogueNext}
-                className="px-8 py-4 bg-blue-500 text-white text-[20px] rounded hover:bg-blue-600 transition"
-              >
-                {dialogueStep === 2 ? "Start Pre-Assessment" : "Next"}
-              </button>
-            </div>
-          </div>
-        ) : isGeneratingRecommendations ? (
-          <div className="bg-white border border-black rounded-lg p-10 max-w-[1000px] w-full relative">
-            <img src={Teki1} alt="Teki" className="w-[180px] h-[180px] absolute top-[-90px] right-[-90px]" />
-            <h2 className="text-[32px] font-bold mb-6 text-left">Teki</h2>
-            <p className="text-[24px] text-justify mb-6">
-              You scored {score}/{questions.length}. Based on your answers,
-              I’m figuring out the perfect lessons for you
-              <span className="animate-typing ml-1"></span>
-            </p>
-            <p className="text-[20px] italic text-[#4c5173] mb-6">
-              Please wait while I analyze your results
-              <span className="animate-typing ml-1"></span>
-            </p>
-          </div>
-        ) : (
-          <div className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-10 max-w-[1000px] w-full">
-            <h2 className="text-[30px] font-bold mb-8 text-center">
-              Q{currentQuestion + 1}: {questions[currentQuestion]?.question}
-            </h2>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              {questions[currentQuestion]?.options?.map((option, index) => {
-                const selected = selectedAnswers[currentQuestion];
-                const isSelected =
-                  (option.image && selected?.image === option.image) ||
-                  (!option.image && selected === option);
-
-                return (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswerSelect(option)}
-                    className={`flex flex-col items-center justify-center px-6 py-6 rounded-lg text-white font-bold text-[20px] 
-                      ${isSelected ? "bg-blue-700" : "bg-blue-500"} hover:bg-blue-600 transition w-full sm:w-auto min-w-[250px]`}
-                  >
-                    {option.image ? (
-                      <img src={option.image} alt={`Option ${index + 1}`} className="w-24 h-24 object-contain" />
-                    ) : (
-                      <span>{option}</span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
+      {/* TekiDialog for other messages */}
+      {unlockReason && (
+        <TekiDialog
+          message={unlockReason}
+          onClose={() => setUnlockReason("")}
+        />
+      )}
     </div>
   );
 };

@@ -1,455 +1,445 @@
 {
   "course_id": 1,
   "course_name": "Computer Basics",
-  "units": [
+  "image_url" : "course_img1.png",
+  "lessons": [
     {
-      "unit_title": "Getting to Know Your Computer",
-      "lessons": [
+      "lesson_id": 1,
+      "lesson_title": "What is a Computer?",
+      "goal": "Understand what computers are, their types, and main parts.",
+      "slides": [
         {
-          "lesson_id": 1,
-          "lesson_title": "Lesson 1: What is a computer?",
-          "slides": [
-            {
-              "slide_number": 1,
-              "slide_title": "What Can a Computer Do?",
-              "content": [
-                "A computer is a machine that helps you perform many tasks, such as writing, browsing the internet, and watching videos.",
-                "It can also be used to listen to music, make video calls, and play games.",
-                "Computers are used in homes, offices, schools, and many other places.",
-                "They help make work easier and faster."
-              ],
-              "media_url": "C1_Lesson1_Slide1.png"
-            },
-            {
-              "slide_number": 2,
-              "slide_title": "Types of Computers",
-              "content": [
-                "Desktop: are computers that are placed on a desk and used in one place",
-                "Laptop: are computers that are small and portable; easy to carry",
-                "Tablet/Smartphone: are ‘Touchscreen’ computers that are very portable",
-                "All of these devices are types of computers."
-              ],
-              "media_url": "C1_Lesson1_Slide2.png"
-            },
-            {
-              "slide_number": 3,
-              "slide_title": "Two Main Parts of a Computer",
-              "content": [
-                "Hardware: the physical parts you can touch, like the keyboard and monitor",
-                "Software: the programs and apps that run inside the computer",
-                "Both hardware and software work together to make the computer useful."
-              ],
-              "media_url": "C1_Lesson1_Slide3.png"
-            },
-            {
-              "slide_number": 4,
-              "slide_title": "Examples of Software",
-              "content": [
-                "Software includes programs like browsers (Google Chrome), word processors (Microsoft Word), and games.",
-                "Without software, the computer cannot do anything.",
-                "Software gives instructions that tell the hardware what to do."
-              ],
-              "media_url": "C1_Lesson1_Slide4.png"
-            },
-            {
-              "slide_number": 5,
-              "slide_title": "Summary",
-              "content": [
-                "Computers help us work, learn, and play",
-                "Types include desktop, laptop, and tablet/smartphone",
-                "Hardware and software are both needed for a computer to function"
-              ],
-              "media_url": "Tekis_Summary.png"
-            },
-            {
-              "slide_number": 6,
-              "slide_title": "Lesson Recap Video",
-              "content": [
-                "Watch this short video that explains this lesson in Tagalog.",
-                "Subtitles are available in Tagalog and English."
-              ],
-              "media_url": ""
-            }
-          ]
+          "slide_number": 1,
+          "slide_title": "What is a Computer?",
+          "content": [
+            "Ang computer ay isang makina na tumutulong sa atin gumawa ng iba’t ibang gawain.",
+            "Nakikita ito sa bahay, opisina, at paaralan.",
+            "Puwede itong desktop, laptop, o tablet."
+          ],
+          "media_url": "C1_L1_S1.png",
+          "tts_text": "Ang computer ay isang makina na tumutulong sa atin gumawa ng iba’t ibang gawain. Nakikita ito sa bahay, opisina, at paaralan. Puwede itong desktop, laptop, o tablet."
         },
         {
-          "lesson_id": 2,
-          "lesson_title": "Lesson 2: Parts of a Computer",
-          "slides": [
-            {
-              "slide_number": 1,
-              "slide_title": "The Monitor",
-              "content": [
-                "The monitor is the screen that shows you what the computer is doing.",
-                "It displays text, images, and videos.",
-                "It is similar to a television screen but is used with a computer."
-              ],
-              "media_url": "C1_Lesson2_Slide1.png"
-            },
-            {
-              "slide_number": 2,
-              "slide_title": "The Keyboard",
-              "content": [
-                "The keyboard is used to type letters, numbers, and symbols.",
-                "Each key sends a command or input to the computer.",
-                "Common keys include letters (A-Z), numbers (0-9), and special keys like Enter and Spacebar."
-              ],
-              "media_url": "C1_Lesson2_Slide2.png"
-            },
-            {
-              "slide_number": 3,
-              "slide_title": "The Mouse",
-              "content": [
-                "The mouse moves the pointer on the screen.",
-                "You can click to select items, double-click to open them, or drag to move things.",
-                "Some computers use a touchpad instead of a mouse."
-              ],
-              "media_url": "C1_Lesson2_Slide3.png"
-            },
-            {
-              "slide_number": 4,
-              "slide_title": "The CPU (Central Processing Unit)",
-              "content": [
-                "The CPU is called the “brain” of the computer.",
-                "It processes all the instructions from the software and controls what happens.",
-                "On desktops, the CPU is usually in a large box or tower. On laptops, it is built inside."
-              ],
-              "media_url": "C1_Lesson2_Slide4.png"
-            },
-            {
-              "slide_number": 5,
-              "slide_title": "Other Common Devices",
-              "content": [
-                "Printer – to print papers or photos",
-                "Speakers – to play sound or music",
-                "Webcam – for video calls",
-                "These are called “peripherals” and help add more functions."
-              ],
-              "media_url": "C1_Lesson2_Slide5.png"
-            },
-            {
-              "slide_number": 6,
-              "slide_title": "Lesson Recap Video",
-              "content": [
-                "Watch this short video that explains this lesson in Tagalog.",
-                "Subtitles are available in Tagalog and English."
-              ],
-              "media_url": ""
-            }
-          ]
+          "slide_number": 2,
+          "slide_title": "What Can a Computer Do?",
+          "content": [
+            "Ginagamit sa pagsusulat ng documents at paggawa ng projects.",
+            "Nakakapag-browse ng internet para maghanap ng impormasyon.",
+            "Puwedeng manood ng videos, makinig ng music, at mag-video call.",
+            "Puwede ring maglaro ng games at makipag-chat online."
+          ],
+          "media_url": "C1_L1_S2.png",
+          "tts_text": "Ginagamit sa pagsusulat ng documents at paggawa ng projects. Nakakapag-browse ng internet para maghanap ng impormasyon. Puwedeng manood ng videos, makinig ng music, at mag-video call. Puwede ring maglaro ng games at makipag-chat online."
         },
         {
-          "lesson_id": 3,
-          "lesson_title": "Lesson 3: Turning On/Off Your Computer",
-          "slides": [
-            {
-              "slide_number": 1,
-              "slide_title": "Turning On the Computer",
-              "content": [
-                "To turn on a computer, press the power button on the CPU or laptop.",
-                "Wait for a few seconds while the computer loads.",
-                "When it is ready, you will see the desktop screen."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 2,
-              "slide_title": "Turning Off the Computer Safely",
-              "content": [
-                "To turn off the computer, click the Start Menu, then choose Shut Down.",
-                "Do not unplug the computer or press the power button to turn it off.",
-                "Shutting down properly keeps the computer safe and working well."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 3,
-              "slide_title": "Restarting the Computer",
-              "content": [
-                "If the computer is slow or not responding, you can click Restart.",
-                "Restarting closes all programs and turns the computer off and on again.",
-                "This often fixes small computer problems"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 4,
-              "slide_title": "The CPU (Central Processing Unit)",
-              "content": [
-                "The CPU is called the “brain” of the computer.",
-                "It processes all the instructions from the software and controls what happens.",
-                "On desktops, the CPU is usually in a large box or tower. On laptops, it is built inside."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 5,
-              "slide_title": "Helpful Reminders",
-              "content": [
-                "✅ Always shut down or restart using the Start Menu",
-                "✅ Avoid turning off power suddenly",
-                "✅ Restart if your computer is frozen or slow"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 6,
-              "slide_title": "Lesson Recap Video",
-              "content": [
-                "Watch this short video that explains this lesson in Tagalog.",
-                "Subtitles are available in Tagalog and English."
-              ],
-              "media_url": ""
-            }
-          ]
+          "slide_number": 3,
+          "slide_title": "Types of Computers",
+          "content": [
+            "Desktop – malaking computer na ginagamit sa isang lugar.",
+            "Laptop – portable at madaling dalhin kahit saan.",
+            "Tablet/Smartphone – maliit, touchscreen, at madaling gamitin sa pag-browse o apps."
+          ],
+          "media_url": "C1_L1_S3.png",
+          "tts_text": "Desktop – malaking computer na ginagamit sa isang lugar. Laptop – portable at madaling dalhin kahit saan. Tablet/Smartphone – maliit, touchscreen, at madaling gamitin sa pag-browse o apps."
+
         },
         {
-          "lesson_id": 4,
-          "lesson_title": "Lesson 4: Exploring the Desktop",
-          "slides": [
-            {
-              "slide_number": 1,
-              "slide_title": "What is the Desktop?",
-              "content": [
-                "The desktop is the main screen you see after turning on your computer.",
-                "It shows icons, the taskbar, and the background image.",
-                "You can start many actions from the desktop."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 2,
-              "slide_title": "Icons on the Desktop",
-              "content": [
-                "Icons are small pictures that represent programs or files",
-                "Double-click an icon to open it.",
-                "Icons help you quickly access what you need."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 3,
-              "slide_title": "The Taskbar and System Tray",
-              "content": [
-                "The taskbar is the bar at the bottom of the screen.",
-                "It shows open programs and quick tools like volume and internet in the system tray.",
-                "You can click on taskbar icons to switch between programs."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 4,
-              "slide_title": "Using the Start Button",
-              "content": [
-                "Click the Start Button on the bottom-left corner to see your programs and settings.",
-                "You can also shut down or restart the computer from the Start Menu.",
-                "The Start Menu is your main control panel."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 5,
-              "slide_title": "Summary",
-              "content": [
-                "✅ The desktop is your main screen",
-                "✅ Icons help open programs and files",
-                "✅ The taskbar shows what’s running",
-                "✅ The Start Button opens programs and settings(helps you access everything)"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 6,
-              "slide_title": "Lesson Recap Video",
-              "content": [
-                "Watch this short video that explains this lesson in Tagalog.",
-                "Subtitles are available in Tagalog and English."
-              ],
-              "media_url": ""
-            }
-          ]
+          "slide_number": 4,
+          "slide_title": "Two Main Parts – Hardware vs Software",
+          "content": [
+            "Hardware – pisikal na parte ng computer (nahahawakan mo).",
+            "Software – mga apps at programs na nagpapatakbo ng computer.",
+            "Magkasama silang gumagana para magamit mo ang computer."
+          ],
+          "media_url": "C1_L1_S4.png",
+          "tts_text": "Hardware – pisikal na parte ng computer (nahahawakan mo). Software – mga apps at programs na nagpapatakbo ng computer. Magkasama silang gumagana para magamit mo ang computer."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Examples of Hardware",
+          "content": [
+            "Monitor – screen na nagpapakita ng images at videos.",
+            "Keyboard – ginagamit para mag-type ng letters at numbers.",
+            "Mouse – ginagamit para mag-navigate at mag-click."
+          ],
+          "media_url": "C1_L1_S5.png",
+          "tts_text": "Monitor – screen na nagpapakita ng images at videos. Keyboard – ginagamit para mag-type ng letters at numbers. Mouse – ginagamit para mag-navigate at mag-click."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "Examples of Software",
+          "content": [
+            "Web browser tulad ng Google Chrome.",
+            "Word processor tulad ng Microsoft Word.",
+            "Games at apps tulad ng Messenger o Candy Crush.",
+            "Operating System tulad ng Windows o Android."
+          ],
+          "media_url": "C1_L1_S6.png",
+          "tts_text": "Web browser tulad ng Google Chrome. Word processor tulad ng Microsoft Word. Games at apps tulad ng Messenger o Candy Crush. Operating System tulad ng Windows o Android."
+        },
+        {
+          "slide_number": 7,
+          "slide_title": "Practice Exercise – Match Hardware vs Software",
+          "content": [
+            "Halimbawa: “Keyboard” = Hardware, “Google Chrome” = Software.",
+            "Piliin kung hardware o software ang bawat item."
+          ],
+          "media_url": null,
+          "tts_text": "Halimbawa: “Keyboard” = Hardware, “Google Chrome” = Software. Piliin kung hardware o software ang bawat item."
         }
       ]
     },
     {
-      "unit_title": "Basic Navigation Skills",
-      "lessons": [
+      "lesson_id": 2,
+      "lesson_title": "About Hardwares and Softwares",
+      "goal": "Deeper dive into hardware categories, software, and OS.",
+      "slides": [
         {
-          "lesson_id": 5,
-          "lesson_title": "Lesson 5: Using the Mouse",
-          "slides": [
-            {
-              "slide_number": 1,
-              "slide_title": "What is a Mouse?",
-              "content": [
-                "A mouse is a small device that helps you move the pointer on the screen.",
-                "It usually has two buttons: left and right, and sometimes a scroll wheel.",
-                "The pointer follows your hand movements using the mouse."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 2,
-              "slide_title": "Clicking Basics",
-              "content": [
-                "Single-click: Press the left button once to select an item",
-                "Double-click: Press the left button twice quickly to open a file or program",
-                "Right-click: Press the right button to open a menu of options"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 3,
-              "slide_title": "Dragging Items",
-              "content": [
-                "Click and hold the left button over the item",
-                "Move the mouse to drag it",
-                "Release the button to place it in a new location"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 4,
-              "slide_title": "Recap Video",
-              "content": [
-                "Watch this short video that explains this lesson in Tagalog.",
-                "Subtitles are available in Tagalog and English."
-              ],
-              "media_url": ""
-            }
-          ]
+          "slide_number": 1,
+          "slide_title": "Hardware and Software",
+          "content": [
+            "Hardware ay mga parte ng computer na puwede mong hawakan.",
+            "Software ay mga program o apps na ginagamit sa loob ng computer."
+          ],
+          "media_url": null,
+          "tts_text": "Hardware ay mga parte ng computer na puwede mong hawakan. Software ay mga program o apps na ginagamit sa loob ng computer."
         },
         {
-          "lesson_id": 6,
-          "lesson_title": "Lesson 6: Opening and Closing Programs",
-          "slides": [
-            {
-              "slide_number": 1,
-              "slide_title": "Opening a Program",
-              "content": [
-                "You can open a program by:",
-                "- Double-clicking its icon on the desktop",
-                "- Clicking the Start menu and selecting the program from the list"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 2,
-              "slide_title": "Closing a Program",
-              "content": [
-                "To close a program, click the 'X' at the top-right corner of its window.",
-                "Closing programs you’re not using helps your computer run smoothly."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 3,
-              "slide_title": "Minimizing and Maximizing",
-              "content": [
-                "- Minimize: Hides the window but keeps it open (click the “-” button)",
-                "- Maximize: Makes the window full screen (click the square button)",
-                "- Restore Down: Shrinks it back to original size"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 4,
-              "slide_title": "Recap Video",
-              "content": [
-                "Watch this short video that explains this lesson in Tagalog.",
-                "Subtitles are available in Tagalog and English."
-              ],
-              "media_url": ""
-            }
-          ]
+          "slide_number": 2,
+          "slide_title": "Hardware Categories",
+          "content": [
+            "Input – tulad ng keyboard at mouse.",
+            "Output – tulad ng monitor at speakers.",
+            "Storage – tulad ng hard drive at USB.",
+            "Processing – CPU na nagsisilbing utak ng computer."
+          ],
+          "media_url": null,
+          "tts_text": "Input – tulad ng keyboard at mouse. Output – tulad ng monitor at speakers. Storage – tulad ng hard drive at USB. Processing – CPU na nagsisilbing utak ng computer."
         },
         {
-          "lesson_id": 7,
-          "lesson_title": "Lesson 7: Switching Between Windows",
-          "slides": [
-            {
-              "slide_number": 1,
-              "slide_title": "Why Switch Between Windows?",
-              "content": [
-                "You may need to use two or more programs at the same time.",
-                "Instead of closing them, you can switch between them easily."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 2,
-              "slide_title": "Using the Taskbar",
-              "content": [
-                "Click on a program’s icon in the taskbar to bring it to the front.",
-                "The taskbar is the row of icons at the bottom of the screen."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 3,
-              "slide_title": "Using Alt + Tab ",
-              "content": [
-                "Pressing Alt key + Tab key on the keyboard to quickly switch between open programs.",
-                "Hold the Alt key, tap Tab, and release when you see the one you want.",
-                "A pretty help[ful shortcut for multitasking!"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 4,
-              "slide_title": "Recap Video",
-              "content": [
-                "Watch this short video that explains this lesson in Tagalog.",
-                "Subtitles are available in Tagalog and English."
-              ],
-              "media_url": ""
-            }
-          ]
+          "slide_number": 3,
+          "slide_title": "Common Input Devices",
+          "content": [
+            "Keyboard para mag-type ng text at numbers.",
+            "Mouse para mag-click at gumalaw sa screen.",
+            "Microphone para mag-record ng boses."
+          ],
+          "media_url": null,
+          "tts_text": "Keyboard para mag-type ng text at numbers. Mouse para mag-click at gumalaw sa screen. Microphone para mag-record ng boses."
         },
         {
-          "lesson_id": 8,
-          "lesson_title": "Lesson 8: Using the Start Menu",
-          "slides": [
-            {
-              "slide_number": 1,
-              "slide_title": "What is the Start Menu?",
-              "content": [
-                "The Start Menu is where you find programs, settings, and power options.",
-                "Click the Start button at the bottom-left corner of the screen to open it."
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 2,
-              "slide_title": "Finding a Program",
-              "content": [
-                "In the Start Menu, you can:",
-                "- Scroll through the list of apps",
-                "- Type the name of a program in the search bar to find it quickly"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 3,
-              "slide_title": "Power Options",
-              "content": [
-                "From the Start Menu, you can also:",
-                "- Shut Down the computer",
-                "- Restart it",
-                "- Put it to Sleep (low-power mode)"
-              ],
-              "media_url": ""
-            },
-            {
-              "slide_number": 4,
-              "slide_title": "Recap Video",
-              "content": [
-                "Watch this short video that explains this lesson in Tagalog.",
-                "Subtitles are available in Tagalog and English."
-              ],
-              "media_url": ""
-            }
-          ]
+          "slide_number": 4,
+          "slide_title": "Common Output Devices",
+          "content": [
+            "Monitor para makita ang images at videos.",
+            "Printer para mag-print ng documents.",
+            "Speakers para makinig ng tunog o music."
+          ],
+          "media_url": null,
+          "tts_text": "Monitor para makita ang images at videos. Printer para mag-print ng documents. Speakers para makinig ng tunog o music."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "What is Software?",
+          "content": [
+            "Mga apps o programs na tumutulong sa iba’t ibang gawain.",
+            "Puwede itong word processor, games, o utilities."
+          ],
+          "media_url": null,
+          "tts_text": "Mga apps o programs na tumutulong sa iba’t ibang gawain. Puwede itong word processor, games, o utilities."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "Operating System (OS)",
+          "content": [
+            "Ang OS ang “boss” ng computer na nagpapatakbo sa lahat ng apps.",
+            "Halimbawa: Windows, Linux, Android."
+          ],
+          "media_url": null,
+          "tts_text": "Ang OS ang boss ng computer na nagpapatakbo sa lahat ng apps. Halimbawa: Windows, Linux, Android."
+        },
+        {
+          "slide_number": 7,
+          "slide_title": "Examples of OS in Real Life",
+          "content": [
+            "Windows sa desktop computers.",
+            "Android sa smartphones.",
+            "iOS sa iPhone at iPad."
+          ],
+          "media_url": null,
+          "tts_text": "Windows sa desktop computers. Android sa smartphones. iOS sa iPhone at iPad."
+        },
+        {
+          "slide_number": 8,
+          "slide_title": "Practice Exercise – Identify: Hardware or Software?",
+          "content": [
+            "Halimbawa: “Printer” = Hardware, “Microsoft Word” = Software."
+          ],
+          "media_url": null,
+          "tts_text": "Halimbawa: Printer = Hardware, Microsoft Word = Software."
+        }
+      ]
+    },
+     {
+      "lesson_id": 3,
+      "lesson_title": "How to Use a Computer",
+      "goal": "Operating a computer from startup → navigation → shutdown.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "How to Use a Computer",
+          "content": [
+            "Matutunan kung paano i-on, gamitin, at i-shut down ang computer."
+          ],
+          "media_url": null,
+          "tts_text": "Matutunan kung paano i-on, gamitin, at i-shut down ang computer."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "How to Turn On the Computer",
+          "content": [
+            "Hanapin ang power button at pindutin ito.",
+            "Hintayin ang boot screen hanggang lumabas ang desktop."
+          ],
+          "media_url": null,
+          "tts_text": "Hanapin ang power button at pindutin ito. Hintayin ang boot screen hanggang lumabas ang desktop."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Desktop Overview",
+          "content": [
+            "Icons – shortcut papunta sa apps o files.",
+            "Taskbar – nasa baba, may Start menu at bukas na apps.",
+            "Wallpaper – background ng desktop."
+          ],
+          "media_url": null,
+          "tts_text": "Icons – shortcut papunta sa apps o files. Taskbar – nasa baba, may Start menu at bukas na apps. Wallpaper – background ng desktop."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Mouse Basics",
+          "content": [
+            "Pointer/Cursor – gumagalaw depende sa galaw ng mouse.",
+            "Left-click – para pumili o mag-open ng app.",
+            "Right-click – para sa extra options."
+          ],
+          "media_url": null,
+          "tts_text": "Pointer/Cursor – gumagalaw depende sa galaw ng mouse. Left-click – para pumili o mag-open ng app. Right-click – para sa extra options."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Using Menus & Windows",
+          "content": [
+            "I-click ang icon para magbukas ng program.",
+            "Puwedeng i-resize, i-minimize, o i-close ang windows."
+          ],
+          "media_url": null,
+          "tts_text": "I-click ang icon para magbukas ng program. Puwedeng i-resize, i-minimize, o i-close ang windows."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "Keyboard Basics",
+          "content": [
+            "Letters at numbers para mag-type ng text.",
+            "Enter para mag-confirm o lumipat ng line.",
+            "Backspace para magbura ng characters."
+          ],
+          "media_url": null,
+          "tts_text": "Letters at numbers para mag-type ng text. Enter para mag-confirm o lumipat ng line. Backspace para magbura ng characters."
+        },
+        {
+          "slide_number": 7,
+          "slide_title": "Typing Practice",
+          "content": [
+            "Subukang mag-type ng simpleng pangungusap.",
+            "Sundan ang tamang posisyon ng kamay sa keyboard."
+          ],
+          "media_url": null,
+          "tts_text": "Subukang mag-type ng simpleng pangungusap. Sundan ang tamang posisyon ng kamay sa keyboard."
+        },
+        {
+          "slide_number": 8,
+          "slide_title": "Opening the Start Menu",
+          "content": [
+            "I-click ang Start button sa kaliwang bahagi ng taskbar.",
+            "Mula rito, puwede kang maghanap at mag-open ng apps."
+          ],
+          "media_url": null,
+          "tts_text": "I-click ang Start button sa kaliwang bahagi ng taskbar. Mula rito, puwede kang maghanap at mag-open ng apps."
+        },
+        {
+          "slide_number": 9,
+          "slide_title": "How to Shut Down / Restart Safely",
+          "content": [
+            "Buksan ang Start Menu, piliin ang Shut Down o Restart.",
+            "Huwag basta bunutin ang power para maiwasan ang sira."
+          ],
+          "media_url": null,
+          "tts_text": "Buksan ang Start Menu, piliin ang Shut Down o Restart. Huwag basta bunutin ang power para maiwasan ang sira."
+        },
+        {
+          "slide_number": 10,
+          "slide_title": "Practice Exercise – Find the Right Action",
+          "content": [
+            "Halimbawa: “Gusto mong i-off ang computer → Pindutin ang Shut Down.”"
+          ],
+          "media_url": null,
+          "tts_text": "Halimbawa: Gusto mong i-off ang computer → Pindutin ang Shut Down."
+        }
+      ]
+    },
+    {
+      "lesson_id": 4,
+      "lesson_title": "How to Install an Application",
+      "goal": "Safe installation of apps, avoiding shady installers.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Installing Applications",
+          "content": [
+            "Ang apps ay mga tool na tumutulong sa atin sa iba’t ibang gawain."
+          ],
+          "media_url": null,
+          "tts_text": "Ang apps ay mga tool na tumutulong sa atin sa iba’t ibang gawain."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "What is an Application?",
+          "content": [
+            "Halimbawa: Word processor, browser, games, messaging apps."
+          ],
+          "media_url": null,
+          "tts_text": "Halimbawa: Word processor, browser, games, messaging apps."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Installing from Trusted Sources",
+          "content": [
+            "Microsoft Store, Google Play, App Store.",
+            "Mas ligtas at walang virus."
+          ],
+          "media_url": null,
+          "tts_text": "Microsoft Store, Google Play, App Store. Mas ligtas at walang virus."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Installing from a Website",
+          "content": [
+            "I-download ang installer mula sa trusted site.",
+            "Karaniwan ang steps: Next, Next, Finish."
+          ],
+          "media_url": null,
+          "tts_text": "I-download ang installer mula sa trusted site. Karaniwan ang steps: Next, Next, Finish."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Warning Signs of Shady Installers",
+          "content": [
+            "May kasamang extra offers o fake pop-ups.",
+            "Sobrang daming ads at mahirap i-uninstall."
+          ],
+          "media_url": null,
+          "tts_text": "May kasamang extra offers o fake pop-ups. Sobrang daming ads at mahirap i-uninstall."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "How to Uninstall Apps",
+          "content": [
+            "Sa Control Panel o Settings, piliin ang Uninstall."
+          ],
+          "media_url": null,
+          "tts_text": "Sa Control Panel o Settings, piliin ang Uninstall."
+        },
+        {
+          "slide_number": 7,
+          "slide_title": "Practice Exercise – Spot the Fake Installer",
+          "content": [
+            "Piliin kung alin ang legit installer screenshot."
+          ],
+          "media_url": null,
+          "tts_text": "Piliin kung alin ang legit installer screenshot."
+        }
+      ]
+    },
+    {
+      "lesson_id": 5,
+      "lesson_title": "Common Troubleshooting Techniques",
+      "goal": "Equip learners with simple fixes for everyday problems.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Troubleshooting Basics",
+          "content": [
+            "Madalas nagkakaroon ng problema ang computers, pero may simple fixes."
+          ],
+          "media_url": null,
+          "tts_text": "Madalas nagkakaroon ng problema ang computers, pero may simple fixes."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Why Computers Sometimes Fail",
+          "content": [
+            "Mga common issues: mabagal, nagha-hang, walang internet."
+          ],
+          "media_url": null,
+          "tts_text": "Mga common issues: mabagal, nagha-hang, walang internet."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Restart First!",
+          "content": [
+            "Minsan simpleng restart lang ay ayos na ang problema."
+          ],
+          "media_url": null,
+          "tts_text": "Minsan simpleng restart lang ay ayos na ang problema."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Checking Connections",
+          "content": [
+            "Siguraduhin na nakasaksak ang power at maayos ang cables.",
+            "Tingnan kung nakakabit ang mouse at keyboard."
+          ],
+          "media_url": null,
+          "tts_text": "Siguraduhin na nakasaksak ang power at maayos ang cables. Tingnan kung nakakabit ang mouse at keyboard."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Internet Issues",
+          "content": [
+            "I-restart ang router kung walang connection.",
+            "Suriin kung naka-on ang Wi-Fi icon."
+          ],
+          "media_url": null,
+          "tts_text": "I-restart ang router kung walang connection. Suriin kung naka-on ang Wi-Fi icon."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "Software Problems",
+          "content": [
+            "I-close at i-open muli ang program.",
+            "Kung hindi gumana, subukang i-reinstall ang app."
+          ],
+          "media_url": null,
+          "tts_text": "I-close at i-open muli ang program. Kung hindi gumana, subukang i-reinstall ang app."
+        },
+        {
+          "slide_number": 7,
+          "slide_title": "When to Ask for Help",
+          "content": [
+            "Kung di na kaya, humingi ng tulong sa kamag-anak, tech support, o repair shop."
+          ],
+          "media_url": null,
+          "tts_text": "Kung di na kaya, humingi ng tulong sa kamag-anak, tech support, o repair shop."
+        },
+        {
+          "slide_number": 8,
+          "slide_title": "Practice Exercise – What Would You Do If…?",
+          "content": [
+            "Halimbawa: “Nagyeyelo ang screen → Restart the computer.”"
+          ],
+          "media_url": null,
+          "tts_text": "Halimbawa: Nagyeyelo ang screen → Restart the computer."
         }
       ]
     }
