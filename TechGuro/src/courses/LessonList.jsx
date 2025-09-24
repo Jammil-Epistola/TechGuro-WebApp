@@ -181,19 +181,27 @@ const LessonList = () => {
   // Handle lesson selection in modal
   const handleLessonSelect = (lessonInfo) => {
     setShowLessonModal(false);
-    // Navigate to QuizPage with all necessary parameters
-    navigate(`/courses/${courseName}/quizzes/${courseId}/${lessonInfo.lesson_id}/${selectedQuizType}`, {
-      state: {
-        quizData: lessonInfo,
-        courseName: courseName,
-        formattedTitle: formattedTitle
+
+    navigate(
+      `/courses/${courseName}/quizzes/${courseId}/${lessonInfo.lesson_id}/${selectedQuizType}`,
+      {
+        state: {
+          quizData: lessonInfo,
+          courseName: courseName,
+          formattedTitle: formattedTitle,
+        },
       }
-    });
+    );
+
+    // Reset AFTER modal fully closes
+    setTimeout(() => {
+      setSelectedQuizType(null);
+      setAvailableLessonsForQuiz([]);
+    }, 200); // small delay to avoid race condition
   };
 
   const handleCloseModal = () => {
     setShowLessonModal(false);
-    setSelectedQuizType(null);
     setAvailableLessonsForQuiz([]);
   };
 
@@ -671,6 +679,10 @@ const LessonList = () => {
                           </div>
 
                           <motion.button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleQuizModeSelect(mode.quiz_type);
+                            }}
                             className={`w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r ${details.color} hover:opacity-90 transition-all`}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
@@ -699,7 +711,7 @@ const LessonList = () => {
       <AnimatePresence>
         {showLessonModal && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -748,7 +760,10 @@ const LessonList = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                       className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 cursor-pointer transition-all hover:shadow-md"
-                      onClick={() => handleLessonSelect(lessonInfo)}
+                      onClick={() => {
+                        if (!showLessonModal) return;
+                        handleLessonSelect(lessonInfo);
+                      }}
                     >
                       <div className="flex justify-between items-center">
                         <div className="flex-1">
@@ -756,7 +771,7 @@ const LessonList = () => {
                             {lessonInfo.lesson_title}
                           </h3>
                           <div className="flex items-center gap-4 text-[14px] text-gray-600">
-                            <span>📝 {lessonInfo.total_questions} questions</span>
+                            <span>📝 {selectedQuizType === "image_mcq" ? 10 : selectedQuizType === "drag_drop" ? 5 : selectedQuizType === "typing" ? 5 : lessonInfo.total_questions} questions</span>
                             {lessonInfo.time_limit && (
                               <span>⏱️ {lessonInfo.time_limit}s time limit</span>
                             )}

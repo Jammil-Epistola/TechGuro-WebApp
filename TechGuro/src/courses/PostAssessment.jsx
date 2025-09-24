@@ -181,7 +181,14 @@ const PostAssessment = () => {
         score={finalScore}
         totalQuestions={questions.length}
         isProcessing={isSubmitting}
-        onComplete={() => navigate(`/courses/${courseName}`)}
+        onComplete={() => {
+          const percentage = (finalScore / questions.length) * 100;
+          if (percentage >= 75) {
+            navigate('/UserDashboard'); 
+          } else {
+            navigate(`/courses/${courseName}`);
+          }
+        }}
       />
     );
   }
@@ -221,24 +228,23 @@ const PostAssessment = () => {
         </div>
 
         {/* QuestionCard with side navigation buttons */}
-        <div className="flex items-end gap-6">
-          {/* Previous Button */}
+        <div className="flex items-end justify-center gap-6">
+          {/* Previous Button - Left Side */}
           <div className="flex items-end">
             <button
               onClick={handlePrevious}
               disabled={currentQuestionIndex === 0}
-              className={`px-6 py-3 rounded-lg text-lg font-semibold transition-all ${
-                currentQuestionIndex === 0
-                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-gray-600 text-white hover:bg-gray-700 transform hover:scale-105 shadow-lg"
-              }`}
+              className={`px-6 py-3 rounded-lg text-lg font-semibold transition-all ${currentQuestionIndex === 0
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-gray-600 text-white hover:bg-gray-700 transform hover:scale-105 shadow-lg"
+                }`}
             >
               Previous
             </button>
           </div>
 
-          {/* Question Card */}
-          <div className="flex-1">
+          {/* Question Card - Center (fixed width, not flex-1) */}
+          <div className="flex justify-center">
             <QuestionCard
               question={{ ...currentQuestion, questionNumber: currentQuestionIndex + 1 }}
               selectedAnswer={currentAnswer}
@@ -246,13 +252,12 @@ const PostAssessment = () => {
             />
           </div>
 
-          {/* Next Button */}
+          {/* Next Button - Invisible on last question to maintain layout */}
           <div className="flex items-end">
             <button
               onClick={handleNext}
-              className={`px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg ${
-                isLastQuestion ? 'invisible' : ''
-              }`}
+              className={`px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg ${isLastQuestion ? "invisible" : ""
+                }`}
             >
               Next
             </button>

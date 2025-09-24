@@ -89,8 +89,8 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange }) => {
           
           <div className={`w-full h-full ${
             question.type === 'image_mcq' 
-              ? 'grid grid-cols-3 gap-6' 
-              : 'flex flex-col gap-4'
+              ? 'grid grid-cols-3 gap-3' 
+              : 'flex flex-col gap-3'
           }`}>
             {question.options?.map((opt, i) => {
               const optionValue = getOptionValue(opt);

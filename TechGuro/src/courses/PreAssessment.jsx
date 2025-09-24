@@ -241,7 +241,7 @@ const PreAssessment = () => {
             </button>
           </div>
 
-          {/* Question Card - Center (fixed width, not flex-1) */}
+          {/* Question Card - Center */}
           <div className="flex justify-center">
             <QuestionCard
               question={{ ...currentQuestion, questionNumber: currentQuestionIndex + 1 }}

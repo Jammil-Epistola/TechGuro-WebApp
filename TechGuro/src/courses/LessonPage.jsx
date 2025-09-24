@@ -252,15 +252,16 @@ const LessonPage = () => {
   const isLessonCompleted = (lessonId) => {
     return progressData?.completed_lessons?.includes(lessonId);
   };
-  
+
   // Render content 
   const renderSlideContent = (slide) => {
-    // Left side - Media content
+    // Left side - Media content (fixed height)
     const mediaElement = slide.media_url ? (
       slide.media_url.endsWith(".mp4") ? (
         <motion.video
           controls
-          className="w-full h-full rounded-lg shadow-sm object-contain"
+          className="w-full h-full rounded-lg shadow-sm"
+          style={{ objectFit: 'contain' }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
@@ -272,7 +273,8 @@ const LessonPage = () => {
         <motion.img
           src={`/images/lessons/${slide.media_url}`}
           alt={slide.slide_title || `Slide ${currentSlide + 1}`}
-          className="w-full h-full object-contain rounded-lg shadow-sm"
+          className="w-full h-full rounded-lg shadow-sm"
+          style={{ objectFit: 'contain' }}
           onError={(e) => { e.target.src = placeholderimg; }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -293,31 +295,33 @@ const LessonPage = () => {
       </motion.div>
     );
 
-    // Right side - Text content with proper bullet handling
+    // Right side - Text content (fixed height with scroll)
     const contentElement = (
       <motion.div
-        className="h-full flex flex-col"
+        className="h-full flex flex-col overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.2 }}
       >
-        {/* Slide title if available */}
+        {/* Slide title if available - Fixed height */}
         {slide.slide_title && (
-          <motion.h3
-            className="text-xl font-bold text-[#4C5173] mb-4 pb-2 border-b border-gray-200"
+          <motion.div
+            className="flex-shrink-0 mb-4 pb-2 border-b border-gray-200"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 }}
           >
-            {slide.slide_title}
-          </motion.h3>
+            <h3 className="text-xl font-bold text-[#4C5173]">
+              {slide.slide_title}
+            </h3>
+          </motion.div>
         )}
 
-        {/* Content with proper bullet points */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Scrollable Content Area*/}
+        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 min-h-0">
           {slide.content && slide.content.length > 0 ? (
             <motion.div
-              className="space-y-4"
+              className="space-y-4 pr-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.3 }}
@@ -344,7 +348,7 @@ const LessonPage = () => {
             </motion.div>
           ) : (
             <motion.div
-              className="flex-1 flex items-center justify-center text-gray-500"
+              className="h-full flex items-center justify-center text-gray-500"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.3 }}
@@ -358,18 +362,22 @@ const LessonPage = () => {
         </div>
       </motion.div>
     );
+
+    // Standard Left-Right Layout - Fixed Height
     return (
-      <div className="h-full flex flex-col lg:flex-row gap-4">
-        {/* Left Side - Media */}
-        <div className="lg:w-1/2 h-64 lg:h-full min-h-[300px] bg-white rounded-lg border border-gray-200 p-4">
-          <div className="w-full h-full">
+      <div className="h-full flex flex-col lg:flex-row gap-4 overflow-hidden">
+        {/* Left Side - Media (Fixed Height) */}
+        <div className="lg:w-1/2 h-64 lg:h-full bg-white rounded-lg border border-gray-200 overflow-hidden flex-shrink-0">
+          <div className="w-full h-full p-2">
             {mediaElement}
           </div>
         </div>
 
-        {/* Right Side - Text Content */}
-        <div className="lg:w-1/2 flex-1 min-h-[300px] bg-white rounded-lg border border-gray-200 p-6">
-          {contentElement}
+        {/* Right Side  */}
+        <div className="lg:w-1/2 flex-1 bg-white rounded-lg border border-gray-200 overflow-hidden flex-shrink-0">
+          <div className="w-full h-full p-4">
+            {contentElement}
+          </div>
         </div>
       </div>
     );
@@ -598,10 +606,10 @@ const LessonPage = () => {
             </div>
           </div>
 
-          {/* Enhanced White Container */}
-          <div className="bg-white rounded-xl shadow-lg p-6 lg:p-8 mb-6 flex-1 flex flex-col overflow-hidden">
-            {/* Dynamic Content Layout */}
-            <div className="flex-1 mb-4 overflow-hidden">
+          {/* White Container */}
+          <div className="bg-gray-100 rounded-xl shadow-lg p-4 mb-6 flex-1 flex flex-col overflow-hidden">
+            {/* Dynamic Content Layout*/}
+            <div className="flex-1 overflow-hidden">
               {renderSlideContent(slide)}
             </div>
 
