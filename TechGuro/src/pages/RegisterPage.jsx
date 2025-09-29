@@ -298,12 +298,12 @@ const RegisterPage = () => {
           <div className="fixed top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-6 w-[90%] max-w-md text-black text-center">
             <div className="text-green-500 text-6xl mb-4">✓</div>
             <h2 className="text-xl font-bold mb-4">Account Created Successfully!</h2>
-            <p className="mb-6 text-gray-600">Ang iyong account ay nagawa na. Welcome to TechGuru!</p>
+            <p className="mb-6 text-gray-600">Ang iyong account ay nagawa na. Welcome sa TechGuro!</p>
             <button
               onClick={handleCloseSuccess}
               className="bg-[#697DFF] text-white px-6 py-2 rounded hover:bg-[#5d71e0] font-bold transition-all transform hover:scale-105"
             >
-              Go to Log In
+              Bumalik sa Log In
             </button>
           </div>
         </>

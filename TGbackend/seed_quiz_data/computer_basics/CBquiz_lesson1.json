@@ -67,7 +67,7 @@
     "type": "image_mcq",
     "question": "Ano ang makina na tumutulong sa atin gumawa ng iba't ibang gawain?",
     "options": [
-      {"image": "computer.png"},
+      {"image": "desktop_pc.png"},
       {"image": "television.png"},
       {"image": "radio.png"}
     ],

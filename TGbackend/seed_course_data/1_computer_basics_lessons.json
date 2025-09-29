@@ -90,7 +90,7 @@
             "Hardware ay mga parte ng computer na puwede mong hawakan.",
             "Software ay mga program o apps na ginagamit sa loob ng computer."
           ],
-          "media_url": null,
+          "media_url": "C1_L2_S1.png",
           "tts_text": "Hardware ay mga parte ng computer na puwede mong hawakan. Software ay mga program o apps na ginagamit sa loob ng computer."
         },
         {
@@ -102,7 +102,7 @@
             "Storage – tulad ng hard drive at USB.",
             "Processing – CPU na nagsisilbing utak ng computer."
           ],
-          "media_url": null,
+          "media_url": "C1_L2_S2.png",
           "tts_text": "Input – tulad ng keyboard at mouse. Output – tulad ng monitor at speakers. Storage – tulad ng hard drive at USB. Processing – CPU na nagsisilbing utak ng computer."
         },
         {
@@ -113,7 +113,7 @@
             "Mouse para mag-click at gumalaw sa screen.",
             "Microphone para mag-record ng boses."
           ],
-          "media_url": null,
+          "media_url": "C1_L2_S3.png",
           "tts_text": "Keyboard para mag-type ng text at numbers. Mouse para mag-click at gumalaw sa screen. Microphone para mag-record ng boses."
         },
         {
@@ -124,7 +124,7 @@
             "Printer para mag-print ng documents.",
             "Speakers para makinig ng tunog o music."
           ],
-          "media_url": null,
+          "media_url": "C1_L2_S4.png",
           "tts_text": "Monitor para makita ang images at videos. Printer para mag-print ng documents. Speakers para makinig ng tunog o music."
         },
         {
@@ -134,7 +134,7 @@
             "Mga apps o programs na tumutulong sa iba’t ibang gawain.",
             "Puwede itong word processor, games, o iba pa."
           ],
-          "media_url": null,
+          "media_url": "C1_L2_S5.png",
           "tts_text": "Mga apps o programs na tumutulong sa iba’t ibang gawain. Puwede itong word processor, games, o iba pa."
         },
         {
@@ -144,7 +144,7 @@
             "Ang OS ang “boss” ng computer na nagpapatakbo sa lahat ng apps.",
             "Halimbawa: Windows, Linux, Android."
           ],
-          "media_url": null,
+          "media_url": "C1_L2_S6.png",
           "tts_text": "Ang OS ang boss ng computer na nagpapatakbo sa lahat ng apps. Halimbawa: Windows, Linux, Android."
         },
         {
@@ -155,7 +155,7 @@
             "Android sa smartphones.",
             "iOS sa iPhone at iPad."
           ],
-          "media_url": null,
+          "media_url": "C1_L2_S7.png",
           "tts_text": "Windows sa desktop computers. Android sa smartphones. iOS sa iPhone at iPad."
         }
       ]
@@ -169,20 +169,20 @@
           "slide_number": 1,
           "slide_title": "How to Use a Computer",
           "content": [
-            "Matutunan kung paano i-on, gamitin, at i-shut down ang computer."
+            "Sa lesson na ito. Matutunan kung paano i-on, gamitin, at i-shut down ang computer."
           ],
           "media_url": null,
-          "tts_text": "Matutunan kung paano i-on, gamitin, at i-shut down ang computer."
+          "tts_text": "Sa lesson na ito. Matutunan kung paano i-on, gamitin, at i-shut down ang computer."
         },
         {
           "slide_number": 2,
           "slide_title": "How to Turn On the Computer",
           "content": [
             "Hanapin ang power button at pindutin ito.",
-            "Hintayin ang boot screen hanggang lumabas ang desktop."
+            "Hintayin ang boot ang screen hanggang lumabas ang desktop."
           ],
           "media_url": null,
-          "tts_text": "Hanapin ang power button at pindutin ito. Hintayin ang boot screen hanggang lumabas ang desktop."
+          "tts_text": "Hanapin ang power button at pindutin ito. Hintayin ang boot ang screen hanggang lumabas ang desktop."
         },
         {
           "slide_number": 3,

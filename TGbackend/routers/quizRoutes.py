@@ -226,8 +226,13 @@ def submit_quiz(
             detail=f"Expected {len(questions)} answers, got {len(submission.answers)}. Quiz type: {quiz.quiz_type}"
         )
     
-    # Calculate score
+    # Calculate score with enhanced debugging
     correct_count = 0
+    
+    print(f"\n=== QUIZ SUBMISSION DEBUG ===")
+    print(f"Quiz Type: {quiz.quiz_type}")
+    print(f"Total Questions: {len(questions)}")
+    print(f"User Answers: {len(submission.answers)}")
     
     for i, question in enumerate(questions):
         if i >= len(submission.answers):
@@ -235,34 +240,100 @@ def submit_quiz(
             
         user_answer = submission.answers[i]
         
+        print(f"\n--- Question {i+1} ---")
+        print(f"Question ID: {question.id}")
+        print(f"Question Type: {question.question_type}")
+        print(f"Correct Answer (DB): {repr(question.correct_answer)}")
+        print(f"User Answer (Frontend): {repr(user_answer)}")
+        
         # Handle null/empty answers
         if user_answer is None or user_answer == "":
+            print("❌ User answer is empty")
             continue
             
         if question.question_type == "multiple_choice":
-            # For image MCQ, compare the image filename
+            # Enhanced image MCQ comparison
+            original_user_answer = user_answer
+            
+            # Handle case where frontend sends dict with image key
             if isinstance(user_answer, dict) and "image" in user_answer:
                 user_answer = user_answer["image"]
+                print(f"Extracted image from dict: {user_answer}")
             
-            # Extract filename from paths for comparison
+            # Get the correct answer (handle different storage formats)
             correct_answer = str(question.correct_answer)
             user_answer_str = str(user_answer)
             
-            if "/" in correct_answer:
-                correct_answer = correct_answer.split("/")[-1]
-            if "/" in user_answer_str:
-                user_answer_str = user_answer_str.split("/")[-1]
+            print(f"Before processing - Correct: '{correct_answer}', User: '{user_answer_str}'")
             
+            # Try multiple comparison strategies
+            is_correct = False
+            
+            # Strategy 1: Direct comparison
             if user_answer_str.lower().strip() == correct_answer.lower().strip():
+                is_correct = True
+                print("✅ Match Strategy 1: Direct comparison")
+            
+            # Strategy 2: Filename comparison (extract just the filename)
+            elif "/" in correct_answer or "/" in user_answer_str:
+                correct_filename = correct_answer.split("/")[-1] if "/" in correct_answer else correct_answer
+                user_filename = user_answer_str.split("/")[-1] if "/" in user_answer_str else user_answer_str
+                
+                print(f"Filename comparison - Correct: '{correct_filename}', User: '{user_filename}'")
+                
+                if correct_filename.lower().strip() == user_filename.lower().strip():
+                    is_correct = True
+                    print("✅ Match Strategy 2: Filename comparison")
+            
+            # Strategy 3: Check if user answer contains correct answer or vice versa
+            if not is_correct:
+                if correct_answer.lower() in user_answer_str.lower() or user_answer_str.lower() in correct_answer.lower():
+                    is_correct = True
+                    print("✅ Match Strategy 3: Contains comparison")
+            
+            # Strategy 4: For image options, check against all possible option values
+            if not is_correct and question.options:
+                try:
+                    options = json.loads(question.options) if isinstance(question.options, str) else question.options
+                    print(f"Available options: {options}")
+                    
+                    for opt in options:
+                        if isinstance(opt, dict) and "image" in opt:
+                            opt_image = str(opt["image"])
+                            if opt_image == user_answer_str:
+                                # Now check if this option is the correct one
+                                if opt_image == correct_answer or opt_image.split("/")[-1] == correct_answer.split("/")[-1]:
+                                    is_correct = True
+                                    print("✅ Match Strategy 4: Option validation")
+                                    break
+                        elif str(opt) == user_answer_str:
+                            if str(opt) == correct_answer:
+                                is_correct = True
+                                print("✅ Match Strategy 4: Text option validation")
+                                break
+                except Exception as e:
+                    print(f"Error parsing options: {e}")
+            
+            if is_correct:
                 correct_count += 1
+                print(f"🎉 Question {i+1}: CORRECT")
+            else:
+                print(f"❌ Question {i+1}: INCORRECT")
+                print(f"   Final comparison: '{correct_answer.lower().strip()}' vs '{user_answer_str.lower().strip()}'")
         
         elif question.question_type == "typing":
             # Case-insensitive comparison for typing
             if isinstance(user_answer, str):
                 user_text = user_answer.lower().strip()
                 correct_text = str(question.correct_answer).lower().strip()
+                
+                print(f"Typing comparison: '{user_text}' vs '{correct_text}'")
+                
                 if user_text == correct_text:
                     correct_count += 1
+                    print(f"🎉 Question {i+1}: CORRECT")
+                else:
+                    print(f"❌ Question {i+1}: INCORRECT")
         
         elif question.question_type == "drag_drop":
             # Check if drag-drop mapping is correct
@@ -271,15 +342,28 @@ def submit_quiz(
                     expected_mapping = json.loads(question.correct_answer)
                 else:
                     expected_mapping = question.correct_answer
-                    
+                
+                print(f"Drag-drop comparison: {user_answer} vs {expected_mapping}")
+                
                 if user_answer == expected_mapping:
                     correct_count += 1
+                    print(f"🎉 Question {i+1}: CORRECT")
+                else:
+                    print(f"❌ Question {i+1}: INCORRECT")
             except (json.JSONDecodeError, TypeError) as e:
                 print(f"Error parsing drag_drop answer: {e}")
                 if str(user_answer) == str(question.correct_answer):
                     correct_count += 1
+                    print(f"🎉 Question {i+1}: CORRECT (fallback)")
+                else:
+                    print(f"❌ Question {i+1}: INCORRECT (fallback)")
     
     percentage = (correct_count / len(questions)) * 100 if len(questions) > 0 else 0
+    
+    print(f"\n=== FINAL RESULTS ===")
+    print(f"Correct: {correct_count}/{len(questions)}")
+    print(f"Percentage: {percentage}%")
+    print(f"========================\n")
     
     # Ensure time_taken is valid
     time_taken = max(0, submission.time_taken or 0)
@@ -310,115 +394,4 @@ def submit_quiz(
         "percentage": round(percentage, 2),
         "time_taken": time_taken,
         "passed": percentage >= 60
-    }
-
-# Get user's quiz attempts/results for a specific quiz
-@router.get("/quiz/results/{user_id}/{quiz_id}")
-def get_quiz_results(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
-    """Get all attempts for a specific quiz by a user"""
-    # Verify user and quiz exist
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-        
-    quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
-    if not quiz:
-        raise HTTPException(status_code=404, detail="Quiz not found")
-    
-    results = db.query(QuizResult).filter(
-        QuizResult.user_id == user_id,
-        QuizResult.quiz_id == quiz_id
-    ).order_by(QuizResult.completed_at.desc()).all()
-    
-    attempts = []
-    for result in results:
-        attempts.append({
-            "result_id": result.id,
-            "score": result.score,
-            "total_questions": result.total_questions,
-            "percentage": round(result.percentage, 2),
-            "time_taken": result.time_taken,
-            "completed_at": result.completed_at.isoformat() if result.completed_at else None
-        })
-    
-    return {
-        "user_id": user_id,
-        "quiz_id": quiz_id,
-        "quiz_title": quiz.title,
-        "quiz_type": quiz.quiz_type,
-        "attempts": attempts
-    }
-
-# Get all quiz results for a user (across all courses)
-@router.get("/quiz/results/{user_id}")
-def get_user_quiz_results(user_id: int, db: Session = Depends(get_db)):
-    """Get all quiz results for a user across all courses"""
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    
-    results = db.query(QuizResult).filter(
-        QuizResult.user_id == user_id
-    ).order_by(QuizResult.completed_at.desc()).all()
-    
-    user_results = []
-    for result in results:
-        user_results.append({
-            "result_id": result.id,
-            "quiz_id": result.quiz_id,
-            "quiz_title": result.quiz.title,
-            "quiz_type": result.quiz_type,
-            "course_id": result.course_id,
-            "lesson_id": result.lesson_id,
-            "score": result.score,
-            "total_questions": result.total_questions,
-            "percentage": round(result.percentage, 2),
-            "time_taken": result.time_taken,
-            "completed_at": result.completed_at.isoformat() if result.completed_at else None
-        })
-    
-    return {
-        "user_id": user_id,
-        "username": user.username,
-        "total_quiz_attempts": len(user_results),
-        "results": user_results
-    }
-
-# Get quiz statistics for a specific quiz
-@router.get("/quiz/stats/{quiz_id}")
-def get_quiz_stats(quiz_id: int, db: Session = Depends(get_db)):
-    """Get statistics for a specific quiz"""
-    quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
-    if not quiz:
-        raise HTTPException(status_code=404, detail="Quiz not found")
-    
-    results = db.query(QuizResult).filter(QuizResult.quiz_id == quiz_id).all()
-    
-    if not results:
-        return {
-            "quiz_id": quiz_id,
-            "quiz_title": quiz.title,
-            "total_attempts": 0,
-            "unique_users": 0,
-            "average_score": 0,
-            "average_percentage": 0,
-            "pass_rate": 0
-        }
-    
-    total_attempts = len(results)
-    unique_users = len(set(r.user_id for r in results))
-    average_score = sum(r.score for r in results) / total_attempts
-    average_percentage = sum(r.percentage for r in results) / total_attempts
-    passed_attempts = len([r for r in results if r.percentage >= 60])
-    pass_rate = (passed_attempts / total_attempts) * 100
-    
-    return {
-        "quiz_id": quiz_id,
-        "quiz_title": quiz.title,
-        "quiz_type": quiz.quiz_type,
-        "total_attempts": total_attempts,
-        "unique_users": unique_users,
-        "average_score": round(average_score, 2),
-        "average_percentage": round(average_percentage, 2),
-        "pass_rate": round(pass_rate, 2)
     }

@@ -22,7 +22,7 @@ import ProfileSection from "./ProfileSection";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
-const DashboardSection = ({ goToProfile }) => {
+const DashboardSection = ({ goToProfile, navigateToSection }) => {
   const { user } = useUser();
   const [selectedCourse, setSelectedCourse] = useState("Computer Basics");
   const [selectedAssessment, setSelectedAssessment] = useState("Pre-Assessment");
@@ -500,7 +500,7 @@ const DashboardSection = ({ goToProfile }) => {
         {/* Recent Milestone */}
         <motion.div
           className="flex-1 bg-[#F9F8FE] border-[1.5px] border-[#6B708D] rounded-lg p-6 cursor-pointer hover:bg-[#f0f0ff] flex flex-col"
-          onClick={() => navigate("/UserDashboard/achievements")}
+          onClick={() => navigateToSection("achievements")}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -784,7 +784,7 @@ const DashboardSection = ({ goToProfile }) => {
 
           {/* Quick Action Button */}
           <motion.button
-            onClick={() => navigate("/UserDashboard/history")}
+            onClick={() => navigateToSection("history")}
             className="w-full py-2 mt-4 rounded-md border-2 border-[#4C5173] bg-[#4C5173] text-white font-bold text-[16px] hover:bg-[#3a3f5c]"
             whileHover={{ scale: 1.02, backgroundColor: "#3a3f5c" }}
             whileTap={{ scale: 0.98 }}

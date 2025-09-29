@@ -142,7 +142,7 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange, onSubmit }) => {
                 return (
                   <motion.div
                     key={index}
-                    className={`p-4 rounded-lg border-2 transition-all ${isMatching
+                    className={`p-6 rounded-lg border-2 transition-all ${isMatching
                         ? 'border-green-500 bg-green-50 text-green-800'
                         : 'border-gray-300 bg-white text-gray-700'
                       }`}
@@ -154,8 +154,8 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange, onSubmit }) => {
                     }}
                   >
                     <div className="text-center">
-                      <div className="font-medium text-sm mb-1">Option {index + 1}</div>
-                      <div className="font-bold">{option}</div>
+                      {/* Removed "Option 1" text, increased font size to text-3xl (30px base + ~4-5px = ~34-35px) */}
+                      <div className="font-bold text-3xl">{option}</div>
                       {isMatching && (
                         <motion.div
                           initial={{ opacity: 0, scale: 0.8 }}

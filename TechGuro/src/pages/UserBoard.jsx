@@ -21,18 +21,22 @@ const UserBoard = () => {
     navigate("/");
   };
 
+  const navigateToSection = (sectionName) => {
+    setActiveSection(sectionName);
+  };
+
   const renderContent = () => {
     switch (activeSection) {
       case "dashboard":
-        return <DashboardSection goToProfile={dashboardKey} />;
+        return <DashboardSection goToProfile={dashboardKey} navigateToSection={navigateToSection} />;
       case "courses":
         return <CoursesSection />;
       case "achievements":
-        return <AchievementsSection />;
+        return <AchievementsSection navigateToSection={navigateToSection}/>;
       case "history":
         return <HistorySection />;
       default:
-        return <DashboardSection goToProfile={dashboardKey} />;
+        return <DashboardSection goToProfile={dashboardKey} navigateToSection={navigateToSection} />;
     }
   };
 

@@ -92,14 +92,6 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
         <h2 className="text-2xl lg:text-3xl font-bold text-[#4C5173] leading-relaxed">
           {question.question}
         </h2>
-        
-        {/* Debug Info Display (remove this in production) */}
-        <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-left text-sm">
-          <p><strong>Correct Answer:</strong> {question.correct_answer || question.answer || question.correct || 'MISSING!'}</p>
-          <p><strong>User Answer:</strong> {userAnswer || 'None'}</p>
-          <p><strong>Options:</strong> {JSON.stringify(parsedOptions)}</p>
-          <p><strong>All Question Fields:</strong> {JSON.stringify(Object.keys(question))}</p>
-        </div>
       </motion.div>
 
       {/* Options Grid */}
@@ -114,7 +106,6 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
               }`}
           >
             {parsedOptions.map((opt, index) => {
-              // Debug each option processing
               const optionValue = getOptionValue(opt);
               const isSelected = userAnswer === optionValue;
               
@@ -163,17 +154,6 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
                       </div>
                     )}
                   </div>
-
-                  {/* Option Label */}
-                  <div className="text-center">
-                    <span className={`text-lg font-semibold ${isSelected ? "text-[#4C5173]" : "text-gray-700"}`}>
-                      Option {String.fromCharCode(65 + index)}
-                    </span>
-                    {/* Debug: Show processed value */}
-                    <div className="text-xs text-gray-500 mt-1">
-                      Value: {optionValue}
-                    </div>
-                  </div>
                 </button>
               );
             })}
@@ -191,7 +171,7 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
         {userAnswer ? (
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-full">
             <Check className="w-4 h-4" />
-            <span className="text-sm font-medium">Answer selected: {userAnswer}</span>
+            <span className="text-sm font-medium">Answer Selected!</span>
           </div>
         ) : (
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 rounded-full">
