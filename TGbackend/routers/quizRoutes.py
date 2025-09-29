@@ -1,4 +1,4 @@
-# quizRoutes.py
+# quizRoutes.py -CURRENT VERSION
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
@@ -394,4 +394,115 @@ def submit_quiz(
         "percentage": round(percentage, 2),
         "time_taken": time_taken,
         "passed": percentage >= 60
+    }
+
+# Get user's quiz attempts/results for a specific quiz
+@router.get("/quiz/results/{user_id}/{quiz_id}")
+def get_quiz_results(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
+    """Get all attempts for a specific quiz by a user"""
+    # Verify user and quiz exist
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
+    if not quiz:
+        raise HTTPException(status_code=404, detail="Quiz not found")
+    
+    results = db.query(QuizResult).filter(
+        QuizResult.user_id == user_id,
+        QuizResult.quiz_id == quiz_id
+    ).order_by(QuizResult.completed_at.desc()).all()
+    
+    attempts = []
+    for result in results:
+        attempts.append({
+            "result_id": result.id,
+            "score": result.score,
+            "total_questions": result.total_questions,
+            "percentage": round(result.percentage, 2),
+            "time_taken": result.time_taken,
+            "completed_at": result.completed_at.isoformat() if result.completed_at else None
+        })
+    
+    return {
+        "user_id": user_id,
+        "quiz_id": quiz_id,
+        "quiz_title": quiz.title,
+        "quiz_type": quiz.quiz_type,
+        "attempts": attempts
+    }
+
+# Get all quiz results for a user (across all courses)
+@router.get("/quiz/results/{user_id}")
+def get_user_quiz_results(user_id: int, db: Session = Depends(get_db)):
+    """Get all quiz results for a user across all courses"""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    results = db.query(QuizResult).filter(
+        QuizResult.user_id == user_id
+    ).order_by(QuizResult.completed_at.desc()).all()
+    
+    user_results = []
+    for result in results:
+        user_results.append({
+            "result_id": result.id,
+            "quiz_id": result.quiz_id,
+            "quiz_title": result.quiz.title,
+            "quiz_type": result.quiz_type,
+            "course_id": result.course_id,
+            "lesson_id": result.lesson_id,
+            "score": result.score,
+            "total_questions": result.total_questions,
+            "percentage": round(result.percentage, 2),
+            "time_taken": result.time_taken,
+            "completed_at": result.completed_at.isoformat() if result.completed_at else None
+        })
+    
+    return {
+        "user_id": user_id,
+        "username": user.username,
+        "total_quiz_attempts": len(user_results),
+        "results": user_results
+    }
+
+# Get quiz statistics for a specific quiz
+@router.get("/quiz/stats/{quiz_id}")
+def get_quiz_stats(quiz_id: int, db: Session = Depends(get_db)):
+    """Get statistics for a specific quiz"""
+    quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
+    if not quiz:
+        raise HTTPException(status_code=404, detail="Quiz not found")
+    
+    results = db.query(QuizResult).filter(QuizResult.quiz_id == quiz_id).all()
+    
+    if not results:
+        return {
+            "quiz_id": quiz_id,
+            "quiz_title": quiz.title,
+            "total_attempts": 0,
+            "unique_users": 0,
+            "average_score": 0,
+            "average_percentage": 0,
+            "pass_rate": 0
+        }
+    
+    total_attempts = len(results)
+    unique_users = len(set(r.user_id for r in results))
+    average_score = sum(r.score for r in results) / total_attempts
+    average_percentage = sum(r.percentage for r in results) / total_attempts
+    passed_attempts = len([r for r in results if r.percentage >= 60])
+    pass_rate = (passed_attempts / total_attempts) * 100
+    
+    return {
+        "quiz_id": quiz_id,
+        "quiz_title": quiz.title,
+        "quiz_type": quiz.quiz_type,
+        "total_attempts": total_attempts,
+        "unique_users": unique_users,
+        "average_score": round(average_score, 2),
+        "average_percentage": round(average_percentage, 2),
+        "pass_rate": round(pass_rate, 2)
     }

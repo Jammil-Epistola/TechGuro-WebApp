@@ -84,20 +84,19 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
     try {
       const baseURL = import.meta.env.VITE_API_URL;
 
-      // Execute all fetch operations in parallel (INCLUDING NEW ENDPOINTS)
       const [
         progressResponse,
         assessmentsResponse,
         milestonesResponse,
         quizResponse,
-        allMilestonesResponse, // NEW: Get total milestones
-        progressRecommendationsResponse // NEW: Get recommended lessons progress
+        allMilestonesResponse,
+        progressRecommendationsResponse
       ] = await Promise.all([
         fetch(`${baseURL}/progress/${user.user_id}`),
         fetch(`${baseURL}/assessment/${user.user_id}`),
         fetch(`${baseURL}/milestones/earned/${user.user_id}`),
         fetch(`${baseURL}/quiz/results/${user.user_id}`),
-        fetch(`${baseURL}/milestones/${user.user_id}`), // NEW: Total milestones with status
+        fetch(`${baseURL}/milestones/${user.user_id}`),
         fetch(`${baseURL}/progress-recommendations/${user.user_id}/${courses.indexOf(selectedCourse) + 1}`) // NEW: Recommended lessons
       ]);
 
@@ -714,8 +713,8 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <p className="text-[18px] font-semibold">Walang quiz na na-try pa</p>
-                <p className="text-sm text-gray-600 mt-2">No quizzes taken yet</p>
+                <p className="text-[30px] font-semibold">Walang quiz na na-try pa</p>
+                <p className="text-[25px] text-gray-600 mt-2">No quizzes taken yet</p>
               </motion.div>
             ) : (
               <motion.div
