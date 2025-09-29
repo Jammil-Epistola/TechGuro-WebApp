@@ -307,16 +307,16 @@
     "type": "drag_drop",
     "question": "I-match ang tamang mouse action: Alin ang Left-Click, Right-Click, at Double-Click?",
     "drag_items": [
-      {"id": "item1", "text": "Left-Click", "type": "draggable"},
-      {"id": "item2", "text": "Right-Click", "type": "draggable"},
-      {"id": "item3", "text": "Double-Click", "type": "draggable"}
+      {"id": "item1", "text": "left_click.png", "type": "draggable"},
+      {"id": "item2", "text": "right_click.png", "type": "draggable"},
+      {"id": "item3", "text": "double_click.png", "type": "draggable"}
     ],
     "drop_zones": [
-      {"id": "left_zone", "position": "box", "label": "LEFT-CLICK", "accepts_multiple": false},
-      {"id": "right_zone", "position": "box", "label": "RIGHT-CLICK", "accepts_multiple": false},
-      {"id": "double_zone", "position": "box", "label": "DOUBLE-CLICK", "accepts_multiple": false}
+      {"id": "left_zone", "position": "box", "label": "LEFT CLICK", "accepts_multiple": false},
+      {"id": "right_zone", "position": "box", "label": "RIGHT CLICK", "accepts_multiple": false},
+      {"id": "double_zone", "position": "box", "label": "DOUBLE CLICK", "accepts_multiple": false}
     ],
-    "answer": "{\"left_zone\": [\"Left-Click\"], \"right_zone\": [\"Right-Click\"], \"double_zone\": [\"Double-Click\"]}",
+    "answer": "{\"left_zone\": [\"left_click.png\"], \"right_zone\": [\"right_click.png\"], \"double_zone\": [\"double_click.png\"]}",
     "image": null
   },
   {
@@ -352,8 +352,8 @@
       {"id": "item3", "text": "Wallpaper", "type": "draggable"}
     ],
     "drop_zones": [
-      {"id": "icons_zone", "position": "box", "label": "SHORTCUTS TO APPS", "accepts_multiple": false},
-      {"id": "taskbar_zone", "position": "box", "label": "MENU AND OPEN APPS", "accepts_multiple": false},
+      {"id": "icons_zone", "position": "box", "label": "SHORTCUTS SA APPS", "accepts_multiple": false},
+      {"id": "taskbar_zone", "position": "box", "label": "MENU AND PAG-OPEN APPS", "accepts_multiple": false},
       {"id": "wallpaper_zone", "position": "box", "label": "BACKGROUND IMAGE", "accepts_multiple": false}
     ],
     "answer": "{\"icons_zone\": [\"Icons\"], \"taskbar_zone\": [\"Taskbar\"], \"wallpaper_zone\": [\"Wallpaper\"]}",
@@ -367,16 +367,16 @@
     "type": "drag_drop",
     "question": "I-drag ang tamang button para sa bawat window action: Close, Minimize, Resize.",
     "drag_items": [
-      {"id": "item1", "text": "Close", "type": "draggable"},
-      {"id": "item2", "text": "Minimize", "type": "draggable"},
-      {"id": "item3", "text": "Resize", "type": "draggable"}
+      {"id": "item1", "image": "close_button.png", "type": "draggable"},
+      {"id": "item2", "image": "minimize_button.png", "type": "draggable"},
+      {"id": "item3", "image": "resize_corner.png", "type": "draggable"}
     ],
     "drop_zones": [
       {"id": "close_zone", "position": "box", "label": "CLOSE WINDOW", "accepts_multiple": false},
       {"id": "minimize_zone", "position": "box", "label": "MINIMIZE WINDOW", "accepts_multiple": false},
       {"id": "resize_zone", "position": "box", "label": "RESIZE WINDOW", "accepts_multiple": false}
     ],
-    "answer": "{\"close_zone\": [\"Close\"], \"minimize_zone\": [\"Minimize\"], \"resize_zone\": [\"Resize\"]}",
+    "answer": "{\"close_zone\": [\"close_button.png\"], \"minimize_zone\": [\"minimize_button.png\"], \"resize_zone\": [\"resize_corner.png\"]}",
     "image": null
   },
   {
@@ -387,16 +387,16 @@
     "type": "drag_drop",
     "question": "I-drag ang tamang icon kapag gusto mong i-on, i-restart, o i-shut down ang computer.",
     "drag_items": [
-      {"id": "item1", "text": "Power", "type": "draggable"},
-      {"id": "item2", "text": "Restart", "type": "draggable"},
-      {"id": "item3", "text": "Shut Down", "type": "draggable"}
+      {"id": "item1", "text": "power_button.png", "type": "draggable"},
+      {"id": "item2", "text": "restart.png", "type": "draggable"},
+      {"id": "item3", "text": "shut_down.png", "type": "draggable"}
     ],
     "drop_zones": [
       {"id": "power_zone", "position": "box", "label": "TURN ON COMPUTER", "accepts_multiple": false},
       {"id": "restart_zone", "position": "box", "label": "RESTART COMPUTER", "accepts_multiple": false},
       {"id": "shutdown_zone", "position": "box", "label": "SHUT DOWN COMPUTER", "accepts_multiple": false}
     ],
-    "answer": "{\"power_zone\": [\"Power\"], \"restart_zone\": [\"Restart\"], \"shutdown_zone\": [\"Shut Down\"]}",
+    "answer": "{\"power_zone\": [\"power_button.png\"], \"restart_zone\": [\"restart.png\"], \"shutdown_zone\": [\"shut_down.png\"]}",
     "image": null
   },
   {
@@ -405,7 +405,7 @@
     "lesson_id": 3,
     "question_id": 13026,
     "type": "drag_drop",
-    "question": "I-drag ang tamang icon sa tamang aksyon: Search, Open App, Close App.",
+    "question": "I-drag ang tamang word sa tamang aksyon.",
     "drag_items": [
       {"id": "item1", "text": "Search", "type": "draggable"},
       {"id": "item2", "text": "Open App", "type": "draggable"},
@@ -467,16 +467,16 @@
     "type": "drag_drop",
     "question": "I-drag ang tamang button para sa mga actions sa Start Menu: Search, Shut Down, Restart.",
     "drag_items": [
-      {"id": "item1", "text": "Search", "type": "draggable"},
-      {"id": "item2", "text": "Shut Down", "type": "draggable"},
-      {"id": "item3", "text": "Restart", "type": "draggable"}
+      {"id": "item1", "text": "search_icon", "type": "draggable"},
+      {"id": "item2", "text": "shut_down.png", "type": "draggable"},
+      {"id": "item3", "text": "restart.png", "type": "draggable"}
     ],
     "drop_zones": [
       {"id": "search_zone", "position": "box", "label": "FIND APPS", "accepts_multiple": false},
       {"id": "shutdown_zone", "position": "box", "label": "TURN OFF COMPUTER", "accepts_multiple": false},
       {"id": "restart_zone", "position": "box", "label": "RESTART COMPUTER", "accepts_multiple": false}
     ],
-    "answer": "{\"search_zone\": [\"Search\"], \"shutdown_zone\": [\"Shut Down\"], \"restart_zone\": [\"Restart\"]}",
+    "answer": "{\"search_zone\": [\"searh_icon.png\"], \"shutdown_zone\": [\"shut_down.png\"], \"restart_zone\": [\"restart.png\"]}",
     "image": null
   },
   {
@@ -506,7 +506,7 @@
     "question_id": 13031,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang button na pinipindot para i-on ang computer?",
-    "options": null,
+    "options": ["software", "power button" , "hardware" ],
     "answer": "power button",
     "image": null
   },
@@ -516,8 +516,8 @@
     "lesson_id": 3,
     "question_id": 13032,
     "type": "typing",
-    "question": "I-type ang tamang sagot: Ano ang tawag sa shortcut papunta sa apps o files sa desktop?",
-    "options": null,
+    "question": "I-type ang tamang sagot: Ano ang tawag sa shortcut papunta sa apps o files na nakikita sa desktop?",
+    "options": ["software", "icon" , "application" ],
     "answer": "icon",
     "image": null
   },
@@ -528,7 +528,7 @@
     "question_id": 13033,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang nasa baba ng desktop at may Start Menu at bukas na apps?",
-    "options": null,
+    "options": ["wallpaper", "taskbar" , "hardware" ],
     "answer": "taskbar",
     "image": null
   },
@@ -539,8 +539,8 @@
     "question_id": 13034,
     "type": "typing",
     "question": "I-type ang tamang sagot: Alin ang gamit ng left-click sa mouse?",
-    "options": null,
-    "answer": "pumili o mag-open ng app",
+    "options":["pang-pili at open ng apps", " extra options" , "pang-hover" ],
+    "answer": "pang-pili at open ng apps",
     "image": null
   },
   {
@@ -550,7 +550,7 @@
     "question_id": 13035,
     "type": "typing",
     "question": "I-type ang tamang sagot: Alin ang gamit ng right-click sa mouse?",
-    "options": null,
+    "options": ["pang-open ng apps", "extra options" , "pang-hover" ],
     "answer": "extra options",
     "image": null
   },
@@ -561,7 +561,7 @@
     "question_id": 13036,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang ginagamit para mag-type ng letters at numbers?",
-    "options": null,
+    "options": ["mouse", "monitor" , "keyboard" ],
     "answer": "keyboard",
     "image": null
   },
@@ -572,7 +572,7 @@
     "question_id": 13037,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang button sa keyboard na ginagamit para mag-confirm o lumipat ng line?",
-    "options": null,
+    "options": ["enter", "backspace" , "shift" ],
     "answer": "enter",
     "image": null
   },
@@ -583,7 +583,7 @@
     "question_id": 13038,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang button sa keyboard na ginagamit para magbura ng characters?",
-    "options": null,
+    "options": ["enter", "backspace" , "shift" ],
     "answer": "backspace",
     "image": null
   },
@@ -594,7 +594,7 @@
     "question_id": 13039,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang tawag sa background ng desktop?",
-    "options": null,
+    "options": ["wallpaper", "taskbar" , "hardware" ],
     "answer": "wallpaper",
     "image": null
   },
@@ -605,7 +605,7 @@
     "question_id": 13040,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang pinipindot sa Start Menu para ligtas na i-off ang computer?",
-    "options": null,
+    "options": ["restart", "shut down" , "sleep" ],
     "answer": "shut down",
     "image": null
   }

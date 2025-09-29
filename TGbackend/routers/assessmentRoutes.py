@@ -1,3 +1,4 @@
+#assessmentRoutes.py
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -258,7 +259,31 @@ def check_pre_assessment(user_id: int, course_id: int, db: Session = Depends(get
 @router.get("/assessment/{user_id}")
 def get_assessments(user_id: int, db: Session = Depends(get_db)):
     results = db.query(AssessmentResults).filter(AssessmentResults.user_id == user_id).all()
-    return results
+    
+    formatted_results = []
+    for result in results:
+        # Count questions for assessment
+        question_count = db.query(Question).filter(
+            Question.course_id == result.course_id,
+            Question.assessment_type == result.assessment_type
+        ).count()
+        
+        total_questions = question_count if question_count > 0 else 20
+        
+        formatted_result = {
+            "id": result.id,
+            "user_id": result.user_id,
+            "course_id": result.course_id,
+            "assessment_type": result.assessment_type,
+            "score": result.score,
+            "total": total_questions,  # Add the missing total field
+            "date_taken": result.date_taken.isoformat() if result.date_taken else None,
+            "completion_eligible": getattr(result, 'completion_eligible', None),
+            "eligibility_reason": getattr(result, 'eligibility_reason', None)
+        }
+        formatted_results.append(formatted_result)
+    
+    return formatted_results
 
 
 # ----------------------------

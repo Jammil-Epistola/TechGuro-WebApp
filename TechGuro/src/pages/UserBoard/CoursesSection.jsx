@@ -1,3 +1,4 @@
+//CoursesSection
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -18,9 +19,9 @@ const COURSES = [
 ];
 
 const courseLessonCounts = {
-  "Computer Basics": 8,
+  "Computer Basics": 5,
   "Internet Safety": 8,
-  "Digital Communication and Messaging": 8,
+  "Digital Communication and Messaging": 5,
 };
 
 const getCourseName = (courseId) => {
@@ -33,6 +34,7 @@ const CoursesSection = () => {
   const { user } = useUser();
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [courseData, setCourseData] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     const mockCourses = [
@@ -42,25 +44,12 @@ const CoursesSection = () => {
         description:
           "Learn how to use and navigate a computer for everyday tasks.",
         available: true,
-        units: [
-          {
-            unit: "UNIT 1: Getting to Know Your Computer",
-            lessons: [
-              "Lesson 1: What is a Computer?",
-              "Lesson 2: Parts of a Computer",
-              "Lesson 3: Turning On/Off Your Computer",
-              "Lesson 4: Exploring the Desktop",
-            ],
-          },
-          {
-            unit: "UNIT 2: Basic Navigation Skills",
-            lessons: [
-              "Lesson 1: Using the Mouse (Click, Double-click, Drag)",
-              "Lesson 2: Opening and Closing Programs",
-              "Lesson 3: Switching Between Windows",
-              "Lesson 4: Using the Start Menu",
-            ],
-          },
+        lessons: [
+          "What is a Computer?",
+          "Hardware and Software",
+          "How to use a Computer",
+          "How to Install an Application",
+          "Common Troubleshooting Techniques",
         ],
       },
       {
@@ -69,6 +58,13 @@ const CoursesSection = () => {
         description:
           "Stay secure online by recognizing risks and protecting your data.",
         available: true,
+        lessons: [
+          "What is the Internet?",
+          "Recognizing Fake News",
+          "Learn about Online Scams",
+          "Avoiding Malware",
+          "How to Protect Your Privacy"
+        ],
       },
       {
         name: "Digital Communication and Messaging",
@@ -76,6 +72,13 @@ const CoursesSection = () => {
         description:
           "Use email, messaging apps, and video calls effectively.",
         available: true,
+        lessons: [
+          "Communicating Online",
+          "How to Use an Email",
+          "How to Use Messaging Apps ",
+          "Video Communication",
+          "Online Etiquette and Safety",
+        ],
       },
     ];
 
@@ -114,12 +117,20 @@ const CoursesSection = () => {
       fetchCourses();
     }
   }, [user.user_id]);
+
   const handleCourseClick = (course) => {
     if (course.available) {
       setSelectedCourse(course);
+      setIsModalVisible(true);
     } else {
       setSelectedCourse({ ...course, locked: true });
+      setIsModalVisible(true);
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    setTimeout(() => setSelectedCourse(null), 300); // Wait for fade out animation
   };
 
   const handleStartCourse = async () => {
@@ -143,7 +154,7 @@ const CoursesSection = () => {
       console.error("Error checking course progress:", error);
       navigate(`/courses/${coursePath}/Pre-Assessment`); // fallback
     } finally {
-      setSelectedCourse(null);
+      handleCloseModal();
     }
   };
 
@@ -157,24 +168,31 @@ const CoursesSection = () => {
             <div
               key={index}
               onClick={() => handleCourseClick(course)}
-              className={`flex flex-col bg-white border rounded-lg cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg ${course.available ? "border-4 border-[#4C5173]" : "border-4 border-gray-300 opacity-80"
-                }`}
+              className={`flex flex-col bg-white border rounded-lg cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl hover:scale-105 animate-fadeIn ${
+                course.available 
+                  ? "border-4 border-[#4C5173] hover:border-[#6B708D]" 
+                  : "border-4 border-gray-300 opacity-80"
+              }`}
+              style={{
+                animationDelay: `${index * 150}ms`,
+                animationFillMode: 'both'
+              }}
             >
               {/* Top Section*/}
-              <div className="flex justify-center items-center bg-[#f0f0f0] p-6">
-                <div className="text-[90px]">{course.icon}</div>
+              <div className="flex justify-center items-center bg-[#f0f0f0] p-6 transition-colors duration-300 hover:bg-[#e8e8e8]">
+                <div className="text-[90px] transition-transform duration-300 hover:scale-110">{course.icon}</div>
               </div>
 
               {/* Bottom Section - Text + Progress */}
               <div className="flex flex-col p-5 gap-3">
-                <h3 className="text-[24px] font-bold text-center text-[#333]">{course.name}</h3>
+                <h3 className="text-[24px] font-bold text-center text-[#333] transition-colors duration-300 hover:text-[#4C5173]">{course.name}</h3>
                 <p className="text-[14px] text-[#666] text-center">{course.description}</p>
 
                 {/* Progress Bar */}
                 <div className="flex flex-col items-center mt-3">
                   <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden">
                     <div
-                      className="bg-[#6B708D] h-full"
+                      className="bg-[#6B708D] h-full transition-all duration-1000 ease-out"
                       style={{ width: `${course.progress || 0}%` }}
                     ></div>
                   </div>
@@ -188,29 +206,31 @@ const CoursesSection = () => {
         </div>
       </div>
 
-
       {/* Course Modal */}
       {selectedCourse && (
         <div
-          className="fixed inset-0 bg-black/60 z-[200] flex justify-center items-center"
-          onClick={() => setSelectedCourse(null)}
+          className={`fixed inset-0 bg-black/60 z-[200] flex justify-center items-center transition-opacity duration-300 ${
+            isModalVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={handleCloseModal}
         >
           <div
-            className="bg-white rounded-xl shadow-xl w-[95%] max-w-[1300px] h-[80vh] z-[201] flex flex-col lg:flex-row overflow-hidden relative"
+            className={`bg-white rounded-xl shadow-xl w-[95%] max-w-[1300px] h-[80vh] z-[201] flex flex-col lg:flex-row overflow-hidden relative transition-all duration-500 ease-out ${
+              isModalVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
-
             {/* Left */}
             <div className="w-full lg:w-[40%] bg-[#4C5173] text-white p-8 flex flex-col justify-center">
-              <div className="text-[4.5rem] mb-6">{selectedCourse.icon}</div>
-              <h2 className="text-[3rem] font-bold">{selectedCourse.name}</h2>
-              <p className="mt-4 text-[1.7rem] leading-relaxed">
+              <div className="text-[4.5rem] mb-6 animate-fadeInLeft">{selectedCourse.icon}</div>
+              <h2 className="text-[3rem] font-bold animate-fadeInLeft" style={{ animationDelay: '100ms' }}>{selectedCourse.name}</h2>
+              <p className="mt-4 text-[1.7rem] leading-relaxed animate-fadeInLeft" style={{ animationDelay: '200ms' }}>
                 {selectedCourse.description}
               </p>
               {selectedCourse.lessons && (
-                <div className="mt-6 flex items-center gap-2 text-[1.4rem] text-white">
+                <div className="mt-6 flex items-center gap-2 text-[1.4rem] text-white animate-fadeInLeft" style={{ animationDelay: '300ms' }}>
                   <FaBookOpen />
-                  <span>{selectedCourse.lessons} Lessons</span>
+                  <span>{selectedCourse.lessons.length} Lessons</span>
                 </div>
               )}
             </div>
@@ -218,32 +238,34 @@ const CoursesSection = () => {
             {/* Right */}
             <div className="w-full lg:w-[60%] bg-[#f8f8f8] p-8 overflow-y-auto flex flex-col justify-between">
               <div>
-                {selectedCourse.units ? (
-                  <>
-                    <h3 className="text-[2rem] font-bold text-[#333] mb-4">
-                      📘 What You'll Learn
+                {selectedCourse.lessons ? (
+                  <div className="animate-fadeInRight">
+                    <h3 className="text-[2rem] font-bold text-[#333] mb-6">
+                      📘 Course Lessons
                     </h3>
-                    {selectedCourse.units.map((unit, idx) => (
-                      <div key={idx} className="mb-6">
-                        <h4 className="text-[1.7rem] font-semibold text-[#4C5173] mb-2">
-                          {unit.unit}
-                        </h4>
-                        <ul className="list-disc list-inside text-[1.5rem] text-[#555]">
-                          {unit.lessons.map((lesson, lid) => (
-                            <li key={lid}>{lesson}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </>
+                    <div className="space-y-3">
+                      {selectedCourse.lessons.map((lesson, idx) => (
+                        <div 
+                          key={idx} 
+                          className="flex items-center p-4 bg-white rounded-lg shadow-sm border-l-4 border-[#4C5173] transition-all duration-300 hover:shadow-md hover:bg-[#f9f9f9] animate-fadeInUp"
+                          style={{ animationDelay: `${idx * 50}ms` }}
+                        >
+                          <div className="flex items-center justify-center w-8 h-8 bg-[#4C5173] text-white rounded-full text-sm font-bold mr-4">
+                            {idx + 1}
+                          </div>
+                          <span className="text-[1.5rem] text-[#555] font-medium">{lesson}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 ) : selectedCourse.locked ? (
-                  <div className="mt-8 text-center">
+                  <div className="mt-8 text-center animate-fadeInRight">
                     <p className="text-[1.7rem] text-[#666] mb-5">
                       This course is still being developed.
                     </p>
                     <button
-                      onClick={() => setSelectedCourse(null)}
-                      className="px-6 py-3 bg-[#4F7942] text-white rounded-md text-[1.6rem] hover:bg-[#3a3f5c]"
+                      onClick={handleCloseModal}
+                      className="px-6 py-3 bg-[#4F7942] text-white rounded-md text-[1.6rem] hover:bg-[#3a3f5c] transition-colors duration-300"
                     >
                       Okay
                     </button>
@@ -252,16 +274,16 @@ const CoursesSection = () => {
               </div>
 
               {!selectedCourse.locked && (
-                <div className="flex gap-4 mt-8">
+                <div className="flex gap-4 mt-8 animate-fadeInUp" style={{ animationDelay: '400ms' }}>
                   <button
                     onClick={handleStartCourse}
-                    className="flex-1 bg-[#4F7942] text-white py-4 text-[1.7rem] font-bold rounded-md hover:bg-[#478778]"
+                    className="flex-1 bg-[#4F7942] text-white py-4 text-[1.7rem] font-bold rounded-md hover:bg-[#478778] transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                   >
                     Start Course
                   </button>
                   <button
-                    onClick={() => setSelectedCourse(null)}
-                    className="flex-1 bg-[#880808] text-white py-4 text-[1.7rem] font-bold rounded-md hover:bg-[#5c0505]"
+                    onClick={handleCloseModal}
+                    className="flex-1 bg-[#880808] text-white py-4 text-[1.7rem] font-bold rounded-md hover:bg-[#5c0505] transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                   >
                     Cancel
                   </button>
@@ -271,6 +293,71 @@ const CoursesSection = () => {
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeInRight {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out;
+        }
+
+        .animate-fadeInLeft {
+          animation: fadeInLeft 0.6s ease-out;
+          animation-fill-mode: both;
+        }
+
+        .animate-fadeInRight {
+          animation: fadeInRight 0.6s ease-out;
+          animation-fill-mode: both;
+        }
+
+        .animate-fadeInUp {
+          animation: fadeInUp 0.4s ease-out;
+          animation-fill-mode: both;
+        }
+      `}</style>
     </div>
   );
 };

@@ -93,8 +93,9 @@ class AssessmentResult(BaseModel):
 # Quiz-related Schema
 #---------------------------
 class QuizSubmission(BaseModel):
-    answers: List[Any]  # Can be strings, objects, etc. depending on quiz type
-    time_taken: Optional[int] = None  # in seconds
+    answers: List[Any]  
+    time_taken: Optional[int] = None  
+    question_ids: Optional[List[int]] = None  
     
 class QuizCreate(BaseModel):
     course_id: int

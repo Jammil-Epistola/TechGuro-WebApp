@@ -1,0 +1,553 @@
+[
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 301,
+    "type": "text_mcq",
+    "question": "Ano ang gamit ng Email?",
+    "options": [
+      "Para sa mahahaba at pormal na mensahe",
+      "Para magbayad ng tubig",
+      "Para sa paglalaro ng games"
+    ],
+    "answer": "Para sa mahahaba at pormal na mensahe",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 202,
+    "type": "image_mcq",
+    "question": "Alin dito ang ginagamit para sa mabilisang chat?",
+    "options": [
+      {"image": "gmail_logo.png"},
+      {"image": "messenger_logo.png"},
+      {"image": "ms_word_icon.png"}
+    ],
+    "answer_image": "messenger_logo.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 303,
+    "type": "image_mcq",
+    "question": "Anong tool ang para makausap ang pamilya nang parang harapan?",
+    "options": [
+      {"image": "zoom_icon.png"},
+      {"image": "calculator_app.png"},
+      {"image": "facebook_marketplace.png"}
+    ],
+    "answer_image": "zoom_icon.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 304,
+    "type": "true_false",
+    "question": "Ang video call ay puwedeng gamitin para makausap ang mahal sa buhay kahit malayo.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 305,
+    "type": "text_mcq",
+    "question": "Saan napupunta ang hindi pa tapos na email?",
+    "options": ["Sent", "Draft", "Inbox"],
+    "answer": "Draft",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 306,
+    "type": "image_mcq",
+    "question": "Alin ang icon para mag-attach ng file?",
+    "options": [
+      {"image": "paperclip.png"},
+      {"image": "camera.png"},
+      {"image": "heart_emoji.png"}
+    ],
+    "answer_image": "paperclip.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 307,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng spam email?",
+    "options": [
+      {"image": "spam_email.png"},
+      {"image": "globe_bill.png"},
+      {"image": "friend_email.png"}
+    ],
+    "answer_image": "spam_email.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 308,
+    "type": "true_false",
+    "question": "Ang “Subject” sa email ay nagsisilbing pamagat o paksa ng mensahe.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 309,
+    "type": "text_mcq",
+    "question": "Ano ang pipindutin para mag-video call?",
+    "options": ["Paperclip", "Camera", "Microphone"],
+    "answer": "Camera",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 310,
+    "type": "image_mcq",
+    "question": "Alin ang tamang app para sa messaging?",
+    "options": [
+      {"image": "messenger_logo.png"},
+      {"image": "calculator.png"},
+      {"image": "notepad_icon.png"}
+    ],
+    "answer_image": "messenger_logo.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 311,
+    "type": "image_mcq",
+    "question": "May stranger na nag-message at humihingi ng pera. Ano ang gagawin mo?",
+    "options": [
+      {"image": "block_ignore.png"},
+      {"image": "send_money.png"},
+      {"image": "give_personal_info.png"}
+    ],
+    "answer_image": "block_ignore.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 312,
+    "type": "true_false",
+    "question": "Ang pagtanggap ng friend request mula sa hindi kilala ay ligtas at walang panganib.",
+    "options": ["Tama", "Mali"],
+    "answer": "Mali",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 313,
+    "type": "text_mcq",
+    "question": "Anong gagawin kung maingay ang aso habang nasa call ka?",
+    "options": [
+      "Mute microphone",
+      "Stay unmuted",
+      "Leave meeting agad"
+    ],
+    "answer": "Mute microphone",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 314,
+    "type": "image_mcq",
+    "question": "Alin ang logo ng karaniwang ginagamit sa video call?",
+    "options": [
+      {"image": "zoom_icon.png"},
+      {"image": "facebook_marketplace.png"},
+      {"image": "ms_word.png"}
+    ],
+    "answer_image": "zoom_icon.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 315,
+    "type": "image_mcq",
+    "question": "Saan dapat umupo habang video call?",
+    "options": [
+      {"image": "dark_noisy.png"},
+      {"image": "bright_quiet.png"},
+      {"image": "street.png"}
+    ],
+    "answer_image": "bright_quiet.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 316,
+    "type": "true_false",
+    "question": "Ang “Leave Meeting” ay ginagamit para matapos ang tawag.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 317,
+    "type": "text_mcq",
+    "question": "Alin ang mas magalang?",
+    "options": [
+      "G0od M0rn1n6 luv",
+      "Dangal Greetings!",
+      "HeLLOOOOOO"
+    ],
+    "answer": "Dangal Greetings!",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 318,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng oversharing?",
+    "options": [
+      {"image": "post_id_card.png"},
+      {"image": "goodmorning_photo.png"},
+      {"image": "emoji_message.png"}
+    ],
+    "answer_image": "post_id_card.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 319,
+    "type": "text_mcq",
+    "question": "Alin ang Dapat mong iwasan?",
+    "options": [
+      "Mag-share ng pribadong information",
+      "Mag-post ng image",
+      "Makipag-usap online"
+    ],
+    "answer": "Mag-share ng pribadong information",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 320,
+    "type": "true_false",
+    "question": "Ang pagiging magalang online ay kasing halaga rin ng pakikipag-usap nang personal.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 321,
+    "type": "text_mcq",
+    "question": "Gusto mong mag-apply ng trabaho at kailangan ng pormal na mensahe. Ano ang pinaka-angkop na tool?",
+    "options": ["Messenger", "Email", "Video Call", "Social Media"],
+    "answer": "Email"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 322,
+    "type": "text_mcq",
+    "question": "May kaibigan kang nasa abroad at gusto mong makita at makausap siya nang parang harapan. Anong gagamitin mo?",
+    "options": ["Email", "Video Call", "Text Message", "Forum Post"],
+    "answer": "Video Call"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 323,
+    "type": "image_mcq",
+    "question": "Anong tool ang pinakaangkop para mabilis na makapagbalita sa maraming tao nang sabay-sabay?",
+    "options": [
+      {"image": "facebook_post.png"},
+      {"image": "gmail_compose.png"},
+      {"image": "zoom_invite.png"}
+    ],
+    "answer_image": "facebook_post.png"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 324,
+    "type": "true_false",
+    "question": "Libre o mura ang karamihan sa online communication. Mas personal parati ang chat kaysa face-to-face usapan.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama, ang Statement 1"
+  },
+
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 325,
+    "type": "text_mcq",
+    "question": "May kailangan kang ipadala na dokumento sa iyong boss. Anong feature ang dapat gamitin?",
+    "options": ["Subject line", "Attachment (paperclip icon)", "CC (carbon copy)", "Drafts"],
+    "answer": "Attachment (paperclip icon)"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 326,
+    "type": "text_mcq",
+    "question": "Kung makakatanggap ka ng email na nagsasabing “Congratulations! Nanalo ka ng ₱1M pero kailangan ang bank details,” ano ang tamang gawin?",
+    "options": [
+      "Ibigay agad ang bank details",
+      "I-reply at magtanong pa",
+      "I-delete o markahan bilang Spam",
+      "I-forward sa mga kaibigan"
+    ],
+    "answer": "I-delete o markahan bilang Spam"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 327,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang example ng ligtas at pormal na email?",
+    "options": [
+      {"image": "job_application_email.png"},
+      {"image": "spam_prize_email.png"},
+      {"image": "spam_folder.png"}
+    ],
+    "answer_image": "job_application_email.png"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 328,
+    "type": "true_false",
+    "question": "Ang “Inbox” ay lugar kung saan pumapasok ang bagong email. Ang “Drafts” ay ginagamit para sa mga email na hindi pa tapos sulatin.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama Parehas"
+  },
+
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 329,
+    "type": "text_mcq",
+    "question": "May kakilala kang nag-message na stranger at humihingi ng pera. Ano ang tamang aksyon?",
+    "options": ["Bigyan ng personal info", "I-block o i-ignore", "Magpadala ng pera", "Makipag-chat nang matagal"],
+    "answer": "I-block o i-ignore"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 330,
+    "type": "text_mcq",
+    "question": "Nasa group chat kayo ng pamilya, at may kailangan kang ipadala na larawan. Paano mo ito gagawin?",
+    "options": [
+      "Gumamit ng video call button",
+      "I-tap ang camera o photo icon",
+      "I-type lang ang text “picture”",
+      "Gumamit ng spam folder"
+    ],
+    "answer": "I-tap ang camera o photo icon"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 331,
+    "type": "image_mcq",
+    "question": "Ano ang icon na pipindutin para makapagsimula ng video call sa Messenger?",
+    "options": [
+      {"image": "camera_icon.png"},
+      {"image": "paperclip_icon.png"},
+      {"image": "microphone_icon.png"}
+    ],
+    "answer_image": "camera_icon.png"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 332,
+    "type": "true_false",
+    "question": "Ligtas magbigay ng password sa kaibigan sa Messenger. Dapat umiwas sa pag-click ng suspicious links na galing sa unknown sender.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama, ang Statement 2"
+  },
+
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 333,
+    "type": "text_mcq",
+    "question": "Ikaw ay nasa Zoom meeting at biglang maingay ang paligid. Ano ang dapat gawin?",
+    "options": [
+      "Hayaan lang na marinig ng lahat",
+      "I-mute ang microphone",
+      "I-off ang camera",
+      "Mag-log out agad"
+    ],
+    "answer": "I-mute ang microphone"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 334,
+    "type": "text_mcq",
+    "question": "May meeting link ka na natanggap mula sa guro. Paano ka makakapasok sa klase?",
+    "options": [
+      "I-click ang meeting link",
+      "Hintayin na may tumawag",
+      "Mag-log in sa Facebook",
+      "Magpadala ng email reply"
+    ],
+    "answer": "I-click ang meeting link"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 335,
+    "type": "image_mcq",
+    "question": "Alin ang magandang halimbawa ng tamang video call setup?",
+    "options": [
+      {"image": "bright_quiet.png"},
+      {"image": "dark_noisy.png"},
+      {"image": "walking_in_mall.png"}
+    ],
+    "answer_image": "bright_quiet.png"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 336,
+    "type": "true_false",
+    "question": "Makakatulong ang paggamit ng mute button kung maingay sa paligid. Mas maganda ang video call kung nasa maliwanag at tahimik na lugar.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama Parehas"
+  },
+
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 337,
+    "type": "text_mcq",
+    "question": "Alin ang mas magalang na paraan ng pakikipag-chat?",
+    "options": [
+      "AIGOOOO!!!",
+      "pwease hewlp mew",
+      "Good Morning!",
+      "hiiiiiiiiiiiii hihihihi"
+    ],
+    "answer": "Good Morning!"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 338,
+    "type": "text_mcq",
+    "question": "Gusto mong i-share ang iyong opinion online, ano ang dapat mong gawin bago i-post?",
+    "options": [
+      "I-post agad kahit galit",
+      "Mag-isip muna kung safe at hindi makakasakit",
+      "Gumamit ng ALL CAPS para makita agad",
+      "I-share kahit confidential ang info"
+    ],
+    "answer": "Mag-isip muna kung safe at hindi makakasakit"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 339,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang hindi dapat i-post online para sa iyong privacy?",
+    "options": [
+      {"image": "home_address.png"},
+      {"image": "birthday_post.png"},
+      {"image": "family_group_photo.png"}
+    ],
+    "answer_image": "home_address.png"
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 340,
+    "type": "true_false",
+    "question": "Ang paggamit ng ALL CAPS sa chat ay parang sumisigaw. Dapat i-share ang password sa mga close friends para hindi makalimutan.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Tama, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama, ang Statement 1"
+  }
+]

@@ -38,6 +38,8 @@ def load_json_files(folder_path):
 def process_quiz_question_data(q):
     """Process question data to handle images and options properly."""
     processed_q = q.copy()
+
+    question_type = q.get("type", q.get("quiz_type", ""))
     
     # Handle main question image
     if q.get("image"):
@@ -47,8 +49,6 @@ def process_quiz_question_data(q):
     if q.get("options"):
         options = q.get("options", [])
         processed_options = []
-        
-        question_type = q.get("type", q.get("quiz_type", ""))
         
         if question_type in ["multiple_choice", "image_mcq"]:
             # Handle image options for multiple choice questions

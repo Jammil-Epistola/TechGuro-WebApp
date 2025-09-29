@@ -7,7 +7,7 @@ from TGbackend.database import get_db
 from TGbackend.models import Quiz, QuizQuestion, QuizResult, User, Course, Lesson
 from TGbackend.schema import QuizSubmission
 
-router = APIRouter()
+router = APIRouter(tags=["Quiz Handling"])
 
 # Get available quiz types for a course
 @router.get("/quiz-modes/{course_id}")
@@ -159,7 +159,8 @@ def get_lesson_quiz(course_id: int, lesson_id: int, quiz_type: str, db: Session 
             "options": options,
             "drag_items": drag_items,
             "drop_zones": drop_zones,
-            "image": q.media_url
+            "image": q.media_url,
+            "correct_answer": q.correct_answer
         })
     
     return {
@@ -192,55 +193,96 @@ def submit_quiz(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
-    # Get correct answers
-    questions = db.query(QuizQuestion).filter(
-        QuizQuestion.quiz_id == quiz_id
-    ).order_by(QuizQuestion.question_number).all()
+    # Get questions in the exact order they were presented to the user
+    if submission.question_ids:
+        # Use the question IDs provided by the frontend to maintain order
+        questions = []
+        for q_id in submission.question_ids:
+            question = db.query(QuizQuestion).filter(
+                QuizQuestion.id == q_id,
+                QuizQuestion.quiz_id == quiz_id
+            ).first()
+            if question:
+                questions.append(question)
+    else:
+        # Fallback: Use the same logic as the GET endpoint
+        all_questions = db.query(QuizQuestion).filter(
+            QuizQuestion.quiz_id == quiz_id
+        ).order_by(QuizQuestion.question_number).all()
+        
+        question_limits = {
+            "multiple_choice": 10,
+            "drag_drop": 5,
+            "typing": 5
+        }
+        
+        limit = question_limits.get(quiz.quiz_type, len(all_questions))
+        questions = all_questions[:limit]  # Take first N questions
     
+    # Validate answer count
     if len(submission.answers) != len(questions):
         raise HTTPException(
             status_code=400, 
-            detail=f"Expected {len(questions)} answers, got {len(submission.answers)}"
+            detail=f"Expected {len(questions)} answers, got {len(submission.answers)}. Quiz type: {quiz.quiz_type}"
         )
     
-    # Calculate score based on quiz type
+    # Calculate score
     correct_count = 0
     
     for i, question in enumerate(questions):
-        if i < len(submission.answers):
-            user_answer = submission.answers[i]
+        if i >= len(submission.answers):
+            continue
             
-            if question.question_type == "multiple_choice":
-                # For image MCQ, compare the image filename
-                if isinstance(user_answer, dict) and "image" in user_answer:
-                    user_answer = user_answer["image"]
-                elif isinstance(user_answer, str):
-                    # Handle direct string answers
-                    pass
-                
-                if str(user_answer).lower().strip() == str(question.correct_answer).lower().strip():
+        user_answer = submission.answers[i]
+        
+        # Handle null/empty answers
+        if user_answer is None or user_answer == "":
+            continue
+            
+        if question.question_type == "multiple_choice":
+            # For image MCQ, compare the image filename
+            if isinstance(user_answer, dict) and "image" in user_answer:
+                user_answer = user_answer["image"]
+            
+            # Extract filename from paths for comparison
+            correct_answer = str(question.correct_answer)
+            user_answer_str = str(user_answer)
+            
+            if "/" in correct_answer:
+                correct_answer = correct_answer.split("/")[-1]
+            if "/" in user_answer_str:
+                user_answer_str = user_answer_str.split("/")[-1]
+            
+            if user_answer_str.lower().strip() == correct_answer.lower().strip():
+                correct_count += 1
+        
+        elif question.question_type == "typing":
+            # Case-insensitive comparison for typing
+            if isinstance(user_answer, str):
+                user_text = user_answer.lower().strip()
+                correct_text = str(question.correct_answer).lower().strip()
+                if user_text == correct_text:
                     correct_count += 1
-            
-            elif question.question_type == "typing":
-                # Case-insensitive comparison for typing
-                if isinstance(user_answer, str):
-                    user_text = user_answer.lower().strip()
-                    correct_text = question.correct_answer.lower().strip()
-                    if user_text == correct_text:
-                        correct_count += 1
-            
-            elif question.question_type == "drag_drop":
-                # Check if drag-drop mapping is correct
-                try:
+        
+        elif question.question_type == "drag_drop":
+            # Check if drag-drop mapping is correct
+            try:
+                if isinstance(question.correct_answer, str):
                     expected_mapping = json.loads(question.correct_answer)
-                    if user_answer == expected_mapping:
-                        correct_count += 1
-                except (json.JSONDecodeError, TypeError):
-                    # If correct_answer is not valid JSON, compare as string
-                    if str(user_answer) == str(question.correct_answer):
-                        correct_count += 1
+                else:
+                    expected_mapping = question.correct_answer
+                    
+                if user_answer == expected_mapping:
+                    correct_count += 1
+            except (json.JSONDecodeError, TypeError) as e:
+                print(f"Error parsing drag_drop answer: {e}")
+                if str(user_answer) == str(question.correct_answer):
+                    correct_count += 1
     
     percentage = (correct_count / len(questions)) * 100 if len(questions) > 0 else 0
+    
+    # Ensure time_taken is valid
+    time_taken = max(0, submission.time_taken or 0)
     
     # Save result
     quiz_result = QuizResult(
@@ -252,7 +294,7 @@ def submit_quiz(
         score=correct_count,
         total_questions=len(questions),
         percentage=percentage,
-        time_taken=submission.time_taken,
+        time_taken=time_taken,
         answers=json.dumps(submission.answers)
     )
     
@@ -266,8 +308,8 @@ def submit_quiz(
         "score": correct_count,
         "total_questions": len(questions),
         "percentage": round(percentage, 2),
-        "time_taken": submission.time_taken,
-        "passed": percentage >= 60  # Define passing threshold
+        "time_taken": time_taken,
+        "passed": percentage >= 60
     }
 
 # Get user's quiz attempts/results for a specific quiz

@@ -8,6 +8,8 @@ import { useUser } from '../context/UserContext';
 import QuizQuestionCard from '../components/QuizQuestionCard';
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
 
+const QUIZ_TIME_LIMIT = 300; // 5 minutes in seconds for all quizzes
+
 const QuizPage = () => {
   const { courseName, courseId, lessonId, quizType } = useParams();
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const QuizPage = () => {
 
   // Get data passed from LessonList
   const { quizData, formattedTitle } = location.state || {};
-  
+
   // Quiz states
   const [quiz, setQuiz] = useState(null);
   const [questions, setQuestions] = useState([]);
@@ -29,6 +31,7 @@ const QuizPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [quizStartTime, setQuizStartTime] = useState(null);
 
   // Timer effect
   useEffect(() => {
@@ -57,19 +60,27 @@ const QuizPage = () => {
   const fetchQuizData = async () => {
     try {
       setLoading(true);
+      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       const response = await fetch(
-        `http://localhost:8000/quiz/${courseId}/${lessonId}/${quizType}`
+        `${baseURL}/quiz/${courseId}/${lessonId}/${quizType}`
       );
-      
+
       if (!response.ok) {
         throw new Error(`Failed to fetch quiz: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      setQuiz(data.quiz);
+
+      // Override time limit to always be 5 minutes
+      const quizWithFixedTime = {
+        ...data.quiz,
+        time_limit: QUIZ_TIME_LIMIT
+      };
+
+      setQuiz(quizWithFixedTime); // ✅ Only set once with fixed time
       setQuestions(data.questions);
       setUserAnswers(new Array(data.questions.length).fill(null));
-      setTimeRemaining(data.quiz.time_limit);
+      setTimeRemaining(QUIZ_TIME_LIMIT); // Always 5 minutes
       setError(null);
     } catch (err) {
       console.error("Error fetching quiz data:", err);
@@ -81,6 +92,7 @@ const QuizPage = () => {
 
   const startQuiz = () => {
     setQuizStarted(true);
+    setQuizStartTime(Date.now());
   };
 
   const handleAnswerChange = (answerData) => {
@@ -101,6 +113,28 @@ const QuizPage = () => {
     }
   };
 
+  const handleSubmitCurrentQuestion = () => {
+    console.log('handleSubmitCurrentQuestion called'); // Debug log
+    console.log('Current question index:', currentQuestionIndex);
+    console.log('Current answer:', userAnswers[currentQuestionIndex]);
+
+    // Check if current question has an answer
+    const currentAnswer = userAnswers[currentQuestionIndex];
+    if (!currentAnswer || currentAnswer.toString().trim() === '') {
+      console.log('No answer provided, not submitting'); // Debug log
+      return;
+    }
+
+    // If this is the last question, submit the entire quiz
+    if (currentQuestionIndex === questions.length - 1) {
+      console.log('Last question - submitting quiz'); // Debug log
+      submitQuiz();
+    } else {
+      console.log('Moving to next question'); // Debug log
+      handleNextQuestion();
+    }
+  };
+
   const handleTimeUp = () => {
     // Auto-submit quiz when time runs out
     submitQuiz();
@@ -111,30 +145,72 @@ const QuizPage = () => {
 
     try {
       setIsSubmitting(true);
+      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+      // Calculate actual time taken in seconds
+      const actualTimeTaken = quizStartTime
+        ? Math.floor((Date.now() - quizStartTime) / 1000)
+        : QUIZ_TIME_LIMIT - Math.max(0, timeRemaining);
+
+      // Cap the time at the quiz limit (in case of timer issues)
+      const timeTaken = Math.min(actualTimeTaken, QUIZ_TIME_LIMIT);
+
+      // Format answers based on quiz type
+      const formattedAnswers = userAnswers.map((answer, index) => {
+        const question = questions[index];
+
+        if (question && question.type === 'multiple_choice') {
+          if (typeof answer === 'object' && answer !== null) {
+            return answer.image || answer.text || answer;
+          }
+          return answer;
+        } else if (question && question.type === 'typing') {
+          return typeof answer === 'string' ? answer : String(answer || '');
+        } else if (question && question.type === 'drag_drop') {
+          return answer;
+        }
+
+        return answer;
+      });
+
+      const submissionData = {
+        answers: formattedAnswers,
+        time_taken: timeTaken,
+        question_ids: questions.map(q => q.question_id)
+      };
+
+      console.log('Submitting quiz with data:', {
+        quiz_id: quiz.quiz_id,
+        user_id: user.user_id,
+        submission: submissionData,
+        actual_time_taken: actualTimeTaken,
+        capped_time_taken: timeTaken
+      });
+
       const response = await fetch(
-        `http://localhost:8000/quiz/submit/${quiz.quiz_id}/${user.user_id}`,
+        `${baseURL}/quiz/submit/${quiz.quiz_id}/${user.user_id}`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            answers: userAnswers,
-            time_taken: quiz.time_limit - timeRemaining
-          }),
+          body: JSON.stringify(submissionData),
         }
       );
 
       if (!response.ok) {
-        throw new Error('Failed to submit quiz');
+        const errorText = await response.text();
+        console.error('Quiz submission failed:', response.status, errorText);
+        throw new Error(`Failed to submit quiz: ${response.status} - ${errorText}`);
       }
 
       const results = await response.json();
       setQuizResults(results);
       setQuizCompleted(true);
+
     } catch (error) {
       console.error('Error submitting quiz:', error);
-      setError('Failed to submit quiz. Please try again.');
+      setError(`Failed to submit quiz: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -218,7 +294,7 @@ const QuizPage = () => {
               <ChevronLeft size={20} />
               <span className="font-semibold">Back to Lessons</span>
             </button>
-            
+
             <div className="flex items-center gap-4">
               <img
                 src={placeholderimg}
@@ -277,13 +353,12 @@ const QuizPage = () => {
                     <button
                       key={index}
                       onClick={() => setCurrentQuestionIndex(index)}
-                      className={`w-10 h-10 rounded-lg text-sm font-semibold transition-all ${
-                        index === currentQuestionIndex
-                          ? 'bg-[#4C5173] text-white'
-                          : userAnswers[index] !== null && userAnswers[index] !== undefined
+                      className={`w-10 h-10 rounded-lg text-sm font-semibold transition-all ${index === currentQuestionIndex
+                        ? 'bg-[#4C5173] text-white'
+                        : userAnswers[index] !== null && userAnswers[index] !== undefined
                           ? 'bg-green-500 text-white'
                           : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-                      }`}
+                        }`}
                     >
                       {index + 1}
                     </button>
@@ -309,33 +384,30 @@ const QuizPage = () => {
                 <h1 className="text-3xl font-bold text-[#4C5173] mb-6 text-center">
                   Ready to Start?
                 </h1>
-                
+
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
                     <span className="font-semibold text-gray-700">Quiz Type:</span>
                     <span className="text-[#4C5173] font-bold">{quiz.quiz_type.replace('_', ' ').toUpperCase()}</span>
                   </div>
-                  
+
                   <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
                     <span className="font-semibold text-gray-700">Questions:</span>
                     <span className="text-[#4C5173] font-bold">{quiz.total_questions}</span>
                   </div>
-                  
-                  {quiz.time_limit && (
-                    <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-                      <span className="font-semibold text-gray-700">Time Limit:</span>
-                      <span className="text-[#4C5173] font-bold">{formatTime(quiz.time_limit)}</span>
-                    </div>
-                  )}
-                  
+
+                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
+                    <span className="font-semibold text-gray-700">Time Limit:</span>
+                    <span className="text-[#4C5173] font-bold">{formatTime(QUIZ_TIME_LIMIT)}</span>
+                  </div>
+
                   {quiz.difficulty && (
                     <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
                       <span className="font-semibold text-gray-700">Difficulty:</span>
-                      <span className={`px-3 py-1 rounded-full text-sm font-bold ${
-                        quiz.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
+                      <span className={`px-3 py-1 rounded-full text-sm font-bold ${quiz.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
                         quiz.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-red-100 text-red-800'
-                      }`}>
+                          'bg-red-100 text-red-800'
+                        }`}>
                         {quiz.difficulty.toUpperCase()}
                       </span>
                     </div>
@@ -377,7 +449,7 @@ const QuizPage = () => {
                         </div>
                         <div className="text-sm text-gray-600">Correct Answers</div>
                       </div>
-                      
+
                       <div className="bg-gray-50 rounded-lg p-4 text-center">
                         <div className="text-3xl font-bold text-[#4C5173]">
                           {quizResults.percentage}%
@@ -393,11 +465,10 @@ const QuizPage = () => {
                       <div className="text-sm text-gray-600">Time Taken</div>
                     </div>
 
-                    <div className={`p-4 rounded-lg text-center font-bold text-lg ${
-                      quizResults.passed 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
-                    }`}>
+                    <div className={`p-4 rounded-lg text-center font-bold text-lg ${quizResults.passed
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-red-100 text-red-800'
+                      }`}>
                       {quizResults.passed ? '🎉 PASSED!' : '❌ Try Again'}
                     </div>
                   </div>
@@ -410,7 +481,7 @@ const QuizPage = () => {
                   >
                     Back to Lessons
                   </button>
-                  
+
                   {quizResults && !quizResults.passed && (
                     <button
                       onClick={() => {
@@ -419,7 +490,8 @@ const QuizPage = () => {
                         setQuizResults(null);
                         setCurrentQuestionIndex(0);
                         setUserAnswers(new Array(questions.length).fill(null));
-                        setTimeRemaining(quiz.time_limit);
+                        setTimeRemaining(QUIZ_TIME_LIMIT);
+                        setQuizStartTime(null);
                       }}
                       className="px-6 py-3 bg-[#B6C44D] text-black font-semibold rounded-lg hover:bg-[#a5b83d] transition-colors"
                     >
@@ -459,6 +531,7 @@ const QuizPage = () => {
                     userAnswer={userAnswers[currentQuestionIndex]}
                     onAnswerChange={handleAnswerChange}
                     quizType={quiz.quiz_type}
+                    onSubmit={handleSubmitCurrentQuestion}
                   />
                 </div>
 
@@ -467,11 +540,10 @@ const QuizPage = () => {
                   <button
                     onClick={handlePreviousQuestion}
                     disabled={currentQuestionIndex === 0}
-                    className={`px-6 py-3 rounded-xl font-semibold text-lg transition-all ${
-                      currentQuestionIndex === 0
-                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        : "bg-gradient-to-r from-[#4C5173] to-[#6B708D] text-white hover:from-[#3a3f5c] hover:to-[#5a5f7a] hover:scale-105 shadow-lg"
-                    }`}
+                    className={`px-6 py-3 rounded-xl font-semibold text-lg transition-all ${currentQuestionIndex === 0
+                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      : "bg-gradient-to-r from-[#4C5173] to-[#6B708D] text-white hover:from-[#3a3f5c] hover:to-[#5a5f7a] hover:scale-105 shadow-lg"
+                      }`}
                   >
                     Previous
                   </button>
@@ -481,11 +553,10 @@ const QuizPage = () => {
                       <button
                         onClick={submitQuiz}
                         disabled={!canSubmitQuiz() || isSubmitting}
-                        className={`px-8 py-3 rounded-xl font-bold text-lg transition-all ${
-                          canSubmitQuiz() && !isSubmitting
-                            ? "bg-gradient-to-r from-[#B6C44D] to-[#A5B83D] text-black hover:from-[#a5b83d] hover:to-[#94A535] hover:scale-105 shadow-lg"
-                            : "bg-gray-400 text-white cursor-not-allowed"
-                        }`}
+                        className={`px-8 py-3 rounded-xl font-bold text-lg transition-all ${canSubmitQuiz() && !isSubmitting
+                          ? "bg-gradient-to-r from-[#B6C44D] to-[#A5B83D] text-black hover:from-[#a5b83d] hover:to-[#94A535] hover:scale-105 shadow-lg"
+                          : "bg-gray-400 text-white cursor-not-allowed"
+                          }`}
                       >
                         {isSubmitting ? "Submitting..." : "Submit Quiz"}
                       </button>

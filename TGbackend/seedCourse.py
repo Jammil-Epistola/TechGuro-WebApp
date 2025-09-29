@@ -1,4 +1,4 @@
-#seedCourse.py
+# seedCourse.py
 import os
 import json
 from sqlalchemy.orm import Session
@@ -9,6 +9,13 @@ from TGbackend.models import Base, Course, Lesson, LessonSlides, Question
 BASE_COURSE_IMG_PATH = "/images/course_icons/"
 BASE_PRE_ASSESSMENT_IMG_PATH = "/images/assessments_quizzes/"
 BASE_LESSON_IMG_PATH = "/images/lessons/"
+
+# Course-Lesson ID mapping to enforce correct lesson ID ranges
+COURSE_LESSON_ID_MAPPING = {
+    "computer_basics": {"course_order": 1, "lesson_id_start": 1},
+    "internet_safety": {"course_order": 2, "lesson_id_start": 6}, 
+    "digi_communication": {"course_order": 3, "lesson_id_start": 11}
+}
 
 # Create tables if they don't exist
 Base.metadata.create_all(bind=engine)
@@ -23,6 +30,18 @@ def add_image_path(filename: str, base_path: str) -> str:
     if filename.startswith("/") or filename.startswith("http"):
         return filename
     return f"{base_path}{filename}"
+
+
+def get_course_key_from_filename(filename):
+    """Extract course key from filename"""
+    filename_lower = filename.lower()
+    if "computer_basics" in filename_lower:
+        return "computer_basics"
+    elif "internet_safety" in filename_lower:
+        return "internet_safety"
+    elif "digi_communication" in filename_lower:
+        return "digi_communication"
+    return None
 
 
 def load_json_files(folder_path):
@@ -195,10 +214,21 @@ def insert_or_update_slide(session, slide_data, lesson_id=None, filename=None):
 
 
 def seed_courses(session: Session, filename: str, data):
-    """Seed courses and lessons from JSON structure."""
+    """Seed courses and lessons with enforced lesson ID ranges."""
     if not isinstance(data, dict):
         print(f"⚠️ Skipping {filename}, expected course object structure.")
         return
+
+    # Get course configuration
+    course_key = get_course_key_from_filename(filename)
+    if not course_key or course_key not in COURSE_LESSON_ID_MAPPING:
+        print(f"⚠️ Unknown course type in {filename}, using default behavior")
+        # Fallback to original behavior
+        _seed_courses_original(session, filename, data)
+        return
+        
+    config = COURSE_LESSON_ID_MAPPING[course_key]
+    lesson_id_counter = config["lesson_id_start"]
 
     # --- COURSE ---
     course_title = get_title(data, filename, "course")
@@ -216,10 +246,67 @@ def seed_courses(session: Session, filename: str, data):
         course.image_url = course_image
         print(f"🔄 Updated course: {course_title} (ID: {course.id})")
 
-    # --- LESSONS ---
+    # --- LESSONS with enforced IDs ---
     for lesson_data in data.get("lessons", []):
         if not isinstance(lesson_data, dict):
             print(f"⚠️ Skipping malformed lesson in {filename}: {lesson_data}")
+            continue
+
+        lesson_title = get_title(lesson_data, filename, "lesson")
+        lesson_media = lesson_data.get("media", "")
+        if isinstance(lesson_media, str) and lesson_media.endswith((".png", ".jpg", ".jpeg", ".gif")):
+            lesson_media = add_image_path(lesson_media, BASE_LESSON_IMG_PATH)
+
+        # Check if lesson with this specific ID already exists
+        existing_lesson = session.query(Lesson).filter_by(id=lesson_id_counter).first()
+        
+        if existing_lesson:
+            # Update existing lesson
+            existing_lesson.course_id = course.id
+            existing_lesson.title = lesson_title
+            existing_lesson.content = lesson_data.get("content", "")
+            existing_lesson.media_url = lesson_media
+            lesson = existing_lesson
+            print(f"🔄 Updated lesson: {lesson_title} (ID: {lesson_id_counter}) → Course {course.id}")
+        else:
+            # Create new lesson with specific ID
+            lesson = Lesson(
+                id=lesson_id_counter,
+                course_id=course.id,
+                title=lesson_title,
+                content=lesson_data.get("content", ""),
+                media_url=lesson_media
+            )
+            session.add(lesson)
+            session.flush()
+            print(f"➕ Inserted lesson: {lesson_title} (ID: {lesson_id_counter}) → Course {course.id}")
+
+        # --- SLIDES ---
+        for slide_data in lesson_data.get("slides", []):
+            insert_or_update_slide(session, slide_data, lesson_id=lesson.id, filename=filename)
+        
+        lesson_id_counter += 1  # Increment for next lesson
+
+
+def _seed_courses_original(session: Session, filename: str, data):
+    """Original course seeding logic as fallback."""
+    course_title = get_title(data, filename, "course")
+    course_desc = data.get("description", "")
+    course_image = add_image_path(data.get("image_url", ""), BASE_COURSE_IMG_PATH)
+
+    course = session.query(Course).filter_by(title=course_title).first()
+    if not course:
+        course = Course(title=course_title, description=course_desc, image_url=course_image)
+        session.add(course)
+        session.flush()
+        print(f"➕ Inserted course: {course_title} (ID: {course.id})")
+    else:
+        course.description = course_desc
+        course.image_url = course_image
+        print(f"🔄 Updated course: {course_title} (ID: {course.id})")
+
+    for lesson_data in data.get("lessons", []):
+        if not isinstance(lesson_data, dict):
             continue
 
         lesson_title = get_title(lesson_data, filename, "lesson")
@@ -243,18 +330,32 @@ def seed_courses(session: Session, filename: str, data):
             lesson.media_url = lesson_media
             print(f"🔄 Updated lesson: {lesson_title} (ID: {lesson.id})")
 
-        # --- SLIDES ---
         for slide_data in lesson_data.get("slides", []):
             insert_or_update_slide(session, slide_data, lesson_id=lesson.id, filename=filename)
 
 
 def seed_questions(session: Session, filename: str, data):
-    """Seed standalone questions from JSON array."""
+    """Seed standalone questions from JSON array with enforced lesson IDs."""
     if not isinstance(data, list):
         print(f"⚠️ Expected question array in {filename}, got {type(data).__name__}")
         return
 
     print(f"📄 Processing standalone question file: {filename}")
+    
+    # Get course configuration to validate lesson IDs
+    course_key = get_course_key_from_filename(filename)
+    if course_key and course_key in COURSE_LESSON_ID_MAPPING:
+        config = COURSE_LESSON_ID_MAPPING[course_key]
+        valid_lesson_range = range(config["lesson_id_start"], config["lesson_id_start"] + 5)
+        print(f"📋 Expected lesson_id range for {course_key}: {config['lesson_id_start']}-{config['lesson_id_start']+4}")
+        
+        # Validate questions have correct lesson_ids
+        for q_data in data:
+            if isinstance(q_data, dict):
+                q_lesson_id = q_data.get("lesson_id")
+                if q_lesson_id and q_lesson_id not in valid_lesson_range:
+                    print(f"⚠️ Question has lesson_id {q_lesson_id} but expected range is {list(valid_lesson_range)}")
+    
     for q_data in data:
         insert_or_update_question(session, q_data, filename=filename)
 
@@ -265,7 +366,18 @@ def main():
         # Load and categorize files
         course_files, question_files = load_json_files(SEED_FOLDER)
         
-        # First, seed all courses and lessons
+        # Sort course files by intended order
+        def course_sort_key(file_tuple):
+            filename, data = file_tuple
+            course_key = get_course_key_from_filename(filename)
+            if course_key in COURSE_LESSON_ID_MAPPING:
+                return COURSE_LESSON_ID_MAPPING[course_key]["course_order"]
+            return 999  # Unknown courses go last
+            
+        course_files.sort(key=course_sort_key)
+        print(f"📁 Processing course files in order: {[f[0] for f in course_files]}")
+        
+        # First, seed all courses and lessons in correct order
         print("\n🏗️ PHASE 1: Seeding Courses and Lessons")
         for filename, data in course_files:
             seed_courses(db, filename, data)
@@ -273,6 +385,9 @@ def main():
         # Commit courses before seeding questions
         db.commit()
         print("✅ Courses and lessons committed to database")
+        
+        # Sort question files by course order as well
+        question_files.sort(key=course_sort_key)
         
         # Then, seed all questions
         print("\n❓ PHASE 2: Seeding Questions")
@@ -283,9 +398,21 @@ def main():
         db.commit()
         print("✅ All JSON files seeded successfully!")
         
+        # Display summary
+        print("\n📊 SEEDING SUMMARY:")
+        courses = db.query(Course).all()
+        for course in courses:
+            lessons = db.query(Lesson).filter_by(course_id=course.id).all()
+            questions = db.query(Question).filter_by(course_id=course.id).all()
+            print(f"🏫 {course.title} (ID: {course.id})")
+            print(f"   📚 {len(lessons)} lessons (IDs: {[l.id for l in lessons]})")
+            print(f"   ❓ {len(questions)} questions")
+        
     except Exception as e:
         db.rollback()
         print(f"❌ Error seeding database: {e}")
+        import traceback
+        traceback.print_exc()
         raise e
     finally:
         db.close()

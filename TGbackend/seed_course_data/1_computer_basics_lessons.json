@@ -13,11 +13,10 @@
           "slide_title": "What is a Computer?",
           "content": [
             "Ang computer ay isang makina na tumutulong sa atin gumawa ng iba’t ibang gawain.",
-            "Nakikita ito sa bahay, opisina, at paaralan.",
-            "Puwede itong desktop, laptop, o tablet."
+            "Nakikita ito sa bahay, opisina, at paaralan."
           ],
           "media_url": "C1_L1_S1.png",
-          "tts_text": "Ang computer ay isang makina na tumutulong sa atin gumawa ng iba’t ibang gawain. Nakikita ito sa bahay, opisina, at paaralan. Puwede itong desktop, laptop, o tablet."
+          "tts_text": "Ang computer ay isang makina na tumutulong sa atin gumawa ng iba’t ibang gawain. Nakikita ito sa bahay, opisina, at paaralan."
         },
         {
           "slide_number": 2,
@@ -76,16 +75,6 @@
           ],
           "media_url": "C1_L1_S6.png",
           "tts_text": "Web browser tulad ng Google Chrome. Word processor tulad ng Microsoft Word. Games at apps tulad ng Messenger o Candy Crush. Operating System tulad ng Windows o Android."
-        },
-        {
-          "slide_number": 7,
-          "slide_title": "Practice Exercise – Match Hardware vs Software",
-          "content": [
-            "Halimbawa: “Keyboard” = Hardware, “Google Chrome” = Software.",
-            "Piliin kung hardware o software ang bawat item."
-          ],
-          "media_url": null,
-          "tts_text": "Halimbawa: “Keyboard” = Hardware, “Google Chrome” = Software. Piliin kung hardware o software ang bawat item."
         }
       ]
     },
@@ -143,10 +132,10 @@
           "slide_title": "What is Software?",
           "content": [
             "Mga apps o programs na tumutulong sa iba’t ibang gawain.",
-            "Puwede itong word processor, games, o utilities."
+            "Puwede itong word processor, games, o iba pa."
           ],
           "media_url": null,
-          "tts_text": "Mga apps o programs na tumutulong sa iba’t ibang gawain. Puwede itong word processor, games, o utilities."
+          "tts_text": "Mga apps o programs na tumutulong sa iba’t ibang gawain. Puwede itong word processor, games, o iba pa."
         },
         {
           "slide_number": 6,
@@ -168,15 +157,6 @@
           ],
           "media_url": null,
           "tts_text": "Windows sa desktop computers. Android sa smartphones. iOS sa iPhone at iPad."
-        },
-        {
-          "slide_number": 8,
-          "slide_title": "Practice Exercise – Identify: Hardware or Software?",
-          "content": [
-            "Halimbawa: “Printer” = Hardware, “Microsoft Word” = Software."
-          ],
-          "media_url": null,
-          "tts_text": "Halimbawa: Printer = Hardware, Microsoft Word = Software."
         }
       ]
     },
@@ -248,16 +228,6 @@
           "tts_text": "Letters at numbers para mag-type ng text. Enter para mag-confirm o lumipat ng line. Backspace para magbura ng characters."
         },
         {
-          "slide_number": 7,
-          "slide_title": "Typing Practice",
-          "content": [
-            "Subukang mag-type ng simpleng pangungusap.",
-            "Sundan ang tamang posisyon ng kamay sa keyboard."
-          ],
-          "media_url": null,
-          "tts_text": "Subukang mag-type ng simpleng pangungusap. Sundan ang tamang posisyon ng kamay sa keyboard."
-        },
-        {
           "slide_number": 8,
           "slide_title": "Opening the Start Menu",
           "content": [
@@ -276,15 +246,6 @@
           ],
           "media_url": null,
           "tts_text": "Buksan ang Start Menu, piliin ang Shut Down o Restart. Huwag basta bunutin ang power para maiwasan ang sira."
-        },
-        {
-          "slide_number": 10,
-          "slide_title": "Practice Exercise – Find the Right Action",
-          "content": [
-            "Halimbawa: “Gusto mong i-off ang computer → Pindutin ang Shut Down.”"
-          ],
-          "media_url": null,
-          "tts_text": "Halimbawa: Gusto mong i-off ang computer → Pindutin ang Shut Down."
         }
       ]
     },
@@ -349,15 +310,6 @@
           ],
           "media_url": null,
           "tts_text": "Sa Control Panel o Settings, piliin ang Uninstall."
-        },
-        {
-          "slide_number": 7,
-          "slide_title": "Practice Exercise – Spot the Fake Installer",
-          "content": [
-            "Piliin kung alin ang legit installer screenshot."
-          ],
-          "media_url": null,
-          "tts_text": "Piliin kung alin ang legit installer screenshot."
         }
       ]
     },
@@ -431,15 +383,6 @@
           ],
           "media_url": null,
           "tts_text": "Kung di na kaya, humingi ng tulong sa kamag-anak, tech support, o repair shop."
-        },
-        {
-          "slide_number": 8,
-          "slide_title": "Practice Exercise – What Would You Do If…?",
-          "content": [
-            "Halimbawa: “Nagyeyelo ang screen → Restart the computer.”"
-          ],
-          "media_url": null,
-          "tts_text": "Halimbawa: Nagyeyelo ang screen → Restart the computer."
         }
       ]
     }

@@ -6,7 +6,7 @@ import ImageQuizCard from "./ImageQuizCard";
 import TypingQuizCard from "./TypingQuizCard";
 import DragDropQuizCard from "./DragDropQuizCard";
 
-const QuizQuestionCard = ({ question, userAnswer, onAnswerChange, quizType }) => {
+const QuizQuestionCard = ({ question, userAnswer, onAnswerChange, quizType, onSubmit }) => {
   if (!question) {
     return (
       <motion.div
@@ -44,6 +44,7 @@ const QuizQuestionCard = ({ question, userAnswer, onAnswerChange, quizType }) =>
             question={question}
             userAnswer={userAnswer}
             onAnswerChange={onAnswerChange}
+            onSubmit={onSubmit}
           />
         );
 

@@ -1,12 +1,11 @@
-// TypingQuizCard.jsx 
+// Updated TypingQuizCard.jsx 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Keyboard, Check, AlertCircle, Type } from "lucide-react";
 
-const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
+const TypingQuizCard = ({ question, userAnswer, onAnswerChange, onSubmit }) => {
   const [inputValue, setInputValue] = useState(userAnswer || "");
   const [isTyping, setIsTyping] = useState(false);
-  const [showHint, setShowHint] = useState(false);
 
   // Update input when userAnswer changes from parent
   useEffect(() => {
@@ -15,16 +14,16 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
 
   if (!question) return null;
 
-  const { question_id, question_number } = question;
+  const { question_id, question_number, options } = question;
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
     setIsTyping(true);
-    
+
     // Call parent's answer change handler
     onAnswerChange(value);
-    
+
     // Reset typing indicator after a short delay
     setTimeout(() => setIsTyping(false), 500);
   };
@@ -32,13 +31,30 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      // Optional: could trigger next question or some action
+
+      // Check if there's a valid answer before submitting
+      if (inputValue.trim() && onSubmit) {
+        // Add a small delay for better UX (shows typing animation briefly)
+        setTimeout(() => {
+          onSubmit();
+        }, 300);
+      }
     }
   };
 
+  // Case-insensitive answer checking
   const getInputStatus = () => {
     if (!inputValue.trim()) return 'empty';
     if (inputValue.trim().length < 2) return 'too_short';
+
+    // Check if the answer matches one of the options (case-insensitive)
+    if (options && options.length > 0) {
+      const matchesOption = options.some(option =>
+        option.toLowerCase().trim() === inputValue.toLowerCase().trim()
+      );
+      return matchesOption ? 'correct_option' : 'valid';
+    }
+
     return 'valid';
   };
 
@@ -47,7 +63,8 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
     switch (status) {
       case 'empty': return 'border-gray-300';
       case 'too_short': return 'border-yellow-400';
-      case 'valid': return 'border-green-400';
+      case 'correct_option': return 'border-green-500';
+      case 'valid': return 'border-blue-400';
       default: return 'border-gray-300';
     }
   };
@@ -55,15 +72,26 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
   const getStatusIcon = () => {
     const status = getInputStatus();
     switch (status) {
-      case 'empty': 
+      case 'empty':
         return <Type className="w-5 h-5 text-gray-400" />;
-      case 'too_short': 
+      case 'too_short':
         return <AlertCircle className="w-5 h-5 text-yellow-500" />;
-      case 'valid': 
+      case 'correct_option':
         return <Check className="w-5 h-5 text-green-500" />;
-      default: 
+      case 'valid':
+        return <Check className="w-5 h-5 text-blue-500" />;
+      default:
         return <Type className="w-5 h-5 text-gray-400" />;
     }
+  };
+
+  // Check if user's input matches any option (case-insensitive)
+  const getMatchingOption = () => {
+    if (!options || options.length === 0 || !inputValue.trim()) return null;
+
+    return options.find(option =>
+      option.toLowerCase().trim() === inputValue.toLowerCase().trim()
+    );
   };
 
   return (
@@ -88,11 +116,68 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
             Typing Practice Quiz
           </span>
         </div>
-        
+
         <h2 className="text-2xl lg:text-3xl font-bold text-[#4C5173] leading-relaxed">
           {question.question}
         </h2>
       </motion.div>
+
+      {/* Always Show Options Section - No Auto-fill */}
+      {options && options.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="mb-6"
+        >
+          <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <h3 className="text-lg font-semibold text-[#4C5173] mb-4 text-center">
+              Choose from these options (type manually):
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {options.map((option, index) => {
+                const isMatching = getMatchingOption() === option;
+
+                return (
+                  <motion.div
+                    key={index}
+                    className={`p-4 rounded-lg border-2 transition-all ${isMatching
+                        ? 'border-green-500 bg-green-50 text-green-800'
+                        : 'border-gray-300 bg-white text-gray-700'
+                      }`}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{
+                      opacity: 1,
+                      scale: isMatching ? 1.05 : 1,
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    <div className="text-center">
+                      <div className="font-medium text-sm mb-1">Option {index + 1}</div>
+                      <div className="font-bold">{option}</div>
+                      {isMatching && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="mt-2 flex items-center justify-center gap-1"
+                        >
+                          <Check className="w-4 h-4 text-green-600" />
+                          <span className="text-xs font-medium text-green-600">Match!</span>
+                        </motion.div>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <p className="text-sm text-gray-600 text-center mt-4">
+              Type any of these options in the text field below. Case doesn't matter!
+            </p>
+          </div>
+        </motion.div>
+      )}
 
       {/* Typing Input Section */}
       <div className="flex-1 flex items-center justify-center">
@@ -111,9 +196,8 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your answer here..."
-                className={`w-full px-6 py-6 text-xl lg:text-2xl font-medium text-[#4C5173] bg-white border-3 rounded-2xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#B6C44D]/30 ${getStatusColor()} ${
-                  isTyping ? 'scale-102 shadow-lg' : ''
-                }`}
+                className={`w-full px-6 py-6 text-xl lg:text-2xl font-medium text-[#4C5173] bg-white border-3 rounded-2xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#B6C44D]/30 ${getStatusColor()} ${isTyping ? 'scale-102 shadow-lg' : ''
+                  }`}
                 whileFocus={{ scale: 1.02 }}
                 autoComplete="off"
                 spellCheck="false"
@@ -166,7 +250,7 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
               </AnimatePresence>
             </div>
 
-            {/* Character Count */}
+            {/* Character Count and Case-Insensitive Note */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -179,37 +263,13 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
                   <span className="text-orange-500">•</span>
                 )}
               </div>
-              
-              <button
-                onClick={() => setShowHint(!showHint)}
-                className="text-[#4C5173] hover:text-[#3a3f5c] underline transition-colors"
-              >
-                Need a hint?
-              </button>
-            </motion.div>
 
-            {/* Hint Section */}
-            <AnimatePresence>
-              {showHint && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl"
-                >
-                  <div className="flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm font-medium text-blue-800 mb-1">Hint:</p>
-                      <p className="text-sm text-blue-700">
-                        Think about what you learned in the lesson. Keep your answer simple and clear.
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
+              {options && options.length > 0 && (
+                <span className="text-[#4C5173] text-xs">
+                  Case doesn't matter (laptop = LAPTOP = LaPtOp)
+                </span>
               )}
-            </AnimatePresence>
+            </motion.div>
           </motion.div>
         </div>
       </div>
@@ -244,13 +304,26 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange }) => {
               <AlertCircle className="w-4 h-4" />
               <span className="text-sm font-medium">Answer seems too short</span>
             </motion.div>
+          ) : getInputStatus() === 'correct_option' ? (
+            <motion.div
+              key="correct"
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-full"
+            >
+              <Check className="w-4 h-4" />
+              <span className="text-sm font-medium">
+                Perfect match! ({getMatchingOption()})
+              </span>
+            </motion.div>
           ) : (
             <motion.div
               key="valid"
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-full"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full"
             >
               <Check className="w-4 h-4" />
               <span className="text-sm font-medium">Answer recorded</span>

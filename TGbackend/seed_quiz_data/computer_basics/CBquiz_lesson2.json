@@ -495,7 +495,7 @@
     "question_id": 12031,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong device ang ginagamit mo para mag-click at mag-navigate sa screen?",
-    "options": null,
+    "options": ["mouse", "keyboard" , "earphone" ],
     "answer": "mouse",
     "image": "mouse.png"
   },
@@ -506,7 +506,7 @@
     "question_id": 12032,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong software ang ginagamit mo para mag-type ng documents?",
-    "options": null,
+    "options": ["Google Chrome", "Microsoft Word" , "Paint" ],
     "answer": "Microsoft Word",
     "image": "microsoft_word.png"
   },
@@ -517,7 +517,7 @@
     "question_id": 12033,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong OS ang kadalasang ginagamit sa desktop computers?",
-    "options": null,
+    "options": ["Windows", "iOS" , "Android" ],
     "answer": "Windows",
     "image": "windows.png"
   },
@@ -528,7 +528,7 @@
     "question_id": 12034,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong device ang ginagamit para marinig ang tunog mula sa computer?",
-    "options": null,
+    "options": ["speaker", "monitor" , "mouse" ],
     "answer": "speaker",
     "image": "speaker.png"
   },
@@ -539,7 +539,7 @@
     "question_id": 12035,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong input device ang ginagamit para mag-record ng boses?",
-    "options": null,
+    "options": ["microphone", "speaker" , "keyboard" ],
     "answer": "microphone",
     "image": "microphone.png"
   },
@@ -550,7 +550,7 @@
     "question_id": 12036,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong device ang nagpapakita ng images at videos sa computer?",
-    "options": null,
+    "options": ["smartphone", "monitor" , "CPU" ],
     "answer": "monitor",
     "image": "monitor.png"
   },
@@ -561,7 +561,7 @@
     "question_id": 12037,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong software ang ginagamit para mag-browse ng internet?",
-    "options": null,
+    "options": ["Discord", "Microsoft Excel" , "Google Chrome" ],
     "answer": "Google Chrome",
     "image": "google_chrome.png"
   },
@@ -572,8 +572,8 @@
     "question_id": 12038,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong storage device ang portable at puwedeng gamitin sa paglipat ng files?",
-    "options": null,
-    "answer": "USB",
+    "options": ["Flash Drive o USB", "keyboard" , "mouse" ],
+    "answer": "Flash Drive o USB",
     "image": "usb.png"
   },
   {
@@ -582,8 +582,8 @@
     "lesson_id": 2,
     "question_id": 12039,
     "type": "typing",
-    "question": "I-type ang tamang sagot: Anong OS ang ginagamit sa smartphones bukod sa Android?",
-    "options": null,
+    "question": "I-type ang tamang sagot: Anong OS ang ginagamit sa smartphones bukod sa Android? (Eto ay ginagamit sa Iphone)",
+    "options": ["Linux", "Android" , "iOS" ],
     "answer": "iOS",
     "image": "ios.png"
   },
@@ -594,7 +594,7 @@
     "question_id": 12040,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong device ang ginagamit para mag-print ng documents?",
-    "options": null,
+    "options": ["printer", "scanner" , "xerox" ],
     "answer": "printer",
     "image": "printer.png"
   }

@@ -7,9 +7,9 @@
     "type": "text_mcq",
     "question": "Ano ang gamit ng computer?",
     "options": [
-      "Pang-tawag",
-      "Paglaro ng Games",
-      "Mag-store at mag-process ng info"
+      "Pang-laba",
+      "Pang-transportasyon",
+      "Pag-store at process ng info"
     ],
     "answer": "Mag-store at mag-process ng info",
     "image": null
@@ -67,7 +67,7 @@
       "Speaker ng sounds",
       "Screen ng display"
     ],
-    "answer": "A. Utak ng computer",
+    "answer": "Utak ng computer",
     "image": null
   },
   {
@@ -76,7 +76,7 @@
     "lesson_id": 2,
     "question_id": 106,
       "type": "image_mcq",
-    "question": "Piliin ang Input Device.",
+    "question": "Alin dito ang tinatwag na Input Device?",
     "options": [
       {"image": "mouse.png"},
       {"image": "printer.png"},
@@ -203,7 +203,7 @@
     "lesson_id": 4,
     "question_id": 115,
     "type": "image_mcq",
-    "question": "Alin ang button para i-attach o magdagdag ng file sa installer?",
+    "question": "Alin ang icon para mag-attach o magdagdag ng file?",
     "options": [
       {"image": "attach_file.png"},
       {"image": "recycle_bin.png"},
@@ -259,7 +259,7 @@
     "lesson_id": 5,
     "question_id": 119,
     "type": "image_mcq",
-    "question": "Kung walang tunog, alin ang dapat i-check muna?",
+    "question": "Alin dito ang sinasalpak ang speaker cable?",
     "options": [
       {"image": "speaker_cable.png"},
       {"image": "keyboard.png"},
@@ -288,7 +288,7 @@
     "question": "Habang nasa bahay si Ana, gusto niyang mag-type ng homework at sabay makinig ng music. Alin ang tamang gamit ng computer dito?",
     "options": [
       "Pang-display lang ng oras",
-      "Pagsusulat at paglalaro lang",
+      "Pagsusulat lang",
       "Pagsusulat, pakikinig ng music, at iba pang gawain",
       "Pambukas ng ilaw"
     ],
@@ -348,7 +348,7 @@
     "lesson_id": 2,
     "question_id": 125,
     "type": "text_mcq",
-    "question": "Gusto ni Juan mag-print ng kanyang project mula sa Microsoft Word. Alin ang output device na dapat gamitin?",
+    "question": "Gusto ni Juan mag-print ng dokumento. Alin ang output device na dapat gamitin?",
     "options": [
       "Keyboard",
       "Printer",
@@ -364,7 +364,7 @@
     "lesson_id": 2,
     "question_id": 126,
     "type": "text_mcq",
-    "question": "Alin sa mga sumusunod ang hindi input device?",
+    "question": "Alin sa mga sumusunod ang hindi INPUT device?",
     "options": [
       "Keyboard",
       "Mouse",
@@ -411,7 +411,7 @@
     "lesson_id": 3,
     "question_id": 129,
     "type": "text_mcq",
-    "question": "Si Liza ay nagbukas ng computer. Pagkatapos lumabas ang desktop, gusto niyang maghanap ng Microsoft Word. Ano ang dapat niyang gawin?",
+    "question": "Si Liza ay nagbukas ng computer. Gusto niyang hanapin ang Microsoft Word. Ano ang dapat niyang gawin?",
     "options": [
       "Hanapin sa wallpaper",
       "I-click ang Start Menu at hanapin ang app",
@@ -427,7 +427,7 @@
     "lesson_id": 3,
     "question_id": 130,
     "type": "text_mcq",
-    "question": "Kung gusto mong i-resize o i-close ang isang window, anong parte ng computer ang ginagamit?",
+    "question": "Habang ginagamit ang computer, alin dito ang ginagalaw ng mouse?",
     "options": [
       "Keyboard space bar",
       "Taskbar",
@@ -478,10 +478,10 @@
     "options": [
       "Ituloy ang installation",
       "I-install lahat ng offers",
-      "I-cancel ang installer at hanapin ang trusted source",
+      "I-cancel ang installer",
       "I-restart lang ang computer"
     ],
-    "answer": "I-cancel ang installer at hanapin ang trusted source",
+    "answer": "I-cancel ang installer",
     "image": null
   },
   {

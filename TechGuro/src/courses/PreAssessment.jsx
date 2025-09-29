@@ -247,6 +247,7 @@ const PreAssessment = () => {
               question={{ ...currentQuestion, questionNumber: currentQuestionIndex + 1 }}
               selectedAnswer={currentAnswer}
               onAnswerChange={handleAnswerChange}
+              assessmentType={"pre"}
             />
           </div>
 

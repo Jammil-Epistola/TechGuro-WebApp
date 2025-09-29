@@ -3,27 +3,38 @@ from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 from sqlalchemy.orm import Session
 
-# Uses your existing models (names from the file you showed)
 from TGbackend.models import (
     AssessmentResults,
     AssessmentQuestionResponse,
     UserLessonMastery,
-    UserLessonMasteryHistory,  # Added this import
+    UserLessonMasteryHistory, 
     Lesson,
 )
 
 class BKTService:
 
-    # Map lesson_id -> canonical skill name (extend as you add lessons)
+    # Map lesson_id -
     SKILL_NAMES: Dict[int, str] = {
+        # Computer Basics (1-5)
         1: "what_is_computer",
-        2: "computer_parts",
-        3: "turning_on_off",
-        4: "exploring_desktop",
-        5: "using_mouse",
-        6: "opening_closing_programs",
-        7: "switching_windows",
-        8: "using_start_menu",
+        2: "hardware_software", 
+        3: "computer_use",
+        4: "install_application",
+        5: "basic_troubleshooting",
+        
+        # Internet Safety (6-10)
+        6: "what_is_internet",
+        7: "fake_news",
+        8: "online_scams", 
+        9: "avoiding_malware",
+        10: "protect_privacy",
+        
+        # Digital Communication and Messaging (11-15)
+        11: "communicating_online",
+        12: "use_an_email",
+        13: "use_messaging_apps",
+        14: "video_communication", 
+        15: "etiquette_safety",
     }
 
     def __init__(
@@ -254,7 +265,13 @@ class BKTService:
 
         # Recommend those below threshold
         below = [lesson_id for (lesson_id, m) in items if m < threshold]
-        top = below[:limit] if below else [lid for (lid, _) in items[:limit]]
+        if below:
+            top = below[:limit]
+        else:
+            # Find the minimum mastery value
+            min_val = items[0][1] if items else 0
+            # Recommend only lessons at that min mastery
+            top = [lid for (lid, m) in items if m == min_val]
 
         # Prepare analysis for first 3 items
         mastery_lookup = {lid: m for (lid, m) in items}
@@ -419,7 +436,7 @@ class BKTService:
             .all()
         )
         return responses
-        # Add assessment type filter if specified
+        # Add assessment type filter if specified  <-- This code is unreachable!
         if assessment_type:
             query = query.filter(AssessmentResults.assessment_type == assessment_type)
             

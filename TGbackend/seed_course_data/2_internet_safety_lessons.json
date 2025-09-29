@@ -1,0 +1,339 @@
+{
+  "course_id": 2,
+  "course_name": "Internet Safety",
+  "image_url": "course_img2.png",
+  "lessons": [
+    {
+      "lesson_id": 6,
+      "lesson_title": "What is the Internet?",
+      "goal": "Understand what the internet is and how it is used.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "What is the Internet?",
+          "content": [
+            "The internet is a global network connecting computers and devices.",
+            "Para itong 'highway ng impormasyon' na ginagamit ng lahat.",
+            "It allows people to share and get information anytime."
+          ],
+          "media_url": null,
+          "tts_text": "The internet is a global network connecting computers and devices. Para itong 'highway ng impormasyon' na ginagamit ng lahat. It allows people to share and get information anytime."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Everyday Uses of the Internet",
+          "content": [
+            "Browsing websites for news and information.",
+            "Sending emails and chatting with friends.",
+            "Watching videos, listening to music, and playing games."
+          ],
+          "media_url": null,
+          "tts_text": "Browsing websites for news and information. Sending emails and chatting with friends. Watching videos, listening to music, and playing games."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Communication",
+          "content": [
+            "Internet makes video calls and instant messages possible.",
+            "Nakakapag-connect ka kahit malayo ang pamilya o kaibigan.",
+            "Social media helps people share updates and photos."
+          ],
+          "media_url": null,
+          "tts_text": "Internet makes video calls and instant messages possible. Nakakapag-connect ka kahit malayo ang pamilya o kaibigan. Social media helps people share updates and photos."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Online Services",
+          "content": [
+            "Online shopping and banking are now common.",
+            "You can book tickets or pay bills online.",
+            "These make life easier but also risky if not careful."
+          ],
+          "media_url": null,
+          "tts_text": "Online shopping and banking are now common. You can book tickets or pay bills online. These make life easier but also risky if not careful."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Why Safety Matters",
+          "content": [
+            "Hindi lahat ng nakikita online ay totoo.",
+            "May mga taong gumagamit ng internet para manloko.",
+            "Kaya mahalaga ang pag-aaral ng Internet Safety."
+          ],
+          "media_url": null,
+          "tts_text": "Hindi lahat ng nakikita online ay totoo. May mga taong gumagamit ng internet para manloko. Kaya mahalaga ang pag-aaral ng Internet Safety."
+        }
+      ]
+    },
+    {
+      "lesson_id": 7,
+      "lesson_title": "Recognizing Fake News",
+      "goal": "Learn how to spot false or misleading information online.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Fake News",
+          "content": [
+            "Fake news is false information shared online.",
+            "Madalas ginagamit para magpaloko, manghikayat, o kumita ng views.",
+            "It spreads fast in social media."
+          ],
+          "media_url": null,
+          "tts_text": "Fake news is false information shared online. Madalas ginagamit para magpaloko, manghikayat, o kumita ng views. It spreads fast in social media."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Why Fake News Spreads",
+          "content": [
+            "People share without checking if it’s true.",
+            "Nakikita mo agad sa Facebook, Messenger, or TikTok.",
+            "Fake headlines are designed to catch attention."
+          ],
+          "media_url": null,
+          "tts_text": "People share without checking if it’s true. Nakikita mo agad sa Facebook, Messenger, or TikTok. Fake headlines are designed to catch attention."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Red Flags of Fake News",
+          "content": [
+            "Walang malinaw na source or website.",
+            "Overly dramatic titles like 'Shocking!' or 'Must Share Now!'",
+            "Minsan outdated o edited ang pictures."
+          ],
+          "media_url": null,
+          "tts_text": "Walang malinaw na source or website. Overly dramatic titles like 'Shocking!' or 'Must Share Now!' Minsan outdated o edited ang pictures."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "How to Verify News",
+          "content": [
+            "Check if it comes from a trusted news site.",
+            "Search the topic in multiple sources.",
+            "Look for author, date, and reference."
+          ],
+          "media_url": null,
+          "tts_text": "Check if it comes from a trusted news site. Search the topic in multiple sources. Look for author, date, and reference."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Consequences of Believing Fake News",
+          "content": [
+            "Nakakalito at nakakasira ng tiwala.",
+            "Pwede magdulot ng panic o maling desisyon.",
+            "Kaya laging mag-check bago mag-share."
+          ],
+          "media_url": null,
+          "tts_text": "Nakakalito at nakakasira ng tiwala. Pwede magdulot ng panic o maling desisyon. Kaya laging mag-check bago mag-share."
+        }
+      ]
+    },
+    {
+      "lesson_id": 8,
+      "lesson_title": "Learn about Online Scams",
+      "goal": "Recognize scams and avoid being tricked.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Online Scams",
+          "content": [
+            "Online scams are tricks done through the internet.",
+            "Ang layunin ay makuha ang pera o personal info mo.",
+            "Scammers use emails, websites, or social media."
+          ],
+          "media_url": null,
+          "tts_text": "Online scams are tricks done through the internet. Ang layunin ay makuha ang pera o personal info mo. Scammers use emails, websites, or social media."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Common Scams",
+          "content": [
+            "Fake Online Shops – mura pero walang delivery.",
+            "Prize Scams – 'You won ₱1M!' pero hihingi ng bayad.",
+            "Romance Scams – nagpapanggap na ka-chat para humingi ng pera."
+          ],
+          "media_url": null,
+          "tts_text": "Fake Online Shops – mura pero walang delivery. Prize Scams – 'You won ₱1M!' pero hihingi ng bayad. Romance Scams – nagpapanggap na ka-chat para humingi ng pera."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Red Flags of Scams",
+          "content": [
+            "Nanghihingi agad ng pera o bank details.",
+            "Promises na 'sobrang ganda para maging totoo.'",
+            "Gumagamit ng pressure: 'Act now!'"
+          ],
+          "media_url": null,
+          "tts_text": "Nanghihingi agad ng pera o bank details. Promises na 'sobrang ganda para maging totoo.' Gumagamit ng pressure: 'Act now!'"
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Phishing Emails",
+          "content": [
+            "Pretend emails from banks or companies.",
+            "May fake website link asking for password.",
+            "Halimbawa: 'Update your account now.'"
+          ],
+          "media_url": null,
+          "tts_text": "Pretend emails from banks or companies. May fake website link asking for password. Halimbawa: 'Update your account now.'"
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Social Media Scams",
+          "content": [
+            "Fake giveaways like 'Win ₱10,000!'",
+            "Fake accounts humihingi ng GCash/load.",
+            "Scam investment groups with guaranteed returns."
+          ],
+          "media_url": null,
+          "tts_text": "Fake giveaways like 'Win ₱10,000!' Fake accounts humihingi ng GCash/load. Scam investment groups with guaranteed returns."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "What to Do When Unsure",
+          "content": [
+            "Don’t click links agad.",
+            "Verify sender from official sources.",
+            "Kung duda, huwag sagutin o i-block."
+          ],
+          "media_url": null,
+          "tts_text": "Don’t click links agad. Verify sender from official sources. Kung duda, huwag sagutin o i-block."
+        }
+      ]
+    },
+    {
+      "lesson_id": 9,
+      "lesson_title": "Avoiding Malware",
+      "goal": "Learn about viruses and how to protect your devices.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "What is Malware?",
+          "content": [
+            "Malware = malicious software that harms devices.",
+            "Pwedeng virus, spyware, or ransomware.",
+            "Nakakasira ng files or nagnanakaw ng info."
+          ],
+          "media_url": null,
+          "tts_text": "Malware = malicious software that harms devices. Pwedeng virus, spyware, or ransomware. Nakakasira ng files or nagnanakaw ng info."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "How Malware Spreads",
+          "content": [
+            "Galing sa unsafe downloads or pirated apps.",
+            "Clicking unknown links or pop-up ads.",
+            "Infected USB or email attachments."
+          ],
+          "media_url": null,
+          "tts_text": "Galing sa unsafe downloads or pirated apps. Clicking unknown links or pop-up ads. Infected USB or email attachments."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Signs of Malware Infection",
+          "content": [
+            "Computer is slow or keeps freezing.",
+            "May biglang lumalabas na ads/pop-ups.",
+            "Files missing or encrypted."
+          ],
+          "media_url": null,
+          "tts_text": "Computer is slow or keeps freezing. May biglang lumalabas na ads/pop-ups. Files missing or encrypted."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Protecting Your Device",
+          "content": [
+            "Install antivirus software.",
+            "Keep system and apps updated.",
+            "Don’t install apps from unknown sources."
+          ],
+          "media_url": null,
+          "tts_text": "Install antivirus software. Keep system and apps updated. Don’t install apps from unknown sources."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Safe Browsing Tips",
+          "content": [
+            "Visit trusted websites only.",
+            "Don’t click on suspicious ads.",
+            "Be careful with free downloads."
+          ],
+          "media_url": null,
+          "tts_text": "Visit trusted websites only. Don’t click on suspicious ads. Be careful with free downloads."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "When Infected",
+          "content": [
+            "Run antivirus scan agad.",
+            "Disconnect from the internet if severe.",
+            "Ask for help from a technician."
+          ],
+          "media_url": null,
+          "tts_text": "Run antivirus scan agad. Disconnect from the internet if severe. Ask for help from a technician."
+        }
+      ]
+    },
+    {
+      "lesson_id": 10,
+      "lesson_title": "How to Protect Your Privacy",
+      "goal": "Learn to keep personal data safe online.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Online Privacy",
+          "content": [
+            "Privacy means protecting your personal information.",
+            "Kasama dito ang pangalan, address, password, bank details.",
+            "If exposed, pwede magamit ng scammers."
+          ],
+          "media_url": null,
+          "tts_text": "Privacy means protecting your personal information. Kasama dito ang pangalan, address, password, bank details. If exposed, pwede magamit ng scammers."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Strong Passwords",
+          "content": [
+            "Use mix of letters, numbers, symbols.",
+            "Don’t reuse the same password everywhere.",
+            "Huwag i-share kahit sa kakilala."
+          ],
+          "media_url": null,
+          "tts_text": "Use mix of letters, numbers, symbols. Don’t reuse the same password everywhere. Huwag i-share kahit sa kakilala."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Two-Factor Authentication (2FA)",
+          "content": [
+            "Extra security step when logging in.",
+            "Sends a code to your phone/email.",
+            "Kahit makuha ang password, di agad makakapasok."
+          ],
+          "media_url": null,
+          "tts_text": "Extra security step when logging in. Sends a code to your phone/email. Kahit makuha ang password, di agad makakapasok."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Social Media Privacy",
+          "content": [
+            "Limit what you share publicly.",
+            "Huwag i-post ang address, ID, or financial info.",
+            "Check privacy settings regularly."
+          ],
+          "media_url": null,
+          "tts_text": "Limit what you share publicly. Huwag i-post ang address, ID, or financial info. Check privacy settings regularly."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Beware of Oversharing",
+          "content": [
+            "Too much info can be used for scams.",
+            "Example: travel plans → alam ng magnanakaw wala ka sa bahay.",
+            "Think before posting."
+          ],
+          "media_url": null,
+          "tts_text": "Too much info can be used for scams. Example: travel plans → alam ng magnanakaw wala ka sa bahay. Think before posting."
+        }
+      ]
+    }
+  ]
+}

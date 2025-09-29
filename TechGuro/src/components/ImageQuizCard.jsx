@@ -1,3 +1,4 @@
+// Updated ImageQuizCard.jsx - Debug and Fix Answer Comparison
 import React from "react";
 import { motion } from "motion/react";
 import { Image, Check } from "lucide-react";
@@ -5,21 +6,63 @@ import { Image, Check } from "lucide-react";
 const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
   if (!question) return null;
 
-  const { question_id, options, question_number } = question;
-  
-  // Parse options safely
+  const { options } = question;
+
+  console.log('ImageQuizCard Debug Info:', {
+    question: question,
+    correct_answer: question.correct_answer,
+    answer: question.answer, // Check if it's stored as 'answer' instead
+    correct: question.correct, // Check if it's stored as 'correct' instead
+    options: options,
+    userAnswer: userAnswer
+  });
+
+  // ✅ Parse options safely (handle JSON string from DB or already-parsed array)
   const parsedOptions = Array.isArray(options)
     ? options
     : (() => {
-        try {
-          return JSON.parse(options || '[]');
-        } catch {
-          return [];
-        }
-      })();
+      try {
+        return JSON.parse(options || "[]");
+      } catch {
+        return [];
+      }
+    })();
+
+  console.log('Parsed options:', parsedOptions);
+
+  // ✅ Helper function to get option value (copied from QuestionCard)
+  const getOptionValue = (option) => {
+    console.log('Processing option:', option);
+    
+    if (typeof option === 'object' && option.image) {
+      console.log('Option is object with image:', option.image);
+      return option.image;
+    }
+    console.log('Option is text:', option);
+    return option;
+  };
+
+  // ✅ Helper function to render option content (copied from QuestionCard)
+  const renderOptionContent = (option, index) => {
+    if (typeof option === 'object' && option.image) {
+      return (
+        <img
+          src={option.image}
+          alt={`Option ${index + 1}`}
+          className="w-full h-full object-cover rounded-lg"
+        />
+      );
+    }
+    return (
+      <span className="text-2xl text-black font-medium text-center">
+        {option}
+      </span>
+    );
+  };
 
   const handleOptionSelect = (optionValue) => {
-    // For image MCQ, we pass the image filename as the answer
+    console.log('Selected option value:', optionValue);
+    console.log('Calling onAnswerChange with:', optionValue);
     onAnswerChange(optionValue);
   };
 
@@ -45,103 +88,93 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
             Image Recognition Quiz
           </span>
         </div>
-        
+
         <h2 className="text-2xl lg:text-3xl font-bold text-[#4C5173] leading-relaxed">
           {question.question}
         </h2>
+        
+        {/* Debug Info Display (remove this in production) */}
+        <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-left text-sm">
+          <p><strong>Correct Answer:</strong> {question.correct_answer || question.answer || question.correct || 'MISSING!'}</p>
+          <p><strong>User Answer:</strong> {userAnswer || 'None'}</p>
+          <p><strong>Options:</strong> {JSON.stringify(parsedOptions)}</p>
+          <p><strong>All Question Fields:</strong> {JSON.stringify(Object.keys(question))}</p>
+        </div>
       </motion.div>
 
       {/* Options Grid */}
       <div className="flex-1 flex items-center justify-center">
         <div className="w-full max-w-4xl">
-          <div className={`grid gap-6 ${parsedOptions.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 
-                                      parsedOptions.length === 3 ? 'grid-cols-1 sm:grid-cols-3' : 
-                                      'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+          <div
+            className={`grid gap-6 ${parsedOptions.length === 2
+                ? "grid-cols-1 sm:grid-cols-2"
+                : parsedOptions.length === 3
+                  ? "grid-cols-1 sm:grid-cols-3"
+                  : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              }`}
+          >
             {parsedOptions.map((opt, index) => {
-              const optionValue = opt.image || opt;
+              // Debug each option processing
+              const optionValue = getOptionValue(opt);
               const isSelected = userAnswer === optionValue;
               
+              console.log(`Option ${index}:`, {
+                original: opt,
+                processed: optionValue,
+                isSelected: isSelected,
+                userAnswer: userAnswer
+              });
+
               return (
-                <motion.button
+                <button
                   key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    duration: 0.4, 
-                    delay: 0.2 + (index * 0.1),
-                    type: "spring",
-                    stiffness: 100
-                  }}
                   onClick={() => handleOptionSelect(optionValue)}
-                  className={`relative group p-6 rounded-2xl border-3 transition-all duration-300 transform hover:scale-105 ${
-                    isSelected
-                      ? "border-[#B6C44D] bg-gradient-to-br from-[#F4EDD9] to-[#FFF8E1] shadow-lg scale-105"
+                  className={`relative p-6 rounded-2xl border-3 transition-all duration-300 ${isSelected
+                      ? "border-[#B6C44D] bg-gradient-to-br from-[#F4EDD9] to-[#FFF8E1] shadow-lg"
                       : "border-gray-200 bg-white hover:border-[#4C5173] hover:shadow-md"
-                  }`}
-                  whileHover={{ 
-                    scale: isSelected ? 1.05 : 1.08,
-                    transition: { duration: 0.2 }
-                  }}
-                  whileTap={{ scale: 0.98 }}
+                    }`}
                 >
                   {/* Selection Indicator */}
                   {isSelected && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ 
-                        duration: 0.3,
-                        type: "spring",
-                        stiffness: 200
-                      }}
-                      className="absolute -top-2 -right-2 w-8 h-8 bg-[#B6C44D] rounded-full flex items-center justify-center shadow-lg z-10"
-                    >
+                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-[#B6C44D] rounded-full flex items-center justify-center shadow-lg z-10">
                       <Check className="w-5 h-5 text-black" />
-                    </motion.div>
+                    </div>
                   )}
 
                   {/* Image Container */}
-                  <div className="relative overflow-hidden rounded-xl mb-4 bg-gray-50">
-                    <motion.img
-                      src={`/quiz_images/${optionValue}`}
-                      alt={`Option ${index + 1}`}
-                      className="w-full h-48 object-contain p-4 group-hover:scale-110 transition-transform duration-300"
-                      onError={(e) => {
-                        e.target.src = '/images/placeholder.png'; // fallback image
-                        e.target.className = "w-full h-48 object-contain p-4 opacity-50";
-                      }}
-                      loading="lazy"
-                    />
-                    
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-[#4C5173] bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 rounded-xl" />
+                  <div className="mb-4 bg-gray-50 rounded-xl p-4">
+                    {typeof opt === 'object' && opt.image ? (
+                      <img
+                        src={opt.image}
+                        alt={`Option ${index + 1}`}
+                        className="w-full h-40 object-contain"
+                        onLoad={(e) => {
+                          console.log(`Image loaded: ${opt.image}`);
+                        }}
+                        onError={(e) => {
+                          console.error(`Image failed to load: ${opt.image}`);
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-40 flex items-center justify-center">
+                        <span className="text-xl text-black font-medium">
+                          {opt}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Option Label */}
                   <div className="text-center">
-                    <span className={`text-lg font-semibold transition-colors duration-300 ${
-                      isSelected ? "text-[#4C5173]" : "text-gray-700 group-hover:text-[#4C5173]"
-                    }`}>
+                    <span className={`text-lg font-semibold ${isSelected ? "text-[#4C5173]" : "text-gray-700"}`}>
                       Option {String.fromCharCode(65 + index)}
                     </span>
+                    {/* Debug: Show processed value */}
+                    <div className="text-xs text-gray-500 mt-1">
+                      Value: {optionValue}
+                    </div>
                   </div>
-
-                  {/* Selection Ring Animation */}
-                  {isSelected && (
-                    <motion.div
-                      className="absolute inset-0 border-3 border-[#B6C44D] rounded-2xl"
-                      initial={{ scale: 1.1, opacity: 0 }}
-                      animate={{ 
-                        scale: 1, 
-                        opacity: [0, 1, 0],
-                      }}
-                      transition={{ 
-                        duration: 0.6,
-                        times: [0, 0.5, 1]
-                      }}
-                    />
-                  )}
-                </motion.button>
+                </button>
               );
             })}
           </div>
@@ -158,7 +191,7 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
         {userAnswer ? (
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-full">
             <Check className="w-4 h-4" />
-            <span className="text-sm font-medium">Answer selected</span>
+            <span className="text-sm font-medium">Answer selected: {userAnswer}</span>
           </div>
         ) : (
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 rounded-full">

@@ -1,0 +1,355 @@
+{
+  "course_id": 3,
+  "course_name": "Digital Communication & Messaging",
+  "image_url": "course_img3.png",
+  "lessons": [
+    {
+      "lesson_id": 11,
+      "lesson_title": "Communicating Online",
+      "goal": "Understand online communication tools, benefits, and challenges.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Communicating Online",
+          "content": [
+            "Dahil sa internet, puwede tayong makipag-usap kahit saan.",
+            "Mas mabilis ito kaysa sulat o tawag sa landline."
+          ],
+          "media_url": null,
+          "tts_text": "Dahil sa internet, puwede tayong makipag-usap kahit saan. Mas mabilis ito kaysa sulat o tawag sa landline."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Online Communication Tools",
+          "content": [
+            "Email: para sa mahahaba at pormal na mensahe.",
+            "Messaging apps: para sa mabilis na chat.",
+            "Social media: para sa balita at pagbabahagi.",
+            "Video calls: parang harapan na usapan kahit online."
+          ],
+          "media_url": null,
+          "tts_text": "Email: para sa mahahaba at pormal na mensahe. Messaging apps: para sa mabilis na chat. Social media: para sa balita at pagbabahagi. Video calls: parang harapan na usapan kahit online."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Benefits of Online Communication",
+          "content": [
+            "Mabilis dumating ang mensahe.",
+            "Libre o mura kumpara sa tawag sa telepono.",
+            "Nakaka-connect kahit malayo ang pamilya."
+          ],
+          "media_url": null,
+          "tts_text": "Mabilis dumating ang mensahe. Libre o mura kumpara sa tawag sa telepono. Nakaka-connect kahit malayo ang pamilya."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Challenges of Online Communication",
+          "content": [
+            "Minsan mali ang pagkakaintindi sa mensahe.",
+            "Madaling kumalat ang fake news o scam.",
+            "Hindi kasing personal ng harapang usapan."
+          ],
+          "media_url": null,
+          "tts_text": "Minsan mali ang pagkakaintindi sa mensahe. Madaling kumalat ang fake news o scam. Hindi kasing personal ng harapang usapan."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Choosing the Right Tool",
+          "content": [
+            "Email: gamit sa trabaho o pagpapadala ng dokumento.",
+            "Messenger: ka-chat ang pamilya at kaibigan.",
+            "Video call: para makita at makausap ang mahal sa buhay."
+          ],
+          "media_url": null,
+          "tts_text": "Email: gamit sa trabaho o pagpapadala ng dokumento. Messenger: ka-chat ang pamilya at kaibigan. Video call: para makita at makausap ang mahal sa buhay."
+        }
+      ]
+    },
+    {
+      "lesson_id": 12,
+      "lesson_title": "How to Use an Email",
+      "goal": "Learn how to create, send, and manage emails safely.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "What is Email?",
+          "content": [
+            "Email ay 'electronic mail.'",
+            "Para itong sulat pero online ipinapadala."
+          ],
+          "media_url": null,
+          "tts_text": "Email ay 'electronic mail.' Para itong sulat pero online ipinapadala."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Creating an Email Account",
+          "content": [
+            "Pumili ng provider tulad ng Gmail o Yahoo.",
+            "Mag-sign up gamit ang pangalan, password, at cellphone number."
+          ],
+          "media_url": null,
+          "tts_text": "Pumili ng provider tulad ng Gmail o Yahoo. Mag-sign up gamit ang pangalan, password, at cellphone number."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Email Inbox Overview",
+          "content": [
+            "Inbox: bagong emails na dumating.",
+            "Sent: mga ipinadala mo na.",
+            "Draft: hindi pa tapos na sulat.",
+            "Spam: hindi ligtas o basurang email."
+          ],
+          "media_url": null,
+          "tts_text": "Inbox: bagong emails na dumating. Sent: mga ipinadala mo na. Draft: hindi pa tapos na sulat. Spam: hindi ligtas o basurang email."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Writing an Email",
+          "content": [
+            "'To': email address ng padadalhan.",
+            "'Subject': maikling paksa.",
+            "'Message': nilalaman ng email."
+          ],
+          "media_url": null,
+          "tts_text": "'To': email address ng padadalhan. 'Subject': maikling paksa. 'Message': nilalaman ng email."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Sending an Email with Attachment",
+          "content": [
+            "Puwedeng mag-attach ng larawan o dokumento.",
+            "Hanapin ang paperclip icon."
+          ],
+          "media_url": null,
+          "tts_text": "Puwedeng mag-attach ng larawan o dokumento. Hanapin ang paperclip icon."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "Checking Received Emails",
+          "content": [
+            "I-click para basahin.",
+            "Puwede mag-reply kung sasagot ka.",
+            "Puwede i-forward kung gusto mong ipasa sa iba."
+          ],
+          "media_url": null,
+          "tts_text": "I-click para basahin. Puwede mag-reply kung sasagot ka. Puwede i-forward kung gusto mong ipasa sa iba."
+        },
+        {
+          "slide_number": 7,
+          "slide_title": "Identifying Spam Emails",
+          "content": [
+            "Huwag buksan kung galing sa hindi kilala.",
+            "Iwasan mag-click ng unknown links.",
+            "Burahin o ilipat sa Spam folder."
+          ],
+          "media_url": null,
+          "tts_text": "Huwag buksan kung galing sa hindi kilala. Iwasan mag-click ng unknown links. Burahin o ilipat sa Spam folder."
+        }
+      ]
+    },
+    {
+      "lesson_id": 13,
+      "lesson_title": "How to Use Messaging Apps (Messenger)",
+      "goal": "Learn to install, chat, and stay safe using messaging apps.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Messaging Apps",
+          "content": [
+            "Mga sikat: Messenger, Viber, WhatsApp.",
+            "Ginagamit para sa mabilisang chat."
+          ],
+          "media_url": null,
+          "tts_text": "Mga sikat: Messenger, Viber, WhatsApp. Ginagamit para sa mabilisang chat."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Installing and Opening Messenger",
+          "content": [
+            "I-download mula sa Play Store o App Store.",
+            "I-tap ang icon para buksan."
+          ],
+          "media_url": null,
+          "tts_text": "I-download mula sa Play Store o App Store. I-tap ang icon para buksan."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Adding Contacts",
+          "content": [
+            "Hanapin ang pangalan ng tao.",
+            "Magpadala o tumanggap ng friend request."
+          ],
+          "media_url": null,
+          "tts_text": "Hanapin ang pangalan ng tao. Magpadala o tumanggap ng friend request."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Sending a Message",
+          "content": [
+            "I-tap ang chat box at i-type ang mensahe.",
+            "Puwede magdagdag ng emoji, larawan, o voice."
+          ],
+          "media_url": null,
+          "tts_text": "I-tap ang chat box at i-type ang mensahe. Puwede magdagdag ng emoji, larawan, o voice."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Group Chats",
+          "content": [
+            "Gumawa ng group para sa pamilya o barkada.",
+            "Lahat ng nasa group ay makakabasa ng mensahe."
+          ],
+          "media_url": null,
+          "tts_text": "Gumawa ng group para sa pamilya o barkada. Lahat ng nasa group ay makakabasa ng mensahe."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "Making Voice/Video Calls",
+          "content": [
+            "I-tap ang phone o camera icon.",
+            "Libre basta may internet."
+          ],
+          "media_url": null,
+          "tts_text": "I-tap ang phone o camera icon. Libre basta may internet."
+        },
+        {
+          "slide_number": 7,
+          "slide_title": "Staying Safe in Messaging Apps",
+          "content": [
+            "Huwag tanggapin ang request ng hindi kilala.",
+            "Huwag ibigay ang password.",
+            "Mag-ingat sa pag-click ng links."
+          ],
+          "media_url": null,
+          "tts_text": "Huwag tanggapin ang request ng hindi kilala. Huwag ibigay ang password. Mag-ingat sa pag-click ng links."
+        }
+      ]
+    },
+    {
+      "lesson_id": 14,
+      "lesson_title": "Video Communication",
+      "goal": "Understand and properly use video calls for communication.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Video Communication",
+          "content": [
+            "Nakikita at naririnig ang kausap online.",
+            "Halimbawa: Zoom, Google Meet, Messenger."
+          ],
+          "media_url": null,
+          "tts_text": "Nakikita at naririnig ang kausap online. Halimbawa: Zoom, Google Meet, Messenger."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Why Use Video Calls?",
+          "content": [
+            "Para makausap ang pamilya kahit malayo.",
+            "Para sa online class o meeting."
+          ],
+          "media_url": null,
+          "tts_text": "Para makausap ang pamilya kahit malayo. Para sa online class o meeting."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Joining a Video Call",
+          "content": [
+            "I-click ang meeting link.",
+            "Payagan ang mic at camera."
+          ],
+          "media_url": null,
+          "tts_text": "I-click ang meeting link. Payagan ang mic at camera."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Using Controls",
+          "content": [
+            "Mute/unmute para sa tunog.",
+            "Camera on/off para sa video.",
+            "Leave meeting kung tapos na."
+          ],
+          "media_url": null,
+          "tts_text": "Mute/unmute para sa tunog. Camera on/off para sa video. Leave meeting kung tapos na."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Good Practices During Calls",
+          "content": [
+            "Umupo sa tahimik na lugar.",
+            "Gumamit ng maliwanag na ilaw.",
+            "Siguraduhin na stable ang internet."
+          ],
+          "media_url": null,
+          "tts_text": "Umupo sa tahimik na lugar. Gumamit ng maliwanag na ilaw. Siguraduhin na stable ang internet."
+        },
+        {
+          "slide_number": 6,
+          "slide_title": "Ending a Call Properly",
+          "content": [
+            "Pindutin ang 'Leave Meeting' o 'End Call.'",
+            "Magpaalam bago umalis."
+          ],
+          "media_url": null,
+          "tts_text": "Pindutin ang 'Leave Meeting' o 'End Call.' Magpaalam bago umalis."
+        }
+      ]
+    },
+    {
+      "lesson_id": 15,
+      "lesson_title": "Online Etiquette and Safety",
+      "goal": "Learn proper netiquette, privacy, and safe online behavior.",
+      "slides": [
+        {
+          "slide_number": 1,
+          "slide_title": "Online Etiquette",
+          "content": [
+            "'Netiquette' = magandang asal sa internet.",
+            "Mahalaga ang pagiging magalang kahit online."
+          ],
+          "media_url": null,
+          "tts_text": "'Netiquette' = magandang asal sa internet. Mahalaga ang pagiging magalang kahit online."
+        },
+        {
+          "slide_number": 2,
+          "slide_title": "Be Respectful",
+          "content": [
+            "Huwag mag-type ng ALL CAPS (parang sumisigaw).",
+            "Gumamit ng mabait na salita."
+          ],
+          "media_url": null,
+          "tts_text": "Huwag mag-type ng ALL CAPS (parang sumisigaw). Gumamit ng mabait na salita."
+        },
+        {
+          "slide_number": 3,
+          "slide_title": "Think Before Posting or Sending",
+          "content": [
+            "Hindi na mababawi ang naipadala online.",
+            "Mag-share lang ng bagay na komportable ka."
+          ],
+          "media_url": null,
+          "tts_text": "Hindi na mababawi ang naipadala online. Mag-share lang ng bagay na komportable ka."
+        },
+        {
+          "slide_number": 4,
+          "slide_title": "Privacy in Conversations",
+          "content": [
+            "Huwag sobra magbahagi ng personal info.",
+            "Panatilihing private ang password at address."
+          ],
+          "media_url": null,
+          "tts_text": "Huwag sobra magbahagi ng personal info. Panatilihing private ang password at address."
+        },
+        {
+          "slide_number": 5,
+          "slide_title": "Avoiding Misunderstandings",
+          "content": [
+            "Minsan harsh ang text dahil walang tono.",
+            "Emoji puwedeng makatulong pero gamitin nang tama."
+          ],
+          "media_url": null,
+          "tts_text": "Minsan harsh ang text dahil walang tono. Emoji puwedeng makatulong pero gamitin nang tama."
+        }
+      ]
+    }
+  ]
+}

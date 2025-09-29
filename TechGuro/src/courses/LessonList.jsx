@@ -1,4 +1,4 @@
-//LessonList.jsx - Updated with Quiz Section
+//LessonList.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from "motion/react";
@@ -173,6 +173,8 @@ const LessonList = () => {
 
   // Handle quiz mode selection
   const handleQuizModeSelect = async (quizType) => {
+    setSelectedQuizType(null);
+    setAvailableLessonsForQuiz([]);
     setSelectedQuizType(quizType);
     setShowLessonModal(true);
     await fetchQuizLessons(quizType);
@@ -192,16 +194,13 @@ const LessonList = () => {
         },
       }
     );
-
-    // Reset AFTER modal fully closes
-    setTimeout(() => {
-      setSelectedQuizType(null);
-      setAvailableLessonsForQuiz([]);
-    }, 200); // small delay to avoid race condition
+    setSelectedQuizType(null);
+    setAvailableLessonsForQuiz([]);
   };
 
   const handleCloseModal = () => {
     setShowLessonModal(false);
+    setSelectedQuizType(null);
     setAvailableLessonsForQuiz([]);
   };
 
@@ -771,7 +770,7 @@ const LessonList = () => {
                             {lessonInfo.lesson_title}
                           </h3>
                           <div className="flex items-center gap-4 text-[14px] text-gray-600">
-                            <span>📝 {selectedQuizType === "image_mcq" ? 10 : selectedQuizType === "drag_drop" ? 5 : selectedQuizType === "typing" ? 5 : lessonInfo.total_questions} questions</span>
+                            <span>📝 {selectedQuizType === "multiple_choice" ? 10 : selectedQuizType === "drag_drop" ? 5 : selectedQuizType === "typing" ? 5 : lessonInfo.total_questions} questions</span>
                             {lessonInfo.time_limit && (
                               <span>⏱️ {lessonInfo.time_limit}s time limit</span>
                             )}

@@ -305,18 +305,19 @@
     "lesson_id": 1,
     "question_id": 11021,
     "type": "drag_drop",
-    "question": "I-match ang mga uri ng computer sa tamang larawan: I-drag ang Desktop, Laptop, at Tablet sa kani-kanilang larawan.",
+    "question": "I-drag ang tamang sagot: Alin dito ang tatlong uri ng Computer?",
     "drag_items": [
       {"id": "item1", "text": "Desktop", "type": "draggable"},
-      {"id": "item2", "text": "Laptop", "type": "draggable"},
-      {"id": "item3", "text": "Tablet", "type": "draggable"}
+      {"id": "item2", "text": "Radio", "type": "draggable"},
+      {"id": "item3", "text": "Laptop", "type": "draggable"},
+      {"id": "item4", "text": "Electric Fan", "type": "draggable"},
+      {"id": "item5", "text": "Mouse", "type": "draggable"},
+      {"id": "item6", "text": "Tablet", "type": "draggable"}
     ],
     "drop_zones": [
-      {"id": "desktop_zone", "position": "box", "label": "DESKTOP", "accepts_multiple": false},
-      {"id": "laptop_zone", "position": "box", "label": "LAPTOP", "accepts_multiple": false},
-      {"id": "tablet_zone", "position": "box", "label": "TABLET", "accepts_multiple": false}
+      {"id": "desktop_zone", "position": "box", "accepts_multiple": true}
     ],
-    "answer": "{\"desktop_zone\": [\"Desktop\"], \"laptop_zone\": [\"Laptop\"], \"tablet_zone\": [\"Tablet\"]}",
+    "answer": "{\"desktop_zone\": [\"Desktop\"], [\"Laptop\"], [\"Tablet\"]}",
     "image": null
   },
   {
@@ -498,7 +499,7 @@
     "question_id": 11031,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang tawag sa makina na tumutulong sa atin gumawa ng iba’t ibang gawain?",
-    "options": null,
+    "options": ["radio", "television" , "computer" ],
     "answer": "computer",
     "image": null
   },
@@ -509,7 +510,7 @@
     "question_id": 11032,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang dalawang pangunahing bahagi ng computer na nagtutulungan?",
-    "options": null,
+    "options": ["hardware at software", "keyboard at mouse" , "monitor at CPU" ],
     "answer": "hardware at software",
     "image": null
   },
@@ -520,7 +521,7 @@
     "question_id": 11033,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang tawag sa pisikal na parte ng computer na nahahawakan mo?",
-    "options": null,
+    "options": ["software", "operating system" , "hardware" ],
     "answer": "hardware",
     "image": null
   },
@@ -531,7 +532,7 @@
     "question_id": 11034,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang tawag sa mga apps at programs na nagpapatakbo ng computer?",
-    "options": null,
+    "options": ["software", "hardware" , "peopleware" ],
     "answer": "software",
     "image": null
   },
@@ -542,7 +543,7 @@
     "question_id": 11035,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong klase ng computer ang malaki at ginagamit sa iisang lugar?",
-    "options": null,
+    "options": ["smartwatch", "desktop" , "tablet" ],
     "answer": "desktop",
     "image": null
   },
@@ -553,7 +554,7 @@
     "question_id": 11036,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang portable at madaling dalhin kahit saan na klase ng computer?",
-    "options": null,
+    "options": ["desktop", "refrigerator" , "laptop" ],
     "answer": "laptop",
     "image": null
   },
@@ -564,7 +565,7 @@
     "question_id": 11037,
     "type": "typing",
     "question": "I-type ang tamang sagot: Anong maliit na touchscreen device ang puwedeng gamitin sa pag-browse o apps?",
-    "options": null,
+    "options": ["tablet", "computer" , "laptop" ],
     "answer": "tablet",
     "image": null
   },
@@ -575,7 +576,7 @@
     "question_id": 11038,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang ginagamit para mag-type ng letters at numbers sa computer?",
-    "options": null,
+    "options": ["cellphone", "earphones" , "keyboard" ],
     "answer": "keyboard",
     "image": null
   },
@@ -586,7 +587,7 @@
     "question_id": 11039,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang ginagamit para mag-navigate at mag-click sa screen?",
-    "options": null,
+    "options": ["keyboard", "mouse" , "microphone" ],
     "answer": "mouse",
     "image": null
   },
@@ -597,7 +598,7 @@
     "question_id": 11040,
     "type": "typing",
     "question": "I-type ang tamang sagot: Ano ang ginagamit na software para mag-browse ng internet?",
-    "options": null,
+    "options": ["web browser", "video games" , "internet" ],
     "answer": "web browser",
     "image": null
   }

@@ -249,6 +249,7 @@ const PostAssessment = () => {
               question={{ ...currentQuestion, questionNumber: currentQuestionIndex + 1 }}
               selectedAnswer={currentAnswer}
               onAnswerChange={handleAnswerChange}
+              assessmentType={"post"}
             />
           </div>
 

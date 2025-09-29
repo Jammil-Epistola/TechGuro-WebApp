@@ -8,7 +8,7 @@
     "question": "Alin ang tamang installer mula sa trusted source?",
     "options": [
       {"image": "microsoft_store.png"},
-      {"image": "unknown_website.png"},
+      {"image": "shady_download.png"},
       {"image": "shady_installer.png"}
     ],
     "answer": "microsoft_store.png",
