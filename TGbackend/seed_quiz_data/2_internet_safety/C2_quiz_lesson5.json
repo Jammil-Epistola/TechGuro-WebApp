@@ -1,0 +1,592 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25001,
+    "type": "image_mcq",
+    "question": "Alin dito ang nagpapakita ng personal information na dapat protektahan?",
+    "options": [
+      {"image": "personal_info.png"},
+      {"image": "landscape.png"},
+      {"image": "animal.png"}
+    ],
+    "answer": "personal_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25002,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng strong password?",
+    "options": [
+      {"image": "StrongPass1!.png"},
+      {"image": "12345.png"},
+      {"image": "password.png"}
+    ],
+    "answer": "StrongPass1!.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25003,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng weak password na dapat iwasan?",
+    "options": [
+      {"image": "12345.png"},
+      {"image": "My$ecureP@ss.png"},
+      {"image": "Mix3dPass!.png"}
+    ],
+    "answer": "12345.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25004,
+    "type": "image_mcq",
+    "question": "Alin dito ang nagpapakita ng two-factor authentication (2FA)?",
+    "options": [
+      {"image": "2fa_code.png"},
+      {"image": "login_screen.png"},
+      {"image": "email_icon.png"}
+    ],
+    "answer": "2fa_code.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25005,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng social media privacy setting?",
+    "options": [
+      {"image": "privacy_setting.png"},
+      {"image": "public_post.png"},
+      {"image": "photo_album.png"}
+    ],
+    "answer": "privacy_setting.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25006,
+    "type": "image_mcq",
+    "question": "Alin ang naglalarawan ng oversharing ng personal info?",
+    "options": [
+      {"image": "sharing_travel_plan.png"},
+      {"image": "posting_food.png"},
+      {"image": "posting_cat.png"}
+    ],
+    "answer": "sharing_travel_plan.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25007,
+    "type": "image_mcq",
+    "question": "Alin ang dapat iwasan i-post sa social media?",
+    "options": [
+      {"image": "address_info.png"},
+      {"image": "landscape_photo.png"},
+      {"image": "pet_photo.png"}
+    ],
+    "answer": "address_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25008,
+    "type": "image_mcq",
+    "question": "Alin dito ang naglalarawan ng paghahalo ng letters, numbers, at symbols para sa password?",
+    "options": [
+      {"image": "StrongPass1!.png"},
+      {"image": "password.png"},
+      {"image": "12345.png"}
+    ],
+    "answer": "StrongPass1!.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25009,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng phishing attempt na dapat bantayan?",
+    "options": [
+      {"image": "suspicious_email.png"},
+      {"image": "safe_website.png"},
+      {"image": "trusted_email.png"}
+    ],
+    "answer": "suspicious_email.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25010,
+    "type": "image_mcq",
+    "question": "Alin ang naglalarawan ng seguridad kahit nakakuha ang hacker ng password?",
+    "options": [
+      {"image": "2fa_code.png"},
+      {"image": "password_only.png"},
+      {"image": "open_wifi.png"}
+    ],
+    "answer": "2fa_code.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25011,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng personal info na hindi dapat i-share kahit sa kakilala?",
+    "options": [
+      {"image": "bank_details.png"},
+      {"image": "favorite_food.png"},
+      {"image": "pet_name.png"}
+    ],
+    "answer": "bank_details.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25012,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang tamang paraan para protektahan ang account online?",
+    "options": [
+      {"image": "strong_password.png"},
+      {"image": "reuse_password.png"},
+      {"image": "share_password.png"}
+    ],
+    "answer": "strong_password.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25013,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng safe online behavior?",
+    "options": [
+      {"image": "check_privacy_settings.png"},
+      {"image": "post_all_info.png"},
+      {"image": "click_unknown_links.png"}
+    ],
+    "answer": "check_privacy_settings.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25014,
+    "type": "image_mcq",
+    "question": "Alin dito ang nagpapakita ng password na hindi dapat i-reuse?",
+    "options": [
+      {"image": "password_reuse.png"},
+      {"image": "unique_password.png"},
+      {"image": "123456.png"}
+    ],
+    "answer": "password_reuse.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25015,
+    "type": "image_mcq",
+    "question": "Alin ang naglalarawan ng info na puwedeng gamitin ng scammers?",
+    "options": [
+      {"image": "personal_info.png"},
+      {"image": "landscape_photo.png"},
+      {"image": "pet_photo.png"}
+    ],
+    "answer": "personal_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25016,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang dapat i-post ng ligtas?",
+    "options": [
+      {"image": "pet_photo.png"},
+      {"image": "address_info.png"},
+      {"image": "bank_details.png"}
+    ],
+    "answer": "pet_photo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25017,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng extra security step kapag nag-login?",
+    "options": [
+      {"image": "2fa_code.png"},
+      {"image": "password_only.png"},
+      {"image": "captcha_only.png"}
+    ],
+    "answer": "2fa_code.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25018,
+    "type": "image_mcq",
+    "question": "Alin dito ang senyales ng oversharing online?",
+    "options": [
+      {"image": "sharing_travel_plan.png"},
+      {"image": "posting_food.png"},
+      {"image": "sharing_meme.png"}
+    ],
+    "answer": "sharing_travel_plan.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25019,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng impormasyon na dapat i-limit sa social media?",
+    "options": [
+      {"image": "financial_info.png"},
+      {"image": "pet_photo.png"},
+      {"image": "landscape_photo.png"}
+    ],
+    "answer": "financial_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25020,
+    "type": "image_mcq",
+    "question": "Alin ang tamang paraan para protektahan ang personal info online?",
+    "options": [
+      {"image": "check_privacy_settings.png"},
+      {"image": "post_all_info.png"},
+      {"image": "share_password.png"}
+    ],
+    "answer": "check_privacy_settings.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25021,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: 'Ang _____ ay tumutukoy sa pagpaprotekta ng personal na impormasyon online.'",
+    "drag_items": [
+      {"id": "item1", "text": "Privacy", "type": "draggable"},
+      {"id": "item2", "text": "Password", "type": "draggable"},
+      {"id": "item3", "text": "Antivirus", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Privacy\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25022,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: 'Ang _____ ay dapat malakas at hindi ginagamit sa ibang accounts.'",
+    "drag_items": [
+      {"id": "item1", "text": "Password", "type": "draggable"},
+      {"id": "item2", "text": "Username", "type": "draggable"},
+      {"id": "item3", "text": "Email", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Password\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25023,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: 'Ang _____ ay extra security step kapag nagla-login online.'",
+    "drag_items": [
+      {"id": "item1", "text": "Two-Factor Authentication", "type": "draggable"},
+      {"id": "item2", "text": "Antivirus", "type": "draggable"},
+      {"id": "item3", "text": "Firewall", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Two-Factor Authentication\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25024,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga dapat i-limit sa social media.",
+    "drag_items": [
+      {"id": "item1", "text": "Address", "type": "draggable"},
+      {"id": "item2", "text": "Bank details", "type": "draggable"},
+      {"id": "item3", "text": "Pet photos", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "sensitive_info_zone", "position": "box", "label": "SENSITIVE INFO", "accepts_multiple": true}
+    ],
+    "answer": "{\"sensitive_info_zone\": [\"Address\", \"Bank details\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25025,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga ligtas i-post sa social media.",
+    "drag_items": [
+      {"id": "item1", "text": "Pet photos", "type": "draggable"},
+      {"id": "item2", "text": "Address", "type": "draggable"},
+      {"id": "item3", "text": "Travel plans", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_zone", "position": "box", "label": "SAFE TO POST", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_zone\": [\"Pet photos\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25026,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: 'Hindi dapat i-share ang _____ kahit sa kakilala.'",
+    "drag_items": [
+      {"id": "item1", "text": "Password", "type": "draggable"},
+      {"id": "item2", "text": "Username", "type": "draggable"},
+      {"id": "item3", "text": "Favorite color", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Password\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25027,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga hakbang para sa strong password.",
+    "drag_items": [
+      {"id": "item1", "text": "Use letters, numbers, symbols", "type": "draggable"},
+      {"id": "item2", "text": "Reuse same password everywhere", "type": "draggable"},
+      {"id": "item3", "text": "Keep it secret", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "strong_pass_zone", "position": "box", "label": "STRONG PASSWORD RULES", "accepts_multiple": true}
+    ],
+    "answer": "{\"strong_pass_zone\": [\"Use letters, numbers, symbols\", \"Keep it secret\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25028,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: 'Ang _____ ay dapat regular na i-check sa social media.'",
+    "drag_items": [
+      {"id": "item1", "text": "Privacy settings", "type": "draggable"},
+      {"id": "item2", "text": "Friend list", "type": "draggable"},
+      {"id": "item3", "text": "Profile picture", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Privacy settings\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25029,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga halimbawa ng oversharing.",
+    "drag_items": [
+      {"id": "item1", "text": "Posting travel plans", "type": "draggable"},
+      {"id": "item2", "text": "Sharing pet photos", "type": "draggable"},
+      {"id": "item3", "text": "Sharing bank details", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "oversharing_zone", "position": "box", "label": "OVERSHARING", "accepts_multiple": true}
+    ],
+    "answer": "{\"oversharing_zone\": [\"Posting travel plans\", \"Sharing bank details\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25030,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: 'Ang _____ ay puwedeng gamitin ng scammers kung na-expose.'",
+    "drag_items": [
+      {"id": "item1", "text": "Personal information", "type": "draggable"},
+      {"id": "item2", "text": "Wallpaper", "type": "draggable"},
+      {"id": "item3", "text": "Screensaver", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Personal information\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa pagpaprotekta ng personal na impormasyon online?",
+    "options": ["privacy", "password", "firewall"],
+    "answer": "privacy",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gamitin para magkaroon ng strong password?",
+    "options": ["letters, numbers, symbols", "only letters", "only numbers"],
+    "answer": "letters, numbers, symbols",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat iwasang gawin sa passwords?",
+    "options": ["reuse sa lahat ng accounts", "keep secret", "use complex characters"],
+    "answer": "reuse sa lahat ng accounts",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang extra security step kapag nagla-login online?",
+    "options": ["two-factor authentication", "antivirus", "firewall"],
+    "answer": "two-factor authentication",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat limitahan sa social media para maprotektahan ang privacy?",
+    "options": ["personal information", "pet photos", "favorite songs"],
+    "answer": "personal information",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat regular na i-check sa social media para sa seguridad?",
+    "options": ["privacy settings", "friend list", "profile picture"],
+    "answer": "privacy settings",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang panganib kapag sobra ang pag-share ng impormasyon online?",
+    "options": ["scams", "fun", "notifications"],
+    "answer": "scams",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong halimbawa ng impormasyon na hindi dapat i-post sa social media?",
+    "options": ["address", "pet photo", "hobby"],
+    "answer": "address",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Sino ang puwedeng gumamit ng personal info kung na-expose?",
+    "options": ["scammers", "friends", "teachers"],
+    "answer": "scammers",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 10,
+    "question_id": 25040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gawin upang hindi mahuli ng hacker kahit nakakuha ng password?",
+    "options": ["two-factor authentication", "reuse password", "share password"],
+    "answer": "two-factor authentication",
+    "image": null
+  }
+]

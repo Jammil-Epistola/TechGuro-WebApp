@@ -1,4 +1,4 @@
-// Updated ImageQuizCard.jsx - Debug and Fix Answer Comparison
+//ImageQuizCard.jsx
 import React from "react";
 import { motion } from "motion/react";
 import { Image, Check } from "lucide-react";
@@ -11,8 +11,8 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
   console.log('ImageQuizCard Debug Info:', {
     question: question,
     correct_answer: question.correct_answer,
-    answer: question.answer, // Check if it's stored as 'answer' instead
-    correct: question.correct, // Check if it's stored as 'correct' instead
+    answer: question.answer, 
+    correct: question.correct, 
     options: options,
     userAnswer: userAnswer
   });

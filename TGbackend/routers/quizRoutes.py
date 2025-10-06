@@ -251,7 +251,7 @@ def submit_quiz(
             print("❌ User answer is empty")
             continue
             
-        if question.question_type == "multiple_choice":
+        if question.question_type == "multiple_choice" or question.question_type == "image_mcq":
             # Enhanced image MCQ comparison
             original_user_answer = user_answer
             
@@ -264,7 +264,7 @@ def submit_quiz(
             correct_answer = str(question.correct_answer)
             user_answer_str = str(user_answer)
             
-            print(f"Before processing - Correct: '{correct_answer}', User: '{user_answer_str}'")
+            print(f"Comparing - Correct: '{correct_answer}', User: '{user_answer_str}'")
             
             # Try multiple comparison strategies
             is_correct = False

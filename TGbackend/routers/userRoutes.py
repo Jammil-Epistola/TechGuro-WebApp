@@ -1,16 +1,27 @@
+#userRoutes.py
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel, EmailStr
+from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from TGbackend import models
 from TGbackend.database import get_db
-from TGbackend.schema import UserCreate, UserLogin, UserProfileUpdate
+from TGbackend.schema import UserCreate, UserLogin, UserProfileUpdate, ForgotPasswordRequest, VerifyCodeRequest, ResetPasswordRequest
+from TGbackend.email_config import send_reset_email
+import secrets
+import os
 
 router = APIRouter(tags=["User Management"])
 
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# Secret key for JWT (use environment variable in production)
+SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
+ALGORITHM = "HS256"
+# Store reset codes temporarily (use Redis in production)
+reset_codes = {}
 
 # Register endpoint
 @router.post("/register")
@@ -68,6 +79,92 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         "age": age,
         "is_elderly": is_elderly,
     }
+
+@router.post("/forgot-password")
+async def request_password_reset(request: ForgotPasswordRequest, db: Session = Depends(get_db)):
+    """Send password reset code to user's email"""
+    email = request.email
+    user = db.query(models.User).filter(models.User.email == email).first()
+    
+    if not user:
+        # Don't reveal if email exists for security
+        return {"message": "If the email exists, a reset code has been sent"}
+    
+    # Generate 6-digit code
+    reset_code = ''.join([str(secrets.randbelow(10)) for _ in range(6)])
+    
+    # Store code with expiration (15 minutes)
+    reset_codes[email] = {
+        "code": reset_code,
+        "expires": datetime.utcnow() + timedelta(minutes=15)
+    }
+    
+    # Send email
+    try:
+        await send_reset_email(email, reset_code)
+        return {"message": "Reset code sent to your email"}
+    except Exception as e:
+        print(f"Email sending failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to send email")
+
+@router.post("/verify-reset-code")
+def verify_reset_code(request: VerifyCodeRequest, db: Session = Depends(get_db)):
+    """Verify the reset code"""
+    email = request.email
+    code = request.code
+    if email not in reset_codes:
+        raise HTTPException(status_code=400, detail="No reset request found")
+    
+    stored_data = reset_codes[email]
+    
+    # Check expiration
+    if datetime.utcnow() > stored_data["expires"]:
+        del reset_codes[email]
+        raise HTTPException(status_code=400, detail="Reset code expired")
+    
+    # Verify code
+    if stored_data["code"] != code:
+        raise HTTPException(status_code=400, detail="Invalid reset code")
+    
+    # Generate temporary token for password reset
+    reset_token = jwt.encode(
+        {"email": email, "exp": datetime.utcnow() + timedelta(minutes=15)},
+        SECRET_KEY,
+        algorithm=ALGORITHM
+    )
+    
+    return {"message": "Code verified", "reset_token": reset_token}
+
+@router.post("/reset-password")
+def reset_password(request: ResetPasswordRequest, db: Session = Depends(get_db)):
+    """Reset password using verified token"""
+    reset_token = request.reset_token
+    new_password = request.new_password
+    try:
+        # Decode token
+        payload = jwt.decode(reset_token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("email")
+        
+        if not email:
+            raise HTTPException(status_code=400, detail="Invalid token")
+        
+        # Get user
+        user = db.query(models.User).filter(models.User.email == email).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        # Update password
+        user.password_hash = pwd_context.hash(new_password)
+        db.commit()
+        
+        # Clean up reset code
+        if email in reset_codes:
+            del reset_codes[email]
+        
+        return {"message": "Password reset successfully"}
+        
+    except JWTError:
+        raise HTTPException(status_code=400, detail="Invalid or expired token")
 
 @router.put("/user/update/{user_id}")
 def update_user_profile(user_id: int, update: UserProfileUpdate, db: Session = Depends(get_db)):

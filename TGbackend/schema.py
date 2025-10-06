@@ -21,6 +21,17 @@ class UserProfileUpdate(BaseModel):
     bio: str | None = None
     profile_icon: str | None = None 
 
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+class VerifyCodeRequest(BaseModel):
+    email: EmailStr
+    code: str
+
+class ResetPasswordRequest(BaseModel):
+    reset_token: str
+    new_password: str
+
 
 # -------------------------
 # Progress Inputs and Update (detects user Progress)

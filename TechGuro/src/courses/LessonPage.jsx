@@ -537,7 +537,7 @@ const LessonPage = () => {
               {currentLesson.lesson_title}
             </h1>
             <div className="flex items-center justify-center gap-4 mb-4">
-              <h2 className="text-lg lg:text-xl font-semibold text-gray-600">
+              <h2 className="text-lg lg:text-xl font-semibold text-black">
                 Slide {currentSlide + 1} of {currentLesson.slides.length}
               </h2>
 

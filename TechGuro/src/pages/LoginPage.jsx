@@ -120,9 +120,9 @@ const LoginPage = () => {
             </div>
 
             <div className="text-right text-[18px]">
-              <a href="#" className="text-[#697DFF] hover:underline">
+              <Link to="/forgot-password" className="text-[#697DFF] hover:underline">
                 Nalimutan ang Password?
-              </a>
+              </Link>
             </div>
           </div>
 

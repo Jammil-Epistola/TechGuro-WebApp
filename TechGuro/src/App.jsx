@@ -5,6 +5,7 @@ import { UserProvider } from "./context/UserContext";
 
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import RegisterPage from "./pages/RegisterPage";
 import UserBoard from "./pages/UserBoard";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
         {/* User Dashboard */}
         <Route path="/UserDashboard" element={<UserBoard />} />

@@ -83,7 +83,7 @@
     "question": "Alin ang halimbawa ng hardware?",
     "options": [
       {"image": "monitor.png"},
-      {"image": "google_chrome.png"},
+      {"image": "chrome_logo.png"},
       {"image": "messenger.png"}
     ],
     "answer": "monitor.png",

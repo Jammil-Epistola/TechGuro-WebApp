@@ -152,26 +152,62 @@ const QuizPage = () => {
         ? Math.floor((Date.now() - quizStartTime) / 1000)
         : QUIZ_TIME_LIMIT - Math.max(0, timeRemaining);
 
-      // Cap the time at the quiz limit (in case of timer issues)
+      // Cap the time at the quiz limit
       const timeTaken = Math.min(actualTimeTaken, QUIZ_TIME_LIMIT);
 
-      // Format answers based on quiz type
+      console.log('=== QUIZ SUBMISSION DEBUG (Frontend) ===');
+      console.log('Quiz Type:', quiz.quiz_type);
+      console.log('Total Questions:', questions.length);
+      console.log('Raw User Answers:', userAnswers);
+
+      // Format answers based on quiz type - FIXED VERSION
       const formattedAnswers = userAnswers.map((answer, index) => {
         const question = questions[index];
 
-        if (question && question.type === 'multiple_choice') {
-          if (typeof answer === 'object' && answer !== null) {
-            return answer.image || answer.text || answer;
+        console.log(`\nFormatting Question ${index + 1}:`);
+        console.log('  Question Type:', question.type);
+        console.log('  Raw Answer:', answer);
+        console.log('  Correct Answer:', question.correct_answer);
+
+        // Handle image-based multiple choice questions
+        if (question && (question.type === 'multiple_choice' || question.type === 'image_mcq')) {
+          // If answer is already a string (image path), return it directly
+          if (typeof answer === 'string') {
+            console.log('  ✅ Returning string answer:', answer);
+            return answer;
           }
-          return answer;
-        } else if (question && question.type === 'typing') {
-          return typeof answer === 'string' ? answer : String(answer || '');
-        } else if (question && question.type === 'drag_drop') {
+
+          // If answer is an object with image property
+          if (typeof answer === 'object' && answer !== null) {
+            const extracted = answer.image || answer.text || answer;
+            console.log('  ✅ Extracted from object:', extracted);
+            return extracted;
+          }
+
+          console.log('  ⚠️ Answer format unexpected:', answer);
           return answer;
         }
 
+        // Handle typing questions
+        else if (question && question.type === 'typing') {
+          const stringAnswer = typeof answer === 'string' ? answer : String(answer || '');
+          console.log('  ✅ Typing answer:', stringAnswer);
+          return stringAnswer;
+        }
+
+        // Handle drag and drop questions
+        else if (question && question.type === 'drag_drop') {
+          console.log('  ✅ Drag-drop answer:', answer);
+          return answer;
+        }
+
+        // Fallback
+        console.log('  ⚠️ Using fallback for answer:', answer);
         return answer;
       });
+
+      console.log('\n📤 Formatted Answers Being Sent:', formattedAnswers);
+      console.log('📋 Question IDs:', questions.map(q => q.question_id));
 
       const submissionData = {
         answers: formattedAnswers,
@@ -179,13 +215,8 @@ const QuizPage = () => {
         question_ids: questions.map(q => q.question_id)
       };
 
-      console.log('Submitting quiz with data:', {
-        quiz_id: quiz.quiz_id,
-        user_id: user.user_id,
-        submission: submissionData,
-        actual_time_taken: actualTimeTaken,
-        capped_time_taken: timeTaken
-      });
+      console.log('\n🚀 Final Submission Data:', JSON.stringify(submissionData, null, 2));
+      console.log('=========================================\n');
 
       const response = await fetch(
         `${baseURL}/quiz/submit/${quiz.quiz_id}/${user.user_id}`,
@@ -200,16 +231,18 @@ const QuizPage = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Quiz submission failed:', response.status, errorText);
+        console.error('❌ Quiz submission failed:', response.status, errorText);
         throw new Error(`Failed to submit quiz: ${response.status} - ${errorText}`);
       }
 
       const results = await response.json();
+      console.log('✅ Quiz Results:', results);
+
       setQuizResults(results);
       setQuizCompleted(true);
 
     } catch (error) {
-      console.error('Error submitting quiz:', error);
+      console.error('💥 Error submitting quiz:', error);
       setError(`Failed to submit quiz: ${error.message}`);
     } finally {
       setIsSubmitting(false);

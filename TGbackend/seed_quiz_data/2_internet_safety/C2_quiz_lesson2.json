@@ -1,0 +1,598 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22001,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng FAKE NEWS?",
+    "options": [
+      {"image": "fake_news_article.png"},
+      {"image": "trusted_news_site.png"},
+      {"image": "weather_update.png"}
+    ],
+    "answer": "fake_news_article.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22002,
+    "type": "image_mcq",
+    "question": "Alin ang totoong BALITA?",
+    "options": [
+      {"image": "rumor_post.png"},
+      {"image": "official_news_website.png"},
+      {"image": "edited_photo_post.png"}
+    ],
+    "answer": "official_news_website.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22003,
+    "type": "image_mcq",
+    "question": "Alin dito ang karaniwang ginagamit para magpalaganap ng FAKE NEWS?",
+    "options": [
+      {"image": "social_media_feed.png"},
+      {"image": "school_library.png"},
+      {"image": "official_news_anchor.png"}
+    ],
+    "answer": "social_media_feed.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22004,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawang PEKE o edited na larawan?",
+    "options": [
+      {"image": "edited_image_sample.png"},
+      {"image": "original_photo.png"},
+      {"image": "news_logo.png"}
+    ],
+    "answer": "edited_image_sample.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22005,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng MAAASAHANG source?",
+    "options": [
+      {"image": "trusted_source_logo.png"},
+      {"image": "unknown_page.png"},
+      {"image": "clickbait_site.png"}
+    ],
+    "answer": "trusted_source_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22006,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang clickbait headline?",
+    "options": [
+      {"image": "clickbait_headline.png"},
+      {"image": "normal_headline.png"},
+      {"image": "official_statement.png"}
+    ],
+    "answer": "clickbait_headline.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22007,
+    "type": "image_mcq",
+    "question": "Ano ang unang dapat gawin bago mag-share ng balita?",
+    "options": [
+      {"image": "verify_source.png"},
+      {"image": "share_now_button.png"},
+      {"image": "like_post.png"}
+    ],
+    "answer": "verify_source.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22008,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng maling impormasyon?",
+    "options": [
+      {"image": "fake_medical_tip.png"},
+      {"image": "gov_health_update.png"},
+      {"image": "weather_alert.png"}
+    ],
+    "answer": "fake_medical_tip.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22009,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng FAKE headline?",
+    "options": [
+      {"image": "shocking_news.png"},
+      {"image": "verified_article.png"},
+      {"image": "news_summary.png"}
+    ],
+    "answer": "shocking_news.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22010,
+    "type": "image_mcq",
+    "question": "Ano ang dapat tingnan para malaman kung totoo ang balita?",
+    "options": [
+      {"image": "author_and_date.png"},
+      {"image": "random_comments.png"},
+      {"image": "number_of_likes.png"}
+    ],
+    "answer": "author_and_date.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22011,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng FAKE screenshot?",
+    "options": [
+      {"image": "edited_screenshot.png"},
+      {"image": "real_post.png"},
+      {"image": "official_page.png"}
+    ],
+    "answer": "edited_screenshot.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22012,
+    "type": "image_mcq",
+    "question": "Alin ang MAAASAHANG website?",
+    "options": [
+      {"image": "gov_website.png"},
+      {"image": "unknown_blog.png"},
+      {"image": "viral_post.png"}
+    ],
+    "answer": "gov_website.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22013,
+    "type": "image_mcq",
+    "question": "Ano ang isang PALATANDAAN ng fake news?",
+    "options": [
+      {"image": "no_source.png"},
+      {"image": "with_reference.png"},
+      {"image": "official_logo.png"}
+    ],
+    "answer": "no_source.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22014,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang may OVERLY DRAMATIC title?",
+    "options": [
+      {"image": "must_share_now.png"},
+      {"image": "balanced_headline.png"},
+      {"image": "daily_report.png"}
+    ],
+    "answer": "must_share_now.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22015,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng outdated na balita?",
+    "options": [
+      {"image": "old_article_date.png"},
+      {"image": "recent_article.png"},
+      {"image": "breaking_news_today.png"}
+    ],
+    "answer": "old_article_date.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22016,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang dapat gawin bago maniwala sa balita?",
+    "options": [
+      {"image": "search_multiple_sources.png"},
+      {"image": "share_post.png"},
+      {"image": "react_emoji.png"}
+    ],
+    "answer": "search_multiple_sources.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22017,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang nagdudulot ng PANIC?",
+    "options": [
+      {"image": "fake_emergency_post.png"},
+      {"image": "weather_forecast.png"},
+      {"image": "school_announcement.png"}
+    ],
+    "answer": "fake_emergency_post.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22018,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng tamang pag-check ng source?",
+    "options": [
+      {"image": "checking_source.png"},
+      {"image": "scrolling_feed.png"},
+      {"image": "sharing_without_reading.png"}
+    ],
+    "answer": "checking_source.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22019,
+    "type": "image_mcq",
+    "question": "Ano ang dapat gawin kung duda sa balita?",
+    "options": [
+      {"image": "fact_check.png"},
+      {"image": "share_to_friends.png"},
+      {"image": "ignore_checking.png"}
+    ],
+    "answer": "fact_check.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22020,
+    "type": "image_mcq",
+    "question": "Ano ang maaaring mangyari kapag naniwala sa fake news?",
+    "options": [
+      {"image": "panic_and_confusion.png"},
+      {"image": "clear_information.png"},
+      {"image": "verified_news.png"}
+    ],
+    "answer": "panic_and_confusion.png",
+    "image": null
+  },
+   {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22021,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang ____ ay maling impormasyon na kumakalat online.'",
+    "drag_items": [
+      {"id": "item1", "text": "Fake News", "type": "draggable"},
+      {"id": "item2", "text": "Real News", "type": "draggable"},
+      {"id": "item3", "text": "Blog", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "____"}
+    ],
+    "answer": "{\"blank_1\": \"Fake News\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22022,
+    "type": "drag_drop",
+    "question": "I-drag ang mga halimbawa ng FAKE NEWS platforms.",
+    "drag_items": [
+      {"id": "item1", "text": "TikTok", "type": "draggable"},
+      {"id": "item2", "text": "Official News Site", "type": "draggable"},
+      {"id": "item3", "text": "Facebook Rumor Post", "type": "draggable"},
+      {"id": "item4", "text": "Government Website", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "fake_zone", "position": "box", "label": "FAKE NEWS SOURCES", "accepts_multiple": true}
+    ],
+    "answer": "{\"fake_zone\": [\"TikTok\", \"Facebook Rumor Post\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22023,
+    "type": "drag_drop",
+    "question": "Punan: 'Ang mga FAKE headlines ay madalas na may salitang ______ o ______.'",
+    "drag_items": [
+      {"id": "item1", "text": "Shocking", "type": "draggable"},
+      {"id": "item2", "text": "Official", "type": "draggable"},
+      {"id": "item3", "text": "Must Share Now", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "______"},
+      {"id": "blank_2", "position": "inline", "placeholder": "______"}
+    ],
+    "answer": "{\"blank_1\": \"Shocking\", \"blank_2\": \"Must Share Now\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22024,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang paraan ng pag-check ng balita.",
+    "drag_items": [
+      {"id": "item1", "text": "Check Source", "type": "draggable"},
+      {"id": "item2", "text": "Share Immediately", "type": "draggable"},
+      {"id": "item3", "text": "Read Comments", "type": "draggable"},
+      {"id": "item4", "text": "Look at Date", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "verify_zone", "position": "box", "label": "TAMANG PARAAN", "accepts_multiple": true}
+    ],
+    "answer": "{\"verify_zone\": [\"Check Source\", \"Look at Date\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22025,
+    "type": "drag_drop",
+    "question": "Piliin ang mga halimbawa ng RED FLAGS ng fake news.",
+    "drag_items": [
+      {"id": "item1", "text": "No Author", "type": "draggable"},
+      {"id": "item2", "text": "Old Date", "type": "draggable"},
+      {"id": "item3", "text": "Trusted Website", "type": "draggable"},
+      {"id": "item4", "text": "Shocking Headline", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "redflags_zone", "position": "box", "label": "RED FLAGS", "accepts_multiple": true}
+    ],
+    "answer": "{\"redflags_zone\": [\"No Author\", \"Old Date\", \"Shocking Headline\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang mga FAKE NEWS ay kadalasang walang malinaw na ____.'",
+    "drag_items": [
+      {"id": "item1", "text": "Source", "type": "draggable"},
+      {"id": "item2", "text": "Color", "type": "draggable"},
+      {"id": "item3", "text": "Author", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "____"}
+    ],
+    "answer": "{\"blank_1\": \"Source\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22027,
+    "type": "drag_drop",
+    "question": "Piliin ang mga hakbang sa pag-verify ng balita.",
+    "drag_items": [
+      {"id": "item1", "text": "Search Other Sites", "type": "draggable"},
+      {"id": "item2", "text": "Check Author", "type": "draggable"},
+      {"id": "item3", "text": "Ignore Details", "type": "draggable"},
+      {"id": "item4", "text": "Check Date", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "verify_steps", "position": "box", "label": "STEPS", "accepts_multiple": true}
+    ],
+    "answer": "{\"verify_steps\": [\"Search Other Sites\", \"Check Author\", \"Check Date\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22028,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang FAKE NEWS ay madalas kumakalat sa ____.'",
+    "drag_items": [
+      {"id": "item1", "text": "Social Media", "type": "draggable"},
+      {"id": "item2", "text": "TV", "type": "draggable"},
+      {"id": "item3", "text": "Radio", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "____"}
+    ],
+    "answer": "{\"blank_1\": \"Social Media\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22029,
+    "type": "drag_drop",
+    "question": "I-drag ang mga EPEKTO ng paniniwala sa fake news.",
+    "drag_items": [
+      {"id": "item1", "text": "Panic", "type": "draggable"},
+      {"id": "item2", "text": "Confusion", "type": "draggable"},
+      {"id": "item3", "text": "Trust", "type": "draggable"},
+      {"id": "item4", "text": "Wrong Decisions", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "effects_zone", "position": "box", "label": "EPEKTO", "accepts_multiple": true}
+    ],
+    "answer": "{\"effects_zone\": [\"Panic\", \"Confusion\", \"Wrong Decisions\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22030,
+    "type": "drag_drop",
+    "question": "Punan: 'Bago mag-share, siguraduhing ____ muna ang balita.'",
+    "drag_items": [
+      {"id": "item1", "text": "Verify", "type": "draggable"},
+      {"id": "item2", "text": "Ignore", "type": "draggable"},
+      {"id": "item3", "text": "React", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "____"}
+    ],
+    "answer": "{\"blank_1\": \"Verify\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa maling impormasyon online?",
+    "options": ["fake news", "real news", "breaking news"],
+    "answer": "fake news",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22032,
+    "type": "typing",
+    "question": "I-type: Saan madalas kumalat ang fake news?",
+    "options": ["social media", "radio", "tv"],
+    "answer": "social media",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22033,
+    "type": "typing",
+    "question": "I-type: Ano ang dapat i-check bago mag-share ng balita?",
+    "options": ["source", "title", "comments"],
+    "answer": "source",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22034,
+    "type": "typing",
+    "question": "I-type: Anong uri ng headline ang red flag ng fake news?",
+    "options": ["shocking", "boring", "normal"],
+    "answer": "shocking",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong dapat hanapin sa tunay na balita?",
+    "options": ["author", "likes", "shares"],
+    "answer": "author",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22036,
+    "type": "typing",
+    "question": "I-type: Ano ang tawag sa sobrang dramatikong title?",
+    "options": ["clickbait", "news report", "summary"],
+    "answer": "clickbait",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang epekto ng paniniwala sa fake news?",
+    "options": ["panic", "trust", "confidence"],
+    "answer": "panic",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22038,
+    "type": "typing",
+    "question": "I-type: Ano ang dapat gawin bago mag-share?",
+    "options": ["verify", "ignore", "react"],
+    "answer": "verify",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22039,
+    "type": "typing",
+    "question": "I-type: Anong tanda na peke ang larawan?",
+    "options": ["edited", "clear", "new"],
+    "answer": "edited",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 7,
+    "question_id": 22040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Kailan dapat mag-check ng balita?",
+    "options": ["bago mag-share", "pagkatapos mag-react", "habang nag-scroll"],
+    "answer": "bago mag-share",
+    "image": null
+  }
+]

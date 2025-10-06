@@ -1,0 +1,585 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23001,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng online scam?",
+    "options": [
+      {"image": "fake_shop.png"},
+      {"image": "official_store.png"},
+      {"image": "bank_website.png"}
+    ],
+    "answer": "fake_shop.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23002,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang phishing email?",
+    "options": [
+      {"image": "fake_email_link.png"},
+      {"image": "genuine_bank_email.png"},
+      {"image": "newsletter.png"}
+    ],
+    "answer": "fake_email_link.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23003,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng fake online shop?",
+    "options": [
+      {"image": "too_good_to_be_true.png"},
+      {"image": "trusted_seller.png"},
+      {"image": "verified_store.png"}
+    ],
+    "answer": "too_good_to_be_true.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23004,
+    "type": "image_mcq",
+    "question": "Anong scam ang nagpapanggap na nanalo ka ng malaking premyo?",
+    "options": [
+      {"image": "prize_scam.png"},
+      {"image": "survey_form.png"},
+      {"image": "email_receipt.png"}
+    ],
+    "answer": "prize_scam.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23005,
+    "type": "image_mcq",
+    "question": "Alin ang senyales ng scam sa social media?",
+    "options": [
+      {"image": "fake_giveaway.png"},
+      {"image": "family_post.png"},
+      {"image": "official_announcement.png"}
+    ],
+    "answer": "fake_giveaway.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23006,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng phishing link?",
+    "options": [
+      {"image": "phishing_link.png"},
+      {"image": "legit_url.png"},
+      {"image": "news_article.png"}
+    ],
+    "answer": "phishing_link.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23007,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng romance scam?",
+    "options": [
+      {"image": "fake_romance_chat.png"},
+      {"image": "family_chat.png"},
+      {"image": "work_message.png"}
+    ],
+    "answer": "fake_romance_chat.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23008,
+    "type": "image_mcq",
+    "question": "Ano ang dapat iwasan kung may email na humihingi ng password?",
+    "options": [
+      {"image": "fake_login_page.png"},
+      {"image": "official_login.png"},
+      {"image": "settings_page.png"}
+    ],
+    "answer": "fake_login_page.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23009,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang senyales ng scam investment?",
+    "options": [
+      {"image": "guaranteed_returns.png"},
+      {"image": "risk_disclosure.png"},
+      {"image": "official_investment.png"}
+    ],
+    "answer": "guaranteed_returns.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23010,
+    "type": "image_mcq",
+    "question": "Alin ang wastong gawin kapag nakatanggap ng kahina-hinalang link?",
+    "options": [
+      {"image": "do_not_click.png"},
+      {"image": "click_now.png"},
+      {"image": "share_to_friends.png"}
+    ],
+    "answer": "do_not_click.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23011,
+    "type": "image_mcq",
+    "question": "Anong scam ang humihingi ng GCash load?",
+    "options": [
+      {"image": "fake_account_request.png"},
+      {"image": "bank_notice.png"},
+      {"image": "customer_support.png"}
+    ],
+    "answer": "fake_account_request.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23012,
+    "type": "image_mcq",
+    "question": "Alin ang tunay na website ng bangko?",
+    "options": [
+      {"image": "secure_bank_url.png"},
+      {"image": "phishing_bank_url.png"},
+      {"image": "fake_login_form.png"}
+    ],
+    "answer": "secure_bank_url.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23013,
+    "type": "image_mcq",
+    "question": "Anong scam ang karaniwang may mensaheng 'Update your account now'?",
+    "options": [
+      {"image": "phishing_email.png"},
+      {"image": "bank_update_notice.png"},
+      {"image": "sms_alert.png"}
+    ],
+    "answer": "phishing_email.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23014,
+    "type": "image_mcq",
+    "question": "Ano ang tamang gawin kung duda sa mensahe?",
+    "options": [
+      {"image": "block_sender.png"},
+      {"image": "reply_to_scammer.png"},
+      {"image": "send_money.png"}
+    ],
+    "answer": "block_sender.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23015,
+    "type": "image_mcq",
+    "question": "Alin ang larawan ng pressure message?",
+    "options": [
+      {"image": "act_now_message.png"},
+      {"image": "thank_you_email.png"},
+      {"image": "regular_notice.png"}
+    ],
+    "answer": "act_now_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23016,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang ligtas na website?",
+    "options": [
+      {"image": "https_url.png"},
+      {"image": "http_url.png"},
+      {"image": "shortened_link.png"}
+    ],
+    "answer": "https_url.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23017,
+    "type": "image_mcq",
+    "question": "Alin ang hindi dapat i-click sa email?",
+    "options": [
+      {"image": "fake_link.png"},
+      {"image": "unsubscribe_button.png"},
+      {"image": "help_center_link.png"}
+    ],
+    "answer": "fake_link.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23018,
+    "type": "image_mcq",
+    "question": "Anong scam ang nagsasabing 'Guaranteed earnings daily'?",
+    "options": [
+      {"image": "investment_scam.png"},
+      {"image": "job_post.png"},
+      {"image": "legit_investment.png"}
+    ],
+    "answer": "investment_scam.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23019,
+    "type": "image_mcq",
+    "question": "Ano ang senyales ng fake prize message?",
+    "options": [
+      {"image": "you_won_message.png"},
+      {"image": "bank_notice.png"},
+      {"image": "order_receipt.png"}
+    ],
+    "answer": "you_won_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23020,
+    "type": "image_mcq",
+    "question": "Anong dapat gawin kapag nakakita ng suspicious post?",
+    "options": [
+      {"image": "report_post.png"},
+      {"image": "like_post.png"},
+      {"image": "share_post.png"}
+    ],
+    "answer": "report_post.png",
+    "image": null
+  },
+   {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23021,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ ay panloloko gamit ang Internet para makuha ang pera o impormasyon mo.'",
+    "drag_items": [
+      {"id": "item1", "text": "Online scam", "type": "draggable"},
+      {"id": "item2", "text": "Online class", "type": "draggable"},
+      {"id": "item3", "text": "Online shopping", "type": "draggable"}
+    ],
+    "drop_zones": [{"id": "blank_1", "position": "inline", "placeholder": "___"}],
+    "answer": "{\"blank_1\": \"Online scam\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23022,
+    "type": "drag_drop",
+    "question": "I-drag ang mga halimbawa ng common scams.",
+    "drag_items": [
+      {"id": "item1", "text": "Fake Online Shop", "type": "draggable"},
+      {"id": "item2", "text": "Prize Scam", "type": "draggable"},
+      {"id": "item3", "text": "Romance Scam", "type": "draggable"},
+      {"id": "item4", "text": "Online Class", "type": "draggable"}
+    ],
+    "drop_zones": [{"id": "scam_zone", "position": "box", "label": "COMMON SCAMS", "accepts_multiple": true}],
+    "answer": "{\"scam_zone\": [\"Fake Online Shop\", \"Prize Scam\", \"Romance Scam\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23023,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang mga scammer ay gumagamit ng _____ para manloko ng tao.'",
+    "drag_items": [
+      {"id": "item1", "text": "email", "type": "draggable"},
+      {"id": "item2", "text": "website", "type": "draggable"},
+      {"id": "item3", "text": "social media", "type": "draggable"}
+    ],
+    "drop_zones": [{"id": "blank_1", "position": "inline", "placeholder": "___"}],
+    "answer": "{\"blank_1\": \"email\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23024,
+    "type": "drag_drop",
+    "question": "I-match ang scam sa tamang paglalarawan.",
+    "drag_items": [
+      {"id": "item1", "text": "Prize Scam", "type": "draggable"},
+      {"id": "item2", "text": "Romance Scam", "type": "draggable"},
+      {"id": "item3", "text": "Fake Online Shop", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "desc1", "position": "box", "label": "Hihingi ng bayad para sa premyo", "accepts_multiple": false},
+      {"id": "desc2", "position": "box", "label": "Magpapanggap bilang ka-chat o kaibigan", "accepts_multiple": false},
+      {"id": "desc3", "position": "box", "label": "Walang delivery matapos magbayad", "accepts_multiple": false}
+    ],
+    "answer": "{\"desc1\": \"Prize Scam\", \"desc2\": \"Romance Scam\", \"desc3\": \"Fake Online Shop\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23025,
+    "type": "drag_drop",
+    "question": "I-drag ang mga red flag ng scam.",
+    "drag_items": [
+      {"id": "item1", "text": "Humihingi ng pera agad", "type": "draggable"},
+      {"id": "item2", "text": "Pressure na 'Act Now!'", "type": "draggable"},
+      {"id": "item3", "text": "Sobrang ganda para maging totoo", "type": "draggable"},
+      {"id": "item4", "text": "May contact number", "type": "draggable"}
+    ],
+    "drop_zones": [{"id": "redflag_zone", "position": "box", "label": "SCAM RED FLAGS", "accepts_multiple": true}],
+    "answer": "{\"redflag_zone\": [\"Humihingi ng pera agad\", \"Pressure na 'Act Now!'\", \"Sobrang ganda para maging totoo\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang phishing email ay madalas may link para sa iyong _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "password", "type": "draggable"},
+      {"id": "item2", "text": "profile picture", "type": "draggable"},
+      {"id": "item3", "text": "video", "type": "draggable"}
+    ],
+    "drop_zones": [{"id": "blank_1", "position": "inline", "placeholder": "___"}],
+    "answer": "{\"blank_1\": \"password\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23027,
+    "type": "drag_drop",
+    "question": "I-categorize: Tukuyin kung anong uri ng scam ang mga halimbawa.",
+    "drag_items": [
+      {"id": "item1", "text": "Email asking for bank info", "type": "draggable"},
+      {"id": "item2", "text": "Fake 'You won!' message", "type": "draggable"},
+      {"id": "item3", "text": "Online store no delivery", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "phishing_zone", "position": "box", "label": "PHISHING", "accepts_multiple": true},
+      {"id": "prize_zone", "position": "box", "label": "PRIZE SCAM", "accepts_multiple": true},
+      {"id": "shop_zone", "position": "box", "label": "FAKE SHOP", "accepts_multiple": true}
+    ],
+    "answer": "{\"phishing_zone\": [\"Email asking for bank info\"], \"prize_zone\": [\"Fake 'You won!' message\"], \"shop_zone\": [\"Online store no delivery\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23028,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Huwag agad mag-click ng mga _____ kung duda ka sa pinagmulan.'",
+    "drag_items": [
+      {"id": "item1", "text": "link", "type": "draggable"},
+      {"id": "item2", "text": "image", "type": "draggable"},
+      {"id": "item3", "text": "music", "type": "draggable"}
+    ],
+    "drop_zones": [{"id": "blank_1", "position": "inline", "placeholder": "___"}],
+    "answer": "{\"blank_1\": \"link\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23029,
+    "type": "drag_drop",
+    "question": "I-match ang wastong aksyon kapag may kahina-hinalang mensahe.",
+    "drag_items": [
+      {"id": "item1", "text": "I-block", "type": "draggable"},
+      {"id": "item2", "text": "I-report", "type": "draggable"},
+      {"id": "item3", "text": "I-click agad", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_actions", "position": "box", "label": "SAFE ACTIONS", "accepts_multiple": true},
+      {"id": "unsafe_actions", "position": "box", "label": "UNSAFE ACTIONS", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_actions\": [\"I-block\", \"I-report\"], \"unsafe_actions\": [\"I-click agad\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23030,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung may duda, huwag sagutin at i-_____.’",
+    "drag_items": [
+      {"id": "item1", "text": "block", "type": "draggable"},
+      {"id": "item2", "text": "call", "type": "draggable"},
+      {"id": "item3", "text": "send", "type": "draggable"}
+    ],
+    "drop_zones": [{"id": "blank_1", "position": "inline", "placeholder": "___"}],
+    "answer": "{\"blank_1\": \"block\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa panloloko gamit ang Internet?",
+    "options": ["online scam", "fake shop", "phishing"],
+    "answer": "online scam",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong scam ang nagsasabing nanalo ka ng pera?",
+    "options": ["prize scam", "fake shop", "romance scam"],
+    "answer": "prize scam",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong scam ang nagpapanggap bilang ka-chat o kaibigan?",
+    "options": ["romance scam", "fake shop", "phishing"],
+    "answer": "romance scam",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong scam ang gumagamit ng pekeng email para makuha ang password?",
+    "options": ["phishing", "prize scam", "investment scam"],
+    "answer": "phishing",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong scam ang nag-aalok ng malaking kita na siguradong totoo raw?",
+    "options": ["investment scam", "phishing", "fake giveaway"],
+    "answer": "investment scam",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang scam na nag-aalok ng 'Win ₱10,000!' sa social media?",
+    "options": ["fake giveaway", "romance scam", "phishing"],
+    "answer": "fake giveaway",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong scam ang nagpapadala ng pekeng link para sa login page?",
+    "options": ["phishing", "online scam", "fake shop"],
+    "answer": "phishing",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong dapat mong gawin kung may kahina-hinalang message?",
+    "options": ["i-block", "i-click", "i-reply"],
+    "answer": "i-block",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Kapag may duda, huwag i-click ang mga ______.",
+    "options": ["link", "photo", "music"],
+    "answer": "link",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 8,
+    "question_id": 23040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong scam ang nagpapadala ng pekeng online shop?",
+    "options": ["fake shop", "romance scam", "phishing"],
+    "answer": "fake shop",
+    "image": null
+  }
+]

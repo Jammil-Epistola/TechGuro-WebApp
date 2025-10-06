@@ -1,0 +1,599 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24001,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng malware?",
+    "options": [
+      {"image": "virus_alert.png"},
+      {"image": "antivirus_icon.png"},
+      {"image": "safe_browser.png"}
+    ],
+    "answer": "virus_alert.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24002,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng virus na nakapasok sa computer?",
+    "options": [
+      {"image": "error_screen.png"},
+      {"image": "clean_desktop.png"},
+      {"image": "update_success.png"}
+    ],
+    "answer": "error_screen.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24003,
+    "type": "image_mcq",
+    "question": "Anong larawan ang nagpapakita ng antivirus software?",
+    "options": [
+      {"image": "antivirus_icon.png"},
+      {"image": "malware_warning.png"},
+      {"image": "fake_popup.png"}
+    ],
+    "answer": "antivirus_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24004,
+    "type": "image_mcq",
+    "question": "Alin ang mapanganib na link o pop-up ad?",
+    "options": [
+      {"image": "fake_popup.png"},
+      {"image": "safe_download.png"},
+      {"image": "trusted_website.png"}
+    ],
+    "answer": "fake_popup.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24005,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng secure na website?",
+    "options": [
+      {"image": "https_lock.png"},
+      {"image": "http_unlocked.png"},
+      {"image": "fake_warning.png"}
+    ],
+    "answer": "https_lock.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24006,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng phishing email?",
+    "options": [
+      {"image": "phishing_email.png"},
+      {"image": "real_email.png"},
+      {"image": "inbox_clean.png"}
+    ],
+    "answer": "phishing_email.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24007,
+    "type": "image_mcq",
+    "question": "Anong sitwasyon ang nagpapakita ng pirated software?",
+    "options": [
+      {"image": "pirated_app.png"},
+      {"image": "official_store.png"},
+      {"image": "update_center.png"}
+    ],
+    "answer": "pirated_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24008,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng malware infection?",
+    "options": [
+      {"image": "malware_alert.png"},
+      {"image": "security_ok.png"},
+      {"image": "update_done.png"}
+    ],
+    "answer": "malware_alert.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24009,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang palatandaan ng infected computer?",
+    "options": [
+      {"image": "slow_computer.png"},
+      {"image": "fast_computer.png"},
+      {"image": "clean_screen.png"}
+    ],
+    "answer": "slow_computer.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24010,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang ligtas i-download?",
+    "options": [
+      {"image": "official_download.png"},
+      {"image": "pirated_download.png"},
+      {"image": "unknown_link.png"}
+    ],
+    "answer": "official_download.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24011,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng USB na may virus?",
+    "options": [
+      {"image": "infected_usb.png"},
+      {"image": "new_usb.png"},
+      {"image": "backup_usb.png"}
+    ],
+    "answer": "infected_usb.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24012,
+    "type": "image_mcq",
+    "question": "Anong larawan ang nagpapakita ng device na may antivirus protection?",
+    "options": [
+      {"image": "shield_protected.png"},
+      {"image": "virus_warning.png"},
+      {"image": "fake_popup.png"}
+    ],
+    "answer": "shield_protected.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24013,
+    "type": "image_mcq",
+    "question": "Alin ang senyales na dapat mag-update ng system?",
+    "options": [
+      {"image": "update_required.png"},
+      {"image": "updated_system.png"},
+      {"image": "login_screen.png"}
+    ],
+    "answer": "update_required.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24014,
+    "type": "image_mcq",
+    "question": "Alin ang ligtas na website?",
+    "options": [
+      {"image": "trusted_website.png"},
+      {"image": "fake_site.png"},
+      {"image": "clickbait_site.png"}
+    ],
+    "answer": "trusted_website.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24015,
+    "type": "image_mcq",
+    "question": "Anong larawan ang nagpapakita ng ransomware?",
+    "options": [
+      {"image": "ransomware_lock.png"},
+      {"image": "normal_desktop.png"},
+      {"image": "update_screen.png"}
+    ],
+    "answer": "ransomware_lock.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24016,
+    "type": "image_mcq",
+    "question": "Anong larawan ang dapat mong iwasan?",
+    "options": [
+      {"image": "click_here_popup.png"},
+      {"image": "system_settings.png"},
+      {"image": "help_center.png"}
+    ],
+    "answer": "click_here_popup.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24017,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng secure browser?",
+    "options": [
+      {"image": "secure_browser.png"},
+      {"image": "fake_browser.png"},
+      {"image": "popup_browser.png"}
+    ],
+    "answer": "secure_browser.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24018,
+    "type": "image_mcq",
+    "question": "Anong larawan ang nagpapakita ng computer na walang malware?",
+    "options": [
+      {"image": "clean_system.png"},
+      {"image": "error_screen.png"},
+      {"image": "virus_alert.png"}
+    ],
+    "answer": "clean_system.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24019,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang nagdudulot ng malware?",
+    "options": [
+      {"image": "pirated_download.png"},
+      {"image": "official_store.png"},
+      {"image": "settings_update.png"}
+    ],
+    "answer": "pirated_download.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24020,
+    "type": "image_mcq",
+    "question": "Anong larawan ang nagpapakita ng ligtas na pag-browse?",
+    "options": [
+      {"image": "safe_browsing.png"},
+      {"image": "popup_warning.png"},
+      {"image": "clickbait_site.png"}
+    ],
+    "answer": "safe_browsing.png",
+    "image": null
+  },
+   {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24021,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang salita: Ang _______ ay isang uri ng software na nakakasira ng computer.",
+    "drag_items": [
+      {"id": "item1", "text": "Malware", "type": "draggable"},
+      {"id": "item2", "text": "Antivirus", "type": "draggable"},
+      {"id": "item3", "text": "Website", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "____"}
+    ],
+    "answer": "{\"blank_1\": \"Malware\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24022,
+    "type": "drag_drop",
+    "question": "Piliin: Alin sa mga ito ang uri ng malware?",
+    "drag_items": [
+      {"id": "item1", "text": "Virus", "type": "draggable"},
+      {"id": "item2", "text": "Spyware", "type": "draggable"},
+      {"id": "item3", "text": "Ransomware", "type": "draggable"},
+      {"id": "item4", "text": "Search Engine", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "malware_zone", "position": "box", "label": "URI NG MALWARE", "accepts_multiple": true}
+    ],
+    "answer": "{\"malware_zone\": [\"Virus\", \"Spyware\", \"Ransomware\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24023,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sanhi ng malware infection.",
+    "drag_items": [
+      {"id": "item1", "text": "Unsafe downloads", "type": "draggable"},
+      {"id": "item2", "text": "Pirated apps", "type": "draggable"},
+      {"id": "item3", "text": "Pop-up ads", "type": "draggable"},
+      {"id": "item4", "text": "System update", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "cause_zone", "position": "box", "label": "DAHILAN NG MALWARE", "accepts_multiple": true}
+    ],
+    "answer": "{\"cause_zone\": [\"Unsafe downloads\", \"Pirated apps\", \"Pop-up ads\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24024,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: Kapag may virus, ang computer ay _______.",
+    "drag_items": [
+      {"id": "item1", "text": "mabagal", "type": "draggable"},
+      {"id": "item2", "text": "masaya", "type": "draggable"},
+      {"id": "item3", "text": "malinis", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "____"}
+    ],
+    "answer": "{\"blank_1\": \"mabagal\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24025,
+    "type": "drag_drop",
+    "question": "I-drag ang mga palatandaan ng malware infection.",
+    "drag_items": [
+      {"id": "item1", "text": "Slow computer", "type": "draggable"},
+      {"id": "item2", "text": "Pop-up ads", "type": "draggable"},
+      {"id": "item3", "text": "Files missing", "type": "draggable"},
+      {"id": "item4", "text": "Fast loading", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "signs_zone", "position": "box", "label": "SENYALES NG MALWARE", "accepts_multiple": true}
+    ],
+    "answer": "{\"signs_zone\": [\"Slow computer\", \"Pop-up ads\", \"Files missing\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24026,
+    "type": "drag_drop",
+    "question": "Ilagay sa tamang kategorya: Proteksyon o Panganib.",
+    "drag_items": [
+      {"id": "item1", "text": "Antivirus software", "type": "draggable"},
+      {"id": "item2", "text": "Unsafe downloads", "type": "draggable"},
+      {"id": "item3", "text": "Pirated apps", "type": "draggable"},
+      {"id": "item4", "text": "System updates", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_zone", "position": "box", "label": "PROTEKSYON", "accepts_multiple": true},
+      {"id": "unsafe_zone", "position": "box", "label": "PANGANIB", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_zone\": [\"Antivirus software\", \"System updates\"], \"unsafe_zone\": [\"Unsafe downloads\", \"Pirated apps\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24027,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang paraan para makaiwas sa malware.",
+    "drag_items": [
+      {"id": "item1", "text": "Visit trusted sites", "type": "draggable"},
+      {"id": "item2", "text": "Click unknown links", "type": "draggable"},
+      {"id": "item3", "text": "Install updates", "type": "draggable"},
+      {"id": "item4", "text": "Download pirated apps", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "prevention_zone", "position": "box", "label": "PROTEKSYON LABAN SA MALWARE", "accepts_multiple": true}
+    ],
+    "answer": "{\"prevention_zone\": [\"Visit trusted sites\", \"Install updates\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24028,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Laging iwasan ang pag-click ng _______.'",
+    "drag_items": [
+      {"id": "item1", "text": "suspicious ads", "type": "draggable"},
+      {"id": "item2", "text": "safe links", "type": "draggable"},
+      {"id": "item3", "text": "updates", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "____"}
+    ],
+    "answer": "{\"blank_1\": \"suspicious ads\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24029,
+    "type": "drag_drop",
+    "question": "Ilagay sa tamang aksyon kapag infected ang computer.",
+    "drag_items": [
+      {"id": "item1", "text": "Run antivirus scan", "type": "draggable"},
+      {"id": "item2", "text": "Ignore warnings", "type": "draggable"},
+      {"id": "item3", "text": "Disconnect internet", "type": "draggable"},
+      {"id": "item4", "text": "Install pirated software", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "action_zone", "position": "box", "label": "TAMANG AKSYON", "accepts_multiple": true}
+    ],
+    "answer": "{\"action_zone\": [\"Run antivirus scan\", \"Disconnect internet\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24030,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: Kapag duda sa isang file, mas mabuting ito ay _______.",
+    "drag_items": [
+      {"id": "item1", "text": "i-delete", "type": "draggable"},
+      {"id": "item2", "text": "i-download", "type": "draggable"},
+      {"id": "item3", "text": "i-click", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "____"}
+    ],
+    "answer": "{\"blank_1\": \"i-delete\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa malicious software na nakakasira ng devices?",
+    "options": ["malware", "antivirus", "firewall"],
+    "answer": "malware",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong uri ng malware ang maaaring magnakaw ng impormasyon?",
+    "options": ["spyware", "ransomware", "antivirus"],
+    "answer": "spyware",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Paano kadalasang kumakalat ang malware?",
+    "options": ["unsafe downloads", "system updates", "trusted websites"],
+    "answer": "unsafe downloads",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong senyales na posibleng may malware ang computer?",
+    "options": ["slow computer", "new wallpaper", "connected to Wi-Fi"],
+    "answer": "slow computer",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat i-install para maprotektahan ang device laban sa malware?",
+    "options": ["antivirus software", "game app", "music player"],
+    "answer": "antivirus software",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat i-update para maging ligtas ang system?",
+    "options": ["system and apps", "wallpaper", "screensaver"],
+    "answer": "system and apps",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong website dapat lamang bisitahin para sa safe browsing?",
+    "options": ["trusted websites", "unknown websites", "pop-up ads"],
+    "answer": "trusted websites",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gawin kapag may malware infection agad?",
+    "options": ["run antivirus scan", "ignore it", "delete all files manually"],
+    "answer": "run antivirus scan",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gawin kung malala ang infection?",
+    "options": ["disconnect from internet", "download more apps", "restart computer only"],
+    "answer": "disconnect from internet",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 9,
+    "question_id": 24040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Sino ang pwedeng lapitan para humingi ng tulong sa malware problem?",
+    "options": ["technician", "friend", "neighbor"],
+    "answer": "technician",
+    "image": null
+  }
+]
