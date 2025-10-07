@@ -7,9 +7,10 @@ import json, random
 
 from TGbackend.database import get_db
 from TGbackend.services.bkt_service import teki_bkt
+from TGbackend.services.milestone_service import award_milestone_if_not_earned
 from TGbackend import schema
 from TGbackend.models import (
-    Question, AssessmentResults, AssessmentQuestionResponse
+    Question, AssessmentResults, AssessmentQuestionResponse, MilestoneEarned, Milestone
 )
 
 router = APIRouter(tags=["Assessment Management"])
@@ -212,12 +213,166 @@ def submit_assessment(data: schema.AssessmentSubmission, db: Session = Depends(g
         db.commit()
 
         # 4. EVENT-DRIVEN: Immediately trigger BKT updates with enhanced logic
+        
+        milestone_awarded = None  # Initialize milestone tracking
+
         if data.assessment_type == "pre":
             bkt_result = teki_bkt.update_from_pre(user_id=data.user_id, course_id=data.course_id, db=db)
+            
+            # -------------------------
+            # Award Milestone #2: "First Steps"
+            # Trigger: Complete a Pre-Assessment in any course
+            # -------------------------
+            try:
+                milestone_result = award_milestone_if_not_earned(
+                    user_id=data.user_id,
+                    milestone_id=2,
+                    db=db
+                )
+                
+                # If milestone was newly awarded (not already earned)
+                if milestone_result["status"] == "milestone_awarded":
+                    # Fetch full milestone details
+                    milestone = db.query(Milestone).filter(
+                        Milestone.id == 2
+                    ).first()
+                    
+                    if milestone:
+                        milestone_awarded = {
+                            "id": milestone.id,
+                            "title": milestone.title,
+                            "description": milestone.description,
+                            "icon_url": milestone.icon_url
+                        }
+                
+                print(f"Milestone #2 check: {milestone_result}")
+            except Exception as e:
+                print(f"Error awarding Milestone #2: {str(e)}")
 
         elif data.assessment_type == "post":
             bkt_result = teki_bkt.update_from_post(user_id=data.user_id, course_id=data.course_id, db=db)
-            _persist_post_eligibility(result, bkt_result, db)   
+            _persist_post_eligibility(result, bkt_result, db)
+            
+            # -------------------------
+            # Award Course Completion Milestones (4-8)
+            # Collect all newly earned milestones
+            # -------------------------
+            milestones_to_award = []  # ✅ NEW: Collect milestones
+            
+            if bkt_result.get("completion_eligible", False):
+                try:
+                    # Milestone #4: Course Conqueror (First course)
+                    total_courses_completed = db.query(AssessmentResults).filter(
+                        AssessmentResults.user_id == data.user_id,
+                        AssessmentResults.assessment_type == "post",
+                        AssessmentResults.completion_eligible == True
+                    ).count()
+                    
+                    if total_courses_completed == 1:
+                        milestone_result = award_milestone_if_not_earned(
+                            user_id=data.user_id,
+                            milestone_id=4,
+                            db=db
+                        )
+                        if milestone_result["status"] == "milestone_awarded":
+                            milestone = db.query(Milestone).filter(Milestone.id == 4).first()
+                            if milestone:
+                                milestones_to_award.append({
+                                    "id": milestone.id,
+                                    "title": milestone.title,
+                                    "description": milestone.description,
+                                    "icon_url": milestone.icon_url
+                                })
+                        print(f"Milestone #4 check: {milestone_result}")
+                    
+                    # Milestone #5: Computer Basics (course_id=1)
+                    if data.course_id == 1:
+                        milestone_result = award_milestone_if_not_earned(
+                            user_id=data.user_id,
+                            milestone_id=5,
+                            db=db
+                        )
+                        if milestone_result["status"] == "milestone_awarded":
+                            milestone = db.query(Milestone).filter(Milestone.id == 5).first()
+                            if milestone:
+                                milestones_to_award.append({
+                                    "id": milestone.id,
+                                    "title": milestone.title,
+                                    "description": milestone.description,
+                                    "icon_url": milestone.icon_url
+                                })
+                        print(f"Milestone #5 check: {milestone_result}")
+                    
+                    # Milestone #6: Internet Safety (course_id=2)
+                    elif data.course_id == 2:
+                        milestone_result = award_milestone_if_not_earned(
+                            user_id=data.user_id,
+                            milestone_id=6,
+                            db=db
+                        )
+                        if milestone_result["status"] == "milestone_awarded":
+                            milestone = db.query(Milestone).filter(Milestone.id == 6).first()
+                            if milestone:
+                                milestones_to_award.append({
+                                    "id": milestone.id,
+                                    "title": milestone.title,
+                                    "description": milestone.description,
+                                    "icon_url": milestone.icon_url
+                                })
+                        print(f"Milestone #6 check: {milestone_result}")
+                    
+                    # Milestone #7: Digital Communication (course_id=3)
+                    elif data.course_id == 3:
+                        milestone_result = award_milestone_if_not_earned(
+                            user_id=data.user_id,
+                            milestone_id=7,
+                            db=db
+                        )
+                        if milestone_result["status"] == "milestone_awarded":
+                            milestone = db.query(Milestone).filter(Milestone.id == 7).first()
+                            if milestone:
+                                milestones_to_award.append({
+                                    "id": milestone.id,
+                                    "title": milestone.title,
+                                    "description": milestone.description,
+                                    "icon_url": milestone.icon_url
+                                })
+                        print(f"Milestone #7 check: {milestone_result}")
+                    
+                    # Milestone #8: TechGuru (All courses)
+                    completed_courses = db.query(AssessmentResults).filter(
+                        AssessmentResults.user_id == data.user_id,
+                        AssessmentResults.assessment_type == "post",
+                        AssessmentResults.completion_eligible == True
+                    ).all()
+                    
+                    completed_course_ids = {result.course_id for result in completed_courses}
+                    
+                    if completed_course_ids >= {1, 2, 3}:
+                        milestone_result = award_milestone_if_not_earned(
+                            user_id=data.user_id,
+                            milestone_id=8,
+                            db=db
+                        )
+                        if milestone_result["status"] == "milestone_awarded":
+                            milestone = db.query(Milestone).filter(Milestone.id == 8).first()
+                            if milestone:
+                                milestones_to_award.append({
+                                    "id": milestone.id,
+                                    "title": milestone.title,
+                                    "description": milestone.description,
+                                    "icon_url": milestone.icon_url
+                                })
+                        print(f"Milestone #8 check: {milestone_result}")
+                        
+                except Exception as e:
+                    print(f"Error awarding course completion milestones: {str(e)}")
+            
+            # ✅ Store milestones for frontend (if any were awarded)
+            if milestones_to_award:
+                milestone_awarded = milestones_to_award  # Will be a list now
+            else:
+                milestone_awarded = None
         else:
             bkt_result = teki_bkt.update_from_assessments(
             user_id=data.user_id,
@@ -226,7 +381,7 @@ def submit_assessment(data: schema.AssessmentSubmission, db: Session = Depends(g
             source="general_assessment"
         )
 
-        # 5. Enhanced return with BKT insights
+       # 5. Enhanced return with BKT insights + milestone info
         response_data = {
             "user_id": data.user_id,
             "course_id": data.course_id,
@@ -240,6 +395,10 @@ def submit_assessment(data: schema.AssessmentSubmission, db: Session = Depends(g
             if data.assessment_type == "post":
                 response_data["improvement_analysis"] = bkt_result.get("improvement_analysis", {})
                 response_data["completion_eligible"] = bkt_result.get("completion_eligible", False)
+
+        # Add milestone info if it was newly awarded
+        if milestone_awarded:
+            response_data["milestones_awarded"] = milestone_awarded
 
         return response_data
 

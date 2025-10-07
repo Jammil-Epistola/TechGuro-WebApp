@@ -43,33 +43,54 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
     return {"message": "User registered successfully", "user_id": new_user.id}
 
 
-# Login endpoint
+# ✅ UPDATED Login endpoint with Milestone #1 notification support
 @router.post("/login")
 def login_user(user: UserLogin, db: Session = Depends(get_db)):
+    # 1. Verify user credentials
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if not db_user or not pwd_context.verify(user.password, db_user.password_hash):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
     # -------------------------
-    # Award Milestone #1: "Welcome to TechGuro!"
+    # 2. Award Milestone #1: "Welcome to TechGuro!"
     # -------------------------
+    # Check if user has already earned this milestone
     earned = db.query(models.MilestoneEarned).filter(
         models.MilestoneEarned.user_id == db_user.id,
         models.MilestoneEarned.milestone_id == 1
     ).first()
 
+    # If not earned yet, award it now (first login)
     if not earned:
         milestone_earned = models.MilestoneEarned(user_id=db_user.id, milestone_id=1)
         db.add(milestone_earned)
         db.commit()
 
-    # Calculate age
+    # 3. Calculate user age
     today = date.today()
     age = today.year - db_user.birthday.year - (
         (today.month, today.day) < (db_user.birthday.month, db_user.birthday.day)
     )
     is_elderly = age >= 60
 
+    # -------------------------
+    # 4. Prepare milestone data for frontend notification
+    # -------------------------
+    milestone_data = None
+    if not earned:  # Only if milestone was just awarded (first login)
+        milestone = db.query(models.Milestone).filter(
+            models.Milestone.id == 1
+        ).first()
+        
+        if milestone:
+            milestone_data = {
+                "id": milestone.id,
+                "title": milestone.title,
+                "description": milestone.description,
+                "icon_url": milestone.icon_url
+            }
+
+    # 5. Return user data + milestone info (if newly awarded)
     return {
         "user_id": db_user.id,
         "username": db_user.username,
@@ -78,7 +99,9 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         "profile_icon": db_user.profile_icon or "avatar_default.png",
         "age": age,
         "is_elderly": is_elderly,
+        "milestone_awarded": milestone_data  # ✅ NEW: Send milestone data to frontend
     }
+
 
 @router.post("/forgot-password")
 async def request_password_reset(request: ForgotPasswordRequest, db: Session = Depends(get_db)):

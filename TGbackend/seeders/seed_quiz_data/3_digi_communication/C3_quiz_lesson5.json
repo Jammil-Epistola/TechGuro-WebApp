@@ -1,0 +1,594 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35001,
+    "type": "image_mcq",
+    "question": "Alin dito ang simbolo para respeto online?",
+    "options": [
+      {"image": "respect.png"},
+      {"image": "angry.png"},
+      {"image": "confused.png"}
+    ],
+    "answer": "respect.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35002,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng tamang netiquette sa chat?",
+    "options": [
+      {"image": "polite_message.png"},
+      {"image": "all_caps_message.png"},
+      {"image": "insulting_message.png"}
+    ],
+    "answer": "polite_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35003,
+    "type": "image_mcq",
+    "question": "Alin ang hindi magandang asal online?",
+    "options": [
+      {"image": "all_caps_message.png"},
+      {"image": "polite_message.png"},
+      {"image": "smiling_message.png"}
+    ],
+    "answer": "all_caps_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35004,
+    "type": "image_mcq",
+    "question": "Alin ang nagrerepresenta ng maingat na pag-post online?",
+    "options": [
+      {"image": "think_before_post.png"},
+      {"image": "random_post.png"},
+      {"image": "overshare.png"}
+    ],
+    "answer": "think_before_post.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35005,
+    "type": "image_mcq",
+    "question": "Alin ang simbolo para sa privacy sa chat?",
+    "options": [
+      {"image": "private_info.png"},
+      {"image": "open_info.png"},
+      {"image": "share_everything.png"}
+    ],
+    "answer": "private_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35006,
+    "type": "image_mcq",
+    "question": "Alin ang tamang paggamit ng emoji?",
+    "options": [
+      {"image": "emoji_correct.png"},
+      {"image": "emoji_wrong.png"},
+      {"image": "no_emoji.png"}
+    ],
+    "answer": "emoji_correct.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35007,
+    "type": "image_mcq",
+    "question": "Alin ang simbolo ng pag-iingat sa personal info?",
+    "options": [
+      {"image": "lock_info.png"},
+      {"image": "share_info.png"},
+      {"image": "open_password.png"}
+    ],
+    "answer": "lock_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35008,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng mabuting asal online?",
+    "options": [
+      {"image": "polite_message.png"},
+      {"image": "insult_message.png"},
+      {"image": "spam_message.png"}
+    ],
+    "answer": "polite_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35009,
+    "type": "image_mcq",
+    "question": "Alin ang simbolo na nagbababala laban sa oversharing?",
+    "options": [
+      {"image": "overshare.png"},
+      {"image": "private_info.png"},
+      {"image": "polite_message.png"}
+    ],
+    "answer": "overshare.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35010,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng hindi magandang post online?",
+    "options": [
+      {"image": "all_caps_message.png"},
+      {"image": "polite_message.png"},
+      {"image": "emoji_correct.png"}
+    ],
+    "answer": "all_caps_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35011,
+    "type": "image_mcq",
+    "question": "Alin ang simbolo ng maingat na pag-share ng info?",
+    "options": [
+      {"image": "lock_info.png"},
+      {"image": "open_info.png"},
+      {"image": "random_post.png"}
+    ],
+    "answer": "lock_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35012,
+    "type": "image_mcq",
+    "question": "Alin ang nagrerepresenta ng netiquette?",
+    "options": [
+      {"image": "polite_message.png"},
+      {"image": "spam_message.png"},
+      {"image": "all_caps_message.png"}
+    ],
+    "answer": "polite_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35013,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng pag-iingat sa privacy sa conversations?",
+    "options": [
+      {"image": "private_info.png"},
+      {"image": "share_everything.png"},
+      {"image": "overshare.png"}
+    ],
+    "answer": "private_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35014,
+    "type": "image_mcq",
+    "question": "Alin ang tamang paggamit ng emoji para maiwasan ang misunderstanding?",
+    "options": [
+      {"image": "emoji_correct.png"},
+      {"image": "emoji_wrong.png"},
+      {"image": "no_emoji.png"}
+    ],
+    "answer": "emoji_correct.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35015,
+    "type": "image_mcq",
+    "question": "Alin ang dapat iwasan sa online messages?",
+    "options": [
+      {"image": "all_caps_message.png"},
+      {"image": "polite_message.png"},
+      {"image": "emoji_correct.png"}
+    ],
+    "answer": "all_caps_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35016,
+    "type": "image_mcq",
+    "question": "Alin ang simbolo para sa pagiging magalang online?",
+    "options": [
+      {"image": "polite_message.png"},
+      {"image": "insult_message.png"},
+      {"image": "spam_message.png"}
+    ],
+    "answer": "polite_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35017,
+    "type": "image_mcq",
+    "question": "Alin ang simbolo na nagbababala sa sobrang pagbabahagi ng personal info?",
+    "options": [
+      {"image": "overshare.png"},
+      {"image": "lock_info.png"},
+      {"image": "polite_message.png"}
+    ],
+    "answer": "overshare.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35018,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng hindi magandang asal sa chat?",
+    "options": [
+      {"image": "spam_message.png"},
+      {"image": "polite_message.png"},
+      {"image": "emoji_correct.png"}
+    ],
+    "answer": "spam_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35019,
+    "type": "image_mcq",
+    "question": "Alin ang simbolo na nagpapaalala sa paggamit ng tamang tono sa text?",
+    "options": [
+      {"image": "emoji_correct.png"},
+      {"image": "emoji_wrong.png"},
+      {"image": "all_caps_message.png"}
+    ],
+    "answer": "emoji_correct.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35020,
+    "type": "image_mcq",
+    "question": "Alin ang simbolo na nagrerepresenta ng tamang privacy at seguridad online?",
+    "options": [
+      {"image": "lock_info.png"},
+      {"image": "share_everything.png"},
+      {"image": "random_post.png"}
+    ],
+    "answer": "lock_info.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35021,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Alin ang halimbawa ng mabuting online behavior?",
+    "drag_items": [
+      {"id": "item1", "text": "Polite Message", "type": "draggable"},
+      {"id": "item2", "text": "All Caps Message", "type": "draggable"},
+      {"id": "item3", "text": "Spam Message", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "good_behavior_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"good_behavior_zone\": [\"Polite Message\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35022,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Ano ang dapat iwasan sa online conversations?",
+    "drag_items": [
+      {"id": "item1", "text": "Sharing personal info excessively", "type": "draggable"},
+      {"id": "item2", "text": "Using polite words", "type": "draggable"},
+      {"id": "item3", "text": "Checking privacy settings", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "avoid_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"avoid_zone\": [\"Sharing personal info excessively\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35023,
+    "type": "drag_drop",
+    "question": "I-categorize: Alin ang examples ng tamang netiquette?",
+    "drag_items": [
+      {"id": "item1", "text": "Polite Message", "type": "draggable"},
+      {"id": "item2", "text": "All Caps Message", "type": "draggable"},
+      {"id": "item3", "text": "Think Before Posting", "type": "draggable"},
+      {"id": "item4", "text": "Oversharing Info", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "netiquette_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"netiquette_zone\": [\"Polite Message\", \"Think Before Posting\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35024,
+    "type": "drag_drop",
+    "question": "Kumpletuhin ang pangungusap: 'Ang _____ ay ginagamit para panatilihing pribado ang password at address.'",
+    "drag_items": [
+      {"id": "item1", "text": "Privacy", "type": "draggable"},
+      {"id": "item2", "text": "Oversharing", "type": "draggable"},
+      {"id": "item3", "text": "Spam", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Privacy\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35025,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang paggamit ng _____ ay makakatulong maiwasan ang misunderstanding sa text.'",
+    "drag_items": [
+      {"id": "item1", "text": "Emoji", "type": "draggable"},
+      {"id": "item2", "text": "All Caps", "type": "draggable"},
+      {"id": "item3", "text": "Random Posting", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Emoji\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35026,
+    "type": "drag_drop",
+    "question": "I-drag: Ano ang mga dapat gawin bago mag-post online?",
+    "drag_items": [
+      {"id": "item1", "text": "Think Before Posting", "type": "draggable"},
+      {"id": "item2", "text": "Share Anything", "type": "draggable"},
+      {"id": "item3", "text": "Check Privacy Settings", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "pre_posting_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"pre_posting_zone\": [\"Think Before Posting\", \"Check Privacy Settings\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35027,
+    "type": "drag_drop",
+    "question": "Kumpletuhin ang pangungusap: 'Huwag mag-type ng _____ dahil parang sumisigaw.'",
+    "drag_items": [
+      {"id": "item1", "text": "ALL CAPS", "type": "draggable"},
+      {"id": "item2", "text": "Polite Words", "type": "draggable"},
+      {"id": "item3", "text": "Emoji", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"ALL CAPS\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35028,
+    "type": "drag_drop",
+    "question": "I-categorize: Alin ang examples ng hindi magandang asal online?",
+    "drag_items": [
+      {"id": "item1", "text": "All Caps Message", "type": "draggable"},
+      {"id": "item2", "text": "Oversharing Info", "type": "draggable"},
+      {"id": "item3", "text": "Polite Message", "type": "draggable"},
+      {"id": "item4", "text": "Think Before Posting", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "bad_behavior_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"bad_behavior_zone\": [\"All Caps Message\", \"Oversharing Info\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35029,
+    "type": "drag_drop",
+    "question": "I-drag: Ano ang dapat gawin para panatilihin ang privacy sa online conversations?",
+    "drag_items": [
+      {"id": "item1", "text": "Huwag sobra magbahagi ng personal info", "type": "draggable"},
+      {"id": "item2", "text": "I-share lahat ng password", "type": "draggable"},
+      {"id": "item3", "text": "Panatilihing private ang address", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "privacy_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"privacy_zone\": [\"Huwag sobra magbahagi ng personal info\", \"Panatilihing private ang address\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35030,
+    "type": "drag_drop",
+    "question": "Kumpletuhin ang pangungusap: 'Minsan harsh ang text dahil walang _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "Tono", "type": "draggable"},
+      {"id": "item2", "text": "Emoji", "type": "draggable"},
+      {"id": "item3", "text": "Polite Words", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Tono\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ibig sabihin ng 'Netiquette'?",
+    "options": ["magandang asal sa internet", "malupit na salita", "spam"],
+    "answer": "magandang asal sa internet",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat iwasan kapag nagta-type online?",
+    "options": ["ALL CAPS", "emoji", "polite words"],
+    "answer": "ALL CAPS",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gawin bago mag-post o mag-send ng message?",
+    "options": ["Think Before Posting", "Type Quickly", "Ignore Privacy"],
+    "answer": "Think Before Posting",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat panatilihing pribado sa conversations?",
+    "options": ["password at address", "public posts", "emoji use"],
+    "answer": "password at address",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang makakatulong maiwasan ang misunderstanding sa text?",
+    "options": ["emoji", "ALL CAPS", "random words"],
+    "answer": "emoji",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Bakit mahalaga ang maging magalang kahit online?",
+    "options": ["Para sa magandang komunikasyon", "Para makasigaw sa iba", "Para maging popular"],
+    "answer": "Para sa magandang komunikasyon",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gawin kung hindi ka komportable sa ishare na bagay?",
+    "options": ["Huwag i-share", "I-share agad", "I-post sa lahat"],
+    "answer": "Huwag i-share",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang epekto ng sobrang pagbabahagi ng personal info?",
+    "options": ["Maaaring magamit ng scammers", "Laging safe", "Walang epekto"],
+    "answer": "Maaaring magamit ng scammers",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ibig sabihin ng ALL CAPS sa text?",
+    "options": ["Parang sumisigaw", "Mabait na salita", "Emoji use"],
+    "answer": "Parang sumisigaw",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 15,
+    "question_id": 35040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang puwedeng gamitin para ipakita ang tamang tono sa text?",
+    "options": ["Emoji", "ALL CAPS", "Random Letters"],
+    "answer": "Emoji",
+    "image": null
+  }
+]

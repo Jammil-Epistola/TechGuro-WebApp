@@ -1,0 +1,598 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31001,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang ginagamit para magpadala ng pormal na mensahe?",
+    "options": [
+      {"image": "email_icon.png"},
+      {"image": "chat_app.png"},
+      {"image": "video_call.png"}
+    ],
+    "answer": "email_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31002,
+    "type": "image_mcq",
+    "question": "Anong online tool ang ginagamit para sa mabilisang usapan?",
+    "options": [
+      {"image": "chat_app.png"},
+      {"image": "email_icon.png"},
+      {"image": "printer.png"}
+    ],
+    "answer": "chat_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31003,
+    "type": "image_mcq",
+    "question": "Alin ang social media platform kung saan puwedeng magbahagi ng balita?",
+    "options": [
+      {"image": "social_media_feed.png"},
+      {"image": "video_call.png"},
+      {"image": "email_icon.png"}
+    ],
+    "answer": "social_media_feed.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31004,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang ginagamit para makipag-usap nang harapan online?",
+    "options": [
+      {"image": "video_call.png"},
+      {"image": "email_icon.png"},
+      {"image": "chat_app.png"}
+    ],
+    "answer": "video_call.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31005,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng online communication tool?",
+    "options": [
+      {"image": "chat_app.png"},
+      {"image": "calendar.png"},
+      {"image": "text_editor.png"}
+    ],
+    "answer": "chat_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31006,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang ginagamit sa trabaho para sa opisyal na komunikasyon?",
+    "options": [
+      {"image": "email_icon.png"},
+      {"image": "chat_app.png"},
+      {"image": "shopping_cart.png"}
+    ],
+    "answer": "email_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31007,
+    "type": "image_mcq",
+    "question": "Alin ang app na ginagamit para makipag-chat sa pamilya o kaibigan?",
+    "options": [
+      {"image": "chat_app.png"},
+      {"image": "email_icon.png"},
+      {"image": "document_icon.png"}
+    ],
+    "answer": "chat_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31008,
+    "type": "image_mcq",
+    "question": "Ano ang ginagamit para magpadala ng dokumento online?",
+    "options": [
+      {"image": "email_icon.png"},
+      {"image": "video_call.png"},
+      {"image": "music_app.png"}
+    ],
+    "answer": "email_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31009,
+    "type": "image_mcq",
+    "question": "Anong tool ang ginagamit para sa video meetings?",
+    "options": [
+      {"image": "video_call.png"},
+      {"image": "calendar.png"},
+      {"image": "social_media_feed.png"}
+    ],
+    "answer": "video_call.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31010,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang hindi ginagamit para sa komunikasyon?",
+    "options": [
+      {"image": "calculator.png"},
+      {"image": "chat_app.png"},
+      {"image": "email_icon.png"}
+    ],
+    "answer": "calculator.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31011,
+    "type": "image_mcq",
+    "question": "Ano ang ginagamit kapag gusto mong makita ang kausap mo habang nag-uusap?",
+    "options": [
+      {"image": "video_call.png"},
+      {"image": "chat_app.png"},
+      {"image": "email_icon.png"}
+    ],
+    "answer": "video_call.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31012,
+    "type": "image_mcq",
+    "question": "Anong app ang karaniwang ginagamit para sa mabilisang chat?",
+    "options": [
+      {"image": "chat_app.png"},
+      {"image": "video_call.png"},
+      {"image": "word_processor.png"}
+    ],
+    "answer": "chat_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31013,
+    "type": "image_mcq",
+    "question": "Anong uri ng komunikasyon ang tinatawag na ‘instant messaging’?",
+    "options": [
+      {"image": "chat_app.png"},
+      {"image": "email_icon.png"},
+      {"image": "camera_app.png"}
+    ],
+    "answer": "chat_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31014,
+    "type": "image_mcq",
+    "question": "Anong tool ang ginagamit kapag nagpapadala ng trabaho o dokumento?",
+    "options": [
+      {"image": "email_icon.png"},
+      {"image": "chat_app.png"},
+      {"image": "social_media_feed.png"}
+    ],
+    "answer": "email_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31015,
+    "type": "image_mcq",
+    "question": "Ano ang ginagamit ng mga pamilya para mag-usap kahit malayo?",
+    "options": [
+      {"image": "video_call.png"},
+      {"image": "shopping_cart.png"},
+      {"image": "calendar.png"}
+    ],
+    "answer": "video_call.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31016,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng maling paraan ng komunikasyon?",
+    "options": [
+      {"image": "angry_comment.png"},
+      {"image": "chat_app.png"},
+      {"image": "email_icon.png"}
+    ],
+    "answer": "angry_comment.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31017,
+    "type": "image_mcq",
+    "question": "Ano ang tawag sa paggamit ng social media para magbahagi ng impormasyon?",
+    "options": [
+      {"image": "social_media_feed.png"},
+      {"image": "email_icon.png"},
+      {"image": "chat_app.png"}
+    ],
+    "answer": "social_media_feed.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31018,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang hindi ligtas kung may scam message?",
+    "options": [
+      {"image": "unknown_link.png"},
+      {"image": "chat_app.png"},
+      {"image": "email_icon.png"}
+    ],
+    "answer": "unknown_link.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31019,
+    "type": "image_mcq",
+    "question": "Ano ang ginagamit ng mga estudyante para sa online group projects?",
+    "options": [
+      {"image": "chat_app.png"},
+      {"image": "video_call.png"},
+      {"image": "email_icon.png"}
+    ],
+    "answer": "chat_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31020,
+    "type": "image_mcq",
+    "question": "Anong app ang kadalasang ginagamit para sa mabilis na pagpapadala ng mensahe?",
+    "options": [
+      {"image": "chat_app.png"},
+      {"image": "email_icon.png"},
+      {"image": "video_call.png"}
+    ],
+    "answer": "chat_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31021,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga halimbawa ng online communication tools.",
+    "drag_items": [
+      {"id": "item1", "text": "Email", "type": "draggable"},
+      {"id": "item2", "text": "Messenger", "type": "draggable"},
+      {"id": "item3", "text": "Telepono", "type": "draggable"},
+      {"id": "item4", "text": "Social Media", "type": "draggable"},
+      {"id": "item5", "text": "Kahoy na sulat", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "comm_zone", "position": "box", "label": "ONLINE COMMUNICATION", "accepts_multiple": true}
+    ],
+    "answer": "{\"comm_zone\": [\"Email\", \"Messenger\", \"Social Media\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31022,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ ay ginagamit para sa pormal na mensahe sa trabaho.'",
+    "drag_items": [
+      {"id": "item1", "text": "Email", "type": "draggable"},
+      {"id": "item2", "text": "Chat", "type": "draggable"},
+      {"id": "item3", "text": "Call", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Email\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31023,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ ay ginagamit sa mabilisang chat o usapan.'",
+    "drag_items": [
+      {"id": "item1", "text": "Messenger", "type": "draggable"},
+      {"id": "item2", "text": "Email", "type": "draggable"},
+      {"id": "item3", "text": "Browser", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Messenger\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31024,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ ay ginagamit para sa video calls at meetings online.'",
+    "drag_items": [
+      {"id": "item1", "text": "Video Call App", "type": "draggable"},
+      {"id": "item2", "text": "Music Player", "type": "draggable"},
+      {"id": "item3", "text": "Calculator", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Video Call App\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31025,
+    "type": "drag_drop",
+    "question": "I-drag ang mga benepisyo ng online communication.",
+    "drag_items": [
+      {"id": "item1", "text": "Mabilis dumating ang mensahe", "type": "draggable"},
+      {"id": "item2", "text": "Libre o mura", "type": "draggable"},
+      {"id": "item3", "text": "Mali ang pagkakaintindi", "type": "draggable"},
+      {"id": "item4", "text": "Nakaka-connect kahit malayo", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "benefit_zone", "position": "box", "label": "BENEPISYO", "accepts_multiple": true}
+    ],
+    "answer": "{\"benefit_zone\": [\"Mabilis dumating ang mensahe\", \"Libre o mura\", \"Nakaka-connect kahit malayo\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ ay ginagamit para magbahagi ng balita at impormasyon.'",
+    "drag_items": [
+      {"id": "item1", "text": "Social Media", "type": "draggable"},
+      {"id": "item2", "text": "Calculator", "type": "draggable"},
+      {"id": "item3", "text": "Music Player", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Social Media\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31027,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang maling pagkaintindi sa mensahe ay isang _____ ng online communication.'",
+    "drag_items": [
+      {"id": "item1", "text": "Challenge", "type": "draggable"},
+      {"id": "item2", "text": "Benefit", "type": "draggable"},
+      {"id": "item3", "text": "Advantage", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Challenge\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31028,
+    "type": "drag_drop",
+    "question": "I-drag ang mga halimbawa ng 'tamang paggamit' ng communication tools.",
+    "drag_items": [
+      {"id": "item1", "text": "Mag-email para sa opisyal na usapan", "type": "draggable"},
+      {"id": "item2", "text": "Mag-chat ng family updates", "type": "draggable"},
+      {"id": "item3", "text": "Mag-post ng fake news", "type": "draggable"},
+      {"id": "item4", "text": "Mag-video call sa kaibigan", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "proper_zone", "position": "box", "label": "TAMANG PAGGAMIT", "accepts_multiple": true}
+    ],
+    "answer": "{\"proper_zone\": [\"Mag-email para sa opisyal na usapan\", \"Mag-chat ng family updates\", \"Mag-video call sa kaibigan\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31029,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ ay parang harapan na usapan kahit online.'",
+    "drag_items": [
+      {"id": "item1", "text": "Video Call", "type": "draggable"},
+      {"id": "item2", "text": "Text Message", "type": "draggable"},
+      {"id": "item3", "text": "Email", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Video Call\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31030,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga tool sa tamang gamit.",
+    "drag_items": [
+      {"id": "item1", "text": "Email", "type": "draggable"},
+      {"id": "item2", "text": "Messenger", "type": "draggable"},
+      {"id": "item3", "text": "Video Call App", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "work_zone", "position": "box", "label": "TRABAHO O DOKUMENTO", "accepts_multiple": true},
+      {"id": "family_zone", "position": "box", "label": "PAKIKIPAG-USAP SA PAMILYA", "accepts_multiple": true},
+      {"id": "face_zone", "position": "box", "label": "HARAPAN NA USAPAN", "accepts_multiple": true}
+    ],
+    "answer": "{\"work_zone\": [\"Email\"], \"family_zone\": [\"Messenger\"], \"face_zone\": [\"Video Call App\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong tool ang ginagamit sa pagpapadala ng pormal na mensahe online?",
+    "options": ["email", "messenger", "video call"],
+    "answer": "email",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Aling app ang ginagamit sa mabilis na usapan o chat?",
+    "options": ["messenger", "email", "social media"],
+    "answer": "messenger",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Alin ang platform kung saan puwedeng magbahagi ng balita at larawan?",
+    "options": ["social media", "messenger", "email"],
+    "answer": "social media",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong uri ng tawag ang parang harapan kahit online?",
+    "options": ["video call", "voice call", "messenger chat"],
+    "answer": "video call",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Isa itong benepisyo — Mabilis dumating ang ______.",
+    "options": ["mensahe", "pera", "pakete"],
+    "answer": "mensahe",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Libre o mura ang online communication kumpara sa ______.",
+    "options": ["tawag sa telepono", "text message", "video call"],
+    "answer": "tawag sa telepono",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Isa sa mga challenge ng online communication ay maling ______ ng mensahe.",
+    "options": ["pagkakaintindi", "pagsabi", "pagsulat"],
+    "answer": "pagkakaintindi",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ang mga pekeng balita online ay tinatawag na ______.",
+    "options": ["fake news", "email", "ads"],
+    "answer": "fake news",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Gamitin ang ______ kapag gusto mong makita ang kausap habang nag-uusap.",
+    "options": ["video call", "messenger", "email"],
+    "answer": "video call",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 11,
+    "question_id": 31040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong tool ang madalas gamitin sa trabaho o pagpapadala ng dokumento?",
+    "options": ["email", "messenger", "social media"],
+    "answer": "email",
+    "image": null
+  }
+]

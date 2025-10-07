@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import CourseNavbar from "./courseNavbar";
 import { useUser } from "../context/UserContext";
+import { useMilestone } from '../context/MilestoneContext';
 import { normalizeSlides } from "../utility/normalizeContent";
 import useTTS from "../hooks/useTTS";
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
@@ -14,6 +15,7 @@ const LessonPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useUser();
+  const { showMilestone } = useMilestone();
   const { lessonId } = location.state || {};
 
   const [lessonsData, setLessonsData] = useState(null);
@@ -213,8 +215,13 @@ const LessonPage = () => {
       }),
     })
       .then((res) => res.json())
-      .then(() => {
-        // 🔄 Refresh progress so button updates immediately
+      .then((result) => {
+        //  Check if milestone was awarded and show notification
+        if (result.milestone_awarded) {
+          showMilestone(result.milestone_awarded);
+        }
+
+        // Refresh progress so button updates immediately
         return fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`);
       })
       .then((res) => res.json())

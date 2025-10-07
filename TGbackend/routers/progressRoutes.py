@@ -7,6 +7,7 @@ from TGbackend import models
 from TGbackend import schema
 from TGbackend.services.bkt_service import teki_bkt
 from TGbackend.models import Progress
+from TGbackend.services.milestone_service import award_milestone_if_not_earned
 
 router = APIRouter(tags=["Progress Tracking"])
 
@@ -60,6 +61,45 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
         except Exception as e:
             print(f"BKT update failed for user {progress_data.user_id}, lesson {progress_data.lesson_id}: {e}")
 
+    # -------------------------
+    # Award Milestone #3: "First Lesson"
+    # Trigger: Complete your first lesson ever
+    # -------------------------
+    milestone_awarded = None
+    if lesson_newly_completed:
+        # Check if this is the user's FIRST completed lesson across ALL courses
+        total_completed = db.query(models.Progress).filter(
+            models.Progress.user_id == progress_data.user_id,
+            models.Progress.completed == True
+        ).count()
+        
+        # If this is their first completed lesson, award Milestone #3
+        if total_completed == 1:  # This lesson just made it 1
+            try:
+                milestone_result = award_milestone_if_not_earned(
+                    user_id=progress_data.user_id,
+                    milestone_id=3,
+                    db=db
+                )
+                
+                # If milestone was newly awarded
+                if milestone_result["status"] == "milestone_awarded":
+                    milestone = db.query(models.Milestone).filter(
+                        models.Milestone.id == 3
+                    ).first()
+                    
+                    if milestone:
+                        milestone_awarded = {
+                            "id": milestone.id,
+                            "title": milestone.title,
+                            "description": milestone.description,
+                            "icon_url": milestone.icon_url
+                        }
+                
+                print(f"Milestone #3 check: {milestone_result}")
+            except Exception as e:
+                print(f"Error awarding Milestone #3: {str(e)}")
+
     db.commit()
 
     response_data = {
@@ -69,6 +109,10 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
 
     if bkt_update_result and bkt_update_result.get("updated_masteries"):
         response_data["mastery_updates"] = bkt_update_result["updated_masteries"]
+    
+    # Add milestone info if it was newly awarded
+    if milestone_awarded:
+        response_data["milestone_awarded"] = milestone_awarded
 
     return response_data
 

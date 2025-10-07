@@ -1,0 +1,597 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33001,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang logo ng Messenger?",
+    "options": [
+      {"image": "messenger_logo.png"},
+      {"image": "gmail_logo.png"},
+      {"image": "youtube_logo.png"}
+    ],
+    "answer": "messenger_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33002,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para makipag-chat online?",
+    "options": [
+      {"image": "messenger_app.png"},
+      {"image": "calculator_app.png"},
+      {"image": "camera_app.png"}
+    ],
+    "answer": "messenger_app.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33003,
+    "type": "image_mcq",
+    "question": "Alin ang makikita sa Play Store kapag magda-download ng app?",
+    "options": [
+      {"image": "playstore_icon.png"},
+      {"image": "facebook_logo.png"},
+      {"image": "phone_icon.png"}
+    ],
+    "answer": "playstore_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33004,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang chat box kung saan nagta-type ng mensahe?",
+    "options": [
+      {"image": "chat_box.png"},
+      {"image": "call_icon.png"},
+      {"image": "photo_icon.png"}
+    ],
+    "answer": "chat_box.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33005,
+    "type": "image_mcq",
+    "question": "Ano ang icon na ginagamit para magpadala ng larawan?",
+    "options": [
+      {"image": "photo_icon.png"},
+      {"image": "phone_icon.png"},
+      {"image": "emoji_icon.png"}
+    ],
+    "answer": "photo_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33006,
+    "type": "image_mcq",
+    "question": "Alin ang tamang icon para sa voice call sa Messenger?",
+    "options": [
+      {"image": "phone_icon.png"},
+      {"image": "video_icon.png"},
+      {"image": "settings_icon.png"}
+    ],
+    "answer": "phone_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33007,
+    "type": "image_mcq",
+    "question": "Alin ang icon para sa video call?",
+    "options": [
+      {"image": "video_icon.png"},
+      {"image": "chat_box.png"},
+      {"image": "photo_icon.png"}
+    ],
+    "answer": "video_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33008,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng emoji?",
+    "options": [
+      {"image": "emoji_smile.png"},
+      {"image": "messenger_logo.png"},
+      {"image": "folder_icon.png"}
+    ],
+    "answer": "emoji_smile.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33009,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para magdagdag ng bagong kaibigan?",
+    "options": [
+      {"image": "add_friend_icon.png"},
+      {"image": "delete_icon.png"},
+      {"image": "logout_icon.png"}
+    ],
+    "answer": "add_friend_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33010,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para magpadala ng voice message?",
+    "options": [
+      {"image": "microphone_icon.png"},
+      {"image": "camera_icon.png"},
+      {"image": "gallery_icon.png"}
+    ],
+    "answer": "microphone_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33011,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang group chat?",
+    "options": [
+      {"image": "group_chat.png"},
+      {"image": "single_chat.png"},
+      {"image": "settings_icon.png"}
+    ],
+    "answer": "group_chat.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33012,
+    "type": "image_mcq",
+    "question": "Alin ang icon na nagrerepresenta ng mensahe?",
+    "options": [
+      {"image": "message_icon.png"},
+      {"image": "photo_icon.png"},
+      {"image": "settings_icon.png"}
+    ],
+    "answer": "message_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33013,
+    "type": "image_mcq",
+    "question": "Alin ang dapat iwasan kung may di kilalang tao?",
+    "options": [
+      {"image": "stranger_request.png"},
+      {"image": "friend_list.png"},
+      {"image": "group_chat.png"}
+    ],
+    "answer": "stranger_request.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33014,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang Play Store icon?",
+    "options": [
+      {"image": "playstore_icon.png"},
+      {"image": "messenger_logo.png"},
+      {"image": "youtube_logo.png"}
+    ],
+    "answer": "playstore_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33015,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para makausap ang pamilya nang libre?",
+    "options": [
+      {"image": "messenger_logo.png"},
+      {"image": "sms_icon.png"},
+      {"image": "email_logo.png"}
+    ],
+    "answer": "messenger_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33016,
+    "type": "image_mcq",
+    "question": "Ano ang icon na nagpapakita ng settings o options?",
+    "options": [
+      {"image": "settings_icon.png"},
+      {"image": "emoji_icon.png"},
+      {"image": "add_friend_icon.png"}
+    ],
+    "answer": "settings_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33017,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng video call screen?",
+    "options": [
+      {"image": "video_call_screen.png"},
+      {"image": "chat_box.png"},
+      {"image": "photo_gallery.png"}
+    ],
+    "answer": "video_call_screen.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33018,
+    "type": "image_mcq",
+    "question": "Ano ang icon na dapat pindutin para magpadala ng mensahe?",
+    "options": [
+      {"image": "send_icon.png"},
+      {"image": "delete_icon.png"},
+      {"image": "settings_icon.png"}
+    ],
+    "answer": "send_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33019,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng voice message?",
+    "options": [
+      {"image": "voice_message.png"},
+      {"image": "text_message.png"},
+      {"image": "group_chat.png"}
+    ],
+    "answer": "voice_message.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33020,
+    "type": "image_mcq",
+    "question": "Ano ang icon na kadalasang ginagamit para mag-log out?",
+    "options": [
+      {"image": "logout_icon.png"},
+      {"image": "settings_icon.png"},
+      {"image": "add_friend_icon.png"}
+    ],
+    "answer": "logout_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33021,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: 'Ang _____ ay ginagamit para sa mabilisang chat gamit ang internet.'",
+    "drag_items": [
+      {"id": "item1", "text": "Messenger", "type": "draggable"},
+      {"id": "item2", "text": "Calculator", "type": "draggable"},
+      {"id": "item3", "text": "Notepad", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Messenger\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33022,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'I-download ang app mula sa _____ o App Store.'",
+    "drag_items": [
+      {"id": "item1", "text": "Play Store", "type": "draggable"},
+      {"id": "item2", "text": "File Manager", "type": "draggable"},
+      {"id": "item3", "text": "Gallery", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Play Store\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33023,
+    "type": "drag_drop",
+    "question": "I-categorize: Piliin ang mga halimbawa ng messaging apps.",
+    "drag_items": [
+      {"id": "item1", "text": "Messenger", "type": "draggable"},
+      {"id": "item2", "text": "Viber", "type": "draggable"},
+      {"id": "item3", "text": "WhatsApp", "type": "draggable"},
+      {"id": "item4", "text": "Camera", "type": "draggable"},
+      {"id": "item5", "text": "Maps", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "apps_zone", "position": "box", "label": "MESSAGING APPS", "accepts_multiple": true}
+    ],
+    "answer": "{\"apps_zone\": [\"Messenger\", \"Viber\", \"WhatsApp\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33024,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Para makapagsimula ng chat, hanapin ang pangalan ng _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "tao", "type": "draggable"},
+      {"id": "item2", "text": "app", "type": "draggable"},
+      {"id": "item3", "text": "photo", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"tao\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33025,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga maaaring ipadala sa chat box.",
+    "drag_items": [
+      {"id": "item1", "text": "Emoji", "type": "draggable"},
+      {"id": "item2", "text": "Larawan", "type": "draggable"},
+      {"id": "item3", "text": "Voice Message", "type": "draggable"},
+      {"id": "item4", "text": "Electric Bill", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "chat_items", "position": "box", "label": "CHAT CONTENT", "accepts_multiple": true}
+    ],
+    "answer": "{\"chat_items\": [\"Emoji\", \"Larawan\", \"Voice Message\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang tawag na may video ay tinatawag na _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "Video Call", "type": "draggable"},
+      {"id": "item2", "text": "Voice Call", "type": "draggable"},
+      {"id": "item3", "text": "Text Message", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Video Call\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33027,
+    "type": "drag_drop",
+    "question": "I-categorize: Piliin ang mga bagay na dapat iwasan sa messaging apps.",
+    "drag_items": [
+      {"id": "item1", "text": "Unknown Links", "type": "draggable"},
+      {"id": "item2", "text": "Stranger Requests", "type": "draggable"},
+      {"id": "item3", "text": "Funny Sticker", "type": "draggable"},
+      {"id": "item4", "text": "Password Sharing", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "avoid_zone", "position": "box", "label": "I-IWAS", "accepts_multiple": true}
+    ],
+    "answer": "{\"avoid_zone\": [\"Unknown Links\", \"Stranger Requests\", \"Password Sharing\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33028,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Libre ang voice at video calls basta may _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "Internet", "type": "draggable"},
+      {"id": "item2", "text": "Headset", "type": "draggable"},
+      {"id": "item3", "text": "Camera", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Internet\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33029,
+    "type": "drag_drop",
+    "question": "I-categorize: Piliin ang mga secure na gawain habang nagcha-chat.",
+    "drag_items": [
+      {"id": "item1", "text": "Hindi pagbibigay ng password", "type": "draggable"},
+      {"id": "item2", "text": "Pagtanggap ng unknown requests", "type": "draggable"},
+      {"id": "item3", "text": "Pag-block ng scammer", "type": "draggable"},
+      {"id": "item4", "text": "Pag-click ng random links", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_zone", "position": "box", "label": "SAFE HABITS", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_zone\": [\"Hindi pagbibigay ng password\", \"Pag-block ng scammer\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33030,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang mga group chat ay para sa _____ o barkada.'",
+    "drag_items": [
+      {"id": "item1", "text": "pamilya", "type": "draggable"},
+      {"id": "item2", "text": "opisina", "type": "draggable"},
+      {"id": "item3", "text": "shopping", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"pamilya\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa app na ginagamit sa mabilisang chat?",
+    "options": ["messenger", "mahjong", "chrome"],
+    "answer": "messenger",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Saan mo ida-download ang Messenger?",
+    "options": ["play store", "email", "YouTube"],
+    "answer": "play store",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat i-tap para simulan ang app?",
+    "options": ["icon", "message", "menu"],
+    "answer": "icon",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat mong hanapin para makipag-chat sa isang tao?",
+    "options": ["pangalan", "password", "profile"],
+    "answer": "pangalan",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ginagamit mo para mag-type ng mensahe?",
+    "options": ["chat box", "inbox", "icon"],
+    "answer": "chat box",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa chat para sa pamilya o barkada?",
+    "options": ["group chat", "inbox", "private chat"],
+    "answer": "group chat",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat mong i-tap para sa voice call?",
+    "options": ["phone icon", "camera icon", "send button"],
+    "answer": "phone icon",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang kailangan mo para makatawag online?",
+    "options": ["internet", "load", "usb"],
+    "answer": "internet",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang hindi mo dapat ibigay sa ibang tao sa chat?",
+    "options": ["password", "picture", "name"],
+    "answer": "password",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 13,
+    "question_id": 33040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat iwasan mong i-click sa chat?",
+    "options": ["unknown links", "emoji", "photo"],
+    "answer": "unknown links",
+    "image": null
+  }
+]

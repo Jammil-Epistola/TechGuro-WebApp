@@ -1,0 +1,604 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34001,
+    "type": "image_mcq",
+    "question": "Alin dito ang halimbawa ng video communication app?",
+    "options": [
+      {"image": "zoom.png"},
+      {"image": "calculator.png"},
+      {"image": "notepad.png"}
+    ],
+    "answer": "zoom.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34002,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para makausap ang pamilya kahit malayo?",
+    "options": [
+      {"image": "video_call.png"},
+      {"image": "email.png"},
+      {"image": "chat.png"}
+    ],
+    "answer": "video_call.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34003,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng online class platform?",
+    "options": [
+      {"image": "google_meet.png"},
+      {"image": "calculator.png"},
+      {"image": "text_editor.png"}
+    ],
+    "answer": "google_meet.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34004,
+    "type": "image_mcq",
+    "question": "Alin ang dapat i-click para makapasok sa video call?",
+    "options": [
+      {"image": "meeting_link.png"},
+      {"image": "email_icon.png"},
+      {"image": "desktop.png"}
+    ],
+    "answer": "meeting_link.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34005,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para payagan ang mic at camera sa call?",
+    "options": [
+      {"image": "permissions.png"},
+      {"image": "settings.png"},
+      {"image": "gallery.png"}
+    ],
+    "answer": "permissions.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34006,
+    "type": "image_mcq",
+    "question": "Alin ang tamang button para patayin at buksan ang tunog sa call?",
+    "options": [
+      {"image": "mute_unmute.png"},
+      {"image": "volume_up.png"},
+      {"image": "speaker.png"}
+    ],
+    "answer": "mute_unmute.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34007,
+    "type": "image_mcq",
+    "question": "Alin ang tamang button para patayin at buksan ang video sa call?",
+    "options": [
+      {"image": "camera_on_off.png"},
+      {"image": "photo_icon.png"},
+      {"image": "gallery.png"}
+    ],
+    "answer": "camera_on_off.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34008,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para umalis sa meeting kapag tapos na?",
+    "options": [
+      {"image": "leave_meeting.png"},
+      {"image": "logout.png"},
+      {"image": "close_app.png"}
+    ],
+    "answer": "leave_meeting.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34009,
+    "type": "image_mcq",
+    "question": "Alin ang tamang practice sa video call para maayos ang lighting?",
+    "options": [
+      {"image": "bright_light.png"},
+      {"image": "dark_room.png"},
+      {"image": "backlight.png"}
+    ],
+    "answer": "bright_light.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34010,
+    "type": "image_mcq",
+    "question": "Alin ang tamang lugar para umupo habang nasa video call?",
+    "options": [
+      {"image": "quiet_room.png"},
+      {"image": "noisy_room.png"},
+      {"image": "crowded_place.png"}
+    ],
+    "answer": "quiet_room.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34011,
+    "type": "image_mcq",
+    "question": "Alin ang naglalarawan ng stable internet connection para sa call?",
+    "options": [
+      {"image": "stable_internet.png"},
+      {"image": "slow_wifi.png"},
+      {"image": "no_connection.png"}
+    ],
+    "answer": "stable_internet.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34012,
+    "type": "image_mcq",
+    "question": "Alin ang tamang paraan ng pagwawakas ng call?",
+    "options": [
+      {"image": "end_call.png"},
+      {"image": "close_app.png"},
+      {"image": "lock_screen.png"}
+    ],
+    "answer": "end_call.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34013,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng video communication app bukod sa Zoom?",
+    "options": [
+      {"image": "messenger.png"},
+      {"image": "calculator.png"},
+      {"image": "paint.png"}
+    ],
+    "answer": "messenger.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34014,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit sa online meetings para maayos ang audio?",
+    "options": [
+      {"image": "mute_unmute.png"},
+      {"image": "camera_on_off.png"},
+      {"image": "leave_meeting.png"}
+    ],
+    "answer": "mute_unmute.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34015,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para i-turn off ang camera kapag gusto mo na hindi makita?",
+    "options": [
+      {"image": "camera_on_off.png"},
+      {"image": "mute_unmute.png"},
+      {"image": "end_call.png"}
+    ],
+    "answer": "camera_on_off.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34016,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng tamang pag-click para makapasok sa meeting?",
+    "options": [
+      {"image": "meeting_link.png"},
+      {"image": "email_icon.png"},
+      {"image": "desktop.png"}
+    ],
+    "answer": "meeting_link.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34017,
+    "type": "image_mcq",
+    "question": "Alin ang dapat i-click para umalis sa call ng maayos?",
+    "options": [
+      {"image": "leave_meeting.png"},
+      {"image": "close_app.png"},
+      {"image": "lock_screen.png"}
+    ],
+    "answer": "leave_meeting.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34018,
+    "type": "image_mcq",
+    "question": "Alin ang tamang ilaw na dapat gamitin sa video call?",
+    "options": [
+      {"image": "bright_light.png"},
+      {"image": "backlight.png"},
+      {"image": "dark_room.png"}
+    ],
+    "answer": "bright_light.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34019,
+    "type": "image_mcq",
+    "question": "Alin ang tamang lugar para maiwasan ang ingay habang nasa call?",
+    "options": [
+      {"image": "quiet_room.png"},
+      {"image": "crowded_place.png"},
+      {"image": "street.png"}
+    ],
+    "answer": "quiet_room.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34020,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para tiyakin na hindi nagka-problema ang internet connection sa call?",
+    "options": [
+      {"image": "stable_internet.png"},
+      {"image": "slow_wifi.png"},
+      {"image": "no_connection.png"}
+    ],
+    "answer": "stable_internet.png",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34021,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Alin ang halimbawa ng video communication apps?",
+    "drag_items": [
+      {"id": "item1", "text": "Zoom", "type": "draggable"},
+      {"id": "item2", "text": "Calculator", "type": "draggable"},
+      {"id": "item3", "text": "Messenger", "type": "draggable"},
+      {"id": "item4", "text": "Paint", "type": "draggable"},
+      {"id": "item5", "text": "Google Meet", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "app_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"app_zone\": [\"Zoom\", \"Messenger\", \"Google Meet\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34022,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Upang makapasok sa video call, i-click ang _____ at payagan ang _____ at _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "meeting link", "type": "draggable"},
+      {"id": "item2", "text": "mic", "type": "draggable"},
+      {"id": "item3", "text": "camera", "type": "draggable"},
+      {"id": "item4", "text": "email", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"},
+      {"id": "blank_2", "position": "inline", "placeholder": "___"},
+      {"id": "blank_3", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"meeting link\", \"blank_2\": \"mic\", \"blank_3\": \"camera\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34023,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Alin ang tamang controls sa video call?",
+    "drag_items": [
+      {"id": "item1", "text": "Mute/Unmute", "type": "draggable"},
+      {"id": "item2", "text": "Camera On/Off", "type": "draggable"},
+      {"id": "item3", "text": "Leave Meeting", "type": "draggable"},
+      {"id": "item4", "text": "Open Browser", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "controls_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"controls_zone\": [\"Mute/Unmute\", \"Camera On/Off\", \"Leave Meeting\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34024,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Ano ang good practices habang nasa call?",
+    "drag_items": [
+      {"id": "item1", "text": "Umupo sa tahimik na lugar", "type": "draggable"},
+      {"id": "item2", "text": "Gumamit ng maliwanag na ilaw", "type": "draggable"},
+      {"id": "item3", "text": "Siguraduhin na stable ang internet", "type": "draggable"},
+      {"id": "item4", "text": "Maglaro habang nakasali sa call", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "practice_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"practice_zone\": [\"Umupo sa tahimik na lugar\", \"Gumamit ng maliwanag na ilaw\", \"Siguraduhin na stable ang internet\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34025,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Upang matapos ang call, pindutin ang _____ o _____ at _____ bago umalis.'",
+    "drag_items": [
+      {"id": "item1", "text": "Leave Meeting", "type": "draggable"},
+      {"id": "item2", "text": "End Call", "type": "draggable"},
+      {"id": "item3", "text": "Logout", "type": "draggable"},
+      {"id": "item4", "text": "Magpaalam", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"},
+      {"id": "blank_2", "position": "inline", "placeholder": "___"},
+      {"id": "blank_3", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"Leave Meeting\", \"blank_2\": \"End Call\", \"blank_3\": \"Magpaalam\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34026,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Alin ang dapat iwasan habang nasa video call?",
+    "drag_items": [
+      {"id": "item1", "text": "Maglaro habang nakasali", "type": "draggable"},
+      {"id": "item2", "text": "Magsalita sa mic", "type": "draggable"},
+      {"id": "item3", "text": "Buksan ang camera", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "avoid_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"avoid_zone\": [\"Maglaro habang nakasali\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34027,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Alin ang dapat gawin bago magsimula ang video call?",
+    "drag_items": [
+      {"id": "item1", "text": "Payagan ang mic at camera", "type": "draggable"},
+      {"id": "item2", "text": "Buksan ang TV", "type": "draggable"},
+      {"id": "item3", "text": "Maglaro ng games", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "before_call_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"before_call_zone\": [\"Payagan ang mic at camera\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34028,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Alin ang tamang order ng pagwawakas ng call?",
+    "drag_items": [
+      {"id": "item1", "text": "Magpaalam", "type": "draggable"},
+      {"id": "item2", "text": "Leave Meeting", "type": "draggable"},
+      {"id": "item3", "text": "End Call", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "order_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"order_zone\": [\"Leave Meeting\", \"End Call\", \"Magpaalam\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34029,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Alin ang tools para makontrol ang audio at video sa call?",
+    "drag_items": [
+      {"id": "item1", "text": "Mute/Unmute", "type": "draggable"},
+      {"id": "item2", "text": "Camera On/Off", "type": "draggable"},
+      {"id": "item3", "text": "Open Browser", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "tools_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"tools_zone\": [\"Mute/Unmute\", \"Camera On/Off\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34030,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang sagot: Alin ang dapat i-prepare para sa magandang video call experience?",
+    "drag_items": [
+      {"id": "item1", "text": "Tahimik na lugar", "type": "draggable"},
+      {"id": "item2", "text": "Maliwanag na ilaw", "type": "draggable"},
+      {"id": "item3", "text": "Stable na internet", "type": "draggable"},
+      {"id": "item4", "text": "Loud TV sound", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "prepare_zone", "position": "box", "accepts_multiple": true}
+    ],
+    "answer": "{\"prepare_zone\": [\"Tahimik na lugar\", \"Maliwanag na ilaw\", \"Stable na internet\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang tawag sa pakikipag-usap na nakikita at naririnig ang kausap online?",
+    "options": ["video communication", "chat", "email"],
+    "answer": "video communication",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Magbigay ng halimbawa ng video communication app.",
+    "options": ["Zoom", "Calculator", "Paint"],
+    "answer": "Zoom",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang isang dahilan para gumamit ng video calls?",
+    "options": ["Makipag-usap sa pamilya", "Maglaro", "Magbasa ng libro"],
+    "answer": "Makipag-usap sa pamilya",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat i-click para makapasok sa video call?",
+    "options": ["meeting link", "email", "desktop icon"],
+    "answer": "meeting link",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat payagan bago magsimula ang video call?",
+    "options": ["mic at camera", "music player", "email notifications"],
+    "answer": "mic at camera",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong control ang ginagamit para patayin o buksan ang tunog sa call?",
+    "options": ["Mute/Unmute", "Camera On/Off", "Leave Meeting"],
+    "answer": "Mute/Unmute",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong control ang ginagamit para patayin o buksan ang video sa call?",
+    "options": ["Camera On/Off", "Mute/Unmute", "Leave Meeting"],
+    "answer": "Camera On/Off",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gawin para maging maayos ang video call experience?",
+    "options": ["Tahimik na lugar, maliwanag na ilaw, stable na internet", "Maglaro habang nakasali", "Bukas ang TV at music"],
+    "answer": "Tahimik na lugar, maliwanag na ilaw, stable na internet",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat pindutin para umalis sa meeting nang maayos?",
+    "options": ["Leave Meeting", "End Call", "Close App"],
+    "answer": "Leave Meeting",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 14,
+    "question_id": 34040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat gawin bago umalis sa video call?",
+    "options": ["Magpaalam", "Maglaro", "I-off ang computer"],
+    "answer": "Magpaalam",
+    "image": null
+  }
+]
+

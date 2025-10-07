@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from "motion/react";
 import CourseNavbar from './courseNavbar';
 import { useUser } from '../context/UserContext';
+import { useMilestone } from '../context/MilestoneContext';
 import TekiDialog from '../components/TekiDialog';
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
 import { MousePointer, Keyboard, Image, X, Play } from 'lucide-react';
@@ -12,8 +13,9 @@ const LessonList = () => {
   const navigate = useNavigate();
   const { courseName } = useParams();
   const { user } = useUser();
+  const { showMilestone } = useMilestone();
   const [lessonsData, setLessonsData] = useState(null);
-  const [courseId, setCourseId] = useState(null); // Add courseId state
+  const [courseId, setCourseId] = useState(null);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [recommendedLessons, setRecommendedLessons] = useState([]);
   const [completedActivities, setCompletedActivities] = useState(false);
@@ -254,6 +256,44 @@ const LessonList = () => {
       fetchQuizModes();
     }
   }, [activeSection, courseId]);
+
+  useEffect(() => {
+    const checkMilestone2 = async () => {
+      if (!user || !courseId) return;
+
+      // Use sessionStorage to track if we've shown this milestone for this course
+      const milestoneKey = `milestone_2_shown_${user.user_id}_${courseId}`;
+      const hasShown = sessionStorage.getItem(milestoneKey);
+
+      if (!hasShown) {
+        try {
+          // Check if user just earned Milestone #2
+          const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/2`);
+          const data = await response.json();
+
+          if (data.earned) {
+            // Fetch milestone details
+            const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
+            const milestones = await milestonesResponse.json();
+            const milestone2 = milestones.find(m => m.id === 2);
+
+            if (milestone2 && milestone2.status === "earned") {
+              // Small delay for better UX (let page load first)
+              setTimeout(() => {
+                showMilestone(milestone2);
+                // Mark as shown for this session + course combo
+                sessionStorage.setItem(milestoneKey, "true");
+              }, 1500);
+            }
+          }
+        } catch (error) {
+          console.error("Error checking Milestone #2:", error);
+        }
+      }
+    };
+
+    checkMilestone2();
+  }, [user, courseId, showMilestone]);
 
   const handleStartLesson = (lessonId) => {
     navigate(`/courses/${courseName}/lesson`, {

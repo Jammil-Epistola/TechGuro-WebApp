@@ -1,0 +1,595 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32001,
+    "type": "image_mcq",
+    "question": "Alin dito ang simbolo para sa pagpapadala ng email?",
+    "options": [
+      {"image": "send_icon.png"},
+      {"image": "trash_icon.png"},
+      {"image": "reply_icon.png"}
+    ],
+    "answer": "send_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32002,
+    "type": "image_mcq",
+    "question": "Alin dito ang logo ng Gmail?",
+    "options": [
+      {"image": "gmail_logo.png"},
+      {"image": "facebook_logo.png"},
+      {"image": "youtube_logo.png"}
+    ],
+    "answer": "gmail_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32003,
+    "type": "image_mcq",
+    "question": "Alin ang ginagamit para mag-sign up ng bagong email account?",
+    "options": [
+      {"image": "signup_form.png"},
+      {"image": "inbox_view.png"},
+      {"image": "sent_folder.png"}
+    ],
+    "answer": "signup_form.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32004,
+    "type": "image_mcq",
+    "question": "Alin ang icon na ginagamit para mag-attach ng file?",
+    "options": [
+      {"image": "paperclip_icon.png"},
+      {"image": "camera_icon.png"},
+      {"image": "link_icon.png"}
+    ],
+    "answer": "paperclip_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32005,
+    "type": "image_mcq",
+    "question": "Saan mo makikita ang mga bagong natanggap na email?",
+    "options": [
+      {"image": "inbox_view.png"},
+      {"image": "drafts_folder.png"},
+      {"image": "sent_folder.png"}
+    ],
+    "answer": "inbox_view.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32006,
+    "type": "image_mcq",
+    "question": "Alin dito ang folder ng mga ipinadalang email?",
+    "options": [
+      {"image": "sent_folder.png"},
+      {"image": "inbox_view.png"},
+      {"image": "spam_folder.png"}
+    ],
+    "answer": "sent_folder.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32007,
+    "type": "image_mcq",
+    "question": "Alin dito ang halimbawa ng spam email?",
+    "options": [
+      {"image": "spam_email.png"},
+      {"image": "personal_email.png"},
+      {"image": "newsletter_email.png"}
+    ],
+    "answer": "spam_email.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32008,
+    "type": "image_mcq",
+    "question": "Alin ang bahagi ng email kung saan inilalagay ang paksa?",
+    "options": [
+      {"image": "subject_field.png"},
+      {"image": "to_field.png"},
+      {"image": "attachment_section.png"}
+    ],
+    "answer": "subject_field.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32009,
+    "type": "image_mcq",
+    "question": "Alin ang tamang bahagi ng email para sa address ng tatanggap?",
+    "options": [
+      {"image": "to_field.png"},
+      {"image": "cc_field.png"},
+      {"image": "subject_field.png"}
+    ],
+    "answer": "to_field.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32010,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang simbolo ng reply button?",
+    "options": [
+      {"image": "reply_icon.png"},
+      {"image": "send_icon.png"},
+      {"image": "trash_icon.png"}
+    ],
+    "answer": "reply_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32011,
+    "type": "image_mcq",
+    "question": "Anong icon ang ginagamit para burahin ang email?",
+    "options": [
+      {"image": "trash_icon.png"},
+      {"image": "send_icon.png"},
+      {"image": "archive_icon.png"}
+    ],
+    "answer": "trash_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32012,
+    "type": "image_mcq",
+    "question": "Anong folder ang nilalagyan ng mga hindi pa tapos na sulat?",
+    "options": [
+      {"image": "drafts_folder.png"},
+      {"image": "inbox_view.png"},
+      {"image": "sent_folder.png"}
+    ],
+    "answer": "drafts_folder.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32013,
+    "type": "image_mcq",
+    "question": "Alin dito ang halimbawa ng email provider?",
+    "options": [
+      {"image": "yahoo_logo.png"},
+      {"image": "facebook_logo.png"},
+      {"image": "instagram_logo.png"}
+    ],
+    "answer": "yahoo_logo.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32014,
+    "type": "image_mcq",
+    "question": "Alin ang dapat mong pindutin para magpadala ng larawan sa email?",
+    "options": [
+      {"image": "paperclip_icon.png"},
+      {"image": "reply_icon.png"},
+      {"image": "spam_icon.png"}
+    ],
+    "answer": "paperclip_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32015,
+    "type": "image_mcq",
+    "question": "Ano ang ibig sabihin ng Spam folder?",
+    "options": [
+      {"image": "spam_folder.png"},
+      {"image": "drafts_folder.png"},
+      {"image": "sent_folder.png"}
+    ],
+    "answer": "spam_folder.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32016,
+    "type": "image_mcq",
+    "question": "Anong bahagi ng email ang naglalaman ng mensahe mo?",
+    "options": [
+      {"image": "message_body.png"},
+      {"image": "subject_field.png"},
+      {"image": "to_field.png"}
+    ],
+    "answer": "message_body.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32017,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng unsafe email?",
+    "options": [
+      {"image": "unknown_sender.png"},
+      {"image": "trusted_sender.png"},
+      {"image": "friend_email.png"}
+    ],
+    "answer": "unknown_sender.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32018,
+    "type": "image_mcq",
+    "question": "Alin dito ang dapat iwasan dahil maaaring may virus?",
+    "options": [
+      {"image": "suspicious_attachment.png"},
+      {"image": "legit_document.png"},
+      {"image": "clean_pdf.png"}
+    ],
+    "answer": "suspicious_attachment.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32019,
+    "type": "image_mcq",
+    "question": "Anong icon ang ginagamit para ipasa ang email sa iba?",
+    "options": [
+      {"image": "forward_icon.png"},
+      {"image": "reply_icon.png"},
+      {"image": "send_icon.png"}
+    ],
+    "answer": "forward_icon.png",
+    "image": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32020,
+    "type": "image_mcq",
+    "question": "Alin ang dapat mong i-click kung gusto mong basahin ang natanggap na email?",
+    "options": [
+      {"image": "open_email.png"},
+      {"image": "trash_icon.png"},
+      {"image": "spam_icon.png"}
+    ],
+    "answer": "open_email.png",
+    "image": null
+  },
+   {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32021,
+    "type": "drag_drop",
+    "question": "Kumpletuhin ang pangungusap: 'Ang email ay nangangahulugang _____ mail.'",
+    "drag_items": [
+      {"id": "item1", "text": "electronic", "type": "draggable"},
+      {"id": "item2", "text": "postal", "type": "draggable"},
+      {"id": "item3", "text": "manual", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"electronic\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32022,
+    "type": "drag_drop",
+    "question": "I-drag ang tamang hakbang sa paggawa ng email account.",
+    "drag_items": [
+      {"id": "item1", "text": "Pumili ng email provider", "type": "draggable"},
+      {"id": "item2", "text": "Mag-sign up gamit ang pangalan at password", "type": "draggable"},
+      {"id": "item3", "text": "Magpadala ng email agad", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "steps_zone", "position": "box", "label": "STEPS", "accepts_multiple": true}
+    ],
+    "answer": "{\"steps_zone\": [\"Pumili ng email provider\", \"Mag-sign up gamit ang pangalan at password\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32023,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang Inbox ay para sa mga _____ na email.'",
+    "drag_items": [
+      {"id": "item1", "text": "natanggap", "type": "draggable"},
+      {"id": "item2", "text": "ipinadala", "type": "draggable"},
+      {"id": "item3", "text": "draft", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"natanggap\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32024,
+    "type": "drag_drop",
+    "question": "I-drag sa tamang kahon: Mga bahagi ng Email Inbox.",
+    "drag_items": [
+      {"id": "item1", "text": "Inbox", "type": "draggable"},
+      {"id": "item2", "text": "Sent", "type": "draggable"},
+      {"id": "item3", "text": "Drafts", "type": "draggable"},
+      {"id": "item4", "text": "Photos", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "email_parts", "position": "box", "label": "EMAIL SECTIONS", "accepts_multiple": true}
+    ],
+    "answer": "{\"email_parts\": [\"Inbox\", \"Sent\", \"Drafts\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32025,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang _____ field ay para sa email address ng padadalhan.'",
+    "drag_items": [
+      {"id": "item1", "text": "To", "type": "draggable"},
+      {"id": "item2", "text": "Subject", "type": "draggable"},
+      {"id": "item3", "text": "Message", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"To\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang paperclip icon ay ginagamit para mag-_____ ng file.'",
+    "drag_items": [
+      {"id": "item1", "text": "attach", "type": "draggable"},
+      {"id": "item2", "text": "delete", "type": "draggable"},
+      {"id": "item3", "text": "read", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"attach\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32027,
+    "type": "drag_drop",
+    "question": "I-categorize: I-drag ang mga ligtas na gawain sa paggamit ng email.",
+    "drag_items": [
+      {"id": "item1", "text": "Buksan ang unknown links", "type": "draggable"},
+      {"id": "item2", "text": "I-check kung kilala ang sender", "type": "draggable"},
+      {"id": "item3", "text": "Burahin ang spam email", "type": "draggable"},
+      {"id": "item4", "text": "Ibigay agad ang password", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_zone", "position": "box", "label": "SAFE ACTIONS", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_zone\": [\"I-check kung kilala ang sender\", \"Burahin ang spam email\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32028,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang Spam folder ay para sa mga email na maaaring _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "delikado", "type": "draggable"},
+      {"id": "item2", "text": "ligtas", "type": "draggable"},
+      {"id": "item3", "text": "personal", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"delikado\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32029,
+    "type": "drag_drop",
+    "question": "I-drag sa tamang kahon: Mga aksyon na puwedeng gawin sa natanggap na email.",
+    "drag_items": [
+      {"id": "item1", "text": "Reply", "type": "draggable"},
+      {"id": "item2", "text": "Forward", "type": "draggable"},
+      {"id": "item3", "text": "Attach", "type": "draggable"},
+      {"id": "item4", "text": "Buy", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "email_actions", "position": "box", "label": "EMAIL ACTIONS", "accepts_multiple": true}
+    ],
+    "answer": "{\"email_actions\": [\"Reply\", \"Forward\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32030,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Kung hindi kilala ang nagpadala, _____ ang email.'",
+    "drag_items": [
+      {"id": "item1", "text": "burahin", "type": "draggable"},
+      {"id": "item2", "text": "buksan", "type": "draggable"},
+      {"id": "item3", "text": "sagutin", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"burahin\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ibig sabihin ng 'email'?",
+    "options": ["electronic mail", "postal mail", "instant message"],
+    "answer": "electronic mail",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32032,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Magbigay ng isang halimbawa ng email provider.",
+    "options": ["gmail", "messenger", "SMS"],
+    "answer": "gmail",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32033,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Saang folder napupunta ang mga bagong email?",
+    "options": ["inbox", "sent", "draft"],
+    "answer": "inbox",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32034,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang nilalaman ng 'Subject' field?",
+    "options": ["paksa", "mensahe", "email address"],
+    "answer": "paksa",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32035,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang icon na ginagamit para mag-attach ng file?",
+    "options": ["paperclip", "envelope", "camera"],
+    "answer": "paperclip",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Saan mo makikita ang mga ipinadalang email?",
+    "options": ["sent", "inbox", "spam"],
+    "answer": "sent",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32037,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong folder ang para sa mga hindi pa tapos na email?",
+    "options": ["draft", "inbox", "spam"],
+    "answer": "draft",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat mong gawin sa spam email?",
+    "options": ["burahin", "buksan", "i-forward"],
+    "answer": "burahin",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32039,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang ginagawa mo kapag gusto mong sagutin ang natanggap na email?",
+    "options": ["reply", "delete", "attach"],
+    "answer": "reply",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 3,
+    "lesson_id": 12,
+    "question_id": 32040,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang dapat iwasan kapag may hindi kilalang link?",
+    "options": ["i-click", "iwasan", "i-forward"],
+    "answer": "iwasan",
+    "image": null
+  }
+]

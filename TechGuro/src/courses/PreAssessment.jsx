@@ -13,7 +13,6 @@ const PreAssessment = () => {
   const { courseName } = useParams();
   const navigate = useNavigate();
   const { user } = useUser();
-
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -155,7 +154,6 @@ const PreAssessment = () => {
       const result = await response.json();
       setFinalScore(result.score || 0);
       setShowResults(true);
-
     } catch (err) {
       console.error(err);
       setUnlockReason("Failed to submit assessment. Please try again.");
@@ -233,8 +231,8 @@ const PreAssessment = () => {
               onClick={handlePrevious}
               disabled={currentQuestionIndex === 0}
               className={`px-6 py-3 rounded-lg text-lg font-semibold transition-all ${currentQuestionIndex === 0
-                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-gray-600 text-white hover:bg-gray-700 transform hover:scale-105 shadow-lg"
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-gray-600 text-white hover:bg-gray-700 transform hover:scale-105 shadow-lg"
                 }`}
             >
               Previous

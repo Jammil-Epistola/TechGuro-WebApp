@@ -1,0 +1,596 @@
+[
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21001,
+    "type": "image_mcq",
+    "question": "Alin ang larawan na nagpapakita ng 'Internet'?",
+    "options": [
+      {"image": "wifi_icon_on.png"},
+      {"image": "desktop_pc.png"},
+      {"image": "kitchen.png"}
+    ],
+    "answer": "wifi_icon_on.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21002,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang naglalarawan ng 'global network'?",
+    "options": [
+      {"image": "running.png"},
+      {"image": "global_network.png"},
+      {"image": "group_reading.png"}
+    ],
+    "answer": "global network",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21003,
+    "type": "image_mcq",
+    "question": "Ano ang tamang halimbawa ng paggamit ng Internet araw-araw?",
+    "options": [
+      {"image": "video_call.png"},
+      {"image": "writing.png"},
+      {"image": "playing.png"}
+    ],
+    "answer": "video_call.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21004,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng paggamit ng chat?",
+    "options": [
+      {"image": "writing.png"},
+      {"image": "chat_convo.png"},
+      {"image": "talking.png"}
+    ],
+    "answer": "email_chat.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21005,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng 'browsing websites'?",
+    "options": [
+      {"image": "chrome_logo.png"},
+      {"image": "real_news.png"},
+      {"image": "reading_newspaper.png"}
+    ],
+    "answer": "chrome_logo.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21006,
+    "type": "image_mcq",
+    "question": "Anong larawan ang nagpapakita ng paggamit ng social media?",
+    "options": [
+      {"image": "microsoft_store.png"},
+      {"image": "meme_post.png"},
+      {"image": "reading_newspaper.png"}
+    ],
+    "answer": "meme_post.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21007,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng 'online shopping'?",
+    "options": [
+      {"image": "normal_installer.png"},
+      {"image": "online_shopping.png"},
+      {"image": "mall_shopping.png"}
+    ],
+    "answer": "online_shopping.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21008,
+    "type": "image_mcq",
+    "question": "Ano ang tamang larawan para sa 'online banking'?",
+    "options": [
+      {"image": "online_banking.png"},
+      {"image": "atm_machine.png"},
+      {"image": "cash_register.png"}
+    ],
+    "answer": "online_banking.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21009,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang hindi ligtas na paggamit ng Internet?",
+    "options": [
+      {"image": "birthday_post.png"},
+      {"image": "posting_id.png"},
+      {"image": "strong_password.png"}
+    ],
+    "answer": "posting_id.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21010,
+    "type": "image_mcq",
+    "question": "Alin dito ang dapat iwasan sa Internet?",
+    "options": [
+      {"image": "birthday_post.png"},
+      {"image": "meme_post.png"},
+      {"image": "popup_ads.png"}
+    ],
+    "answer": "popup_ads.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21011,
+    "type": "image_mcq",
+    "question": "Ano ang ginagamit upang makakonekta sa Internet?",
+    "options": [
+      {"image": "wifi_router.png"},
+      {"image": "printer.png"},
+      {"image": "flash_drive.png"}
+    ],
+    "answer": "wifi_router.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21012,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng tamang paggamit ng Internet?",
+    "options": [
+      {"image": "researching.png"},
+      {"image": "info_sent.png"},
+      {"image": "hacking.png"}
+    ],
+    "answer": "researching.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21013,
+    "type": "image_mcq",
+    "question": "Ano ang dapat iwasan habang online?",
+    "options": [
+      {"image": "fake_win_popup.png"},
+      {"image": "call_tech_support.png"},
+      {"image": "online_banking.png"}
+    ],
+    "answer": "fake_win_popup.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21014,
+    "type": "image_mcq",
+    "question": "Anong larawan ang nagpapakita ng online communication?",
+    "options": [
+      {"image": "group_reading.png"},
+      {"image": "video_call.png"},
+      {"image": "writing.png"}
+    ],
+    "answer": "video_call.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21015,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng panloloko online?",
+    "options": [
+      {"image": "spam_email.png"},
+      {"image": "maya_email.png"},
+      {"image": "real_news.png"}
+    ],
+    "answer": "spam_email.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21016,
+    "type": "image_mcq",
+    "question": "Anong larawan ang nagpapakita ng 'video streaming'?",
+    "options": [
+      {"image": "editing_videos.png"},
+      {"image": "voice_recording.png"},
+      {"image": "watching_youtube.png"}
+    ],
+    "answer": "watching_youtube.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21017,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang hindi bahagi ng Internet?",
+    "options": [
+      {"image": "printer.png"},
+      {"image": "govt_site.png"},
+      {"image": "chrome_logo.png"}
+    ],
+    "answer": "printer.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21018,
+    "type": "image_mcq",
+    "question": "Ano ang larawan ng isang ligtas na pag-login?",
+    "options": [
+      {"image": "secure_login.png"},
+      {"image": "phsing_email.png"},
+      {"image": "weak_password1.png"}
+    ],
+    "answer": "secure_login.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21019,
+    "type": "image_mcq",
+    "question": "Alin ang nagpapakita ng maling paggamit ng Internet?",
+    "options": [
+      {"image": "video_call.png"},
+      {"image": "researching.png"},
+      {"image": "cyberbullying.png"}
+    ],
+    "answer": "cyberbullying.png",
+    "media_url": null
+  },
+  {
+    "quiz_type": "multiple_choice",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21020,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang pangunahing layunin ng Internet?",
+    "options": [
+      {"image": "researching.png"},
+      {"image": "meme_post.png"},
+      {"image": "playing_videogames.png"}
+    ],
+    "answer": "researching.png",
+    "media_url": null
+  },
+   {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21021,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang Internet ay isang _____ network na nag-uugnay sa mga computer sa buong mundo.'",
+    "drag_items": [
+      {"id": "item1", "text": "local", "type": "draggable"},
+      {"id": "item2", "text": "global", "type": "draggable"},
+      {"id": "item3", "text": "small", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"global\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21022,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang Internet ay parang _____ ng impormasyon na ginagamit ng lahat.'",
+    "drag_items": [
+      {"id": "item1", "text": "library", "type": "draggable"},
+      {"id": "item2", "text": "highway", "type": "draggable"},
+      {"id": "item3", "text": "island", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"highway\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21023,
+    "type": "drag_drop",
+    "question": "Piliin ang mga karaniwang gawain na nagagawa gamit ang Internet.",
+    "drag_items": [
+      {"id": "item1", "text": "Browsing websites", "type": "draggable"},
+      {"id": "item2", "text": "Sending emails", "type": "draggable"},
+      {"id": "item3", "text": "Writing letters", "type": "draggable"},
+      {"id": "item4", "text": "Playing games", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "internet_tasks", "position": "box", "label": "INTERNET ACTIVITIES", "accepts_multiple": true}
+    ],
+    "answer": "{\"internet_tasks\": [\"Browsing websites\", \"Sending emails\", \"Playing games\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21024,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang Internet ay tumutulong sa mga tao na _____ at makakuha ng impormasyon kahit saan.'",
+    "drag_items": [
+      {"id": "item1", "text": "magbahagi", "type": "draggable"},
+      {"id": "item2", "text": "magpahinga", "type": "draggable"},
+      {"id": "item3", "text": "matulog", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"magbahagi\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21025,
+    "type": "drag_drop",
+    "question": "I-drag ang mga halimbawa ng paggamit ng Internet sa komunikasyon.",
+    "drag_items": [
+      {"id": "item1", "text": "Video calls", "type": "draggable"},
+      {"id": "item2", "text": "Instant messages", "type": "draggable"},
+      {"id": "item3", "text": "Face-to-face talk", "type": "draggable"},
+      {"id": "item4", "text": "Social media", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "communication_zone", "position": "box", "label": "ONLINE COMMUNICATION", "accepts_multiple": true}
+    ],
+    "answer": "{\"communication_zone\": [\"Video calls\", \"Instant messages\", \"Social media\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21026,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Ang mga serbisyong tulad ng online shopping at banking ay ginagawang mas _____ ang buhay.'",
+    "drag_items": [
+      {"id": "item1", "text": "mahirap", "type": "draggable"},
+      {"id": "item2", "text": "madali", "type": "draggable"},
+      {"id": "item3", "text": "mabagal", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"madali\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21027,
+    "type": "drag_drop",
+    "question": "Piliin ang mga halimbawa ng 'Online Services'.",
+    "drag_items": [
+      {"id": "item1", "text": "Online shopping", "type": "draggable"},
+      {"id": "item2", "text": "Online banking", "type": "draggable"},
+      {"id": "item3", "text": "Paying bills online", "type": "draggable"},
+      {"id": "item4", "text": "Cooking at home", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "services_zone", "position": "box", "label": "ONLINE SERVICES", "accepts_multiple": true}
+    ],
+    "answer": "{\"services_zone\": [\"Online shopping\", \"Online banking\", \"Paying bills online\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21028,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Hindi lahat ng nakikita sa Internet ay _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "totoo", "type": "draggable"},
+      {"id": "item2", "text": "maganda", "type": "draggable"},
+      {"id": "item3", "text": "nakakatawa", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"totoo\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21029,
+    "type": "drag_drop",
+    "question": "I-drag ang mga halimbawa ng tamang paggamit ng Internet.",
+    "drag_items": [
+      {"id": "item1", "text": "Pag-aaral online", "type": "draggable"},
+      {"id": "item2", "text": "Panloloko ng tao", "type": "draggable"},
+      {"id": "item3", "text": "Pagbabahagi ng impormasyon", "type": "draggable"},
+      {"id": "item4", "text": "Pagpapadala ng spam", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "safe_use_zone", "position": "box", "label": "SAFE INTERNET USE", "accepts_multiple": true}
+    ],
+    "answer": "{\"safe_use_zone\": [\"Pag-aaral online\", \"Pagbabahagi ng impormasyon\"]}",
+    "image": null
+  },
+  {
+    "quiz_type": "drag_drop",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21030,
+    "type": "drag_drop",
+    "question": "Kumpletuhin: 'Mahalaga ang pag-aaral ng Internet Safety upang maiwasan ang mga taong gumagamit ng Internet para _____.'",
+    "drag_items": [
+      {"id": "item1", "text": "manloko", "type": "draggable"},
+      {"id": "item2", "text": "matulog", "type": "draggable"},
+      {"id": "item3", "text": "maglaro", "type": "draggable"}
+    ],
+    "drop_zones": [
+      {"id": "blank_1", "position": "inline", "placeholder": "___"}
+    ],
+    "answer": "{\"blank_1\": \"manloko\"}",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21031,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Ano ang Internet?",
+    "options": ["global network", "local network", "private connection"],
+    "answer": "global network",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21032,
+    "type": "typing",
+    "question": "I-type ang tamang salita: Ang Internet ay parang ______ ng impormasyon.",
+    "options": ["highway", "bridge", "island"],
+    "answer": "highway",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21033,
+    "type": "typing",
+    "question": "I-type ang halimbawa ng paggamit ng Internet sa komunikasyon.",
+    "options": ["video call", "walking", "sleeping"],
+    "answer": "video call",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21034,
+    "type": "typing",
+    "question": "I-type ang sagot: Anong gawain sa Internet ang ginagamit para magbasa ng balita at impormasyon?",
+    "options": ["browsing websites", "listening to music", "shopping"],
+    "answer": "browsing websites",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21035,
+    "type": "typing",
+    "question": "I-type ang sagot: Anong serbisyong online ang ginagamit para magbayad ng bills?",
+    "options": ["online banking", "social media", "gaming"],
+    "answer": "online banking",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21036,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Anong social activity ang ginagawa gamit ang Internet?",
+    "options": ["chatting", "painting", "reading books"],
+    "answer": "chatting",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21037,
+    "type": "typing",
+    "question": "I-type ang sagot: Anong uri ng komunikasyon ang pinapadali ng Internet?",
+    "options": ["instant messaging", "mail delivery", "television"],
+    "answer": "instant messaging",
+    "image": null
+  },
+   {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21038,
+    "type": "typing",
+    "question": "I-type ang tamang sagot: Kailangan mag-ingat sa Internet dahil maraming ______",
+    "options": ["manloloko", "ingat", "totoo"],
+    "answer": "manloloko",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21039,
+    "type": "typing",
+    "question": "I-type ang tamang salita: Internet _______",
+    "options": ["safety", "danger", "fun"],
+    "answer": "safety",
+    "image": null
+  },
+  {
+    "quiz_type": "typing",
+    "course_id": 2,
+    "lesson_id": 6,
+    "question_id": 21040,
+    "type": "typing",
+    "question": "I-type ang sagot: Mahalaga ang Internet Safety para sa _______.",
+    "options": ["proteksyon", "laro", "pera"],
+    "answer": "proteksyon",
+    "image": null
+  }
+]
