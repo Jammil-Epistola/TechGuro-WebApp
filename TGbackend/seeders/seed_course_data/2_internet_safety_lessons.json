@@ -16,7 +16,7 @@
             "Para itong 'highway ng impormasyon' na ginagamit ng lahat.",
             "It allows people to share and get information anytime."
           ],
-          "media_url": null,
+          "media_url": "C2_L1_S1.png",
           "tts_text": "The internet is a global network connecting computers and devices. Para itong 'highway ng impormasyon' na ginagamit ng lahat. It allows people to share and get information anytime."
         },
         {
@@ -27,7 +27,7 @@
             "Sending emails and chatting with friends.",
             "Watching videos, listening to music, and playing games."
           ],
-          "media_url": null,
+          "media_url": "C2_L1_S2.png",
           "tts_text": "Browsing websites for news and information. Sending emails and chatting with friends. Watching videos, listening to music, and playing games."
         },
         {
@@ -38,7 +38,7 @@
             "Nakakapag-connect ka kahit malayo ang pamilya o kaibigan.",
             "Social media helps people share updates and photos."
           ],
-          "media_url": null,
+          "media_url": "C2_L1_S3.png",
           "tts_text": "Internet makes video calls and instant messages possible. Nakakapag-connect ka kahit malayo ang pamilya o kaibigan. Social media helps people share updates and photos."
         },
         {
@@ -49,7 +49,7 @@
             "You can book tickets or pay bills online.",
             "These make life easier but also risky if not careful."
           ],
-          "media_url": null,
+          "media_url": "C2_L1_S4.png",
           "tts_text": "Online shopping and banking are now common. You can book tickets or pay bills online. These make life easier but also risky if not careful."
         },
         {
@@ -60,7 +60,7 @@
             "May mga taong gumagamit ng internet para manloko.",
             "Kaya mahalaga ang pag-aaral ng Internet Safety."
           ],
-          "media_url": null,
+          "media_url": "C2_L1_S5.png",
           "tts_text": "Hindi lahat ng nakikita online ay totoo. May mga taong gumagamit ng internet para manloko. Kaya mahalaga ang pag-aaral ng Internet Safety."
         }
       ]
@@ -97,7 +97,7 @@
           "slide_title": "Red Flags of Fake News",
           "content": [
             "Walang malinaw na source or website.",
-            "Overly dramatic titles like 'Shocking!' or 'Must Share Now!'",
+            "Overly dramatic titles like 'Shocking!' or 'BREAKING NEWS!'",
             "Minsan outdated o edited ang pictures."
           ],
           "media_url": null,

@@ -171,7 +171,7 @@
           "content": [
             "Sa lesson na ito. Matutunan kung paano i-on, gamitin, at i-shut down ang computer."
           ],
-          "media_url": null,
+          "media_url": "C1_L3_S1.png",
           "tts_text": "Sa lesson na ito. Matutunan kung paano i-on, gamitin, at i-shut down ang computer."
         },
         {
@@ -181,7 +181,7 @@
             "Hanapin ang power button at pindutin ito.",
             "Hintayin ang boot ang screen hanggang lumabas ang desktop."
           ],
-          "media_url": null,
+          "media_url": "C1_L3_S2.png",
           "tts_text": "Hanapin ang power button at pindutin ito. Hintayin ang boot ang screen hanggang lumabas ang desktop."
         },
         {
@@ -192,7 +192,7 @@
             "Taskbar – nasa baba, may Start menu at bukas na apps.",
             "Wallpaper – background ng desktop."
           ],
-          "media_url": null,
+          "media_url": "C1_L3_S3.png",
           "tts_text": "Icons – shortcut papunta sa apps o files. Taskbar – nasa baba, may Start menu at bukas na apps. Wallpaper – background ng desktop."
         },
         {
@@ -201,10 +201,11 @@
           "content": [
             "Pointer/Cursor – gumagalaw depende sa galaw ng mouse.",
             "Left-click – para pumili o mag-open ng app.",
-            "Right-click – para sa extra options."
+            "Right-click – para sa extra options.",
+            "Scroll-Wheel – pang-scroll ng web pages."
           ],
-          "media_url": null,
-          "tts_text": "Pointer/Cursor – gumagalaw depende sa galaw ng mouse. Left-click – para pumili o mag-open ng app. Right-click – para sa extra options."
+          "media_url": "C1_L3_S4.png",
+          "tts_text": "Pointer/Cursor – gumagalaw depende sa galaw ng mouse. Left-click – para pumili o mag-open ng app. Right-click – para sa extra options. Scroll-Wheel – pang-scroll ng web pages."
         },
         {
           "slide_number": 5,
@@ -213,7 +214,7 @@
             "I-click ang icon para magbukas ng program.",
             "Puwedeng i-resize, i-minimize, o i-close ang windows."
           ],
-          "media_url": null,
+          "media_url": "C1_L3_S5.png",
           "tts_text": "I-click ang icon para magbukas ng program. Puwedeng i-resize, i-minimize, o i-close ang windows."
         },
         {
@@ -224,27 +225,27 @@
             "Enter para mag-confirm o lumipat ng line.",
             "Backspace para magbura ng characters."
           ],
-          "media_url": null,
+          "media_url": "C1_L3_S6.png",
           "tts_text": "Letters at numbers para mag-type ng text. Enter para mag-confirm o lumipat ng line. Backspace para magbura ng characters."
         },
         {
-          "slide_number": 8,
+          "slide_number": 7,
           "slide_title": "Opening the Start Menu",
           "content": [
             "I-click ang Start button sa kaliwang bahagi ng taskbar.",
             "Mula rito, puwede kang maghanap at mag-open ng apps."
           ],
-          "media_url": null,
+          "media_url": "C1_L3_S7.png",
           "tts_text": "I-click ang Start button sa kaliwang bahagi ng taskbar. Mula rito, puwede kang maghanap at mag-open ng apps."
         },
         {
-          "slide_number": 9,
+          "slide_number": 8,
           "slide_title": "How to Shut Down / Restart Safely",
           "content": [
             "Buksan ang Start Menu, piliin ang Shut Down o Restart.",
             "Huwag basta bunutin ang power para maiwasan ang sira."
           ],
-          "media_url": null,
+          "media_url": "C1_L3_S8.png",
           "tts_text": "Buksan ang Start Menu, piliin ang Shut Down o Restart. Huwag basta bunutin ang power para maiwasan ang sira."
         }
       ]
@@ -260,7 +261,7 @@
           "content": [
             "Ang apps ay mga tool na tumutulong sa atin sa iba’t ibang gawain."
           ],
-          "media_url": null,
+          "media_url": "C1_L4_S1.png",
           "tts_text": "Ang apps ay mga tool na tumutulong sa atin sa iba’t ibang gawain."
         },
         {
@@ -269,7 +270,7 @@
           "content": [
             "Halimbawa: Word processor, browser, games, messaging apps."
           ],
-          "media_url": null,
+          "media_url": "C1_L4_S2.png",
           "tts_text": "Halimbawa: Word processor, browser, games, messaging apps."
         },
         {
@@ -279,7 +280,7 @@
             "Microsoft Store, Google Play, App Store.",
             "Mas ligtas at walang virus."
           ],
-          "media_url": null,
+          "media_url": "C1_L4_S3.png",
           "tts_text": "Microsoft Store, Google Play, App Store. Mas ligtas at walang virus."
         },
         {
@@ -289,7 +290,7 @@
             "I-download ang installer mula sa trusted site.",
             "Karaniwan ang steps: Next, Next, Finish."
           ],
-          "media_url": null,
+          "media_url": "C1_L4_S4.png",
           "tts_text": "I-download ang installer mula sa trusted site. Karaniwan ang steps: Next, Next, Finish."
         },
         {
@@ -299,7 +300,7 @@
             "May kasamang extra offers o fake pop-ups.",
             "Sobrang daming ads at mahirap i-uninstall."
           ],
-          "media_url": null,
+          "media_url": "C1_L4_S5.png",
           "tts_text": "May kasamang extra offers o fake pop-ups. Sobrang daming ads at mahirap i-uninstall."
         },
         {
@@ -308,7 +309,7 @@
           "content": [
             "Sa Control Panel o Settings, piliin ang Uninstall."
           ],
-          "media_url": null,
+          "media_url": "C1_L4_S6.png",
           "tts_text": "Sa Control Panel o Settings, piliin ang Uninstall."
         }
       ]
@@ -324,7 +325,7 @@
           "content": [
             "Madalas nagkakaroon ng problema ang computers, pero may simple fixes."
           ],
-          "media_url": null,
+          "media_url": "C1_L5_S1.png",
           "tts_text": "Madalas nagkakaroon ng problema ang computers, pero may simple fixes."
         },
         {
@@ -333,7 +334,7 @@
           "content": [
             "Mga common issues: mabagal, nagha-hang, walang internet."
           ],
-          "media_url": null,
+          "media_url": "C1_L5_S2.png",
           "tts_text": "Mga common issues: mabagal, nagha-hang, walang internet."
         },
         {
@@ -342,7 +343,7 @@
           "content": [
             "Minsan simpleng restart lang ay ayos na ang problema."
           ],
-          "media_url": null,
+          "media_url": "C1_L5_S3.png",
           "tts_text": "Minsan simpleng restart lang ay ayos na ang problema."
         },
         {
@@ -352,7 +353,7 @@
             "Siguraduhin na nakasaksak ang power at maayos ang cables.",
             "Tingnan kung nakakabit ang mouse at keyboard."
           ],
-          "media_url": null,
+          "media_url": "C1_L5_S4.png",
           "tts_text": "Siguraduhin na nakasaksak ang power at maayos ang cables. Tingnan kung nakakabit ang mouse at keyboard."
         },
         {
@@ -362,7 +363,7 @@
             "I-restart ang router kung walang connection.",
             "Suriin kung naka-on ang Wi-Fi icon."
           ],
-          "media_url": null,
+          "media_url": "C1_L5_S5.png",
           "tts_text": "I-restart ang router kung walang connection. Suriin kung naka-on ang Wi-Fi icon."
         },
         {
@@ -372,7 +373,7 @@
             "I-close at i-open muli ang program.",
             "Kung hindi gumana, subukang i-reinstall ang app."
           ],
-          "media_url": null,
+          "media_url": "C1_L5_S6.png",
           "tts_text": "I-close at i-open muli ang program. Kung hindi gumana, subukang i-reinstall ang app."
         },
         {
@@ -381,7 +382,7 @@
           "content": [
             "Kung di na kaya, humingi ng tulong sa kamag-anak, tech support, o repair shop."
           ],
-          "media_url": null,
+          "media_url": "C1_L5_S7.png",
           "tts_text": "Kung di na kaya, humingi ng tulong sa kamag-anak, tech support, o repair shop."
         }
       ]
