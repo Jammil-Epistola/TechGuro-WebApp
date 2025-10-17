@@ -1,3 +1,4 @@
+#models.py
 from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -19,6 +20,7 @@ class User(Base):
     bio = Column(String, default="")
     profile_icon = Column(String, default="avatar_default.png")
     date_created = Column(DateTime(timezone=True), server_default=func.now())
+    role = Column(String, default="user")
 
     progress = relationship("Progress", back_populates="user")
     earned_milestones = relationship("MilestoneEarned", back_populates="user")

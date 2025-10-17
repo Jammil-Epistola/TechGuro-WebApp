@@ -14,11 +14,58 @@ const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [birthday, setBirthday] = useState('');
+  
+  // Separate birthday fields
+  const [birthMonth, setBirthMonth] = useState('');
+  const [birthDay, setBirthDay] = useState('');
+  const [birthYear, setBirthYear] = useState('');
+  
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
+
+  // Generate arrays for dropdowns
+  const months = [
+    { value: '01', label: 'January' },
+    { value: '02', label: 'February' },
+    { value: '03', label: 'March' },
+    { value: '04', label: 'April' },
+    { value: '05', label: 'May' },
+    { value: '06', label: 'June' },
+    { value: '07', label: 'July' },
+    { value: '08', label: 'August' },
+    { value: '09', label: 'September' },
+    { value: '10', label: 'October' },
+    { value: '11', label: 'November' },
+    { value: '12', label: 'December' }
+  ];
+
+  // Generate days (1-31)
+  const days = Array.from({ length: 31 }, (_, i) => {
+    const day = i + 1;
+    return day < 10 ? `0${day}` : `${day}`;
+  });
+
+  // Generate years (13 years ago to 100 years ago)
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 88 }, (_, i) => currentYear - 13 - i);
+
+  // Calculate age from separate fields
+  const calculateAge = () => {
+    if (!birthMonth || !birthDay || !birthYear) return null;
+    
+    const birthDate = new Date(`${birthYear}-${birthMonth}-${birthDay}`);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    
+    return age;
+  };
 
   // Handle Enter key
   useEffect(() => {
@@ -27,7 +74,7 @@ const RegisterPage = () => {
     };
     window.addEventListener("keydown", handleEnter);
     return () => window.removeEventListener("keydown", handleEnter);
-  }, [email, username, password, confirmPassword, birthday, termsAccepted]);
+  }, [email, username, password, confirmPassword, birthMonth, birthDay, birthYear, termsAccepted]);
 
   // Fade out error message
   useEffect(() => {
@@ -38,7 +85,7 @@ const RegisterPage = () => {
   }, [errorMessage]);
 
   const handleRegister = async () => {
-    if (!email || !username || !password || !confirmPassword || !birthday) {
+    if (!email || !username || !password || !confirmPassword || !birthMonth || !birthDay || !birthYear) {
       setErrorMessage("Please fill in all required fields.");
       return;
     }
@@ -52,15 +99,14 @@ const RegisterPage = () => {
     }
 
     // Validate age (must be at least 13 years old)
-    const birthDate = new Date(birthday);
-    const today = new Date();
-    const age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    
-    if (age < 13 || (age === 13 && monthDiff < 0) || (age === 13 && monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    const age = calculateAge();
+    if (age === null || age < 13) {
       setErrorMessage("You must be at least 13 years old to register.");
       return;
     }
+
+    // Construct birthday string in YYYY-MM-DD format
+    const birthday = `${birthYear}-${birthMonth}-${birthDay}`;
 
     try {
       const baseURL = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -89,17 +135,6 @@ const RegisterPage = () => {
   const handleCloseSuccess = () => {
     setShowSuccessModal(false);
     navigate("/login");
-  };
-
-  // Format date for display
-  const formatDateForDisplay = (dateString) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
   };
 
   return (
@@ -182,45 +217,64 @@ const RegisterPage = () => {
             </button>
           </div>
 
-          {/* Improved Birthday Field */}
+          {/* NEW: Improved Birthday Section with Separate Dropdowns */}
           <div className="space-y-2">
-            <label htmlFor="birthday" className="block text-sm font-medium text-[#4C5173]">
+            <label className="block text-sm font-medium text-[#4C5173] flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
               Birthday
             </label>
-            <div className="relative">
-              <input
-                id="birthday"
-                type="date"
-                value={birthday}
-                onChange={e => setBirthday(e.target.value)}
-                max={new Date(new Date().setFullYear(new Date().getFullYear() - 13)).toISOString().split('T')[0]}
-                className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none focus:ring-2 focus:ring-[#697DFF] text-black date-input"
-                style={{
-                  colorScheme: 'light',
-                }}
-              />
-              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                <Calendar className="w-5 h-5 text-[#6B708D]" />
-              </div>
-              
-              {/* Custom overlay for better styling */}
-              <div className="absolute inset-0 pointer-events-none flex items-center px-12">
-                {birthday && (
-                  <span className="text-[#4C5173] font-medium">
-                    {formatDateForDisplay(birthday)}
-                  </span>
-                )}
-                {!birthday && (
-                  <span className="text-[#6B708D]">
-                    Select your birthday
-                  </span>
-                )}
-              </div>
+            
+            <div className="grid grid-cols-3 gap-3">
+              {/* Month Dropdown */}
+              <select
+                value={birthMonth}
+                onChange={e => setBirthMonth(e.target.value)}
+                className="px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none focus:ring-2 focus:ring-[#697DFF] text-black cursor-pointer"
+              >
+                <option value="">Month</option>
+                {months.map(month => (
+                  <option key={month.value} value={month.value}>
+                    {month.label}
+                  </option>
+                ))}
+              </select>
+
+              {/* Day Dropdown */}
+              <select
+                value={birthDay}
+                onChange={e => setBirthDay(e.target.value)}
+                className="px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none focus:ring-2 focus:ring-[#697DFF] text-black cursor-pointer"
+              >
+                <option value="">Day</option>
+                {days.map(day => (
+                  <option key={day} value={day}>
+                    {parseInt(day)}
+                  </option>
+                ))}
+              </select>
+
+              {/* Year Dropdown */}
+              <select
+                value={birthYear}
+                onChange={e => setBirthYear(e.target.value)}
+                className="px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none focus:ring-2 focus:ring-[#697DFF] text-black cursor-pointer"
+              >
+                <option value="">Year</option>
+                {years.map(year => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
             </div>
             
-            {birthday && (
-              <div className="text-xs text-gray-600 mt-1">
-                Age: {Math.floor((new Date() - new Date(birthday)) / (365.25 * 24 * 60 * 60 * 1000))} years old
+            {/* Display Age if all fields are filled */}
+            {birthMonth && birthDay && birthYear && (
+              <div className="text-xs text-gray-600 mt-1 flex items-center gap-1">
+                <span className="font-medium">Age:</span>
+                <span className="text-[#4C5173] font-semibold">
+                  {calculateAge()} years old
+                </span>
               </div>
             )}
           </div>
@@ -321,28 +375,14 @@ const RegisterPage = () => {
           animation: fadeInOut 5s forwards; 
         }
         
-        /* Custom date input styling */
-        .date-input::-webkit-calendar-picker-indicator {
-          opacity: 0;
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          left: 0;
-          top: 0;
-          cursor: pointer;
-        }
-        
-        .date-input::-webkit-inner-spin-button,
-        .date-input::-webkit-clear-button {
-          display: none;
-        }
-        
-        .date-input {
-          color: transparent;
-        }
-        
-        .date-input:focus {
-          color: transparent;
+        /* Style select dropdowns */
+        select {
+          appearance: none;
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-position: right 0.75rem center;
+          background-size: 1.25rem;
+          padding-right: 2.5rem;
         }
       `}</style>
     </div>

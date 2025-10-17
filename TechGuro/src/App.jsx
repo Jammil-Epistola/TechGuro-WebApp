@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import RegisterPage from "./pages/RegisterPage";
 import UserBoard from "./pages/UserBoard";
+import AdminBoard from "./pages/AdminBoard";
 
 import PreAssessment from "./courses/PreAssessment";
 import PostAssessment from "./courses/PostAssessment";
@@ -30,6 +31,9 @@ function App() {
 
             {/* User Dashboard */}
             <Route path="/UserDashboard" element={<UserBoard />} />
+
+            {/* Admin Dashboard */}
+            <Route path="/AdminDashboard" element={<AdminBoard />} />
 
             {/* Course Routes - Generalized */}
             <Route path="/courses/:courseName/Pre-Assessment" element={<PreAssessment />} />

@@ -32,6 +32,38 @@ class ResetPasswordRequest(BaseModel):
     reset_token: str
     new_password: str
 
+#------------------------
+# For Administrator
+#------------------------
+class AdminCreate(BaseModel):
+    email: EmailStr
+    username: str
+    password: str
+    birthday: datetime
+
+class AdminLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+# For returning user data with assessment info to admin
+class UserAssessmentData(BaseModel):
+    user_id: int
+    username: str
+    email: str
+    birthday: datetime
+    date_created: datetime
+    pre_assessment_status: str  # "not_taken", "taken"
+    pre_assessment_score: Optional[float] = None
+    pre_assessment_date: Optional[datetime] = None
+    post_assessment_status: str  # "disabled", "enabled"
+    post_assessment_score: Optional[float] = None
+    post_assessment_date: Optional[datetime] = None
+    course_progress: dict  # {course_id: {"course_name": str, "status": "completed"/"not_completed"}}
+
+    class Config:
+        orm_mode = True
+
+
 
 # -------------------------
 # Progress Inputs and Update (detects user Progress)

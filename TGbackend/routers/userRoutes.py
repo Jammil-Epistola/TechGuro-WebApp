@@ -43,7 +43,7 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
     return {"message": "User registered successfully", "user_id": new_user.id}
 
 
-# ✅ UPDATED Login endpoint with Milestone #1 notification support
+#  Login endpoint
 @router.post("/login")
 def login_user(user: UserLogin, db: Session = Depends(get_db)):
     # 1. Verify user credentials
@@ -60,7 +60,7 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         models.MilestoneEarned.milestone_id == 1
     ).first()
 
-    # If not earned yet, award it now (first login)
+    # If not earned yet, award it now 
     if not earned:
         milestone_earned = models.MilestoneEarned(user_id=db_user.id, milestone_id=1)
         db.add(milestone_earned)
@@ -77,7 +77,7 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
     # 4. Prepare milestone data for frontend notification
     # -------------------------
     milestone_data = None
-    if not earned:  # Only if milestone was just awarded (first login)
+    if not earned:  # Only if milestone was just awarded (
         milestone = db.query(models.Milestone).filter(
             models.Milestone.id == 1
         ).first()
@@ -90,7 +90,7 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
                 "icon_url": milestone.icon_url
             }
 
-    # 5. Return user data + milestone info (if newly awarded)
+    # 5. Return user data 
     return {
         "user_id": db_user.id,
         "username": db_user.username,
@@ -99,7 +99,8 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         "profile_icon": db_user.profile_icon or "avatar_default.png",
         "age": age,
         "is_elderly": is_elderly,
-        "milestone_awarded": milestone_data  # ✅ NEW: Send milestone data to frontend
+        "role": db_user.role,  
+        "milestone_awarded": milestone_data
     }
 
 

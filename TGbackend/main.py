@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from TGbackend.database import engine
 from TGbackend.database import SessionLocal
 from TGbackend import models
-from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes, milestoneRoutes, quizRoutes
+from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes, milestoneRoutes, quizRoutes, adminRoutes
 
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
@@ -29,6 +29,9 @@ app.add_middleware(
 
 # Include all routers
 print("About to include routers...")
+
+# Admin Endpoints
+app.include_router(adminRoutes.router)
 
 # User management (register/login endpoints)
 app.include_router(userRoutes.router)
