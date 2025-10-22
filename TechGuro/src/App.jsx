@@ -7,6 +7,7 @@ import { MilestoneProvider } from "./context/MilestoneContext";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import UnlockAccountPage from "./pages/UnlockAccountPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserBoard from "./pages/UserBoard";
 import AdminBoard from "./pages/AdminBoard";
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/unlock-account" element={<UnlockAccountPage />}/>
 
             {/* User Dashboard */}
             <Route path="/UserDashboard" element={<UserBoard />} />

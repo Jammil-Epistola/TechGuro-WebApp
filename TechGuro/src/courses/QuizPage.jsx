@@ -316,9 +316,9 @@ const QuizPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-[#DFDFEE] to-[#E8E8F5] text-black flex flex-col">
       <CourseNavbar courseTitle={formattedTitle || courseName} />
 
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <div className="w-full lg:w-[320px] bg-[#BFC4D7] border-r border-gray-200 shadow-lg flex flex-col lg:relative absolute z-50 lg:z-auto">
+      <div className="flex flex-1 overflow-hidden flex-col lg:flex-row">
+        {/* Sidebar - Hidden on mobile by default, can be toggled */}
+        <div className="hidden lg:flex lg:w-[320px] bg-[#BFC4D7] border-r border-gray-200 shadow-lg flex-col">
           <div className="p-6 border-b border-gray-100">
             <button
               onClick={goBackToLessonList}
@@ -342,7 +342,7 @@ const QuizPage = () => {
           </div>
 
           {/* Quiz Progress */}
-          <div className="p-6 flex-1">
+          <div className="p-6 flex-1 overflow-y-auto">
             <div className="mb-6">
               <h3 className="font-semibold text-[#4C5173] mb-3">Quiz Progress</h3>
               <div className="space-y-2">
@@ -402,8 +402,62 @@ const QuizPage = () => {
           </div>
         </div>
 
+        {/* Mobile Top Bar - Compact info shown on mobile */}
+        <div className="lg:hidden bg-[#BFC4D7] border-b border-gray-200 p-4">
+          <button
+            onClick={goBackToLessonList}
+            className="flex items-center gap-2 text-[#4C5173] hover:text-[#3a3f5c] transition-colors mb-3"
+          >
+            <ChevronLeft size={18} />
+            <span className="font-semibold text-sm">Back to Lessons</span>
+          </button>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img
+                src={placeholderimg}
+                alt="Quiz"
+                className="w-12 h-12 rounded-full border-2 border-[#4C5173] shadow-sm"
+              />
+              <div>
+                <h2 className="text-base font-bold text-[#4C5173]">{quiz.title}</h2>
+                <p className="text-xs text-gray-600">{quiz.quiz_type.replace('_', ' ').toUpperCase()}</p>
+              </div>
+            </div>
+
+            {/* Timer on mobile */}
+            {quizStarted && !quizCompleted && timeRemaining !== null && (
+              <div className="text-right">
+                <div className="flex items-center gap-1 mb-1">
+                  <Clock size={14} className="text-[#4C5173]" />
+                  <span className="text-xs font-semibold text-[#4C5173]">Time</span>
+                </div>
+                <div className={`text-lg font-bold ${timeRemaining <= 60 ? 'text-red-600' : 'text-[#4C5173]'}`}>
+                  {formatTime(timeRemaining)}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Progress Bar */}
+          <div className="mt-3">
+            <div className="flex justify-between text-xs mb-1">
+              <span className="text-gray-600">Progress</span>
+              <span className="text-[#4C5173] font-semibold">{getAnsweredQuestionsCount()}/{questions.length}</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div
+                className="bg-gradient-to-r from-[#B6C44D] to-[#4C5173] h-2 rounded-full transition-all"
+                style={{
+                  width: `${(getAnsweredQuestionsCount() / questions.length) * 100}%`
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Main Content */}
-        <div className="flex-1 p-4 lg:p-8 flex flex-col">
+        <div className="flex-1 p-4 lg:p-8 flex flex-col overflow-y-auto">
           <AnimatePresence mode="wait">
             {!quizStarted ? (
               /* Quiz Introduction */
@@ -412,32 +466,32 @@ const QuizPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto"
+                className="bg-white rounded-xl shadow-lg p-6 md:p-8 max-w-2xl mx-auto w-full"
               >
-                <h1 className="text-3xl font-bold text-[#4C5173] mb-6 text-center">
+                <h1 className="text-2xl md:text-3xl font-bold text-[#4C5173] mb-4 md:mb-6 text-center">
                   Ready to Start?
                 </h1>
 
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-                    <span className="font-semibold text-gray-700">Quiz Type:</span>
-                    <span className="text-[#4C5173] font-bold">{quiz.quiz_type.replace('_', ' ').toUpperCase()}</span>
+                <div className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                  <div className="flex items-center gap-3 p-3 md:p-4 bg-gray-50 rounded-lg">
+                    <span className="font-semibold text-gray-700 text-sm md:text-base">Quiz Type:</span>
+                    <span className="text-[#4C5173] font-bold text-sm md:text-base">{quiz.quiz_type.replace('_', ' ').toUpperCase()}</span>
                   </div>
 
-                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-                    <span className="font-semibold text-gray-700">Questions:</span>
-                    <span className="text-[#4C5173] font-bold">{quiz.total_questions}</span>
+                  <div className="flex items-center gap-3 p-3 md:p-4 bg-gray-50 rounded-lg">
+                    <span className="font-semibold text-gray-700 text-sm md:text-base">Questions:</span>
+                    <span className="text-[#4C5173] font-bold text-sm md:text-base">{quiz.total_questions}</span>
                   </div>
 
-                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-                    <span className="font-semibold text-gray-700">Time Limit:</span>
-                    <span className="text-[#4C5173] font-bold">{formatTime(QUIZ_TIME_LIMIT)}</span>
+                  <div className="flex items-center gap-3 p-3 md:p-4 bg-gray-50 rounded-lg">
+                    <span className="font-semibold text-gray-700 text-sm md:text-base">Time Limit:</span>
+                    <span className="text-[#4C5173] font-bold text-sm md:text-base">{formatTime(QUIZ_TIME_LIMIT)}</span>
                   </div>
 
                   {quiz.difficulty && (
-                    <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-                      <span className="font-semibold text-gray-700">Difficulty:</span>
-                      <span className={`px-3 py-1 rounded-full text-sm font-bold ${quiz.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
+                    <div className="flex items-center gap-3 p-3 md:p-4 bg-gray-50 rounded-lg">
+                      <span className="font-semibold text-gray-700 text-sm md:text-base">Difficulty:</span>
+                      <span className={`px-3 py-1 rounded-full text-xs md:text-sm font-bold ${quiz.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
                         quiz.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                           'bg-red-100 text-red-800'
                         }`}>
@@ -450,7 +504,7 @@ const QuizPage = () => {
                 <div className="text-center">
                   <button
                     onClick={startQuiz}
-                    className="px-8 py-4 bg-gradient-to-r from-[#B6C44D] to-[#4C5173] text-white font-bold text-lg rounded-xl hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"
+                    className="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#B6C44D] to-[#4C5173] text-white font-bold text-base md:text-lg rounded-xl hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"
                   >
                     Start Quiz
                   </button>

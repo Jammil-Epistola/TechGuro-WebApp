@@ -49,17 +49,11 @@ const AssessmentResults = ({
     }
   };
 
-  const getProcessingIcon = () => {
-    return assessmentType === "pre" ? Brain : TrendingUp;
-  };
-
+  const getProcessingIcon = () => (assessmentType === "pre" ? Brain : TrendingUp);
   const getResultIcon = () => {
-    if (assessmentType === "pre") {
-      return CheckCircle;
-    } else {
-      const percentage = (score / totalQuestions) * 100;
-      return percentage >= 75 ? CheckCircle : RotateCcw;
-    }
+    if (assessmentType === "pre") return CheckCircle;
+    const percentage = (score / totalQuestions) * 100;
+    return percentage >= 75 ? CheckCircle : RotateCcw;
   };
 
   const formattedTitle = courseName.replace(/([A-Z])/g, ' $1').trim();
@@ -68,106 +62,47 @@ const AssessmentResults = ({
   const ResultIcon = getResultIcon();
   const percentage = (score / totalQuestions) * 100;
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.6,
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0 }
-  };
-
-  const scoreVariants = {
-    hidden: { scale: 0 },
-    visible: { 
-      scale: 1,
-      transition: { 
-        type: "spring",
-        stiffness: 200,
-        delay: 0.3
-      }
-    }
-  };
-
   return (
     <div className="bg-[#DFDFEE] min-h-screen text-black">
-      {/* CourseNavbar */}
+      {/* Navbar */}
       <CourseNavbar courseTitle={`${formattedTitle} ${assessmentType === "pre" ? "Pre-Assessment" : "Post-Assessment"}`} />
-      
-      <motion.div 
-        className="text-center py-8"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-4xl font-bold text-black mb-2">
+
+      {/* Title */}
+      <div className="text-center py-4 md:py-8 px-4">
+        <h1 className="text-2xl md:text-4xl font-bold text-black mb-1 md:mb-2">
           {assessmentType === "pre" ? "Pre-Assessment Complete!" : "Post-Assessment Complete!"}
         </h1>
-        <h2 className="text-2xl text-black">
+        <h2 className="text-xl md:text-3xl font-semibold text-black">
           {formattedTitle}
         </h2>
-      </motion.div>
+      </div>
 
-      <div className="flex justify-center items-center p-1">
-        <motion.div 
-          className="max-w-5xl w-full"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Visual Novel Style Results Box */}
+      {/* Main Box */}
+      <div className="flex justify-center items-center px-4 pb-6 md:p-1 mt-8 md:mt-0">
+        <div className="max-w-5xl w-full">
           <div className="bg-white border-4 border-gray-400 rounded-xl shadow-xl relative">
-            {/* Large Teki Character with bounce animation*/}
-            <motion.div 
-              className="absolute -top-30 -right-20 z-20"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ 
-                type: "spring",
-                stiffness: 150,
-                delay: 0.2
-              }}
-            >
-              <img 
-                src={Teki1} 
-                alt="Teki" 
-                className="w-75 h-75 drop-shadow-lg" 
+            {/* Teki floating */}
+            <div className="absolute -top-16 -right-4 z-10 md:-top-28 md:-right-20">
+              <img
+                src={Teki1}
+                alt="Teki"
+                className="w-40 h-40 md:w-72 md:h-72 drop-shadow-lg"
               />
-            </motion.div>
-            
-            {/* Results Content Container */}
-            <div className="p-10 pt-16">
-              {/* Character Name with slide animation */}
-              <motion.div 
-                className="mb-4"
-                variants={itemVariants}
-              >
-                <span className="bg-green-600 text-white px-6 py-2 rounded-full text-2xl font-bold inline-flex items-center gap-2">
-                  {!isProcessing && <ResultIcon className="w-6 h-6" />}
+            </div>
+
+            {/* Inner Content */}
+            <div className="p-4 pt-10 md:p-10 md:pt-16">
+              {/* Teki name */}
+              <div className="mb-3 md:mb-4">
+                <span className="bg-green-600 text-white px-3 py-1 md:px-6 md:py-2 rounded-full text-base md:text-2xl font-bold inline-flex items-center gap-2">
+                  {!isProcessing && <ResultIcon className="w-4 h-4 md:w-6 md:h-6" />}
                   Teki
                 </span>
-              </motion.div>
-              
-              {/* Results Text Box */}
-              <motion.div 
-                className="bg-gray-50 border-2 border-gray-300 rounded-lg p-1 mb-3 min-h-[100px]"
-                variants={itemVariants}
-              >
-                <motion.p 
-                  className="text-2xl text-black leading-relaxed mb-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                >
+              </div>
+
+              {/* Message box */}
+              <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-4 md:p-8 mb-4 md:mb-8 min-h-[140px] md:min-h-[200px] text-center">
+                <p className="text-base md:text-2xl text-black leading-relaxed mb-2">
                   {resultMessage.main}
                   {isProcessing && (
                     <motion.span
@@ -177,14 +112,8 @@ const AssessmentResults = ({
                       ...
                     </motion.span>
                   )}
-                </motion.p>
-                
-                <motion.p 
-                  className="text-xl text-gray-700 leading-relaxed italic"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                >
+                </p>
+                <p className="text-sm md:text-xl text-gray-700 italic">
                   {resultMessage.sub}
                   {isProcessing && (
                     <motion.span
@@ -194,109 +123,83 @@ const AssessmentResults = ({
                       ...
                     </motion.span>
                   )}
-                </motion.p>
+                </p>
 
-                {/* Processing Animation */}
+                {/* Loading state */}
                 {isProcessing && (
-                  <motion.div 
-                    className="mt-6 flex items-center justify-center"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.2 }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                      >
-                        <Loader2 className="w-8 h-8 text-blue-600" />
-                      </motion.div>
-                      <span className="text-lg text-blue-600 font-medium flex items-center gap-2">
-                        <ProcessingIcon className="w-5 h-5" />
-                        {assessmentType === "pre" ? "Analyzing your knowledge level" : "Calculating your mastery progress"}
-                      </span>
-                    </div>
-                  </motion.div>
-                )}
-              </motion.div>
-
-              {/* Score Display with animated progress */}
-              <motion.div 
-                className="bg-blue-50 border-2 border-blue-200 rounded-lg px-25 py-3 mb-4"
-                variants={itemVariants}
-              >
-                <div className="text-center">
-                  <h3 className="text-xl font-bold text-black mb-2">Your Score</h3>
-                  <motion.div 
-                    className="text-4xl font-bold text-blue-600"
-                    variants={scoreVariants}
-                  >
-                    {score}/{totalQuestions}
-                  </motion.div>
-                  <motion.div 
-                    className="text-lg text-gray-600 mt-2"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    ({percentage.toFixed(0)}%)
-                  </motion.div>
-                  
-                  {/* Animated progress bar */}
-                  <motion.div 
-                    className="w-full bg-gray-200 rounded-full h-3 mt-4"
+                  <motion.div
+                    className="mt-4 md:mt-6 flex items-center justify-center gap-2 md:gap-3"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.7 }}
+                    transition={{ delay: 1 }}
                   >
-                    <motion.div 
-                      className={`h-3 rounded-full ${
-                        percentage >= 75 ? 'bg-green-500' : percentage >= 50 ? 'bg-yellow-500' : 'bg-red-500'
-                      }`}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${percentage}%` }}
-                      transition={{ delay: 0.9, duration: 1, ease: "easeOut" }}
-                    />
+                    <Loader2 className="w-6 h-6 md:w-8 md:h-8 text-blue-600 animate-spin" />
+                    <span className="text-sm md:text-lg text-blue-600 font-medium flex items-center gap-2">
+                      <ProcessingIcon className="w-4 h-4 md:w-5 md:h-5" />
+                      {assessmentType === "pre"
+                        ? "Analyzing your knowledge..."
+                        : "Evaluating your mastery..."}
+                    </span>
                   </motion.div>
-                </div>
-              </motion.div>
+                )}
+              </div>
 
-              {/* Continue Button (only when processing is done) */}
+              {/* Score box */}
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-lg px-4 py-3 md:px-8 md:py-4 mb-4 md:mb-6 text-center">
+                <h3 className="text-lg md:text-xl font-bold text-black mb-1 md:mb-2">Your Score</h3>
+                <div className="text-3xl md:text-4xl font-bold text-blue-600">
+                  {score}/{totalQuestions}
+                </div>
+                <div className="text-sm md:text-lg text-gray-600 mt-1">
+                  ({percentage.toFixed(0)}%)
+                </div>
+
+                {/* Progress bar */}
+                <div className="w-full bg-gray-200 rounded-full h-3 mt-3 md:mt-4">
+                  <motion.div
+                    className={`h-3 rounded-full ${
+                      percentage >= 75
+                        ? "bg-green-500"
+                        : percentage >= 50
+                        ? "bg-yellow-500"
+                        : "bg-red-500"
+                    }`}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${percentage}%` }}
+                    transition={{ duration: 1 }}
+                  />
+                </div>
+              </div>
+
+              {/* Continue button */}
               {!isProcessing && (
-                <motion.div 
-                  className="flex justify-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.5 }}
-                >
-                  <motion.button
+                <div className="flex justify-center">
+                  <button
                     onClick={onComplete}
-                    className="px-12 py-4 bg-green-600 text-white text-xl font-semibold rounded-lg hover:bg-green-700 transition-all shadow-lg inline-flex items-center gap-2"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="px-6 py-3 md:px-12 md:py-4 bg-green-600 text-white text-base md:text-xl font-semibold rounded-lg hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg inline-flex items-center gap-2"
                   >
-                    <CheckCircle className="w-6 h-6" />
+                    <CheckCircle className="w-5 h-5 md:w-6 md:h-6" />
                     Continue
-                  </motion.button>
-                </motion.div>
+                  </button>
+                </div>
               )}
             </div>
           </div>
 
-          {/* Auto-continue message when processing */}
+          {/* Auto redirect notice */}
           {isProcessing && (
-            <motion.div 
-              className="text-center mt-6"
+            <motion.div
+              className="text-center mt-4 md:mt-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 2 }}
+              transition={{ delay: 1.5 }}
             >
-              <p className="text-lg text-gray-600">
+              <p className="text-sm md:text-lg text-gray-600">
                 Automatically redirecting in a few seconds...
               </p>
             </motion.div>
           )}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

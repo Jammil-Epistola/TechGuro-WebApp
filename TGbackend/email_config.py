@@ -46,3 +46,32 @@ async def send_reset_email(email: EmailStr, reset_code: str):
     
     fm = FastMail(conf)
     await fm.send_message(message)
+
+
+async def send_account_unlock_email(email: EmailStr, unlock_code: str):
+    html = f"""
+    <html>
+        <body style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2 style="color: #4C5173;">TechGuro Account Unlock</h2>
+            <p>Your account has been locked due to multiple failed login attempts.</p>
+            <p>Use the code below to unlock your account:</p>
+            <div style="background: #f0f0f0; padding: 15px; margin: 20px 0; text-align: center;">
+                <h1 style="color: #4C5173; letter-spacing: 5px;">{unlock_code}</h1>
+            </div>
+            <p>This code will expire in 30 minutes.</p>
+            <p>If you didn't request this, please ignore this email.</p>
+            <hr>
+            <p style="color: #666; font-size: 12px;">TechGuro - Digital Literacy Platform</p>
+        </body>
+    </html>
+    """
+    
+    message = MessageSchema(
+        subject="TechGuro Account Unlock Code",
+        recipients=[email],
+        body=html,
+        subtype="html"
+    )
+    
+    fm = FastMail(conf)
+    await fm.send_message(message)

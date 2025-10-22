@@ -15,6 +15,23 @@ router = APIRouter(tags=["Admin Management"], prefix="/admin")
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+def calculate_percentage_score(assessment):
+    """
+    Convert raw assessment score to percentage.
+    Handles both stored raw scores and already-converted percentages.
+    """
+    if not assessment:
+        return None
+    
+    # Get the raw score
+    raw_score = assessment.score
+    
+    # Count total questions for this assessment
+    from TGbackend import models
+    from TGbackend.database import get_db
+
+    return raw_score
+
 
 # ============================================
 # ADMIN AUTHENTICATION
@@ -64,8 +81,6 @@ def login_admin(admin: AdminLogin, db: Session = Depends(get_db)):
 # USER MANAGEMENT & DATA RETRIEVAL
 # ============================================
 
-# Replace the @router.get("/users") endpoint in adminRoutes.py with this:
-
 @router.get("/users")
 def get_all_users(db: Session = Depends(get_db)):
     """Fetch all users with their assessment data grouped by course and course progress"""
@@ -94,16 +109,37 @@ def get_all_users(db: Session = Depends(get_db)):
                 models.AssessmentResults.assessment_type == "post"
             ).first()
             
+            # Calculate percentage scores
+            pre_score_percentage = None
+            if pre_assessment:
+                # Count total questions for pre-assessment
+                total_questions = db.query(models.Question).filter(
+                    models.Question.course_id == course.id,
+                    models.Question.assessment_type == "pre"
+                ).count()
+                if total_questions > 0:
+                    pre_score_percentage = (pre_assessment.score / total_questions) * 100
+            
+            post_score_percentage = None
+            if post_assessment:
+                # Count total questions for post-assessment
+                total_questions = db.query(models.Question).filter(
+                    models.Question.course_id == course.id,
+                    models.Question.assessment_type == "post"
+                ).count()
+                if total_questions > 0:
+                    post_score_percentage = (post_assessment.score / total_questions) * 100
+            
             # Store course data with pre/post assessment info
             assessments_by_course[str(course.id)] = {
                 "course_name": course.title,
                 "course_id": course.id,
                 "pre": {
-                    "score": pre_assessment.score,
+                    "score": pre_score_percentage,
                     "date": pre_assessment.date_taken
                 } if pre_assessment else None,
                 "post": {
-                    "score": post_assessment.score,
+                    "score": post_score_percentage,
                     "date": post_assessment.date_taken
                 } if post_assessment else None
             }
@@ -144,6 +180,7 @@ def get_all_users(db: Session = Depends(get_db)):
     
     return user_data_list
 
+
 @router.get("/users/search")
 def search_users(query: str, db: Session = Depends(get_db)):
     """Search users by username or email with per-course assessment data"""
@@ -175,16 +212,37 @@ def search_users(query: str, db: Session = Depends(get_db)):
                 models.AssessmentResults.assessment_type == "post"
             ).first()
             
+            # Calculate percentage scores
+            pre_score_percentage = None
+            if pre_assessment:
+                # Count total questions for pre-assessment
+                total_questions = db.query(models.Question).filter(
+                    models.Question.course_id == course.id,
+                    models.Question.assessment_type == "pre"
+                ).count()
+                if total_questions > 0:
+                    pre_score_percentage = (pre_assessment.score / total_questions) * 100
+            
+            post_score_percentage = None
+            if post_assessment:
+                # Count total questions for post-assessment
+                total_questions = db.query(models.Question).filter(
+                    models.Question.course_id == course.id,
+                    models.Question.assessment_type == "post"
+                ).count()
+                if total_questions > 0:
+                    post_score_percentage = (post_assessment.score / total_questions) * 100
+            
             # Store course data with pre/post assessment info
             assessments_by_course[str(course.id)] = {
                 "course_name": course.title,
                 "course_id": course.id,
                 "pre": {
-                    "score": pre_assessment.score,
+                    "score": pre_score_percentage,
                     "date": pre_assessment.date_taken
                 } if pre_assessment else None,
                 "post": {
-                    "score": post_assessment.score,
+                    "score": post_score_percentage,
                     "date": post_assessment.date_taken
                 } if post_assessment else None
             }
@@ -254,16 +312,37 @@ def get_user_detail(user_id: int, db: Session = Depends(get_db)):
             models.AssessmentResults.assessment_type == "post"
         ).first()
         
+        # Calculate percentage scores
+        pre_score_percentage = None
+        if pre_assessment:
+            # Count total questions for pre-assessment
+            total_questions = db.query(models.Question).filter(
+                models.Question.course_id == course.id,
+                models.Question.assessment_type == "pre"
+            ).count()
+            if total_questions > 0:
+                pre_score_percentage = (pre_assessment.score / total_questions) * 100
+        
+        post_score_percentage = None
+        if post_assessment:
+            # Count total questions for post-assessment
+            total_questions = db.query(models.Question).filter(
+                models.Question.course_id == course.id,
+                models.Question.assessment_type == "post"
+            ).count()
+            if total_questions > 0:
+                post_score_percentage = (post_assessment.score / total_questions) * 100
+        
         # Store course data with pre/post assessment info
         assessments_by_course[str(course.id)] = {
             "course_name": course.title,
             "course_id": course.id,
             "pre": {
-                "score": pre_assessment.score,
+                "score": pre_score_percentage,
                 "date": pre_assessment.date_taken
             } if pre_assessment else None,
             "post": {
-                "score": post_assessment.score,
+                "score": post_score_percentage,
                 "date": post_assessment.date_taken
             } if post_assessment else None
         }
@@ -336,7 +415,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 
 @router.get("/export/csv")
 def export_users_csv(db: Session = Depends(get_db)):
-    """Export all users data as CSV"""
+    """Export all users data as CSV with percentage scores"""
     users = db.query(models.User).filter(models.User.role == "user").all()
     
     output = StringIO()
@@ -352,42 +431,63 @@ def export_users_csv(db: Session = Depends(get_db)):
     
     # Write user data
     for user in users:
-        # Get pre-assessment data
-        pre_assessments = db.query(models.AssessmentResults).filter(
-            models.AssessmentResults.user_id == user.id,
-            models.AssessmentResults.assessment_type == "pre"
-        ).all()
+        # Get all courses to check for any assessment
+        courses = db.query(models.Course).all()
         
-        pre_status = "not_taken"
-        pre_score = None
-        pre_date = None
+        # Check if user has taken any pre or post assessment
+        has_pre = False
+        has_post = False
+        latest_pre_score = None
+        latest_pre_date = None
+        latest_post_score = None
+        latest_post_date = None
         
-        if pre_assessments:
-            latest_pre = max(pre_assessments, key=lambda x: x.date_taken)
-            pre_status = "taken"
-            pre_score = latest_pre.score
-            pre_date = latest_pre.date_taken
+        for course in courses:
+            # Check pre-assessment
+            pre_assessment = db.query(models.AssessmentResults).filter(
+                models.AssessmentResults.user_id == user.id,
+                models.AssessmentResults.course_id == course.id,
+                models.AssessmentResults.assessment_type == "pre"
+            ).first()
+            
+            if pre_assessment:
+                has_pre = True
+                # Calculate percentage
+                pre_total = db.query(models.Question).filter(
+                    models.Question.course_id == course.id,
+                    models.Question.assessment_type == "pre"
+                ).count()
+                if pre_total > 0:
+                    score_pct = (pre_assessment.score / pre_total * 100)
+                    if latest_pre_score is None or pre_assessment.date_taken > latest_pre_date:
+                        latest_pre_score = score_pct
+                        latest_pre_date = pre_assessment.date_taken
+            
+            # Check post-assessment
+            post_assessment = db.query(models.AssessmentResults).filter(
+                models.AssessmentResults.user_id == user.id,
+                models.AssessmentResults.course_id == course.id,
+                models.AssessmentResults.assessment_type == "post"
+            ).first()
+            
+            if post_assessment:
+                has_post = True
+                # Calculate percentage
+                post_total = db.query(models.Question).filter(
+                    models.Question.course_id == course.id,
+                    models.Question.assessment_type == "post"
+                ).count()
+                if post_total > 0:
+                    score_pct = (post_assessment.score / post_total * 100)
+                    if latest_post_score is None or post_assessment.date_taken > latest_post_date:
+                        latest_post_score = score_pct
+                        latest_post_date = post_assessment.date_taken
         
-        # Get post-assessment data
-        post_assessments = db.query(models.AssessmentResults).filter(
-            models.AssessmentResults.user_id == user.id,
-            models.AssessmentResults.assessment_type == "post"
-        ).all()
-        
-        post_status = "disabled"
-        post_score = None
-        post_date = None
-        
-        if post_assessments:
-            post_status = "enabled"
-            latest_post = max(post_assessments, key=lambda x: x.date_taken)
-            post_score = latest_post.score
-            post_date = latest_post.date_taken
+        pre_status = "taken" if has_pre else "not_taken"
+        post_status = "enabled" if has_post else "disabled"
         
         # Get course progress
-        courses = db.query(models.Course).all()
         course_progress_str = ""
-        
         for course in courses:
             lessons_in_course = db.query(models.Lesson).filter(
                 models.Lesson.course_id == course.id
@@ -414,11 +514,11 @@ def export_users_csv(db: Session = Depends(get_db)):
             user.birthday,
             user.date_created,
             pre_status,
-            pre_score if pre_score else "-",
-            pre_date if pre_date else "-",
+            f"{latest_pre_score:.2f}%" if latest_pre_score else "-",
+            latest_pre_date if latest_pre_date else "-",
             post_status,
-            post_score if post_score else "-",
-            post_date if post_date else "-",
+            f"{latest_post_score:.2f}%" if latest_post_score else "-",
+            latest_post_date if latest_post_date else "-",
             course_progress_str.strip()
         ])
     
@@ -437,7 +537,7 @@ def export_users_csv(db: Session = Depends(get_db)):
 def get_improvement_analysis(db: Session = Depends(get_db)):
     """
     Get improvement analysis for users who completed BOTH pre and post assessments.
-    Calculate improvement per-course.
+    Calculate improvement per-course with percentage scores.
     """
     users = db.query(models.User).filter(models.User.role == "user").all()
     
@@ -465,27 +565,25 @@ def get_improvement_analysis(db: Session = Depends(get_db)):
             
             # Only include if BOTH assessments exist
             if pre_assessment and post_assessment:
-                # Get raw scores
-                pre_score = pre_assessment.score
-                post_score = post_assessment.score
+                # Calculate percentage scores
+                pre_total = db.query(models.Question).filter(
+                    models.Question.course_id == course.id,
+                    models.Question.assessment_type == "pre"
+                ).count()
                 
-                # Store original scores for display (keep them as-is)
-                original_pre = pre_score
-                original_post = post_score
+                post_total = db.query(models.Question).filter(
+                    models.Question.course_id == course.id,
+                    models.Question.assessment_type == "post"
+                ).count()
                 
-                # Normalize scores to 0-100 range for calculation consistency
-                # If scores are in 0-1 range, convert to 0-100
-                if pre_score <= 1:
-                    pre_score = pre_score * 100
-                if post_score <= 1:
-                    post_score = post_score * 100
+                # Convert raw scores to percentages
+                pre_score = (pre_assessment.score / pre_total * 100) if pre_total > 0 else 0
+                post_score = (post_assessment.score / post_total * 100) if post_total > 0 else 0
                 
                 # Calculate improvement percentage based on absolute difference
-                # Formula: ((post - pre) / pre) * 100
                 if pre_score > 0:
                     improvement_percentage = ((post_score - pre_score) / pre_score) * 100
                 else:
-                    # If pre_score is 0, any positive post_score is 100% improvement
                     improvement_percentage = 100.0 if post_score > 0 else 0.0
                 
                 # Determine status
@@ -499,15 +597,15 @@ def get_improvement_analysis(db: Session = Depends(get_db)):
                 user_course_improvements.append({
                     "course_id": course.id,
                     "course_name": course.title,
-                    "pre_score": original_pre,  # Use original score for display
-                    "post_score": original_post,  # Use original score for display
+                    "pre_score": pre_score,
+                    "post_score": post_score,
                     "pre_date": pre_assessment.date_taken,
                     "post_date": post_assessment.date_taken,
                     "improvement_percentage": improvement_percentage,
                     "status": status
                 })
         
-        # Only include users who have improvements (completed at least one course's both assessments)
+        # Only include users who have improvements
         if user_course_improvements:
             improvement_data.append({
                 "user_id": user.id,
@@ -518,9 +616,6 @@ def get_improvement_analysis(db: Session = Depends(get_db)):
             })
     
     return improvement_data
-
-
-# Replace the @router.get("/improvement-analysis/summary") endpoint with this:
 
 @router.get("/improvement-analysis/summary")
 def get_improvement_summary(db: Session = Depends(get_db)):

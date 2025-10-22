@@ -1,3 +1,4 @@
+//HomePage.jsx
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "./HomeNavbar";

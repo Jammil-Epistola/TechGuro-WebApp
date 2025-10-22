@@ -32,7 +32,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
       );
     }
     return (
-      <span className="text-2xl text-black font-medium text-center">
+      <span className="text-base md:text-2xl text-black font-medium text-center">
         {option}
       </span>
     );
@@ -113,26 +113,26 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
     (isTrueFalseQuestion && assessmentType === "post"); // only post splits true/false
 
   return (
-    <div className="bg-white border-4 border-gray-400 w-[1000px] rounded-xl shadow-lg">
-      <div className="h-[535px] flex flex-col">
+    <div className="bg-white border-2 md:border-4 border-gray-400 w-full max-w-[1000px] rounded-xl shadow-lg">
+      <div className="min-h-[400px] md:h-[535px] flex flex-col">
         {/* Header */}
-        <div className="p-8 border-b-2 border-gray-200 h-auto min-h-[120px] flex items-center justify-between">
+        <div className="p-4 md:p-8 border-b-2 border-gray-200 min-h-[80px] md:min-h-[120px] flex items-center justify-between">
           <div className="flex-1">
             {isTrueFalseQuestion && assessmentType === "post" ? (
               // Post-Assessment: Split into 2 statements
-              <div className="flex items-start gap-4">
-                <h2 className="text-2xl font-bold text-black leading-relaxed flex-shrink-0">
+              <div className="flex items-start gap-2 md:gap-4">
+                <h2 className="text-lg md:text-2xl font-bold text-black leading-relaxed flex-shrink-0">
                   Q{question.questionNumber}.
                 </h2>
-                <div className="flex-1 space-y-3 bg-gray-50 p-4 rounded-lg border-2 border-gray-200">
+                <div className="flex-1 space-y-2 md:space-y-3 bg-gray-50 p-3 md:p-4 rounded-lg border-2 border-gray-200">
                   {(() => {
                     const statements = parseTrueFalseStatements(question.text);
                     return statements.map((statement, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <span className="inline-flex items-center justify-center w-8 h-8 bg-[#4C5173] text-white rounded-full text-sm font-bold flex-shrink-0 mt-1">
+                      <div key={index} className="flex items-start gap-2 md:gap-3">
+                        <span className="inline-flex items-center justify-center w-6 h-6 md:w-8 md:h-8 bg-[#4C5173] text-white rounded-full text-xs md:text-sm font-bold flex-shrink-0 mt-1">
                           {index + 1}
                         </span>
-                        <p className="text-[20px] text-black leading-relaxed">
+                        <p className="text-sm md:text-[20px] text-black leading-relaxed">
                           <strong>
                             Statement {index + 1}: {statement}
                           </strong>
@@ -144,7 +144,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
               </div>
             ) : (
               // Pre-Assessment: single statement
-              <h2 className="text-2xl font-bold text-black leading-relaxed mb-4">
+              <h2 className="text-lg md:text-2xl font-bold text-black leading-relaxed mb-2 md:mb-4">
                 Q{question.questionNumber}. {question.text}
               </h2>
             )}
@@ -154,7 +154,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
           {isSupported && (
             <button
               onClick={speakQuestion}
-              className={`ml-4 p-3 rounded-full transition-all duration-200 flex-shrink-0 ${
+              className={`ml-2 md:ml-4 p-2 md:p-3 rounded-full transition-all duration-200 flex-shrink-0 ${
                 isPlaying
                   ? "bg-blue-600 text-white shadow-lg scale-110"
                   : "bg-gray-200 text-gray-600 hover:bg-blue-100 hover:text-blue-600 hover:scale-105"
@@ -166,9 +166,9 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
               }
             >
               {isPlaying ? (
-                <VolumeX className="w-6 h-6" />
+                <VolumeX className="w-5 h-5 md:w-6 md:h-6" />
               ) : (
-                <Volume2 className="w-6 h-6" />
+                <Volume2 className="w-5 h-5 md:w-6 md:h-6" />
               )}
             </button>
           )}
@@ -176,7 +176,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
 
         {/* Question Image */}
         {question.image && (
-          <div className="h-[200px] flex justify-center items-center p-4 border-b-2 border-gray-200">
+          <div className="h-[150px] md:h-[200px] flex justify-center items-center p-3 md:p-4 border-b-2 border-gray-200">
             <img
               src={question.image}
               alt="Question illustration"
@@ -187,7 +187,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
 
         {/* Options */}
         <div
-          className={`flex-1 p-6 flex ${
+          className={`flex-1 p-3 md:p-6 flex ${
             question.type === "image_mcq"
               ? "justify-center items-center"
               : "flex-col justify-center"
@@ -197,9 +197,9 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
             className={`w-full h-full ${
               shouldUseGrid
                 ? question.type === "image_mcq"
-                  ? "grid grid-cols-3 gap-4"
-                  : "grid grid-cols-2 gap-4 max-w-4xl mx-auto"
-                : "flex flex-col gap-3"
+                  ? "grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4"
+                  : "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 max-w-4xl mx-auto"
+                : "flex flex-col gap-2 md:gap-3"
             }`}
           >
             {question.options?.map((opt, i) => {
@@ -211,18 +211,18 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
                   key={i}
                   className={`cursor-pointer transition-all duration-300 ${
                     question.type === "image_mcq"
-                      ? `relative flex flex-col items-center justify-center rounded-xl border-4 overflow-hidden ${
+                      ? `relative flex flex-col items-center justify-center rounded-xl border-3 md:border-4 overflow-hidden ${
                           isSelected
                             ? "border-blue-600 bg-blue-100 shadow-lg transform scale-105"
                             : "border-gray-300 hover:border-blue-400 hover:shadow-md hover:scale-102"
                         }`
                       : shouldUseGrid
-                      ? `flex items-center justify-center p-8 rounded-lg border-3 min-h-[80px] ${
+                      ? `flex items-center justify-center p-4 md:p-8 rounded-lg border-2 md:border-3 min-h-[60px] md:min-h-[80px] ${
                           isSelected
                             ? "border-blue-600 bg-blue-100 shadow-md transform scale-105"
                             : "border-gray-300 hover:border-blue-400 hover:bg-gray-50 hover:scale-102"
                         }`
-                      : `flex items-center p-6 rounded-lg border-3 ${
+                      : `flex items-center p-3 md:p-6 rounded-lg border-2 md:border-3 ${
                           isSelected
                             ? "border-blue-600 bg-blue-100 shadow-md"
                             : "border-gray-300 hover:border-blue-400 hover:bg-gray-50"
@@ -235,34 +235,40 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
                     value={optionValue}
                     checked={isSelected}
                     onChange={() => onAnswerChange(question.id, optionValue)}
-                    className={`${
-                      question.type === "image_mcq"
-                        ? "absolute top-3 left-3 w-6 h-6 z-10"
-                        : shouldUseGrid
-                        ? "sr-only"
-                        : "mr-4 w-6 h-6"
-                    } accent-blue-600 sr-only` }
+                    className="sr-only accent-blue-600"
                   />
 
                   {question.type === "image_mcq" ? (
-                    <div className="w-full h-full min-h-[160px] relative">
+                    <div className="w-full h-full min-h-[120px] md:min-h-[160px] relative">
                       {renderOptionContent(opt, i)}
+                      {/* Radio indicator for mobile images */}
+                      <div
+                        className={`absolute top-2 left-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-2 ${
+                          isSelected
+                            ? "bg-blue-600 border-blue-600"
+                            : "bg-white border-gray-400"
+                        }`}
+                      >
+                        {isSelected && (
+                          <div className="w-3 h-3 md:w-4 md:h-4 bg-white rounded-full"></div>
+                        )}
+                      </div>
                     </div>
                   ) : shouldUseGrid ? (
                     <div className="relative flex flex-col items-center justify-center w-full h-full text-center">
                       <div
-                        className={`absolute top-2 left-2 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                        className={`absolute top-2 left-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white font-bold text-xs md:text-sm ${
                           isSelected ? "bg-blue-600" : "bg-gray-400"
                         }`}
                       >
                         {String.fromCharCode(65 + i)}
                       </div>
-                      <div className="pt-6">{renderOptionContent(opt, i)}</div>
+                      <div className="pt-6 md:pt-8">{renderOptionContent(opt, i)}</div>
                     </div>
                   ) : (
                     <div className="flex items-center w-full">
                       <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center text-white font-bold text-xs mr-4 ${
+                        className={`w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-white font-bold text-xs mr-3 md:mr-4 ${
                           isSelected ? "bg-blue-600" : "bg-gray-400"
                         }`}
                       >

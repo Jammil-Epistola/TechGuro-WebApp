@@ -207,32 +207,32 @@ const PreAssessment = () => {
   return (
     <div className="min-h-screen bg-[#DFDFEE]">
       <CourseNavbar courseTitle={`${courseName} Pre-Assessment`} />
-      <div className="max-w-6xl mx-auto p-5">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-black mb-2">
+      <div className="max-w-6xl mx-auto p-3 md:p-5">
+        <div className="text-center mb-4 md:mb-6 px-2">
+          <h1 className="text-xl md:text-3xl font-bold text-black mb-2">
             Pre-Assessment: {courseName}
           </h1>
-          <div className="text-xl text-black">
+          <div className="text-base md:text-xl text-black">
             Question {currentQuestionIndex + 1} of {questions.length}
           </div>
-          <div className="w-full bg-gray-300 rounded-full h-3 mt-4">
+          <div className="w-full bg-gray-300 rounded-full h-2 md:h-3 mt-3 md:mt-4">
             <div
-              className="bg-[#4C5173] h-3 rounded-full transition-all duration-300"
+              className="bg-[#4C5173] h-2 md:h-3 rounded-full transition-all duration-300"
               style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
             ></div>
           </div>
         </div>
 
-        {/* QuestionCard with side navigation buttons */}
-        <div className="flex items-end justify-center gap-6">
+        {/* Desktop Layout: Side-by-side buttons */}
+        <div className="hidden md:flex items-end justify-center gap-6">
           {/* Previous Button - Left Side */}
           <div className="flex items-end">
             <button
               onClick={handlePrevious}
               disabled={currentQuestionIndex === 0}
               className={`px-6 py-3 rounded-lg text-lg font-semibold transition-all ${currentQuestionIndex === 0
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-gray-600 text-white hover:bg-gray-700 transform hover:scale-105 shadow-lg"
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-600 text-white hover:bg-gray-700 transform hover:scale-105 shadow-lg"
                 }`}
             >
               Previous
@@ -254,6 +254,41 @@ const PreAssessment = () => {
             <button
               onClick={handleNext}
               className={`px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg ${isLastQuestion ? "invisible" : ""
+                }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Layout: Buttons below card */}
+        <div className="md:hidden flex flex-col items-center gap-4">
+          {/* Question Card */}
+          <div className="w-full flex justify-center px-2">
+            <QuestionCard
+              question={{ ...currentQuestion, questionNumber: currentQuestionIndex + 1 }}
+              selectedAnswer={currentAnswer}
+              onAnswerChange={handleAnswerChange}
+              assessmentType={"pre"}
+            />
+          </div>
+
+          {/* Buttons Below Card */}
+          <div className="w-full flex justify-between gap-3 px-4">
+            <button
+              onClick={handlePrevious}
+              disabled={currentQuestionIndex === 0}
+              className={`flex-1 px-4 py-3 rounded-lg text-base font-semibold transition-all ${currentQuestionIndex === 0
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-600 text-white hover:bg-gray-700 active:scale-95 shadow-lg"
+                }`}
+            >
+              Previous
+            </button>
+
+            <button
+              onClick={handleNext}
+              className={`flex-1 px-4 py-3 bg-blue-600 text-white text-base font-semibold rounded-lg hover:bg-blue-700 transition-all active:scale-95 shadow-lg ${isLastQuestion ? "invisible" : ""
                 }`}
             >
               Next

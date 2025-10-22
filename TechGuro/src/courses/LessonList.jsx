@@ -7,7 +7,7 @@ import { useUser } from '../context/UserContext';
 import { useMilestone } from '../context/MilestoneContext';
 import TekiDialog from '../components/TekiDialog';
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
-import { MousePointer, Keyboard, Image, X, Play } from 'lucide-react';
+import { MousePointer, Keyboard, Image, X, Play, Menu } from 'lucide-react';
 
 const LessonList = () => {
   const navigate = useNavigate();
@@ -23,6 +23,11 @@ const LessonList = () => {
   const [postAssessmentUnlocked, setPostAssessmentUnlocked] = useState(false);
   const [unlockReason, setUnlockReason] = useState("");
 
+  // Sidebar state - Initialize based on screen size
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    return window.innerWidth >= 768;
+  });
+
   // Quiz-related states
   const [quizModes, setQuizModes] = useState([]);
   const [showLessonModal, setShowLessonModal] = useState(false);
@@ -33,6 +38,20 @@ const LessonList = () => {
   const formattedTitle = courseName.replace(/([A-Z])/g, ' $1').trim();
 
   const normalize = (str) => str.toLowerCase().replace(/[\s_-]+/g, '');
+
+  // Handle window resize to update sidebar state
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsSidebarOpen(true);
+      } else {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Helper function to check if all recommended lessons are completed
   const areAllRecommendedCompleted = () => {
@@ -55,7 +74,7 @@ const LessonList = () => {
       }
 
       const foundCourseId = matchedCourse.id;
-      setCourseId(foundCourseId); // Store courseId
+      setCourseId(foundCourseId);
 
       const lessonsRes = await fetch(`http://localhost:8000/lesson-courses/${foundCourseId}`);
       if (!lessonsRes.ok) throw new Error("Failed to fetch lessons data.");
@@ -129,7 +148,6 @@ const LessonList = () => {
     }
   };
 
-  // Fetch quiz modes when courseId is available and quiz section is active
   const fetchQuizModes = async () => {
     if (!courseId) return;
 
@@ -151,7 +169,6 @@ const LessonList = () => {
     }
   };
 
-  // Fetch lessons for selected quiz type
   const fetchQuizLessons = async (quizType) => {
     if (!courseId) return;
 
@@ -173,7 +190,6 @@ const LessonList = () => {
     }
   };
 
-  // Handle quiz mode selection
   const handleQuizModeSelect = async (quizType) => {
     setSelectedQuizType(null);
     setAvailableLessonsForQuiz([]);
@@ -182,7 +198,6 @@ const LessonList = () => {
     await fetchQuizLessons(quizType);
   };
 
-  // Handle lesson selection in modal
   const handleLessonSelect = (lessonInfo) => {
     setShowLessonModal(false);
 
@@ -206,7 +221,6 @@ const LessonList = () => {
     setAvailableLessonsForQuiz([]);
   };
 
-  // Get quiz mode icon and color
   const getQuizModeDetails = (quizType) => {
     switch (quizType) {
       case 'multiple_choice':
@@ -244,13 +258,20 @@ const LessonList = () => {
     }
   };
 
+  const navigateToSection = (sectionName) => {
+    setActiveSection(sectionName);
+    // Close sidebar on mobile when navigating
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(false);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       fetchCourseData();
     }
   }, [user, courseName]);
 
-  // Fetch quiz modes when switching to quiz section
   useEffect(() => {
     if (activeSection === 'quizzes' && courseId) {
       fetchQuizModes();
@@ -261,27 +282,22 @@ const LessonList = () => {
     const checkMilestone2 = async () => {
       if (!user || !courseId) return;
 
-      // Use sessionStorage to track if we've shown this milestone for this course
       const milestoneKey = `milestone_2_shown_${user.user_id}_${courseId}`;
       const hasShown = sessionStorage.getItem(milestoneKey);
 
       if (!hasShown) {
         try {
-          // Check if user just earned Milestone #2
           const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/2`);
           const data = await response.json();
 
           if (data.earned) {
-            // Fetch milestone details
             const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
             const milestones = await milestonesResponse.json();
             const milestone2 = milestones.find(m => m.id === 2);
 
             if (milestone2 && milestone2.status === "earned") {
-              // Small delay for better UX (let page load first)
               setTimeout(() => {
                 showMilestone(milestone2);
-                // Mark as shown for this session + course combo
                 sessionStorage.setItem(milestoneKey, "true");
               }, 1500);
             }
@@ -318,184 +334,224 @@ const LessonList = () => {
     <div className="min-h-screen bg-[#DFDFEE] text-black">
       <CourseNavbar courseTitle={formattedTitle} />
 
-      <div className="flex w-full">
-        {/* Sidebar - No changes to existing sidebar code */}
-        <motion.div
-          className="w-[320px] bg-gradient-to-br from-[#BFC4D7] to-[#A8B0C8] p-6 sticky top-0 h-screen overflow-y-auto border-r-2 border-[#6B708D] shadow-lg z-20"
-          initial={{ x: -320, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          {/* Header Section */}
-          <motion.div
-            className="flex items-center gap-4 mb-4 p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30"
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.4 }}
-          >
-            <div className="relative">
-              <img
-                src={lessonsData.image_url || placeholderimg}
-                alt={formattedTitle}
-                className="w-16 h-16 rounded-full border-2 border-white shadow-md"
-              />
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white"></div>
-            </div>
-            <div>
-              <h2 className="text-[20px] font-bold text-[#1A202C] mb-1">{formattedTitle}</h2>
-              <p className="text-[14px] text-[#2D3748] font-semibold">Learning Dashboard</p>
-            </div>
-          </motion.div>
-
-          {/* Navigation Sections */}
-          <div className="space-y-3 mb-8">
+      <div className="flex w-full relative">
+        {/* Sidebar */}
+        <AnimatePresence>
+          {isSidebarOpen && (
             <motion.div
-              onClick={() => setActiveSection('recommended')}
-              className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${activeSection === 'recommended'
-                ? 'bg-[#F4EDD9] border-[#B6C44D] shadow-md transform scale-[1.02]'
-                : 'bg-white/10 border-transparent hover:bg-white/20 hover:scale-[1.01]'
-                }`}
-              initial={{ x: -50, opacity: 0 }}
+              className="w-[320px] bg-gradient-to-br from-[#BFC4D7] to-[#A8B0C8] p-6 h-screen overflow-y-auto border-r-2 border-[#6B708D] shadow-lg z-[60] fixed md:sticky top-0"
+              initial={{ x: -320, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-              whileHover={{ x: 5 }}
-              whileTap={{ scale: 0.98 }}
+              exit={{ x: -320, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="flex items-center gap-2">
-                <div className={`w-3 h-3 rounded-full ${activeSection === 'recommended' ? 'bg-[#B6C44D]' : 'bg-gray-400'
-                  }`}></div>
-                <div className="flex-1">
-                  <div className="font-bold text-[17px] mb-1 text-[#1A202C]">TEKI'S RECOMMENDED</div>
-                  <div className="text-[14px] text-[#2D3748] font-medium">AI-based lesson suggestions</div>
-                </div>
-                {recommendedLessons.length > 0 && (
-                  <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-[10px] font-bold">
-                    {recommendedLessons.length}
-                  </span>
-                )}
-              </div>
-            </motion.div>
+              {/* Close Button - Only visible on mobile */}
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className="md:hidden absolute top-4 right-4 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all z-10"
+              >
+                <X className="w-5 h-5 text-[#1A202C]" />
+              </button>
 
-            <motion.div
-              onClick={() => setActiveSection('allLessons')}
-              className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${activeSection === 'allLessons'
-                ? 'bg-[#F4EDD9] border-[#B6C44D] shadow-md transform scale-[1.02]'
-                : 'bg-white/10 border-transparent hover:bg-white/20 hover:scale-[1.01]'
-                }`}
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.4 }}
-              whileHover={{ x: 5 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`w-3 h-3 rounded-full ${activeSection === 'allLessons' ? 'bg-[#B6C44D]' : 'bg-gray-400'
-                  }`}></div>
-                <div className="flex-1">
-                  <div className="font-bold text-[17px] mb-1 text-[#1A202C]">ALL LESSONS</div>
-                  <div className="text-[14px] text-[#2D3748] font-medium">Complete course overview</div>
-                </div>
-                {lessonsData?.lessons && (
-                  <span className="bg-purple-500 text-white px-2 py-1 rounded-full text-[10px] font-bold">
-                    {lessonsData.lessons.length}
-                  </span>
-                )}
-              </div>
-            </motion.div>
-
-            {/* Updated Quiz Section */}
-            <motion.div
-              onClick={() => setActiveSection('quizzes')}
-              className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${activeSection === 'quizzes'
-                ? 'bg-[#F4EDD9] border-[#B6C44D] shadow-md transform scale-[1.02]'
-                : 'bg-white/10 border-transparent hover:bg-white/20 hover:scale-[1.01]'
-                }`}
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
-              whileHover={{ x: 5 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`w-3 h-3 rounded-full ${activeSection === 'quizzes' ? 'bg-[#B6C44D]' : 'bg-gray-400'
-                  }`}></div>
-                <div className="flex-1">
-                  <div className="font-bold text-[17px] mb-1 text-[#1A202C]">QUIZZES</div>
-                  <div className="text-[14px] text-[#2D3748] font-medium">Practice and assessment</div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Rest of sidebar code remains the same */}
-          <motion.div
-            className="mb-6 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.4 }}
-          >
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-[15px] font-bold text-[#1A202C]">Recommended Progress</span>
-              <span className="text-[14px] text-[#2D3748] font-semibold">
-                {recommendedLessons.filter(lessonId => completedLessons.includes(lessonId)).length}/{recommendedLessons.length || 0}
-              </span>
-            </div>
-            <div className="w-full bg-white/30 rounded-full h-2">
+              {/* Header Section */}
               <motion.div
-                className="bg-gradient-to-r from-[#B6C44D] to-[#9BB83D] h-2 rounded-full"
-                initial={{ width: 0 }}
-                animate={{
-                  width: recommendedLessons.length > 0
-                    ? `${(recommendedLessons.filter(lessonId => completedLessons.includes(lessonId)).length / recommendedLessons.length) * 100}%`
-                    : '0%'
-                }}
-                transition={{ delay: 0.8, duration: 1 }}
-              />
-            </div>
-            <div className="text-[13px] text-[#2D3748] font-medium mt-2">
-              Complete recommended lessons to unlock Post-Assessment
-            </div>
-          </motion.div>
+                className="flex items-center gap-4 mb-4 p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+              >
+                <div className="relative">
+                  <img
+                    src={lessonsData.image_url || placeholderimg}
+                    alt={formattedTitle}
+                    className="w-16 h-16 rounded-full border-2 border-white shadow-md"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white"></div>
+                </div>
+                <div>
+                  <h2 className="text-[20px] font-bold text-[#1A202C] mb-1">{formattedTitle}</h2>
+                  <p className="text-[14px] text-[#2D3748] font-semibold">Learning Dashboard</p>
+                </div>
+              </motion.div>
 
-          <motion.button
-            onClick={() => {
-              if (areAllRecommendedCompleted()) {
-                handlePostAssessment();
-              } else {
-                const remaining = recommendedLessons.length - recommendedLessons.filter(lessonId => completedLessons.includes(lessonId)).length;
-                setUnlockReason(`Complete ${remaining} more recommended lesson${remaining > 1 ? 's' : ''} to unlock Post-Assessment!`);
-              }
-            }}
-            className={`w-full px-4 py-4 rounded-xl font-bold text-[18px] transition-all ${areAllRecommendedCompleted()
-              ? "bg-gradient-to-r from-[#B6C44D] to-[#9BB83D] text-black hover:from-[#a5b83d] hover:to-[#8aa936] shadow-lg transform hover:scale-[1.02]"
-              : "bg-gray-400 text-white hover:bg-gray-500 cursor-not-allowed"
-              }`}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.4 }}
-            whileHover={areAllRecommendedCompleted() ? { scale: 1.02 } : {}}
-            whileTap={areAllRecommendedCompleted() ? { scale: 0.98 } : {}}
-          >
-            <div className="flex items-center justify-center gap-2">
-              <span>Post-Assessment</span>
-              {areAllRecommendedCompleted() ? (
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              ) : (
-                <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
-              )}
-            </div>
-          </motion.button>
-        </motion.div>
+              {/* Navigation Sections */}
+              <div className="space-y-3 mb-8">
+                <motion.div
+                  onClick={() => navigateToSection('recommended')}
+                  className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${activeSection === 'recommended'
+                    ? 'bg-[#F4EDD9] border-[#B6C44D] shadow-md transform scale-[1.02]'
+                    : 'bg-white/10 border-transparent hover:bg-white/20 hover:scale-[1.01]'
+                    }`}
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="flex items-center gap-2">
+                    <div className={`w-3 h-3 rounded-full ${activeSection === 'recommended' ? 'bg-[#B6C44D]' : 'bg-gray-400'
+                      }`}></div>
+                    <div className="flex-1">
+                      <div className="font-bold text-[17px] mb-1 text-[#1A202C]">TEKI'S RECOMMENDED</div>
+                      <div className="text-[14px] text-[#2D3748] font-medium">AI-based lesson suggestions</div>
+                    </div>
+                    {recommendedLessons.length > 0 && (
+                      <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-[10px] font-bold">
+                        {recommendedLessons.length}
+                      </span>
+                    )}
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  onClick={() => navigateToSection('allLessons')}
+                  className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${activeSection === 'allLessons'
+                    ? 'bg-[#F4EDD9] border-[#B6C44D] shadow-md transform scale-[1.02]'
+                    : 'bg-white/10 border-transparent hover:bg-white/20 hover:scale-[1.01]'
+                    }`}
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.4 }}
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-3 h-3 rounded-full ${activeSection === 'allLessons' ? 'bg-[#B6C44D]' : 'bg-gray-400'
+                      }`}></div>
+                    <div className="flex-1">
+                      <div className="font-bold text-[17px] mb-1 text-[#1A202C]">ALL LESSONS</div>
+                      <div className="text-[14px] text-[#2D3748] font-medium">Complete course overview</div>
+                    </div>
+                    {lessonsData?.lessons && (
+                      <span className="bg-purple-500 text-white px-2 py-1 rounded-full text-[10px] font-bold">
+                        {lessonsData.lessons.length}
+                      </span>
+                    )}
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  onClick={() => navigateToSection('quizzes')}
+                  className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${activeSection === 'quizzes'
+                    ? 'bg-[#F4EDD9] border-[#B6C44D] shadow-md transform scale-[1.02]'
+                    : 'bg-white/10 border-transparent hover:bg-white/20 hover:scale-[1.01]'
+                    }`}
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.5, duration: 0.4 }}
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-3 h-3 rounded-full ${activeSection === 'quizzes' ? 'bg-[#B6C44D]' : 'bg-gray-400'
+                      }`}></div>
+                    <div className="flex-1">
+                      <div className="font-bold text-[17px] mb-1 text-[#1A202C]">QUIZZES</div>
+                      <div className="text-[14px] text-[#2D3748] font-medium">Practice and assessment</div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              <motion.div
+                className="mb-6 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.4 }}
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-[15px] font-bold text-[#1A202C]">Recommended Progress</span>
+                  <span className="text-[14px] text-[#2D3748] font-semibold">
+                    {recommendedLessons.filter(lessonId => completedLessons.includes(lessonId)).length}/{recommendedLessons.length || 0}
+                  </span>
+                </div>
+                <div className="w-full bg-white/30 rounded-full h-2">
+                  <motion.div
+                    className="bg-gradient-to-r from-[#B6C44D] to-[#9BB83D] h-2 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{
+                      width: recommendedLessons.length > 0
+                        ? `${(recommendedLessons.filter(lessonId => completedLessons.includes(lessonId)).length / recommendedLessons.length) * 100}%`
+                        : '0%'
+                    }}
+                    transition={{ delay: 0.8, duration: 1 }}
+                  />
+                </div>
+                <div className="text-[13px] text-[#2D3748] font-medium mt-2">
+                  Complete recommended lessons to unlock Post-Assessment
+                </div>
+              </motion.div>
+
+              <motion.button
+                onClick={() => {
+                  if (areAllRecommendedCompleted()) {
+                    handlePostAssessment();
+                  } else {
+                    const remaining = recommendedLessons.length - recommendedLessons.filter(lessonId => completedLessons.includes(lessonId)).length;
+                    setUnlockReason(`Complete ${remaining} more recommended lesson${remaining > 1 ? 's' : ''} to unlock Post-Assessment!`);
+                  }
+                }}
+                className={`w-full px-4 py-4 rounded-xl font-bold text-[18px] transition-all ${areAllRecommendedCompleted()
+                  ? "bg-gradient-to-r from-[#B6C44D] to-[#9BB83D] text-black hover:from-[#a5b83d] hover:to-[#8aa936] shadow-lg transform hover:scale-[1.02]"
+                  : "bg-gray-400 text-white hover:bg-gray-500 cursor-not-allowed"
+                  }`}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.4 }}
+                whileHover={areAllRecommendedCompleted() ? { scale: 1.02 } : {}}
+                whileTap={areAllRecommendedCompleted() ? { scale: 0.98 } : {}}
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <span>Post-Assessment</span>
+                  {areAllRecommendedCompleted() ? (
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  ) : (
+                    <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+                  )}
+                </div>
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Overlay backdrop - Only on mobile when sidebar is open */}
+        <AnimatePresence>
+          {isSidebarOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden fixed inset-0 bg-black/50 z-50"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+          )}
+        </AnimatePresence>
 
         {/* Main Content */}
-        <div className="flex-1 p-8 relative z-0">
+        <div className="flex-1 p-4 md:p-8 relative z-0">
+          {/* Open Sidebar Button - Only visible on mobile when sidebar is closed */}
+          {!isSidebarOpen && (
+            <motion.button
+              onClick={() => setIsSidebarOpen(true)}
+              className="md:hidden mb-4 w-full bg-[#4C5173] hover:bg-[#5a5f8a] rounded-lg px-4 py-3 flex items-center justify-center gap-3 shadow-lg transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Menu className="w-5 h-5 text-white" />
+              <span className="text-white font-semibold text-[15px]">Open Sidebar</span>
+            </motion.button>
+          )}
+
           {activeSection === 'recommended' ? (
-            /* Existing recommended section code - no changes */
             <>
-              <h1 className="text-[24px] font-bold text-[#4C5173] mb-4">
+              <h1 className="text-[20px] md:text-[24px] font-bold text-[#4C5173] mb-4">
                 Teki's Recommended Lessons
               </h1>
-              <p className="text-[16px] mb-6">
+              <p className="text-[14px] md:text-[16px] mb-6">
                 Based on your Pre-Assessment, here are the lessons Teki recommends to improve your knowledge of the course.
               </p>
 
@@ -507,8 +563,8 @@ const LessonList = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <p className="text-[18px] italic text-gray-700 mb-2">No recommendations yet.</p>
-                    <p className="text-[14px] text-gray-600">Complete your pre-assessment to get personalized lesson recommendations.</p>
+                    <p className="text-[16px] md:text-[18px] italic text-gray-700 mb-2">No recommendations yet.</p>
+                    <p className="text-[13px] md:text-[14px] text-gray-600">Complete your pre-assessment to get personalized lesson recommendations.</p>
                   </motion.div>
                 ) : (
                   <>
@@ -518,7 +574,7 @@ const LessonList = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4 }}
                     >
-                      <p className="text-[14px] font-semibold text-blue-800">
+                      <p className="text-[13px] md:text-[14px] font-semibold text-blue-800">
                         💡 {recommendedLessons.length} lesson{recommendedLessons.length > 1 ? 's' : ''} recommended based on your assessment results
                       </p>
                     </motion.div>
@@ -531,7 +587,7 @@ const LessonList = () => {
                           return (
                             <motion.div
                               key={lesson.lesson_id}
-                              className={`bg-[#F9F8FE] border-2 rounded-lg p-6 flex justify-between items-center transition-all ${isCompleted ? 'border-green-400 bg-green-50' : 'border-[#6B708D]'}`}
+                              className={`bg-[#F9F8FE] border-2 rounded-lg p-4 md:p-6 flex flex-col md:flex-row justify-between md:items-center gap-4 transition-all ${isCompleted ? 'border-green-400 bg-green-50' : 'border-[#6B708D]'}`}
                               initial={{ opacity: 0, x: -100 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{
@@ -548,26 +604,26 @@ const LessonList = () => {
                               whileTap={{ scale: 0.98 }}
                             >
                               <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <span className="bg-blue-500 text-white px-2 py-1 rounded text-[12px] font-bold">
+                                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                  <span className="bg-blue-500 text-white px-2 py-1 rounded text-[11px] md:text-[12px] font-bold">
                                     RECOMMENDED #{index + 1}
                                   </span>
                                 </div>
-                                <h2 className="text-[20px] font-bold mb-2 text-[#4C5173]">
+                                <h2 className="text-[18px] md:text-[20px] font-bold mb-2 text-[#4C5173]">
                                   {lesson.lesson_title}
                                 </h2>
-                                <p className="text-[14px] text-gray-600 mb-2">
+                                <p className="text-[13px] md:text-[14px] text-gray-600 mb-2">
                                   {lesson.slides?.[0]?.content?.[0] ?? "Learn essential concepts in this lesson."}
                                 </p>
                                 {isCompleted && (
-                                  <p className="text-green-700 font-bold mt-2 text-[14px] flex items-center gap-1">
+                                  <p className="text-green-700 font-bold mt-2 text-[13px] md:text-[14px] flex items-center gap-1">
                                     ✓ Completed - Great job!
                                   </p>
                                 )}
                               </div>
                               <motion.button
                                 onClick={() => handleStartLesson(lesson.lesson_id)}
-                                className={`px-6 py-3 rounded font-semibold text-[16px] transition-all ${isCompleted
+                                className={`w-full md:w-auto px-6 py-3 rounded font-semibold text-[15px] md:text-[16px] transition-all ${isCompleted
                                   ? "bg-gray-500 text-white hover:bg-gray-600"
                                   : "bg-[#B6C44D] text-black hover:bg-[#a5b83d] shadow-lg hover:shadow-xl"
                                   }`}
@@ -585,12 +641,11 @@ const LessonList = () => {
               </div>
             </>
           ) : activeSection === 'allLessons' ? (
-            /* Existing all lessons section code - no changes */
             <>
-              <h1 className="text-[24px] font-bold text-[#4C5173] mb-4">
+              <h1 className="text-[20px] md:text-[24px] font-bold text-[#4C5173] mb-4">
                 All Course Lessons
               </h1>
-              <p className="text-[16px] mb-6">
+              <p className="text-[14px] md:text-[16px] mb-6">
                 Complete overview of all lessons available in {formattedTitle}.
               </p>
 
@@ -603,7 +658,7 @@ const LessonList = () => {
                     return (
                       <motion.div
                         key={lesson.lesson_id}
-                        className={`bg-[#F9F8FE] border-2 rounded-lg p-6 flex justify-between items-center transition-all ${isCompleted ? 'border-green-400 bg-green-50' : 'border-[#6B708D]'
+                        className={`bg-[#F9F8FE] border-2 rounded-lg p-4 md:p-6 flex flex-col md:flex-row justify-between md:items-center gap-4 transition-all ${isCompleted ? 'border-green-400 bg-green-50' : 'border-[#6B708D]'
                           }`}
                         initial={{ opacity: 0, x: -100 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -621,31 +676,31 @@ const LessonList = () => {
                         whileTap={{ scale: 0.98 }}
                       >
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="bg-gray-500 text-white px-2 py-1 rounded text-[12px] font-bold">
+                          <div className="flex items-center gap-2 mb-2 flex-wrap">
+                            <span className="bg-gray-500 text-white px-2 py-1 rounded text-[11px] md:text-[12px] font-bold">
                               LESSON {index + 1}
                             </span>
                             {isRecommended && (
-                              <span className="bg-yellow-400 text-black px-2 py-1 rounded text-[12px] font-bold">
+                              <span className="bg-yellow-400 text-black px-2 py-1 rounded text-[11px] md:text-[12px] font-bold">
                                 ★ RECOMMENDED
                               </span>
                             )}
                           </div>
-                          <h2 className="text-[20px] font-bold mb-2 text-[#4C5173]">
+                          <h2 className="text-[18px] md:text-[20px] font-bold mb-2 text-[#4C5173]">
                             {lesson.lesson_title}
                           </h2>
-                          <p className="text-[14px] text-gray-600 mb-2">
+                          <p className="text-[13px] md:text-[14px] text-gray-600 mb-2">
                             {lesson.slides?.[0]?.content?.[0] ?? "Learn essential concepts in this lesson."}
                           </p>
                           {isCompleted && (
-                            <p className="text-green-700 font-bold mt-2 text-[14px] flex items-center gap-1">
+                            <p className="text-green-700 font-bold mt-2 text-[13px] md:text-[14px] flex items-center gap-1">
                               ✓ Completed - Great job!
                             </p>
                           )}
                         </div>
                         <motion.button
                           onClick={() => handleStartLesson(lesson.lesson_id)}
-                          className={`px-6 py-3 rounded font-semibold text-[16px] transition-all ${isCompleted
+                          className={`w-full md:w-auto px-6 py-3 rounded font-semibold text-[15px] md:text-[16px] transition-all ${isCompleted
                             ? "bg-gray-500 text-white hover:bg-gray-600"
                             : "bg-[#B6C44D] text-black hover:bg-[#a5b83d] shadow-lg hover:shadow-xl"
                             }`}
@@ -661,22 +716,21 @@ const LessonList = () => {
               </div>
             </>
           ) : activeSection === 'quizzes' ? (
-            /* NEW QUIZ SECTION */
             <>
-              <h1 className="text-[24px] font-bold text-[#4C5173] mb-4">Quizzes</h1>
-              <p className="text-[16px] mb-6">
+              <h1 className="text-[20px] md:text-[24px] font-bold text-[#4C5173] mb-4">Quizzes</h1>
+              <p className="text-[14px] md:text-[16px] mb-6">
                 Test your knowledge with practice quizzes and exercises.
               </p>
 
               {loadingQuizData ? (
                 <div className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-8 text-center">
                   <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#4C5173] mb-4"></div>
-                  <p className="text-[16px] text-gray-600">Loading quiz modes...</p>
+                  <p className="text-[14px] md:text-[16px] text-gray-600">Loading quiz modes...</p>
                 </div>
               ) : quizModes.length === 0 ? (
                 <div className="bg-[#F9F8FE] border border-[#6B708D] rounded-lg p-8 text-center">
-                  <p className="text-[18px] italic text-gray-700 mb-2">No quizzes available yet.</p>
-                  <p className="text-[14px] text-gray-600">Quiz exercises will be available soon for this course.</p>
+                  <p className="text-[16px] md:text-[18px] italic text-gray-700 mb-2">No quizzes available yet.</p>
+                  <p className="text-[13px] md:text-[14px] text-gray-600">Quiz exercises will be available soon for this course.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -700,19 +754,19 @@ const LessonList = () => {
                             <IconComponent className="w-8 h-8 text-white" />
                           </div>
 
-                          <h3 className={`text-[18px] font-bold mb-2 ${details.textColor}`}>
+                          <h3 className={`text-[16px] md:text-[18px] font-bold mb-2 ${details.textColor}`}>
                             {mode.display_name}
                           </h3>
 
-                          <p className="text-[14px] text-gray-600 mb-4">
+                          <p className="text-[13px] md:text-[14px] text-gray-600 mb-4">
                             {mode.quiz_type === 'multiple_choice' && 'Choose the correct answer from image options (10 random questions)'}
                             {mode.quiz_type === 'drag_drop' && 'Drag items to their correct positions (5 random questions)'}
                             {mode.quiz_type === 'typing' && 'Type the correct answers within time limit (5 random questions)'}
                           </p>
 
                           <div className="flex justify-center items-center gap-2 mb-4">
-                            <span className="text-[12px] text-gray-500">Available Lessons:</span>
-                            <span className="bg-white px-2 py-1 rounded-full text-[12px] font-bold text-gray-700">
+                            <span className="text-[11px] md:text-[12px] text-gray-500">Available Lessons:</span>
+                            <span className="bg-white px-2 py-1 rounded-full text-[11px] md:text-[12px] font-bold text-gray-700">
                               {mode.available_lessons}
                             </span>
                           </div>
@@ -722,7 +776,7 @@ const LessonList = () => {
                               e.stopPropagation();
                               handleQuizModeSelect(mode.quiz_type);
                             }}
-                            className={`w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r ${details.color} hover:opacity-90 transition-all`}
+                            className={`w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r ${details.color} hover:opacity-90 transition-all text-[14px] md:text-[15px]`}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
@@ -750,24 +804,24 @@ const LessonList = () => {
       <AnimatePresence>
         {showLessonModal && (
           <motion.div
-            className="fixed inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center z-50 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={handleCloseModal}  // ← Add this
+            onClick={handleCloseModal}
           >
             <motion.div
-              className="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto"
+              className="bg-white rounded-xl p-4 md:p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 15 }}
-              onClick={(e) => e.stopPropagation()}  // ← Add this to prevent closing when clicking inside modal
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h2 className="text-[24px] font-bold text-[#4C5173]">Select a Lesson</h2>
-                  <p className="text-[16px] text-gray-600">
+                  <h2 className="text-[20px] md:text-[24px] font-bold text-[#4C5173]">Select a Lesson</h2>
+                  <p className="text-[14px] md:text-[16px] text-gray-600">
                     Choose which lesson you want to practice with {selectedQuizType?.replace('_', ' ')} quiz
                   </p>
                 </div>
@@ -777,18 +831,17 @@ const LessonList = () => {
                 >
                   <X className="w-6 h-6 text-gray-500" />
                 </button>
-
               </div>
 
               {loadingQuizData ? (
                 <div className="text-center py-8">
                   <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#4C5173] mb-4"></div>
-                  <p className="text-[16px] text-gray-600">Loading available lessons...</p>
+                  <p className="text-[14px] md:text-[16px] text-gray-600">Loading available lessons...</p>
                 </div>
               ) : availableLessonsForQuiz.length === 0 ? (
                 <div className="text-center py-8">
-                  <p className="text-[18px] text-gray-700 mb-2">No lessons available</p>
-                  <p className="text-[14px] text-gray-600">This quiz type is not available for any lessons yet.</p>
+                  <p className="text-[16px] md:text-[18px] text-gray-700 mb-2">No lessons available</p>
+                  <p className="text-[13px] md:text-[14px] text-gray-600">This quiz type is not available for any lessons yet.</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -804,18 +857,18 @@ const LessonList = () => {
                         handleLessonSelect(lessonInfo);
                       }}
                     >
-                      <div className="flex justify-between items-center">
+                      <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
                         <div className="flex-1">
-                          <h3 className="text-[18px] font-bold text-[#4C5173] mb-2">
+                          <h3 className="text-[16px] md:text-[18px] font-bold text-[#4C5173] mb-2">
                             {lessonInfo.lesson_title}
                           </h3>
-                          <div className="flex items-center gap-4 text-[14px] text-gray-600">
+                          <div className="flex items-center gap-4 text-[13px] md:text-[14px] text-gray-600 flex-wrap">
                             <span>📝 {selectedQuizType === "multiple_choice" ? 10 : selectedQuizType === "drag_drop" ? 5 : selectedQuizType === "typing" ? 5 : lessonInfo.total_questions} questions</span>
                             {lessonInfo.time_limit && (
                               <span>⏱️ {lessonInfo.time_limit}s time limit</span>
                             )}
                             {lessonInfo.difficulty && (
-                              <span className={`px-2 py-1 rounded-full text-[12px] font-bold ${lessonInfo.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
+                              <span className={`px-2 py-1 rounded-full text-[11px] md:text-[12px] font-bold ${lessonInfo.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
                                 lessonInfo.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                                   'bg-red-100 text-red-800'
                                 }`}>
@@ -826,7 +879,7 @@ const LessonList = () => {
                         </div>
 
                         <motion.button
-                          className="px-4 py-2 bg-[#B6C44D] text-black font-semibold rounded-lg hover:bg-[#a5b83d] transition-colors"
+                          className="w-full md:w-auto px-4 py-2 bg-[#B6C44D] text-black font-semibold rounded-lg hover:bg-[#a5b83d] transition-colors text-[14px] md:text-[15px]"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >

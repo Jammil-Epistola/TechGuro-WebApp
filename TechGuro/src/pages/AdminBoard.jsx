@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { LogOut, Users, DownloadCloud, Trash2, TrendingUp } from "lucide-react";
 import { FaCalendar, FaChevronDown } from "react-icons/fa";
 import AdminUserTable from "./AdminBoard/AdminUserTable";
-import AdminImprovementAnalysis from "./AdminBoard/AdminImprovementAnalysis";
 import tgLogo from "../assets/TechGuroLogo_3.png";
 
 const AdminBoard = () => {
@@ -39,8 +38,6 @@ const AdminBoard = () => {
     switch (activeSection) {
       case "users":
         return <AdminUserTable />;
-      case "improvement":
-        return <AdminImprovementAnalysis />;
       default:
         return <AdminUserTable />;
     }
@@ -53,12 +50,6 @@ const AdminBoard = () => {
       label: "User Management",
       icon: Users,
       color: "text-blue-600"
-    },
-    {
-      id: "improvement",
-      label: "Improvement Analysis",
-      icon: TrendingUp,
-      color: "text-green-600"
     }
   ];
 

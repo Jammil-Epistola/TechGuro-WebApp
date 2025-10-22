@@ -1,50 +1,65 @@
-//UserBoard.jsx
-import React, { useState } from "react";
+//UserBoard.jsx - Fixed seamless animation
+import React, { useState, useEffect } from "react";
 import { useUser } from "../context/UserContext";
 import { useMilestone } from "../context/MilestoneContext";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { LogOut, BookOpen, BarChart3, Award, History, ChevronRight } from "lucide-react";
+import { LogOut, BookOpen, BarChart3, Award, History, Menu, X } from "lucide-react";
+import { FaUser, FaUserCircle, FaCalendar, FaChevronDown, FaSignOutAlt } from "react-icons/fa";
 import DashboardSection from "./UserBoard/DashboardSection";
 import AchievementsSection from "./UserBoard/AchievementsSection";
 import CoursesSection from "./UserBoard/CoursesSection";
 import HistorySection from "./UserBoard/HistorySection";
-import TopNavbar from "./UserBoard/TopNavbar";
 import tgLogo from "../assets/TechGuroLogo_3.png";
 
 const UserBoard = () => {
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("dashboard");
   const [dashboardKey, setDashboardKey] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { logout, user } = useUser();
   const { showMilestone } = useMilestone();
 
+  // Initialize sidebar state based on screen size
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    return window.innerWidth >= 768;
+  });
+
+  // Handle window resize to update sidebar state
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsSidebarOpen(true);
+      } else {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Check and show Milestone #1
-  React.useEffect(() => {
+  useEffect(() => {
     const checkFirstLoginMilestone = async () => {
       if (!user || !user.user_id) return;
 
-      // Check if we should show the milestone notification
       const milestoneShownKey = `milestone_1_shown_${user.user_id}`;
       const hasShownMilestone = sessionStorage.getItem(milestoneShownKey);
 
       if (!hasShownMilestone) {
         try {
-          // Check if user has earned Milestone #1
           const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/1`);
           const data = await response.json();
 
           if (data.earned) {
-            // Fetch milestone details
             const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
             const milestones = await milestonesResponse.json();
             const milestone1 = milestones.find(m => m.id === 1);
 
             if (milestone1 && milestone1.status === "earned") {
-              // Small delay for better UX (let dashboard load first)
               setTimeout(() => {
                 showMilestone(milestone1);
-                // Mark as shown for this session
                 sessionStorage.setItem(milestoneShownKey, "true");
               }, 1000);
             }
@@ -56,8 +71,9 @@ const UserBoard = () => {
     };
     checkFirstLoginMilestone();
   }, [user, showMilestone]);
-  //Milestone 4-8
-  React.useEffect(() => {
+
+  // Milestone 4-8
+  useEffect(() => {
     const checkCourseCompletionMilestones = async () => {
       if (!user || !user.user_id) return;
 
@@ -68,7 +84,6 @@ const UserBoard = () => {
         const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
         const milestones = await milestonesResponse.json();
 
-        // Check each course completion milestone
         for (const milestoneId of courseCompletionMilestones) {
           const milestoneShownKey = `milestone_${milestoneId}_shown_${user.user_id}`;
           const hasShownMilestone = sessionStorage.getItem(milestoneShownKey);
@@ -83,7 +98,6 @@ const UserBoard = () => {
           }
         }
 
-        // Show all newly earned milestones with a delay
         if (newlyEarnedMilestones.length > 0) {
           setTimeout(() => {
             newlyEarnedMilestones.forEach(milestone => {
@@ -106,6 +120,10 @@ const UserBoard = () => {
 
   const navigateToSection = (sectionName) => {
     setActiveSection(sectionName);
+    // Close sidebar on mobile when navigating
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(false);
+    }
   };
 
   const renderContent = () => {
@@ -128,7 +146,21 @@ const UserBoard = () => {
     setDashboardKey(prev => prev + 1);
   };
 
-  // Navigation items with icons
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".user-dropdown")) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const navigationItems = [
     {
       id: "courses",
@@ -157,98 +189,188 @@ const UserBoard = () => {
   ];
 
   return (
-    <div className="flex">
-      {/* Enhanced Sidebar */}
-      <div className="w-[280px] sticky top-0 h-screen bg-gradient-to-b from-[#BFC4D7] to-[#A8B0C8] flex flex-col justify-between p-6 shadow-xl">
-        {/* Logo Section */}
-        <div className="flex flex-col items-center mb-8">
-          <img
-            src={tgLogo}
-            alt="TechGuro Logo"
-            className="w-32 h-32 mb-3"
-          />
-          <span className="font-bold text-[#1A202C] text-[35px] mb-5">
-            TechGuro.
-          </span>
-          <div className="border-t-2 border-[#1A202C]/30 w-full" />
-        </div>
-
-        {/* Navigation Section */}
-        <div className="flex-1 flex flex-col gap-4">
-          {navigationItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeSection === item.id;
-
-            return (
-              <motion.button
-                key={item.id}
-                className={`group relative flex items-center gap-4 px-3 py-5 rounded-xl font-bold text-[32px] text-left transition-all duration-200 ${isActive
-                  ? "bg-[#F4EDD9] shadow-lg border-2 border-[#B6C44D]"
-                  : "hover:bg-white/20"
-                  }`}
-                onClick={() => setActiveSection(item.id)}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Icon Container */}
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${isActive
-                  ? "bg-white shadow-md"
-                  : "bg-white/10"
-                  }`}>
-                  <Icon
-                    className={`w-7 h-7 ${isActive ? item.color : "text-[#1A202C]"
-                      }`}
-                  />
-                </div>
-
-                {/* Label */}
-                <span className="flex-1 text-[#1A202C]">
-                  {item.label}
-                </span>
-
-                {/* Active Indicator */}
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-            );
-          })}
-        </div>
-
-        {/* Logout Section */}
-        <div className="space-y-4">
-          <div className="border-t-2 border-[#1A202C]/30 w-full" />
-
-          <button
-            onClick={handleLogout}
-            className="group flex items-center justify-center gap-3 w-full px-6 py-4 text-red-600 font-bold text-[28px] rounded-xl transition-all duration-200 hover:bg-red-50"
+    <div className="flex relative bg-[#DFDFEE] min-h-screen">
+      {/* Enhanced Sidebar - Full-screen overlay on mobile, sticky on desktop */}
+      <AnimatePresence mode="wait">
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ x: -280 }}
+            animate={{ x: 0 }}
+            exit={{ x: -280 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="w-[280px] h-screen bg-gradient-to-b from-[#BFC4D7] to-[#A8B0C8] flex flex-col justify-between p-6 shadow-xl z-[60] fixed md:sticky top-0"
           >
-            <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center group-hover:bg-red-200 transition-colors">
-              <LogOut className="w-6 h-6 text-red-600" />
+            {/* Logo Section with Close Button */}
+            <div className="flex flex-col items-center mb-8 relative">
+              {/* Close Button - Only visible on mobile */}
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className="md:hidden absolute top-0 right-0 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all"
+              >
+                <X className="w-5 h-5 text-[#1A202C]" />
+              </button>
+
+              <img
+                src={tgLogo}
+                alt="TechGuro Logo"
+                className="w-32 h-32 mb-3"
+              />
+              <span className="font-bold text-[#1A202C] text-[35px] mb-5">
+                TechGuro.
+              </span>
+              <div className="border-t-2 border-[#1A202C]/30 w-full" />
             </div>
-            <span className="group-hover:text-red-700 transition-colors">
-              Sign Out
-            </span>
-          </button>
-        </div>
-      </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
+            {/* Navigation Section */}
+            <div className="flex-1 flex flex-col gap-4">
+              {navigationItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeSection === item.id;
+
+                return (
+                  <motion.button
+                    key={item.id}
+                    className={`group relative flex items-center gap-4 px-3 py-5 rounded-xl font-bold text-[32px] text-left transition-all duration-200 ${isActive
+                      ? "bg-[#F4EDD9] shadow-lg border-2 border-[#B6C44D]"
+                      : "hover:bg-white/20"
+                      }`}
+                    onClick={() => navigateToSection(item.id)}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${isActive
+                      ? "bg-white shadow-md"
+                      : "bg-white/10"
+                      }`}>
+                      <Icon
+                        className={`w-7 h-7 ${isActive ? item.color : "text-[#1A202C]"
+                          }`}
+                      />
+                    </div>
+
+                    <span className="flex-1 text-[#1A202C]">
+                      {item.label}
+                    </span>
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {/* Logout Section */}
+            <div className="space-y-4">
+              <div className="border-t-2 border-[#1A202C]/30 w-full" />
+
+              <button
+                onClick={handleLogout}
+                className="group flex items-center justify-center gap-3 w-full px-6 py-4 text-red-600 font-bold text-[28px] rounded-xl transition-all duration-200 hover:bg-red-50"
+              >
+                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center group-hover:bg-red-200 transition-colors">
+                  <LogOut className="w-6 h-6 text-red-600" />
+                </div>
+                <span className="group-hover:text-red-700 transition-colors">
+                  Sign Out
+                </span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Overlay backdrop - Only on mobile when sidebar is open */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden fixed inset-0 bg-black/50 z-50"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Main Content Area - Always present */}
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top Navbar */}
-        <TopNavbar goToProfileSection={goToProfileSection} />
+        <div className="sticky top-0 z-40 w-full bg-[#4c5173] shadow-md flex justify-between items-center px-4 md:px-10 py-5">
+          {/* Hamburger Menu Button */}
+          <motion.button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg transition-all"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Menu className="w-6 h-6 text-white" />
+          </motion.button>
 
-        {/* Scrollable Content - NO ANIMATIONS */}
-        <div className="flex-1 overflow-y-auto bg-[#DFDFEE] p-6">
+          {/* Right Side - Calendar and User Profile */}
+          <div className="flex items-center gap-3 md:gap-6">
+            {/* Calendar - Numeric Format */}
+            <div className="flex items-center gap-2 text-white text-[14px] md:text-[16px]">
+              <FaCalendar className="text-[18px] md:text-[20px]" />
+              <span className="hidden sm:inline">
+                {new Date().toLocaleDateString("en-US", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
+              </span>
+              <span className="sm:hidden">
+                {new Date().toLocaleDateString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                })}
+              </span>
+            </div>
+
+            {/* Separator Line */}
+            <div className="w-[1px] h-6 bg-white/30" />
+
+            {/* User Profile Dropdown */}
+            <div className="relative user-dropdown">
+              <button
+                className="flex items-center gap-2 px-3 md:px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition"
+                onClick={toggleDropdown}
+              >
+                <FaUser className="text-white text-[18px] md:text-[20px]" />
+                <span className="text-white font-medium text-[14px] md:text-[15px] hidden sm:inline">
+                  {user?.username || "User"}
+                </span>
+                <FaChevronDown className="text-white text-[14px]" />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg w-44 z-50 overflow-hidden">
+                  <button
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      goToProfileSection();
+                    }}
+                    className="w-full text-left flex items-center gap-2 px-4 py-3 hover:bg-gray-100 transition"
+                  >
+                    <FaUserCircle />
+                    <span>Profile</span>
+                  </button>
+
+                  <hr className="border-t border-gray-200" />
+
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left flex items-center gap-2 px-4 py-3 text-red-600 hover:bg-red-50 transition"
+                  >
+                    <FaSignOutAlt />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto bg-[#DFDFEE] p-4 md:p-6">
           {renderContent()}
         </div>
       </div>

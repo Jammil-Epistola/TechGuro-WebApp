@@ -17,21 +17,33 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
 
+  // Cooldown timer effect
   useEffect(() => {
-    const handleEnter = (e) => {
-      if (e.key === "Enter") handleLogin();
-    };
-    window.addEventListener("keydown", handleEnter);
-    return () => window.removeEventListener("keydown", handleEnter);
-  }, [email, password, isAdminMode]);
+    if (cooldownSeconds > 0) {
+      const timer = setTimeout(() => setCooldownSeconds(cooldownSeconds - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [cooldownSeconds]);
 
+  // Error message fade out
   useEffect(() => {
-    if (errorMessage) {
+    if (errorMessage && !isLocked) {
       const timer = setTimeout(() => setErrorMessage(""), 5000);
       return () => clearTimeout(timer);
     }
-  }, [errorMessage]);
+  }, [errorMessage, isLocked]);
+
+  // Enter key handler
+  useEffect(() => {
+    const handleEnter = (e) => {
+      if (e.key === "Enter" && !isLocked) handleLogin();
+    };
+    window.addEventListener("keydown", handleEnter);
+    return () => window.removeEventListener("keydown", handleEnter);
+  }, [email, password, isAdminMode, isLocked]);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -57,7 +69,18 @@ const LoginPage = () => {
         login(data);
         navigate(isAdminMode ? "/AdminDashboard" : "/UserDashboard");
       } else {
-        setErrorMessage(data.detail || "Login failed");
+        // Handle different error codes
+        if (response.status === 429) {
+          // Cooldown - 1 minute
+          setCooldownSeconds(60);
+          setErrorMessage("Too many failed attempts. Please wait 1 minute before trying again.");
+        } else if (response.status === 423) {
+          // Account locked
+          setIsLocked(true);
+          setErrorMessage(data.detail || "Account is locked. Check your email for unlock instructions.");
+        } else {
+          setErrorMessage(data.detail || "Login failed");
+        }
       }
     } catch (error) {
       setErrorMessage("Server error. Try again.");
@@ -66,11 +89,16 @@ const LoginPage = () => {
     }
   };
 
+  const handleUnlockClick = () => {
+    navigate("/unlock-account", { state: { email } });
+  };
+
   const toggleAdminMode = () => {
     setIsAdminMode(!isAdminMode);
     setEmail("");
     setPassword("");
     setErrorMessage("");
+    setIsLocked(false);
   };
 
   return (
@@ -86,7 +114,6 @@ const LoginPage = () => {
         <div className="w-full md:w-2/5 bg-[#f9f9f9] px-6 md:px-8 py-10 flex flex-col justify-between relative">
           {/* Top Navigation */}
           <div className="flex justify-end items-start">
-            {/* Home Link */}
             <Link to="/" className="group flex items-center">
               <Home className="w-6 h-6 text-[#4C5173]" />
               <span className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity text-sm bg-[#f9f9f9] text-black px-2 py-1 rounded shadow-md whitespace-nowrap z-50">
@@ -105,87 +132,136 @@ const LoginPage = () => {
 
             {/* Heading */}
             <h2 className="text-[34px] font-bold text-center mb-8 text-black">
-              {isAdminMode ? "System Admin Login" : "Mag Log-In"}
+              {isLocked ? "Account Locked" : isAdminMode ? "System Admin Login" : "Mag Log-In"}
             </h2>
 
-            {/* Form */}
-            <div className="flex flex-col space-y-4 text-[20px]">
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black text-[20px]"
-              />
+            {/* Locked State */}
+            {isLocked ? (
+              <div className="flex flex-col space-y-4">
+                <div className="bg-red-50 border-2 border-red-400 rounded-lg p-6 text-center">
+                  <p className="text-red-700 font-semibold text-lg mb-2">Your account has been locked</p>
+                  <p className="text-red-600 text-sm mb-4">
+                    Due to multiple failed login attempts, your account is temporarily locked for security.
+                  </p>
+                  <p className="text-red-600 text-sm mb-4">
+                    If you want to recover you account. Proceed by clicking this button and follow the instructions.
+                  </p>
+                </div>
 
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black text-[20px]"
-                />
-                <span
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-[#6B708D] text-[22px]"
-                  onClick={() => setShowPassword(!showPassword)}
+                <button
+                  onClick={handleUnlockClick}
+                  className="w-full py-4 rounded-full bg-[#697DFF] hover:bg-[#5d71e0] text-white text-[20px] font-bold transition-all"
                 >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
+                  Unlock Account
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsLocked(false);
+                    setErrorMessage("");
+                    setEmail("");
+                    setPassword("");
+                  }}
+                  className="w-full py-3 rounded-full bg-gray-300 hover:bg-gray-400 text-gray-700 text-[16px] font-semibold transition-all"
+                >
+                  Back to Login
+                </button>
               </div>
+            ) : (
+              <>
+                {/* Form */}
+                <div className="flex flex-col space-y-4 text-[20px]">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={cooldownSeconds > 0}
+                    className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black text-[20px] disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
 
-              {!isAdminMode && (
-                <div className="text-right text-[18px]">
-                  <Link
-                    to="/forgot-password"
-                    className="text-[#697DFF] hover:underline"
-                  >
-                    Nalimutan ang Password?
-                  </Link>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      disabled={cooldownSeconds > 0}
+                      className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none text-black text-[20px] disabled:opacity-50 disabled:cursor-not-allowed"
+                    />
+                    <span
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-[#6B708D] text-[22px]"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
+                  </div>
+
+                  {!isAdminMode && (
+                    <div className="text-right text-[18px]">
+                      <Link
+                        to="/forgot-password"
+                        className="text-[#697DFF] hover:underline"
+                      >
+                        Nalimutan ang Password?
+                      </Link>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* Error Message */}
-            {errorMessage && (
-              <div className="mt-4 mb-2 text-red-600 font-bold text-[20px] text-center animate-fadeInOut">
-                {errorMessage}
-              </div>
-            )}
+                {/* Error Message */}
+                {errorMessage && (
+                  <div className={`mt-4 mb-2 font-bold text-[20px] text-center ${
+                    isLocked ? "text-red-600" : "text-red-600 animate-fadeInOut"
+                  }`}>
+                    {errorMessage}
+                  </div>
+                )}
 
-            {/* Login Button */}
-            <button
-              onClick={handleLogin}
-              disabled={loading}
-              className={`w-full py-4 mt-4 rounded-full text-white text-[20px] font-bold transition-all ${
-                loading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : isAdminMode
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-[#697DFF] hover:bg-[#5d71e0]"
-              }`}
-            >
-              {loading ? (
-                <div className="flex items-center justify-center gap-2">
-                  <div className="animate-spin h-6 w-6 border-4 border-white border-t-transparent rounded-full"></div>
-                  {isAdminMode ? "Logging in Admin..." : "Logging in..."}
-                </div>
-              ) : (
-                "SIGN IN"
-              )}
-            </button>
+                {/* Cooldown Timer */}
+                {cooldownSeconds > 0 && (
+                  <div className="text-center text-blue-600 font-semibold text-[18px]">
+                    Try again in {cooldownSeconds}s
+                  </div>
+                )}
 
-            {!isAdminMode && (
-              <p className="text-center mt-6 text-[20px] text-black">
-                Walang Account?{" "}
-                <Link to="/register" className="text-[#697DFF] underline">
-                  Mag-Create ng Account
-                </Link>
-              </p>
+                {/* Login Button */}
+                <button
+                  onClick={handleLogin}
+                  disabled={loading || cooldownSeconds > 0}
+                  className={`w-full py-4 mt-4 rounded-full text-white text-[20px] font-bold transition-all ${
+                    loading || cooldownSeconds > 0
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : isAdminMode
+                      ? "bg-red-500 hover:bg-red-600"
+                      : "bg-[#697DFF] hover:bg-[#5d71e0]"
+                  }`}
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="animate-spin h-6 w-6 border-4 border-white border-t-transparent rounded-full"></div>
+                      {isAdminMode ? "Logging in Admin..." : "Logging in..."}
+                    </div>
+                  ) : cooldownSeconds > 0 ? (
+                    `Wait ${cooldownSeconds}s`
+                  ) : (
+                    "SIGN IN"
+                  )}
+                </button>
+
+                {!isAdminMode && (
+                  <p className="text-center mt-6 text-[20px] text-black">
+                    Walang Account?{" "}
+                    <Link to="/register" className="text-[#697DFF] underline">
+                      Mag-Create ng Account
+                    </Link>
+                  </p>
+                )}
+              </>
             )}
           </div>
 
-          {/* Role Switcher moved to bottom right */}
+          {/* Role Switcher */}
           <button
             onClick={toggleAdminMode}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all absolute bottom-6 right-6 shadow-md ${

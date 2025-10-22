@@ -21,6 +21,12 @@ class User(Base):
     profile_icon = Column(String, default="avatar_default.png")
     date_created = Column(DateTime(timezone=True), server_default=func.now())
     role = Column(String, default="user")
+    
+    # Login attempt tracking
+    failed_login_attempts = Column(Integer, default=0)
+    last_failed_login = Column(DateTime, nullable=True)
+    is_locked = Column(Boolean, default=False)
+    locked_at = Column(DateTime, nullable=True)
 
     progress = relationship("Progress", back_populates="user")
     earned_milestones = relationship("MilestoneEarned", back_populates="user")

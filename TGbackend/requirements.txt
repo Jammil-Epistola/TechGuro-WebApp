@@ -9,6 +9,6 @@ passlib[bcrypt]
 bcrypt
 python-dotenv
 python-jose[cryptography] 
-python-multipart redis
 python-multipart 
+redis
 fastapi-mail

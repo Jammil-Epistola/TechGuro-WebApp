@@ -13,7 +13,7 @@ import {
   Tooltip,
   Legend
 } from "chart.js";
-import { TrendingUp, TrendingDown, Award, BookOpen, Target, Calendar } from "lucide-react";
+import { TrendingUp, TrendingDown, Award, BookOpen, Target, Calendar, Laptop, Shield, MessageSquare } from "lucide-react";
 import placeholderimg from "../../assets/Dashboard/placeholder_teki.png";
 import CB_img from "../../assets/Home/computer_basics_imghead.png";
 import DCM_img from "../../assets/Home/digi_comms_imghead.png";
@@ -946,17 +946,23 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
                 const totalLessons = courseLessonCounts[course] || 5;
                 const completedLessons = Math.round((percent / 100) * totalLessons);
 
+                // Get icon based on course name
+                const CourseIcon =
+                  course === "Computer Basics" ? Laptop :
+                    course === "Internet Safety" ? Shield :
+                      MessageSquare;
+
                 return (
                   <motion.div
                     key={index}
-                    className="bg-white border border-gray-400 rounded-lg p-3 flex items-center gap-4 min-h-[200px]"
+                    className="bg-white border border-gray-400 rounded-lg p-3 md:p-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-4"
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.9 + (index * 0.1) }}
                     whileHover={{ scale: 1.02, boxShadow: "0 5px 15px rgba(0,0,0,0.1)" }}
                   >
-                    {/* Left Side */}
-                    <div className="w-1/3 flex justify-center">
+                    {/* Desktop: Image - Hidden on mobile */}
+                    <div className="hidden md:flex w-1/3 justify-center">
                       <motion.img
                         src={
                           course === "Computer Basics"
@@ -966,25 +972,30 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
                               : IS_img
                         }
                         alt={course}
-                        className="w-full h-20 object-contain rounded-md scale-230"
+                        className="w-full h-20 object-contain rounded-md"
                         whileHover={{ scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       />
                     </div>
 
-                    {/* Right Side - Enhanced with Task Completion */}
-                    <div className="w-2/3">
-                      <h4 className="font-semibold text-[25px] mb-2">{course}</h4>
+                    {/* Course Details */}
+                    <div className="flex-1">
+                      {/* Course Title with Icon - Mobile shows icon instead of image */}
+                      <div className="flex items-center gap-2 mb-2">
+                        <CourseIcon className="w-5 h-5 md:w-6 md:h-6 text-[#4C5173] flex-shrink-0" />
+                        <h4 className="font-semibold text-[18px] md:text-[25px] break-words">{course}</h4>
+                      </div>
 
-                      {/* NEW: Explicit Lesson Counter */}
-                      <div className="flex items-center justify-between text-sm mb-2">
+                      {/* Lesson Counter */}
+                      <div className="flex items-center justify-between text-xs md:text-sm mb-2">
                         <span className="text-[#4C5173] font-semibold">Lessons Completed:</span>
                         <span className="text-[#4C5173] font-bold">
                           {completedLessons}/{totalLessons} mga aralin
                         </span>
                       </div>
 
-                      <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden">
+                      {/* Progress Bar */}
+                      <div className="w-full h-3 md:h-4 bg-gray-300 rounded-full overflow-hidden">
                         <motion.div
                           className="bg-[#6B708D] h-full"
                           initial={{ width: 0 }}
@@ -993,8 +1004,9 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
                         />
                       </div>
 
+                      {/* Percentage Text */}
                       <motion.p
-                        className="text-center mt-1 text-lg"
+                        className="text-center mt-1 text-sm md:text-lg"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.2 + (index * 0.1) }}
@@ -1002,7 +1014,7 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
                         {percent}% completed
                       </motion.p>
 
-                      {/* NEW: Task Status Indicator */}
+                      {/* Task Status Indicator */}
                       <div className="mt-2 text-center">
                         <span className={`text-xs px-2 py-1 rounded-full ${percent === 100
                           ? 'bg-green-100 text-green-800'

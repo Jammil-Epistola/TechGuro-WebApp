@@ -32,6 +32,17 @@ class ResetPasswordRequest(BaseModel):
     reset_token: str
     new_password: str
 
+class RequestAccountUnlockRequest(BaseModel):
+    email: EmailStr
+
+class VerifyUnlockCodeRequest(BaseModel):
+    email: EmailStr
+    code: str
+
+class UnlockAccountRequest(BaseModel):
+    email: EmailStr
+    unlock_token: str
+
 #------------------------
 # For Administrator
 #------------------------
