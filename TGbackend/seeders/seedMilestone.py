@@ -1,15 +1,16 @@
-#seedMilestone.py
+# seedMilestone.py
 import os
 import json
 from sqlalchemy.orm import Session
 from TGbackend.database import SessionLocal, engine
 from TGbackend.models import Base, Milestone
 
+from TGbackend.seeders.cloudinary_helper import milestone_icon_url
+
 # Create tables if they don't exist
 Base.metadata.create_all(bind=engine)
 
-# Base path for milestone icons in public folder
-BASE_MILESTONE_IMG_PATH = "/images/milestones/"
+# ❌ REMOVE THIS LINE:
 
 SEED_FOLDER = os.path.join(os.path.dirname(__file__), "seed_milestones")
 
@@ -47,19 +48,23 @@ def seed_database(session: Session, filename: str, data):
             print(f"⚠️ Milestone missing 'id' in {filename}, skipping.")
             continue
 
+        # Get icon filename and convert to Cloudinary URL
+        icon_file = m_data.get("icon_url", "placeholder.png")
+        cloudinary_icon_url = milestone_icon_url(icon_file)
+
         existing = session.query(Milestone).filter_by(id=milestone_id).first()
         if existing:
             existing.title = m_data.get("title", existing.title)
             existing.description = m_data.get("description", existing.description)
-            icon_file = m_data.get("icon_url", "placeholder.png")
-            existing.icon_url = BASE_MILESTONE_IMG_PATH + icon_file
+            existing.icon_url = cloudinary_icon_url
             print(f"🔄 Updated milestone {milestone_id} → {existing.title}")
         else:
             new_milestone = Milestone(
                 id=milestone_id,
                 title=m_data.get("title", ""),
                 description=m_data.get("description", ""),
-                icon_url=BASE_MILESTONE_IMG_PATH + m_data.get("icon_url", "placeholder.png")
+               
+                icon_url=cloudinary_icon_url
             )
             session.add(new_milestone)
             print(f"➕ Inserted milestone {milestone_id} → {new_milestone.title}")

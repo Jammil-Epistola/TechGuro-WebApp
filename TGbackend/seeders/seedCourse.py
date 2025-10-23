@@ -6,15 +6,30 @@ from TGbackend.database import SessionLocal, engine
 from TGbackend.models import Base, Course, Lesson, LessonSlides, Question
 
 # Base paths for images
-BASE_COURSE_IMG_PATH = "/images/course_icons/"
-BASE_PRE_ASSESSMENT_IMG_PATH = "/images/assessments_quizzes/"
-BASE_LESSON_IMG_PATH = "/images/lessons/"
+from TGbackend.seeders.cloudinary_helper import (
+    add_image_path as cloudinary_add_path,
+    course_icon_url,
+    assessment_image_url,
+    lesson_image_url
+)
 
 # Course-Lesson ID mapping to enforce correct lesson ID ranges
 COURSE_LESSON_ID_MAPPING = {
-    "computer_basics": {"course_order": 1, "lesson_id_start": 1},
-    "internet_safety": {"course_order": 2, "lesson_id_start": 6}, 
-    "digi_communication": {"course_order": 3, "lesson_id_start": 11}
+    "computer_basics": {
+        "course_id": 1,          
+        "course_order": 1, 
+        "lesson_id_start": 1
+    },
+    "internet_safety": {
+        "course_id": 2,        
+        "course_order": 2, 
+        "lesson_id_start": 6
+    }, 
+    "digi_communication": {
+        "course_id": 3,
+        "course_order": 3,           
+        "lesson_id_start": 11
+    }
 }
 
 # Create tables if they don't exist
@@ -23,13 +38,32 @@ Base.metadata.create_all(bind=engine)
 SEED_FOLDER = os.path.join(os.path.dirname(__file__), "seed_course_data")
 
 
-def add_image_path(filename: str, base_path: str) -> str:
-    """Prefix image filename with base path if not already a full URL/path."""
+def add_image_path(filename: str, image_type: str) -> str:
+    """
+    Convert filename to Cloudinary URL based on image type.
+    
+    Args:
+        filename: Image filename (e.g., "python.png")
+        image_type: Type of image - "course", "assessment", or "lesson"
+    
+    Returns:
+        Full Cloudinary URL
+    """
     if not filename:
         return ""
-    if filename.startswith("/") or filename.startswith("http"):
+    if filename.startswith("http"):
         return filename
-    return f"{base_path}{filename}"
+    
+    # Map image types to helper functions
+    if image_type == "course":
+        return course_icon_url(filename)
+    elif image_type == "assessment":
+        return assessment_image_url(filename)
+    elif image_type == "lesson":
+        return lesson_image_url(filename)
+    else:
+        # Fallback to assessment
+        return assessment_image_url(filename)
 
 
 def get_course_key_from_filename(filename):
@@ -106,7 +140,7 @@ def insert_or_update_question(session, q_data, lesson_id=None, course_id=None, f
     # Handle main question image
     main_image = q_data.get("image", "")
     if main_image:
-        main_image = add_image_path(main_image, BASE_PRE_ASSESSMENT_IMG_PATH)
+        main_image = add_image_path(main_image, "assessment")
 
     # Process options and correct answer based on question type
     options = q_data.get("options", [])
@@ -120,23 +154,22 @@ def insert_or_update_question(session, q_data, lesson_id=None, course_id=None, f
         # Handle image options - add image paths
         processed_options = []
         for opt in options:
-            if isinstance(opt, dict) and "image" in opt:
-                processed_options.append({
-                    "image": add_image_path(opt["image"], BASE_PRE_ASSESSMENT_IMG_PATH)
-                })
-            else:
-                processed_options.append(opt)
-        
+                if isinstance(opt, dict) and "image" in opt:
+                    processed_options.append({
+                        "image": add_image_path(opt["image"], "assessment")
+                    })
+                else:
+                    processed_options.append(opt)
+            
         final_options = json.dumps(processed_options)
         
         # For image MCQ, correct answer comes from answer_image field
         answer_image = q_data.get("answer_image", "")
         if answer_image:
-            final_correct = add_image_path(answer_image, BASE_PRE_ASSESSMENT_IMG_PATH)
+            final_correct = add_image_path(answer_image, "assessment")
         else:
             final_correct = q_data.get("answer", "")
     else:
-        # Fallback for unknown types
         final_options = json.dumps(options)
         final_correct = q_data.get("answer", "")
 
@@ -196,17 +229,22 @@ def insert_or_update_slide(session, slide_data, lesson_id=None, filename=None):
 
     tts_text = slide_data.get("tts_text")
     layout_type = slide_data.get("layout_type", "default")
+    
+    # Convert media_url to Cloudinary URL
+    slide_media_url = slide_data.get("media_url", "")
+    if slide_media_url:
+        slide_media_url = add_image_path(slide_media_url, "lesson")
 
     if existing_slide:
         existing_slide.content = content_text
-        existing_slide.media_url = slide_data.get("media_url", "")
+        existing_slide.media_url = slide_media_url
         print(f"🔄 Updated slide #{slide_number} for lesson {lesson_id}")
     else:
         slide_kwargs = dict(
             lesson_id=lesson_id,
             slide_number=slide_number,
             content=content_text,
-            media_url=slide_data.get("media_url", "")
+            media_url=slide_media_url
         )
         
         session.add(LessonSlides(**slide_kwargs))
@@ -229,19 +267,27 @@ def seed_courses(session: Session, filename: str, data):
         
     config = COURSE_LESSON_ID_MAPPING[course_key]
     lesson_id_counter = config["lesson_id_start"]
+    expected_course_id = config["course_id"] 
 
     # --- COURSE ---
     course_title = get_title(data, filename, "course")
     course_desc = data.get("description", "")
-    course_image = add_image_path(data.get("image_url", ""), BASE_COURSE_IMG_PATH)
+    course_image = add_image_path(data.get("image_url", ""), "course")
 
-    course = session.query(Course).filter_by(title=course_title).first()
+    course = session.query(Course).filter_by(id=expected_course_id).first()
     if not course:
-        course = Course(title=course_title, description=course_desc, image_url=course_image)
+        # Create course with specific ID
+        course = Course(
+            id=expected_course_id,  # ← SET SPECIFIC ID
+            title=course_title, 
+            description=course_desc, 
+            image_url=course_image
+        )
         session.add(course)
-        session.flush()  # assign course.id for FK
+        session.flush()
         print(f"➕ Inserted course: {course_title} (ID: {course.id})")
     else:
+        course.title = course_title
         course.description = course_desc
         course.image_url = course_image
         print(f"🔄 Updated course: {course_title} (ID: {course.id})")
@@ -255,7 +301,7 @@ def seed_courses(session: Session, filename: str, data):
         lesson_title = get_title(lesson_data, filename, "lesson")
         lesson_media = lesson_data.get("media", "")
         if isinstance(lesson_media, str) and lesson_media.endswith((".png", ".jpg", ".jpeg", ".gif")):
-            lesson_media = add_image_path(lesson_media, BASE_LESSON_IMG_PATH)
+            lesson_media = add_image_path(lesson_media, "lesson")
 
         # Check if lesson with this specific ID already exists
         existing_lesson = session.query(Lesson).filter_by(id=lesson_id_counter).first()
@@ -292,7 +338,7 @@ def _seed_courses_original(session: Session, filename: str, data):
     """Original course seeding logic as fallback."""
     course_title = get_title(data, filename, "course")
     course_desc = data.get("description", "")
-    course_image = add_image_path(data.get("image_url", ""), BASE_COURSE_IMG_PATH)
+    course_image = add_image_path(data.get("image_url", ""), "course")
 
     course = session.query(Course).filter_by(title=course_title).first()
     if not course:
@@ -312,7 +358,7 @@ def _seed_courses_original(session: Session, filename: str, data):
         lesson_title = get_title(lesson_data, filename, "lesson")
         lesson_media = lesson_data.get("media", "")
         if isinstance(lesson_media, str) and lesson_media.endswith((".png", ".jpg", ".jpeg", ".gif")):
-            lesson_media = add_image_path(lesson_media, BASE_LESSON_IMG_PATH)
+            lesson_media = add_image_path(lesson_media, "lesson")
 
         lesson = session.query(Lesson).filter_by(course_id=course.id, title=lesson_title).first()
         if not lesson:

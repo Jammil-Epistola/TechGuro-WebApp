@@ -5,20 +5,20 @@ from sqlalchemy.orm import Session, sessionmaker
 from TGbackend.database import engine
 from TGbackend.models import Quiz, QuizQuestion, Course, Lesson
 
-# Base paths for images
-BASE_QUIZ_IMG_PATH = "/images/assessments_quizzes/"
+from TGbackend.seeders.cloudinary_helper import assessment_image_url
 
 SEED_FOLDER = os.path.join(os.path.dirname(__file__), "seed_quiz_data")
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-def add_image_path(filename: str, base_path: str) -> str:
-    """Prefix image filename with base path if not already a full URL/path."""
+def add_image_path(filename: str) -> str:
+    """Convert filename to Cloudinary URL."""
     if not filename:
         return ""
-    if filename.startswith("/") or filename.startswith("http"):
+    if filename.startswith("http"):
         return filename
-    return f"{base_path}{filename}"
+    # Use Cloudinary helper for assessment/quiz images
+    return assessment_image_url(filename)
 
 def load_json_files(folder_path):
     """Load all JSON files recursively from folder."""
@@ -44,7 +44,7 @@ def process_quiz_question_data(q):
     
     # Handle main question image
     if q.get("image"):
-        processed_q["image"] = add_image_path(q["image"], BASE_QUIZ_IMG_PATH)
+        processed_q["image"] = add_image_path(q["image"])
     
     # Handle options based on question type
     if q.get("options"):
@@ -57,7 +57,7 @@ def process_quiz_question_data(q):
                 if isinstance(opt, dict) and "image" in opt:
                     # This is an image option
                     processed_opt = opt.copy()
-                    processed_opt["image"] = add_image_path(opt["image"], BASE_QUIZ_IMG_PATH)
+                    processed_opt["image"] = add_image_path(opt["image"])
                     processed_options.append(processed_opt)
                 else:
                     # Regular text option
@@ -73,7 +73,7 @@ def process_quiz_question_data(q):
         answer = q.get("answer")
         # If answer looks like an image filename, add path
         if isinstance(answer, str) and answer.endswith(('.png', '.jpg', '.jpeg', '.gif')):
-            processed_q["answer"] = add_image_path(answer,BASE_QUIZ_IMG_PATH)
+            processed_q["answer"] = add_image_path(answer)
     
     return processed_q
 
