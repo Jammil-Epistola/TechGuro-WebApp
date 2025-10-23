@@ -11,20 +11,31 @@ const ProfileSection = () => {
     const [loading, setLoading] = useState(false);
     const [milestoneCount, setMilestoneCount] = useState(0);
     const [setTotalMilestones] = useState(0);
-    const CLOUDINARY_PROFILE_URL = "https://res.cloudinary.com/ddnf1lqu6/image/upload/techguro/profile_icons/";
 
-    const profileIcons = [
-        "avatar_default.png",
-        "avatar_img1.png",
-        "avatar_img2.png",
-        "avatar_img3.png",
-        "avatar_img4.png",
-        "avatar_img5.png",
-        "avatar_img6.png",
-        "avatar_img7.png",
-        "avatar_img8.png",
-        "avatar_img9.png",
-    ];
+    const PROFILE_ICON_URLS = {
+        "avatar_default.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761242991/avatar_default_nblkb8.png",
+        "avatar_img1.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243138/avatar_img1_qhi4wq.png",
+        "avatar_img2.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243141/avatar_img2_jws4qs.png",
+        "avatar_img3.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243145/avatar_img3_x37qzk.png",
+        "avatar_img4.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243141/avatar_img4_fiesak.png",
+        "avatar_img5.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243141/avatar_img5_fwbncb.png",
+        "avatar_img6.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243184/avatar_img6_eudbg9.png",
+        "avatar_img7.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243188/avatar_img7_eu5mwt.png",
+        "avatar_img8.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243188/avatar_img8_eh1nyc.png",
+        "avatar_img9.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761243188/avatar_img9_lphd1n.png",
+    };
+
+    const profileIcons = Object.keys(PROFILE_ICON_URLS);
+
+    // Helper function to get the correct Cloudinary URL
+    const getProfileIconUrl = (iconName) => {
+        // If it's already a full URL (from database after saving), use it
+        if (iconName?.startsWith("http")) {
+            return iconName;
+        }
+        // Otherwise, get from our mapping
+        return PROFILE_ICON_URLS[iconName] || PROFILE_ICON_URLS["avatar_default.png"];
+    };
 
     // Initialize form state when user changes
     useEffect(() => {
@@ -64,10 +75,16 @@ const ProfileSection = () => {
     const handleSave = async () => {
         setLoading(true);
         try {
+            const profileIconUrl = getProfileIconUrl(profileIcon);
+            
             const response = await fetch(`http://localhost:8000/user/update/${user.user_id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, bio, profile_icon: profileIcon }),
+                body: JSON.stringify({ 
+                    username, 
+                    bio, 
+                    profile_icon: profileIconUrl  // Send full URL
+                }),
             });
 
             if (!response.ok) {
@@ -117,9 +134,9 @@ const ProfileSection = () => {
             <div className="relative flex items-start sm:items-center bg-[#F9F8FE] border-[1.5px] border-[#6B708D] p-4 sm:p-6 rounded-lg mb-8">
                 {/* Profile Info Section*/}
                 <div className="flex gap-3 sm:gap-6 items-start sm:items-center flex-1">
-                    {/* Profile Image - Smaller on mobile */}
+                    {/* Profile Image  */}
                     <img
-                        src={`${CLOUDINARY_PROFILE_URL}${user?.profile_icon || "avatar_default.png"}`}
+                        src={getProfileIconUrl(user?.profile_icon || "avatar_default.png")}
                         alt="User Avatar"
                         className="w-20 h-20 sm:w-28 sm:h-28 md:w-35 md:h-35 rounded-full object-cover border border-black flex-shrink-0"
                     />
@@ -147,7 +164,7 @@ const ProfileSection = () => {
                     <span className="hidden sm:inline">Edit Profile</span>
                 </button>
 
-                {/* Milestone Counter - Smaller on mobile, positioned at bottom */}
+                {/* Milestone Counter */}
                 <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 flex items-center gap-1.5 sm:gap-2 bg-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-5.5 md:py-2.5 rounded-full border border-gray-300 shadow-md">
                     <Award className="w-5 h-5 sm:w-7 sm:h-7 md:w-9 md:h-9 text-yellow-500" />
                     <span className="font-semibold text-[16px] sm:text-[20px] md:text-[24px]">
@@ -163,21 +180,23 @@ const ProfileSection = () => {
                         <h3 className="text-lg sm:text-xl font-bold mb-4">Edit Profile</h3>
 
                         <div className="flex flex-col items-center gap-4">
+                            {/* ✅ Current selected icon - Use helper function */}
                             <img
-                                src={`${CLOUDINARY_PROFILE_URL}${profileIcon}`}
+                                src={getProfileIconUrl(profileIcon)}
                                 alt="Profile"
                                 className="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-gray-300"
                             />
 
-                            {/* Selectable Icons */}
+                            {/* ✅ Selectable Icons - Use helper function */}
                             <div className="grid grid-cols-5 gap-2 sm:gap-3 mt-2">
                                 {profileIcons.map((icon) => (
                                     <img
                                         key={icon}
-                                        src={`${CLOUDINARY_PROFILE_URL}${icon}`}
+                                        src={getProfileIconUrl(icon)}
                                         alt={icon}
-                                        className={`w-16 h-16 sm:w-20 sm:h-20 md:w-27 md:h-27 rounded-full cursor-pointer border-2 ${profileIcon === icon ? "border-blue-500" : "border-transparent"
-                                            }`}
+                                        className={`w-16 h-16 sm:w-20 sm:h-20 md:w-27 md:h-27 rounded-full cursor-pointer border-2 ${
+                                            profileIcon === icon ? "border-blue-500" : "border-transparent"
+                                        }`}
                                         onClick={() => setProfileIcon(icon)}
                                     />
                                 ))}
