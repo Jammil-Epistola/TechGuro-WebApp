@@ -11,6 +11,7 @@ const ProfileSection = () => {
     const [loading, setLoading] = useState(false);
     const [milestoneCount, setMilestoneCount] = useState(0);
     const [setTotalMilestones] = useState(0);
+    const CLOUDINARY_PROFILE_URL = "https://res.cloudinary.com/ddnf1lqu6/image/upload/techguro/profile_icons/";
 
     const profileIcons = [
         "avatar_default.png",
@@ -118,7 +119,7 @@ const ProfileSection = () => {
                 <div className="flex gap-3 sm:gap-6 items-start sm:items-center flex-1">
                     {/* Profile Image - Smaller on mobile */}
                     <img
-                        src={`/images/profile_icons/${user?.profile_icon || "avatar_default.png"}`}
+                        src={`${CLOUDINARY_PROFILE_URL}${user?.profile_icon || "avatar_default.png"}`}
                         alt="User Avatar"
                         className="w-20 h-20 sm:w-28 sm:h-28 md:w-35 md:h-35 rounded-full object-cover border border-black flex-shrink-0"
                     />
@@ -163,7 +164,7 @@ const ProfileSection = () => {
 
                         <div className="flex flex-col items-center gap-4">
                             <img
-                                src={`/images/profile_icons/${profileIcon}`}
+                                src={`${CLOUDINARY_PROFILE_URL}${profileIcon}`}
                                 alt="Profile"
                                 className="w-28 h-28 sm:w-40 sm:h-40 rounded-full border-2 border-gray-300"
                             />
@@ -173,7 +174,7 @@ const ProfileSection = () => {
                                 {profileIcons.map((icon) => (
                                     <img
                                         key={icon}
-                                        src={`/images/profile_icons/${icon}`}
+                                        src={`${CLOUDINARY_PROFILE_URL}${icon}`}
                                         alt={icon}
                                         className={`w-16 h-16 sm:w-20 sm:h-20 md:w-27 md:h-27 rounded-full cursor-pointer border-2 ${profileIcon === icon ? "border-blue-500" : "border-transparent"
                                             }`}
