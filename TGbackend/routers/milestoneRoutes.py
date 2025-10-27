@@ -24,8 +24,8 @@ def get_all_milestones(user_id: int, db: Session = Depends(get_db)):
         .all()
     )
 
-    earned_ids = {
-        me.milestone_id
+    earned_records = {
+        me.milestone_id: me
         for me in db.query(models.MilestoneEarned)
         .filter(models.MilestoneEarned.user_id == user_id)
         .all()
@@ -37,7 +37,8 @@ def get_all_milestones(user_id: int, db: Session = Depends(get_db)):
             "title": m.title,
             "description": m.description,
             "icon_url": m.icon_url,
-            "status": "earned" if m.id in earned_ids else "not earned",
+            "status": "earned" if m.id in earned_records else "not earned",
+            "notification_shown": earned_records[m.id].notification_shown if m.id in earned_records else False
         }
         for m in milestones
     ]
@@ -98,3 +99,22 @@ def check_milestone(user_id: int, milestone_id: int, db: Session = Depends(get_d
     ).first()
 
     return {"earned": earned is not None}
+
+
+@router.post("/mark-shown/{user_id}/{milestone_id}")
+def mark_notification_shown(user_id: int, milestone_id: int, db: Session = Depends(get_db)):
+    """
+    Mark a milestone notification as shown for a user.
+    """
+    earned = db.query(models.MilestoneEarned).filter(
+        models.MilestoneEarned.user_id == user_id,
+        models.MilestoneEarned.milestone_id == milestone_id
+    ).first()
+    
+    if not earned:
+        raise HTTPException(status_code=404, detail="Milestone not earned by user")
+    
+    earned.notification_shown = True
+    db.commit()
+    
+    return {"message": "Notification marked as shown", "milestone_id": milestone_id}

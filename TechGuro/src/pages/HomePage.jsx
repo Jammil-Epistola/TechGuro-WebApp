@@ -51,9 +51,32 @@ const courses = [
   },
 ];
 
+// Tutorial slides with Cloudinary URLs
+const tutorialSlides = [
+  {
+    image: "https://res.cloudinary.com/ddnf1lqu6/image/upload/YOUR_IMAGE_1.png",
+    title: "Step 1: Create an Account",
+    description: "Click on 'Get Started' and fill in your details to create your TechGuro account."
+  },
+  {
+    image: "https://res.cloudinary.com/ddnf1lqu6/image/upload/YOUR_IMAGE_2.png",
+    title: "Step 2: Choose Your Course",
+    description: "Browse available courses and select the one that matches your learning goals."
+  },
+  {
+    image: "https://res.cloudinary.com/ddnf1lqu6/image/upload/YOUR_IMAGE_3.png",
+    title: "Step 3: Start Learning",
+    description: "Follow the lessons at your own pace and track your progress on the dashboard."
+  },
+  // Add more slides as needed
+];
+
 const HomePage = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [activeTab, setActiveTab] = useState("About");
+  const [showTutorial, setShowTutorial] = useState(false);
+  const [currentTutorialSlide, setCurrentTutorialSlide] = useState(0);
+
 
   return (
     <div>
@@ -72,15 +95,143 @@ const HomePage = () => {
           <p className="text-[1.2rem] md:text-[1.5rem] mt-4 text-justify">
             TechGuro helps adults and elderly learners build essential computer skills through beginner-friendly lessons and AI-based learning paths.
           </p>
-          <div className="mt-8 flex justify-center md:justify-start">
+          <div className="mt-8 flex justify-center md:justify-start space-x-[20px]">
             <a
               href="#about"
               className="px-6 py-3 md:px-8 md:py-4 text-[1.2rem] md:text-[1.5rem] font-bold rounded bg-[#6b6f92] text-white hover:bg-[#5a5d85] transition-colors"
             >
               Learn More
             </a>
+            <button
+              onClick={() => setShowTutorial(true)}
+              className="px-6 py-3 md:px-8 md:py-4 text-[1.2rem] md:text-[1.5rem] font-bold rounded bg-[#2E6F40] text-white hover:bg-[#06402B] transition-colors"
+            >
+              Get Started
+            </button>
           </div>
+
         </div>
+
+        {/* Tutorial Modal */}
+        <AnimatePresence>
+          {showTutorial && (
+            <>
+              {/* Overlay */}
+              <motion.div
+                className="fixed inset-0 bg-black/70 z-[300]"
+                onClick={() => {
+                  setShowTutorial(false);
+                  setCurrentTutorialSlide(0);
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+
+              {/* Modal */}
+              <motion.div
+                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-2xl w-[95%] max-w-[900px] h-[85vh] sm:h-[80vh] z-[301] flex flex-col overflow-hidden"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.4 }}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => {
+                    setShowTutorial(false);
+                    setCurrentTutorialSlide(0);
+                  }}
+                  className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-all"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Content */}
+                <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-8">
+                  {/* Image */}
+                  <motion.div
+                    key={currentTutorialSlide}
+                    className="w-full h-[50%] sm:h-[60%] mb-6 flex items-center justify-center"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <img
+                      src={tutorialSlides[currentTutorialSlide].image}
+                      alt={tutorialSlides[currentTutorialSlide].title}
+                      className="max-w-full max-h-full object-contain rounded-lg shadow-md"
+                    />
+                  </motion.div>
+
+                  {/* Text Content */}
+                  <motion.div
+                    key={`text-${currentTutorialSlide}`}
+                    className="text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                  >
+                    <h3 className="text-2xl md:text-3xl font-bold text-[#4C5173] mb-3">
+                      {tutorialSlides[currentTutorialSlide].title}
+                    </h3>
+                    <p className="text-lg md:text-xl text-gray-600 max-w-[600px] mx-auto">
+                      {tutorialSlides[currentTutorialSlide].description}
+                    </p>
+                  </motion.div>
+
+                  {/* Progress Dots */}
+                  <div className="flex gap-2 mt-6">
+                    {tutorialSlides.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentTutorialSlide(index)}
+                        className={`w-3 h-3 rounded-full transition-all ${index === currentTutorialSlide
+                          ? "bg-[#4C5173] w-8"
+                          : "bg-gray-300 hover:bg-gray-400"
+                          }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Navigation Buttons */}
+                <div className="flex justify-between items-center p-4 md:p-6 border-t border-gray-200">
+                  <button
+                    onClick={() => setCurrentTutorialSlide(Math.max(0, currentTutorialSlide - 1))}
+                    disabled={currentTutorialSlide === 0}
+                    className={`px-6 py-3 rounded-lg font-semibold text-lg transition-all ${currentTutorialSlide === 0
+                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                      : "bg-gray-600 text-white hover:bg-gray-700"
+                      }`}
+                  >
+                    Previous
+                  </button>
+
+                  {currentTutorialSlide === tutorialSlides.length - 1 ? (
+                    <button
+                      onClick={() => (window.location.href = "/login")}
+                      className="px-8 py-3 bg-[#B6C44D] text-black rounded-lg font-semibold text-lg hover:bg-[#a5b83d] transition-all"
+                    >
+                      Get Started Now!
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setCurrentTutorialSlide(Math.min(tutorialSlides.length - 1, currentTutorialSlide + 1))}
+                      className="px-6 py-3 bg-[#4C5173] text-white rounded-lg font-semibold text-lg hover:bg-[#3a3f5c] transition-all"
+                    >
+                      Next
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </section>
 
       {/* About Section */}

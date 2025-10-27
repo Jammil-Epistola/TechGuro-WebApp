@@ -7,11 +7,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang halimbawa ng FAKE NEWS?",
     "options": [
-      {"image": "fake_news_article.png"},
-      {"image": "trusted_news_site.png"},
-      {"image": "weather_update.png"}
+      {"image": "anime_news.png"},
+      {"image": "fake_news.png"},
+      {"image": "earthquake_news.png"}
     ],
-    "answer": "fake_news_article.png",
+    "answer": "fake_news.png",
     "image": null
   },
   {
@@ -22,11 +22,11 @@
     "type": "image_mcq",
     "question": "Alin ang totoong BALITA?",
     "options": [
-      {"image": "rumor_post.png"},
-      {"image": "official_news_website.png"},
-      {"image": "edited_photo_post.png"}
+      {"image": "fake_news.png"},
+      {"image": "fake_deped_news.png"},
+      {"image": "real_news.png"}
     ],
-    "answer": "official_news_website.png",
+    "answer": "real_news.png",
     "image": null
   },
   {
@@ -37,9 +37,9 @@
     "type": "image_mcq",
     "question": "Alin dito ang karaniwang ginagamit para magpalaganap ng FAKE NEWS?",
     "options": [
-      {"image": "social_media_feed.png"},
+      {"image": "social_medias.png"},
       {"image": "school_library.png"},
-      {"image": "official_news_anchor.png"}
+      {"image": "news_anchors.png"}
     ],
     "answer": "social_media_feed.png",
     "image": null
@@ -52,11 +52,11 @@
     "type": "image_mcq",
     "question": "Alin ang halimbawang PEKE o edited na larawan?",
     "options": [
-      {"image": "edited_image_sample.png"},
-      {"image": "original_photo.png"},
-      {"image": "news_logo.png"}
+      {"image": "fake_deped_news.png"},
+      {"image": "real_news.png"},
+      {"image": "anime_news.png"}
     ],
-    "answer": "edited_image_sample.png",
+    "answer": "fake_deped_news.png",
     "image": null
   },
   {
@@ -67,11 +67,11 @@
     "type": "image_mcq",
     "question": "Alin ang nagpapakita ng MAAASAHANG source?",
     "options": [
-      {"image": "trusted_source_logo.png"},
-      {"image": "unknown_page.png"},
-      {"image": "clickbait_site.png"}
+      {"image": "clickbait_news.png"},
+      {"image": "trusted_news_sources.png"},
+      {"image": "fake_news.png"}
     ],
-    "answer": "trusted_source_logo.png",
+    "answer": "trusted_news_sources.png",
     "image": null
   },
   {
@@ -99,7 +99,7 @@
     "options": [
       {"image": "verify_source.png"},
       {"image": "share_now_button.png"},
-      {"image": "like_post.png"}
+      {"image": "like_heart_post.png"}
     ],
     "answer": "verify_source.png",
     "image": null
@@ -112,11 +112,11 @@
     "type": "image_mcq",
     "question": "Alin ang nagpapakita ng maling impormasyon?",
     "options": [
-      {"image": "fake_medical_tip.png"},
-      {"image": "gov_health_update.png"},
-      {"image": "weather_alert.png"}
+      {"image": "real_news.png"},
+      {"image": "fake_deped_news.png"},
+      {"image": "earthquake_news.png"}
     ],
-    "answer": "fake_medical_tip.png",
+    "answer": "fake_deped_news.png",
     "image": null
   },
   {
@@ -127,11 +127,11 @@
     "type": "image_mcq",
     "question": "Alin ang nagpapakita ng FAKE headline?",
     "options": [
-      {"image": "shocking_news.png"},
-      {"image": "verified_article.png"},
-      {"image": "news_summary.png"}
+      {"image": "clickbait_news.png"},
+      {"image": "anime_news.png"},
+      {"image": "real_news.png"}
     ],
-    "answer": "shocking_news.png",
+    "answer": "clickbait_news.png",
     "image": null
   },
   {
@@ -142,11 +142,11 @@
     "type": "image_mcq",
     "question": "Ano ang dapat tingnan para malaman kung totoo ang balita?",
     "options": [
-      {"image": "author_and_date.png"},
+      {"image": "verified_checkmark.png"},
       {"image": "random_comments.png"},
       {"image": "number_of_likes.png"}
     ],
-    "answer": "author_and_date.png",
+    "answer": "verified_checkmark.png",
     "image": null
   },
   {
@@ -157,9 +157,9 @@
     "type": "image_mcq",
     "question": "Alin ang halimbawa ng FAKE screenshot?",
     "options": [
-      {"image": "edited_screenshot.png"},
-      {"image": "real_post.png"},
-      {"image": "official_page.png"}
+      {"image": "real_news.png"},
+      {"image": "fake_news.png"},
+      {"image": "trusted_news_sources.png"}
     ],
     "answer": "edited_screenshot.png",
     "image": null
@@ -170,13 +170,13 @@
     "lesson_id": 7,
     "question_id": 22012,
     "type": "image_mcq",
-    "question": "Alin ang MAAASAHANG website?",
+    "question": "Alin ang MAAASAHANG news sources?",
     "options": [
-      {"image": "gov_website.png"},
-      {"image": "unknown_blog.png"},
-      {"image": "viral_post.png"}
+      {"image": "govt_site.png"},
+      {"image": "trusted_news_sources.png"},
+      {"image": "meme_post.png"}
     ],
-    "answer": "gov_website.png",
+    "answer": "trusted_news_sources.png",
     "image": null
   },
   {
@@ -189,7 +189,7 @@
     "options": [
       {"image": "no_source.png"},
       {"image": "with_reference.png"},
-      {"image": "official_logo.png"}
+      {"image": "verified_checkmark.png"}
     ],
     "answer": "no_source.png",
     "image": null
@@ -202,11 +202,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang may OVERLY DRAMATIC title?",
     "options": [
-      {"image": "must_share_now.png"},
-      {"image": "balanced_headline.png"},
-      {"image": "daily_report.png"}
+      {"image": "normal_headline.png"},
+      {"image": "earthquake_news.png"},
+      {"image": "shocking_news.png"}
     ],
-    "answer": "must_share_now.png",
+    "answer": "shocking_news.png",
     "image": null
   },
   {
@@ -217,11 +217,11 @@
     "type": "image_mcq",
     "question": "Alin ang halimbawa ng outdated na balita?",
     "options": [
-      {"image": "old_article_date.png"},
-      {"image": "recent_article.png"},
-      {"image": "breaking_news_today.png"}
+      {"image": "outdated_article.png"},
+      {"image": "latest_article.png"},
+      {"image": "recent_article.png"}
     ],
-    "answer": "old_article_date.png",
+    "answer": "outdated_article.png",
     "image": null
   },
   {
@@ -232,11 +232,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang dapat gawin bago maniwala sa balita?",
     "options": [
-      {"image": "search_multiple_sources.png"},
-      {"image": "share_post.png"},
-      {"image": "react_emoji.png"}
+      {"image": "like_heart_post.png"},
+      {"image": "verify_source.png"},
+      {"image": "share_now_button.png"}
     ],
-    "answer": "search_multiple_sources.png",
+    "answer": "verify_source.png",
     "image": null
   },
   {
@@ -248,8 +248,8 @@
     "question": "Alin sa mga ito ang nagdudulot ng PANIC?",
     "options": [
       {"image": "fake_emergency_post.png"},
-      {"image": "weather_forecast.png"},
-      {"image": "school_announcement.png"}
+      {"image": "weather_news.png"},
+      {"image": "real_news.png"}
     ],
     "answer": "fake_emergency_post.png",
     "image": null
@@ -277,11 +277,11 @@
     "type": "image_mcq",
     "question": "Ano ang dapat gawin kung duda sa balita?",
     "options": [
-      {"image": "fact_check.png"},
-      {"image": "share_to_friends.png"},
-      {"image": "ignore_checking.png"}
+      {"image": "gossip.png"},
+      {"image": "share_now_button.png"},
+      {"image": "verify_source.png"}
     ],
-    "answer": "fact_check.png",
+    "answer": "gossip.png",
     "image": null
   },
   {
@@ -292,11 +292,11 @@
     "type": "image_mcq",
     "question": "Ano ang maaaring mangyari kapag naniwala sa fake news?",
     "options": [
-      {"image": "panic_and_confusion.png"},
-      {"image": "clear_information.png"},
-      {"image": "verified_news.png"}
+      {"image": "panic_confusion.png"},
+      {"image": "informed_person.png"},
+      {"image": "trusted.png"}
     ],
-    "answer": "panic_and_confusion.png",
+    "answer": "panic_confusion.png",
     "image": null
   },
    {

@@ -62,6 +62,7 @@ class MilestoneEarned(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     milestone_id = Column(Integer, ForeignKey("milestones.id"), nullable=False)
     earned_at = Column(DateTime, default=datetime.utcnow)
+    notification_shown = Column(Boolean, default=False)  # ADD THIS LINE
 
     user = relationship("User", back_populates="earned_milestones")
     milestone = relationship("Milestone", back_populates="users_earned")

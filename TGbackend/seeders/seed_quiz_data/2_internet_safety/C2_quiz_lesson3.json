@@ -7,11 +7,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang halimbawa ng online scam?",
     "options": [
-      {"image": "fake_shop.png"},
-      {"image": "official_store.png"},
-      {"image": "bank_website.png"}
+      {"image": "phishing_email.png"},
+      {"image": "online_shopping.png"},
+      {"image": "govt_website.png"}
     ],
-    "answer": "fake_shop.png",
+    "answer": "phishing_email.png",
     "image": null
   },
   {
@@ -22,11 +22,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang phishing email?",
     "options": [
-      {"image": "fake_email_link.png"},
-      {"image": "genuine_bank_email.png"},
-      {"image": "newsletter.png"}
+      {"image": "job_application_email.png"},
+      {"image": "phishing_email.png"},
+      {"image": "maya_email.png"}
     ],
-    "answer": "fake_email_link.png",
+    "answer": "phishing_email.png",
     "image": null
   },
   {
@@ -37,11 +37,11 @@
     "type": "image_mcq",
     "question": "Alin ang nagpapakita ng fake online shop?",
     "options": [
-      {"image": "too_good_to_be_true.png"},
-      {"image": "trusted_seller.png"},
-      {"image": "verified_store.png"}
+      {"image": "fake_stores.png"},
+      {"image": "online_shops.png"},
+      {"image": "online_shopping.png"}
     ],
-    "answer": "too_good_to_be_true.png",
+    "answer": "fake_stores.png",
     "image": null
   },
   {
@@ -52,9 +52,9 @@
     "type": "image_mcq",
     "question": "Anong scam ang nagpapanggap na nanalo ka ng malaking premyo?",
     "options": [
-      {"image": "prize_scam.png"},
-      {"image": "survey_form.png"},
-      {"image": "email_receipt.png"}
+      {"image": "job_application_email.png"},
+      {"image": "spam_email.png"},
+      {"image": "prize_scam.png"}
     ],
     "answer": "prize_scam.png",
     "image": null
@@ -67,9 +67,9 @@
     "type": "image_mcq",
     "question": "Alin ang senyales ng scam sa social media?",
     "options": [
-      {"image": "fake_giveaway.png"},
-      {"image": "family_post.png"},
-      {"image": "official_announcement.png"}
+      {"image": "fake_win_popup.png"},
+      {"image": "lazada_ad.png"},
+      {"image": "gcash_ad.png"}
     ],
     "answer": "fake_giveaway.png",
     "image": null
@@ -83,8 +83,8 @@
     "question": "Alin sa mga ito ang halimbawa ng phishing link?",
     "options": [
       {"image": "phishing_link.png"},
-      {"image": "legit_url.png"},
-      {"image": "news_article.png"}
+      {"image": "maya_email.png"},
+      {"image": "gmail_login.png"}
     ],
     "answer": "phishing_link.png",
     "image": null
@@ -95,13 +95,13 @@
     "lesson_id": 8,
     "question_id": 23007,
     "type": "image_mcq",
-    "question": "Alin ang halimbawa ng romance scam?",
+    "question": "Alin ang halimbawa ng text scams?",
     "options": [
-      {"image": "fake_romance_chat.png"},
-      {"image": "family_chat.png"},
-      {"image": "work_message.png"}
+      {"image": "gcash_ad.png"},
+      {"image": "text_scam.png"},
+      {"image": "chat_convo.png"}
     ],
-    "answer": "fake_romance_chat.png",
+    "answer": "text_scam.png",
     "image": null
   },
   {
@@ -112,9 +112,9 @@
     "type": "image_mcq",
     "question": "Ano ang dapat iwasan kung may email na humihingi ng password?",
     "options": [
-      {"image": "fake_login_page.png"},
-      {"image": "official_login.png"},
-      {"image": "settings_page.png"}
+      {"image": "gmail_login.png"},
+      {"image": "prize_scam.png"},
+      {"image": "fake_login_page.png"}
     ],
     "answer": "fake_login_page.png",
     "image": null
@@ -127,11 +127,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang senyales ng scam investment?",
     "options": [
-      {"image": "guaranteed_returns.png"},
-      {"image": "risk_disclosure.png"},
-      {"image": "official_investment.png"}
+      {"image": "maya_email.png"},
+      {"image": "investment_text_scam.png"},
+      {"image": "gmail_login.png"}
     ],
-    "answer": "guaranteed_returns.png",
+    "answer": "investment_text_scam.png",
     "image": null
   },
   {
@@ -144,7 +144,7 @@
     "options": [
       {"image": "do_not_click.png"},
       {"image": "click_now.png"},
-      {"image": "share_to_friends.png"}
+      {"image": "share_now_button.png"}
     ],
     "answer": "do_not_click.png",
     "image": null
@@ -157,11 +157,11 @@
     "type": "image_mcq",
     "question": "Anong scam ang humihingi ng GCash load?",
     "options": [
-      {"image": "fake_account_request.png"},
-      {"image": "bank_notice.png"},
-      {"image": "customer_support.png"}
+      {"image": "phishing_email.png"},
+      {"image": "maya_email.png"},
+      {"image": "gcash_text_scam.png"}
     ],
-    "answer": "fake_account_request.png",
+    "answer": "gcash_text_scam.png",
     "image": null
   },
   {
@@ -172,11 +172,11 @@
     "type": "image_mcq",
     "question": "Alin ang tunay na website ng bangko?",
     "options": [
-      {"image": "secure_bank_url.png"},
-      {"image": "phishing_bank_url.png"},
-      {"image": "fake_login_form.png"}
+      {"image": "BDO_website.png"},
+      {"image": "phishing_email.png"},
+      {"image": "gmail_login.png"}
     ],
-    "answer": "secure_bank_url.png",
+    "answer": "BDO_website.png",
     "image": null
   },
   {
@@ -185,11 +185,11 @@
     "lesson_id": 8,
     "question_id": 23013,
     "type": "image_mcq",
-    "question": "Anong scam ang karaniwang may mensaheng 'Update your account now'?",
+    "question": "Anong scam ang kadalasang pinapa-update ang inyong impromasyon?",
     "options": [
       {"image": "phishing_email.png"},
-      {"image": "bank_update_notice.png"},
-      {"image": "sms_alert.png"}
+      {"image": "spam_email.png"},
+      {"image": "prize_scam.png"}
     ],
     "answer": "phishing_email.png",
     "image": null
@@ -202,11 +202,11 @@
     "type": "image_mcq",
     "question": "Ano ang tamang gawin kung duda sa mensahe?",
     "options": [
-      {"image": "block_sender.png"},
-      {"image": "reply_to_scammer.png"},
-      {"image": "send_money.png"}
+      {"image": "block_user.png"},
+      {"image": "reply_button.png"},
+      {"image": "gmail_login.png"}
     ],
-    "answer": "block_sender.png",
+    "answer": "block_user.png",
     "image": null
   },
   {
@@ -217,11 +217,11 @@
     "type": "image_mcq",
     "question": "Alin ang larawan ng pressure message?",
     "options": [
-      {"image": "act_now_message.png"},
-      {"image": "thank_you_email.png"},
-      {"image": "regular_notice.png"}
+      {"image": "urgent_message.png"},
+      {"image": "text_scam.png"},
+      {"image": "gcash_text_scam.png"}
     ],
-    "answer": "act_now_message.png",
+    "answer": "urgent_message.png",
     "image": null
   },
   {
@@ -232,9 +232,9 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang ligtas na website?",
     "options": [
-      {"image": "https_url.png"},
+      {"image": "fake_url.png"},
       {"image": "http_url.png"},
-      {"image": "shortened_link.png"}
+      {"image": "weak_password1.png"}
     ],
     "answer": "https_url.png",
     "image": null
@@ -248,8 +248,8 @@
     "question": "Alin ang hindi dapat i-click sa email?",
     "options": [
       {"image": "fake_link.png"},
-      {"image": "unsubscribe_button.png"},
-      {"image": "help_center_link.png"}
+      {"image": "click_now.png"},
+      {"image": "maya_email.png"}
     ],
     "answer": "fake_link.png",
     "image": null
@@ -262,9 +262,9 @@
     "type": "image_mcq",
     "question": "Anong scam ang nagsasabing 'Guaranteed earnings daily'?",
     "options": [
-      {"image": "investment_scam.png"},
-      {"image": "job_post.png"},
-      {"image": "legit_investment.png"}
+      {"image": "gossip.png"},
+      {"image": "investment_text_scam.png"},
+      {"image": "job_application_email.png"}
     ],
     "answer": "investment_scam.png",
     "image": null
@@ -277,11 +277,11 @@
     "type": "image_mcq",
     "question": "Ano ang senyales ng fake prize message?",
     "options": [
-      {"image": "you_won_message.png"},
-      {"image": "bank_notice.png"},
-      {"image": "order_receipt.png"}
+      {"image": "lazada_ad.png"},
+      {"image": "fake_win_popup.png"},
+      {"image": "gcash_ad.png"}
     ],
-    "answer": "you_won_message.png",
+    "answer": "fake_win_popup.png",
     "image": null
   },
   {
@@ -293,8 +293,8 @@
     "question": "Anong dapat gawin kapag nakakita ng suspicious post?",
     "options": [
       {"image": "report_post.png"},
-      {"image": "like_post.png"},
-      {"image": "share_post.png"}
+      {"image": "reply_button.png"},
+      {"image": "share_now_button.png"}
     ],
     "answer": "report_post.png",
     "image": null

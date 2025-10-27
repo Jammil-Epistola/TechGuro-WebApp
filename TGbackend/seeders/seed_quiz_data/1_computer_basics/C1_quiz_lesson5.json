@@ -218,7 +218,7 @@
     "question": "Alin dito ang icon ng Mouse na ikinakabit para galawin ang Mouse cursor?",
     "options": [
       {"image": "mouse_icon.png"},
-      {"image": "keyboard_icon.png"},
+      {"image": "keyboard.png"},
       {"image": "monitor_icon.png"}
     ],
     "answer": "mouse_icon.png",
@@ -232,11 +232,11 @@
     "type": "image_mcq",
     "question": "Alin ang icon ng Keyboard na ikinakabit para makapag-type?",
     "options": [
-      {"image": "keyboard_icon.png"},
+      {"image": "keyboard.png"},
       {"image": "mouse_icon.png"},
       {"image": "monitor_icon.png"}
     ],
-    "answer": "keyboard_icon.png",
+    "answer": "keyboard.png",
     "image": null
   },
   {

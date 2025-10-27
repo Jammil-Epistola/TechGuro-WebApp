@@ -282,29 +282,28 @@ const LessonList = () => {
     const checkMilestone2 = async () => {
       if (!user || !courseId) return;
 
-      const milestoneKey = `milestone_2_shown_${user.user_id}_${courseId}`;
-      const hasShown = sessionStorage.getItem(milestoneKey);
+      try {
+        const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/2`);
+        const data = await response.json();
 
-      if (!hasShown) {
-        try {
-          const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/2`);
-          const data = await response.json();
+        if (data.earned) {
+          const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
+          const milestones = await milestonesResponse.json();
+          const milestone2 = milestones.find(m => m.id === 2);
 
-          if (data.earned) {
-            const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
-            const milestones = await milestonesResponse.json();
-            const milestone2 = milestones.find(m => m.id === 2);
-
-            if (milestone2 && milestone2.status === "earned") {
-              setTimeout(() => {
-                showMilestone(milestone2);
-                sessionStorage.setItem(milestoneKey, "true");
-              }, 1500);
-            }
+          // Only show if notification hasn't been shown before
+          if (milestone2 && milestone2.status === "earned" && !milestone2.notification_shown) {
+            setTimeout(() => {
+              showMilestone(milestone2);
+              // Mark as shown in the database
+              fetch(`http://localhost:8000/milestones/mark-shown/${user.user_id}/2`, {
+                method: 'POST'
+              }).catch(err => console.error("Error marking milestone as shown:", err));
+            }, 1500);
           }
-        } catch (error) {
-          console.error("Error checking Milestone #2:", error);
         }
+      } catch (error) {
+        console.error("Error checking Milestone #2:", error);
       }
     };
 

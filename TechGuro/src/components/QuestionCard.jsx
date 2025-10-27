@@ -113,7 +113,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
     (isTrueFalseQuestion && assessmentType === "post"); // only post splits true/false
 
   return (
-    <div className="bg-white border-2 md:border-4 border-gray-400 w-full max-w-[1000px] rounded-xl shadow-lg">
+    <div className="bg-white border-2 md:border-4 border-gray-400 w-full md:w-[1000px] rounded-xl shadow-lg">
       <div className="min-h-[400px] md:h-[535px] flex flex-col">
         {/* Header */}
         <div className="p-4 md:p-8 border-b-2 border-gray-200 min-h-[80px] md:min-h-[120px] flex items-center justify-between">
@@ -154,11 +154,10 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
           {isSupported && (
             <button
               onClick={speakQuestion}
-              className={`ml-2 md:ml-4 p-2 md:p-3 rounded-full transition-all duration-200 flex-shrink-0 ${
-                isPlaying
+              className={`ml-2 md:ml-4 p-2 md:p-3 rounded-full transition-all duration-200 flex-shrink-0 ${isPlaying
                   ? "bg-blue-600 text-white shadow-lg scale-110"
                   : "bg-gray-200 text-gray-600 hover:bg-blue-100 hover:text-blue-600 hover:scale-105"
-              }`}
+                }`}
               title={
                 isPlaying
                   ? "I-stop ang pagbasa ng tanong"
@@ -187,20 +186,18 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
 
         {/* Options */}
         <div
-          className={`flex-1 p-3 md:p-6 flex ${
-            question.type === "image_mcq"
+          className={`flex-1 p-3 md:p-6 flex ${question.type === "image_mcq"
               ? "justify-center items-center"
               : "flex-col justify-center"
-          }`}
+            }`}
         >
           <div
-            className={`w-full h-full ${
-              shouldUseGrid
+            className={`w-full h-full ${shouldUseGrid
                 ? question.type === "image_mcq"
                   ? "grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4"
                   : "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 max-w-4xl mx-auto"
                 : "flex flex-col gap-2 md:gap-3"
-            }`}
+              }`}
           >
             {question.options?.map((opt, i) => {
               const optionValue = getOptionValue(opt);
@@ -209,25 +206,21 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
               return (
                 <label
                   key={i}
-                  className={`cursor-pointer transition-all duration-300 ${
-                    question.type === "image_mcq"
-                      ? `relative flex flex-col items-center justify-center rounded-xl border-3 md:border-4 overflow-hidden ${
-                          isSelected
-                            ? "border-blue-600 bg-blue-100 shadow-lg transform scale-105"
-                            : "border-gray-300 hover:border-blue-400 hover:shadow-md hover:scale-102"
-                        }`
+                  className={`cursor-pointer transition-all duration-300 ${question.type === "image_mcq"
+                      ? `relative flex flex-col items-center justify-center rounded-xl border-3 md:border-4 overflow-hidden ${isSelected
+                        ? "border-blue-600 bg-blue-100 shadow-lg transform scale-105"
+                        : "border-gray-300 hover:border-blue-400 hover:shadow-md hover:scale-102"
+                      }`
                       : shouldUseGrid
-                      ? `flex items-center justify-center p-4 md:p-8 rounded-lg border-2 md:border-3 min-h-[60px] md:min-h-[80px] ${
-                          isSelected
-                            ? "border-blue-600 bg-blue-100 shadow-md transform scale-105"
-                            : "border-gray-300 hover:border-blue-400 hover:bg-gray-50 hover:scale-102"
+                        ? `flex items-center justify-center p-4 md:p-8 rounded-lg border-2 md:border-3 min-h-[60px] md:min-h-[80px] ${isSelected
+                          ? "border-blue-600 bg-blue-100 shadow-md transform scale-105"
+                          : "border-gray-300 hover:border-blue-400 hover:bg-gray-50 hover:scale-102"
                         }`
-                      : `flex items-center p-3 md:p-6 rounded-lg border-2 md:border-3 ${
-                          isSelected
-                            ? "border-blue-600 bg-blue-100 shadow-md"
-                            : "border-gray-300 hover:border-blue-400 hover:bg-gray-50"
+                        : `flex items-center p-3 md:p-6 rounded-lg border-2 md:border-3 ${isSelected
+                          ? "border-blue-600 bg-blue-100 shadow-md"
+                          : "border-gray-300 hover:border-blue-400 hover:bg-gray-50"
                         }`
-                  }`}
+                    }`}
                 >
                   <input
                     type="radio"
@@ -243,11 +236,10 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
                       {renderOptionContent(opt, i)}
                       {/* Radio indicator for mobile images */}
                       <div
-                        className={`absolute top-2 left-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-2 ${
-                          isSelected
+                        className={`absolute top-2 left-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-2 ${isSelected
                             ? "bg-blue-600 border-blue-600"
                             : "bg-white border-gray-400"
-                        }`}
+                          }`}
                       >
                         {isSelected && (
                           <div className="w-3 h-3 md:w-4 md:h-4 bg-white rounded-full"></div>
@@ -257,9 +249,8 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
                   ) : shouldUseGrid ? (
                     <div className="relative flex flex-col items-center justify-center w-full h-full text-center">
                       <div
-                        className={`absolute top-2 left-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white font-bold text-xs md:text-sm ${
-                          isSelected ? "bg-blue-600" : "bg-gray-400"
-                        }`}
+                        className={`absolute top-2 left-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white font-bold text-xs md:text-sm ${isSelected ? "bg-blue-600" : "bg-gray-400"
+                          }`}
                       >
                         {String.fromCharCode(65 + i)}
                       </div>
@@ -268,9 +259,8 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
                   ) : (
                     <div className="flex items-center w-full">
                       <div
-                        className={`w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-white font-bold text-xs mr-3 md:mr-4 ${
-                          isSelected ? "bg-blue-600" : "bg-gray-400"
-                        }`}
+                        className={`w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-white font-bold text-xs mr-3 md:mr-4 ${isSelected ? "bg-blue-600" : "bg-gray-400"
+                          }`}
                       >
                         {String.fromCharCode(65 + i)}
                       </div>

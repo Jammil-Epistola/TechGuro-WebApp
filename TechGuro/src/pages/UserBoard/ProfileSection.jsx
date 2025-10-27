@@ -59,10 +59,8 @@ const ProfileSection = () => {
 
                 if (earnedRes.ok && allRes.ok) {
                     const earnedData = await earnedRes.json();
-                    const allData = await allRes.json();
 
                     setMilestoneCount(Array.isArray(earnedData) ? earnedData.length : 0);
-                    setTotalMilestones(Array.isArray(allData) ? allData.length : 0);
                 }
             } catch (error) {
                 console.error("Error fetching milestone data:", error);

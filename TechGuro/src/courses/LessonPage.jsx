@@ -217,37 +217,65 @@ const LessonPage = () => {
     }
   };
 
-  const markLessonComplete = () => {
+  const markLessonComplete = async () => {
     // Get the correct course ID from lessonsData
     const courseId = lessonsData?.course_id || 1;
 
-    fetch("http://localhost:8000/progress/update", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user_id: user?.user_id,
-        course_id: courseId,
-        lesson_id: currentLesson.lesson_id,
-        completed: true,
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        //  Check if milestone was awarded and show notification
-        if (result.milestone_awarded) {
-          showMilestone(result.milestone_awarded);
-        }
+    try {
+      // Step 1: Mark lesson as complete
+      const response = await fetch("http://localhost:8000/progress/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: user?.user_id,
+          course_id: courseId,
+          lesson_id: currentLesson.lesson_id,
+          completed: true,
+        }),
+      });
 
-        // Refresh progress so button updates immediately
-        return fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`);
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        setProgressData(data);
-        setRecommendedLessons(data.recommended_lessons || []);
+      const result = await response.json();
+
+      // Step 2: Check if milestone was awarded
+      if (result.milestone_awarded) {
+        const milestoneId = result.milestone_awarded.id;
+
+        // Check if notification was already shown
+        const milestoneCheckResponse = await fetch(
+          `http://localhost:8000/milestones/${user.user_id}`
+        );
+        const milestones = await milestoneCheckResponse.json();
+        const milestone = milestones.find(m => m.id === milestoneId);
+
+        // Only show notification if it hasn't been shown before
+        if (milestone && !milestone.notification_shown) {
+          showMilestone(result.milestone_awarded);
+
+          // Mark notification as shown in database
+          await fetch(
+            `http://localhost:8000/milestones/mark-shown/${user.user_id}/${milestoneId}`,
+            { method: 'POST' }
+          );
+        }
+      }
+
+      // Step 3: Refresh progress data
+      const progressResponse = await fetch(
+        `http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`
+      );
+      const progressData = await progressResponse.json();
+
+      setProgressData(progressData);
+      setRecommendedLessons(progressData.recommended_lessons || []);
+
+      // Step 4: Proceed to next lesson after a brief delay for notification
+      setTimeout(() => {
         proceedToNextLesson();
-      })
-      .catch((err) => console.error("Failed to update progress:", err));
+      }, 500);
+
+    } catch (err) {
+      console.error("Failed to update progress:", err);
+    }
   };
 
   const handleLessonClick = (lesson) => {
@@ -290,12 +318,12 @@ const LessonPage = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <source src={`/images/lessons/${slide.media_url}`} type="video/mp4" />
+          <source src={slide.media_url} type="video/mp4" />
           Your browser does not support the video tag.
         </motion.video>
       ) : (
         <motion.img
-          src={`/images/lessons/${slide.media_url}`}
+          src={slide.media_url}
           alt={slide.slide_title || `Slide ${currentSlide + 1}`}
           className="w-full h-full rounded-lg shadow-sm"
           style={{ objectFit: 'contain' }}

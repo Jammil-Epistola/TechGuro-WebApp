@@ -8,8 +8,8 @@
     "question": "Alin sa mga ito ang halimbawa ng malware?",
     "options": [
       {"image": "virus_alert.png"},
-      {"image": "antivirus_icon.png"},
-      {"image": "safe_browser.png"}
+      {"image": "official_appstores.png"},
+      {"image": "microsoft_store.png"}
     ],
     "answer": "virus_alert.png",
     "image": null
@@ -22,9 +22,9 @@
     "type": "image_mcq",
     "question": "Alin ang nagpapakita ng virus na nakapasok sa computer?",
     "options": [
+      {"image": "hacking.png"},
       {"image": "error_screen.png"},
-      {"image": "clean_desktop.png"},
-      {"image": "update_success.png"}
+      {"image": "pirated_apps.png"}
     ],
     "answer": "error_screen.png",
     "image": null
@@ -38,8 +38,8 @@
     "question": "Anong larawan ang nagpapakita ng antivirus software?",
     "options": [
       {"image": "antivirus_icon.png"},
-      {"image": "malware_warning.png"},
-      {"image": "fake_popup.png"}
+      {"image": "sketchy_installer.png"},
+      {"image": "popup_ads.png"}
     ],
     "answer": "antivirus_icon.png",
     "image": null
@@ -52,9 +52,9 @@
     "type": "image_mcq",
     "question": "Alin ang mapanganib na link o pop-up ad?",
     "options": [
-      {"image": "fake_popup.png"},
-      {"image": "safe_download.png"},
-      {"image": "trusted_website.png"}
+      {"image": "normal_installer.png"},
+      {"image": "chrome_installer.png"},
+      {"image": "popup_ads.png"}
     ],
     "answer": "fake_popup.png",
     "image": null
@@ -67,11 +67,11 @@
     "type": "image_mcq",
     "question": "Alin ang halimbawa ng secure na website?",
     "options": [
-      {"image": "https_lock.png"},
+      {"image": "https_locked.png"},
       {"image": "http_unlocked.png"},
-      {"image": "fake_warning.png"}
+      {"image": "https_not_secure.png"}
     ],
-    "answer": "https_lock.png",
+    "answer": "https_locked.png",
     "image": null
   },
   {
@@ -82,9 +82,9 @@
     "type": "image_mcq",
     "question": "Alin ang nagpapakita ng phishing email?",
     "options": [
-      {"image": "phishing_email.png"},
-      {"image": "real_email.png"},
-      {"image": "inbox_clean.png"}
+      {"image": "dev_inbox.png"},
+      {"image": "maya_email.png"},
+      {"image": "phishing_email.png"}
     ],
     "answer": "phishing_email.png",
     "image": null
@@ -95,13 +95,13 @@
     "lesson_id": 9,
     "question_id": 24007,
     "type": "image_mcq",
-    "question": "Anong sitwasyon ang nagpapakita ng pirated software?",
+    "question": "Anong sitwasyon ang nagpapakita ng pirated apps?",
     "options": [
-      {"image": "pirated_app.png"},
-      {"image": "official_store.png"},
-      {"image": "update_center.png"}
+      {"image": "microsoft_store.png"},
+      {"image": "pirated_apps.png"},
+      {"image": "normal_installer.png"}
     ],
-    "answer": "pirated_app.png",
+    "answer": "pirated_apps.png",
     "image": null
   },
   {
@@ -112,11 +112,11 @@
     "type": "image_mcq",
     "question": "Alin ang nagpapakita ng malware infection?",
     "options": [
-      {"image": "malware_alert.png"},
-      {"image": "security_ok.png"},
-      {"image": "update_done.png"}
+      {"image": "virus_alert.png"},
+      {"image": "sketchy_installer.png"},
+      {"image": "dev_inbox.png"}
     ],
-    "answer": "malware_alert.png",
+    "answer": "virus_alert.png",
     "image": null
   },
   {
@@ -127,11 +127,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang palatandaan ng infected computer?",
     "options": [
-      {"image": "slow_computer.png"},
-      {"image": "fast_computer.png"},
-      {"image": "clean_screen.png"}
+      {"image": "frozen_computer.png"},
+      {"image": "wallpaper.png"},
+      {"image": "watching_youtube.png"}
     ],
-    "answer": "slow_computer.png",
+    "answer": "frozen_computer.png",
     "image": null
   },
   {
@@ -142,11 +142,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang ligtas i-download?",
     "options": [
-      {"image": "official_download.png"},
-      {"image": "pirated_download.png"},
-      {"image": "unknown_link.png"}
+      {"image": "unknown_browser.png"},
+      {"image": "official_appstores.png"},
+      {"image": "unknown_exe.png"}
     ],
-    "answer": "official_download.png",
+    "answer": "official_appstores.png",
     "image": null
   },
   {
@@ -158,8 +158,8 @@
     "question": "Alin ang halimbawa ng USB na may virus?",
     "options": [
       {"image": "infected_usb.png"},
-      {"image": "new_usb.png"},
-      {"image": "backup_usb.png"}
+      {"image": "flash_drive.png"},
+      {"image": "floppy_disk.png"}
     ],
     "answer": "infected_usb.png",
     "image": null
@@ -172,11 +172,11 @@
     "type": "image_mcq",
     "question": "Anong larawan ang nagpapakita ng device na may antivirus protection?",
     "options": [
-      {"image": "shield_protected.png"},
-      {"image": "virus_warning.png"},
-      {"image": "fake_popup.png"}
+      {"image": "popup_ads.png"},
+      {"image": "virus_popup.png"},
+      {"image": "windows_defender.png"}
     ],
-    "answer": "shield_protected.png",
+    "answer": "swindows_defender.png",
     "image": null
   },
   {
@@ -187,11 +187,11 @@
     "type": "image_mcq",
     "question": "Alin ang senyales na dapat mag-update ng system?",
     "options": [
-      {"image": "update_required.png"},
-      {"image": "updated_system.png"},
-      {"image": "login_screen.png"}
+      {"image": "windows_defender.png"},
+      {"image": "system_update_required.png"},
+      {"image": "gmail_login.png"}
     ],
-    "answer": "update_required.png",
+    "answer": "system_update_required.png",
     "image": null
   },
   {
@@ -202,11 +202,11 @@
     "type": "image_mcq",
     "question": "Alin ang ligtas na website?",
     "options": [
-      {"image": "trusted_website.png"},
-      {"image": "fake_site.png"},
-      {"image": "clickbait_site.png"}
+      {"image": "govt_site .png"},
+      {"image": "fake_google.png"},
+      {"image": "clickbait_news.png"}
     ],
-    "answer": "trusted_website.png",
+    "answer": "govt_site.png",
     "image": null
   },
   {
@@ -217,9 +217,9 @@
     "type": "image_mcq",
     "question": "Anong larawan ang nagpapakita ng ransomware?",
     "options": [
+      {"image": "wallpaper.png"},
       {"image": "ransomware_lock.png"},
-      {"image": "normal_desktop.png"},
-      {"image": "update_screen.png"}
+      {"image": "slow_computer.png"}
     ],
     "answer": "ransomware_lock.png",
     "image": null
@@ -232,9 +232,9 @@
     "type": "image_mcq",
     "question": "Anong larawan ang dapat mong iwasan?",
     "options": [
-      {"image": "click_here_popup.png"},
-      {"image": "system_settings.png"},
-      {"image": "help_center.png"}
+      {"image": "windows_defender.png"},
+      {"image": "popup_ads.png"},
+      {"image": "open_program.png"}
     ],
     "answer": "click_here_popup.png",
     "image": null
@@ -247,11 +247,11 @@
     "type": "image_mcq",
     "question": "Alin ang halimbawa ng secure browser?",
     "options": [
-      {"image": "secure_browser.png"},
+      {"image": "real_google.png"},
       {"image": "fake_browser.png"},
-      {"image": "popup_browser.png"}
+      {"image": "fake_google.png"}
     ],
-    "answer": "secure_browser.png",
+    "answer": "real_google.png",
     "image": null
   },
   {
@@ -262,11 +262,11 @@
     "type": "image_mcq",
     "question": "Anong larawan ang nagpapakita ng computer na walang malware?",
     "options": [
-      {"image": "clean_system.png"},
-      {"image": "error_screen.png"},
-      {"image": "virus_alert.png"}
+      {"image": "virus_popup.png"},
+      {"image": "frozen_computer.png"},
+      {"image": "wallpaper.png"}
     ],
-    "answer": "clean_system.png",
+    "answer": "wallpaper.png",
     "image": null
   },
   {
@@ -277,11 +277,11 @@
     "type": "image_mcq",
     "question": "Alin sa mga ito ang nagdudulot ng malware?",
     "options": [
-      {"image": "pirated_download.png"},
-      {"image": "official_store.png"},
-      {"image": "settings_update.png"}
+      {"image": "pirated_apps.png"},
+      {"image": "official_appstores.png"},
+      {"image": "windows_defender.png"}
     ],
-    "answer": "pirated_download.png",
+    "answer": "pirated_apps.png",
     "image": null
   },
   {
@@ -292,9 +292,9 @@
     "type": "image_mcq",
     "question": "Anong larawan ang nagpapakita ng ligtas na pag-browse?",
     "options": [
-      {"image": "safe_browsing.png"},
-      {"image": "popup_warning.png"},
-      {"image": "clickbait_site.png"}
+      {"image": "https_not_secure.png"},
+      {"image": "sketchy_installer.png"},
+      {"image": "safe_browsin.png"}
     ],
     "answer": "safe_browsing.png",
     "image": null

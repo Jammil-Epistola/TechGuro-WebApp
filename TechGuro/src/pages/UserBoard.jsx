@@ -44,29 +44,28 @@ const UserBoard = () => {
     const checkFirstLoginMilestone = async () => {
       if (!user || !user.user_id) return;
 
-      const milestoneShownKey = `milestone_1_shown_${user.user_id}`;
-      const hasShownMilestone = sessionStorage.getItem(milestoneShownKey);
+      try {
+        const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/1`);
+        const data = await response.json();
 
-      if (!hasShownMilestone) {
-        try {
-          const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/1`);
-          const data = await response.json();
+        if (data.earned) {
+          const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
+          const milestones = await milestonesResponse.json();
+          const milestone1 = milestones.find(m => m.id === 1);
 
-          if (data.earned) {
-            const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
-            const milestones = await milestonesResponse.json();
-            const milestone1 = milestones.find(m => m.id === 1);
-
-            if (milestone1 && milestone1.status === "earned") {
-              setTimeout(() => {
-                showMilestone(milestone1);
-                sessionStorage.setItem(milestoneShownKey, "true");
-              }, 1000);
-            }
+          // Only show if notification hasn't been shown before
+          if (milestone1 && milestone1.status === "earned" && !milestone1.notification_shown) {
+            setTimeout(() => {
+              showMilestone(milestone1);
+              // Mark as shown in the database
+              fetch(`http://localhost:8000/milestones/mark-shown/${user.user_id}/1`, {
+                method: 'POST'
+              }).catch(err => console.error("Error marking milestone as shown:", err));
+            }, 1000);
           }
-        } catch (error) {
-          console.error("Error checking first login milestone:", error);
         }
+      } catch (error) {
+        console.error("Error checking first login milestone:", error);
       }
     };
     checkFirstLoginMilestone();
@@ -85,16 +84,15 @@ const UserBoard = () => {
         const milestones = await milestonesResponse.json();
 
         for (const milestoneId of courseCompletionMilestones) {
-          const milestoneShownKey = `milestone_${milestoneId}_shown_${user.user_id}`;
-          const hasShownMilestone = sessionStorage.getItem(milestoneShownKey);
+          const milestone = milestones.find(m => m.id === milestoneId);
 
-          if (!hasShownMilestone) {
-            const milestone = milestones.find(m => m.id === milestoneId);
-
-            if (milestone && milestone.status === "earned") {
-              newlyEarnedMilestones.push(milestone);
-              sessionStorage.setItem(milestoneShownKey, "true");
-            }
+          // Only show if earned and notification hasn't been shown
+          if (milestone && milestone.status === "earned" && !milestone.notification_shown) {
+            newlyEarnedMilestones.push(milestone);
+            // Mark as shown in the database
+            fetch(`http://localhost:8000/milestones/mark-shown/${user.user_id}/${milestoneId}`, {
+              method: 'POST'
+            }).catch(err => console.error("Error marking milestone as shown:", err));
           }
         }
 

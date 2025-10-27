@@ -110,6 +110,10 @@ class MilestoneOut(BaseModel):
     description: str
     icon_url: str
     status: str
+    notification_shown: bool = False 
+
+    class Config:
+        orm_mode = True
 
 # -------------------------
 # Question response (single answer in an assessment)
