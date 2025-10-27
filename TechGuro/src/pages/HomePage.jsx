@@ -11,6 +11,9 @@ import angel_img from "../assets/Home/angel_photo.jpg";
 import CB_img from "../assets/Home/computer_basics_imghead.png";
 import DCM_img from "../assets/Home/digi_comms_imghead.png";
 import IS_img from "../assets/Home/internet_safety_imghead.png";
+import tutorial_slide1 from "../assets/Home/tutorial_slide1.png";
+import tutorial_slide2 from "../assets/Home/tutorial_slide2.png";
+import tutorial_slide3 from "../assets/Home/tutorial_slide3.png";
 
 const courses = [
   {
@@ -54,21 +57,20 @@ const courses = [
 // Tutorial slides with Cloudinary URLs
 const tutorialSlides = [
   {
-    image: "https://res.cloudinary.com/ddnf1lqu6/image/upload/YOUR_IMAGE_1.png",
-    title: "Step 1: Create an Account",
-    description: "Click on 'Get Started' and fill in your details to create your TechGuro account."
+    image: tutorial_slide1,
+    title: "Step 1: Gumawa ng Account o Mag-Sign In",
+    description: "Bago sa TechGuro? I-click ang 'Sign Up' para gumawa ng account. May account na? I-click ang 'Sign In' para magsimula."
   },
   {
-    image: "https://res.cloudinary.com/ddnf1lqu6/image/upload/YOUR_IMAGE_2.png",
-    title: "Step 2: Choose Your Course",
-    description: "Browse available courses and select the one that matches your learning goals."
+    image: tutorial_slide2,
+    title: "Step 2: Punan ang Iyong Detalye",
+    description: "I-enter ang iyong email, username, password, at birthday para makagawa ng TechGuro account. Siguraduhing tanggapin ang Terms and Conditions."
   },
   {
-    image: "https://res.cloudinary.com/ddnf1lqu6/image/upload/YOUR_IMAGE_3.png",
-    title: "Step 3: Start Learning",
-    description: "Follow the lessons at your own pace and track your progress on the dashboard."
+    image: tutorial_slide3,
+    title: "Step 3: Mag-Log In at Magsimulang Matuto",
+    description: "Gamitin ang iyong email at password para mag-log in. Pagkapasok, makikita mo ang dashboard kung saan pwede kang pumili ng courses at subaybayan ang iyong progress."
   },
-  // Add more slides as needed
 ];
 
 const HomePage = () => {
