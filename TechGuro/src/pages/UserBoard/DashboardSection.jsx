@@ -19,7 +19,7 @@ import CB_img from "../../assets/Home/computer_basics_imghead.png";
 import DCM_img from "../../assets/Home/digi_comms_imghead.png";
 import IS_img from "../../assets/Home/internet_safety_imghead.png";
 import ProfileSection from "./ProfileSection";
-import API_URL from '../config/api';
+import API_URL from '../../config/api';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 

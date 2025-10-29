@@ -12,15 +12,21 @@ app = FastAPI()
 
 print("🔒 Configuring CORS...")
 
+# Read CORS origins from environment variable or use defaults
+CORS_ORIGINS = os.getenv(
+    "CORS_ORIGINS", 
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000"
+).split(",")
+
+print(f"✅ CORS middleware configured with origins: {CORS_ORIGINS}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["CORS_ORIGINS"], 
+    allow_origins=CORS_ORIGINS,  # Use the variable, not the string
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-print("✅ CORS middleware added with allow_origins=['*']")
 
 # Startup event to create tables automatically
 @app.on_event("startup")

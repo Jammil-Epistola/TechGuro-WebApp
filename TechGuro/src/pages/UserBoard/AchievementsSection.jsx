@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Lock, CheckCircle, Filter, ChevronDown } from "lucide-react";
 import { useUser } from "../../context/UserContext";
 import placeholderimg from "../../assets/Dashboard/placeholder_teki.png";
-import API_URL from '../config/api';
+import API_URL from '../../config/api';
 
 const AchievementsSection = () => {
   const [filter, setFilter] = useState("all");

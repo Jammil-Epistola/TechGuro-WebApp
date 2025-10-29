@@ -14,7 +14,7 @@ import {
 import HistoryFilters from "../../components/HistoryFilters";
 import AssessmentHistory from "../../components/AssessmentHistory";
 import QuizHistory from "../../components/QuizHistory";
-import API_URL from '../config/api';
+import API_URL from '../../config/api';
 
 const HistorySection = () => {
   const { user } = useUser();

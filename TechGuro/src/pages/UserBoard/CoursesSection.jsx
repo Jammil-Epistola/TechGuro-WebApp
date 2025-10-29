@@ -11,6 +11,7 @@ import {
   FaBookOpen,
 } from "react-icons/fa";
 import { useUser } from "../../context/UserContext";
+import API_URL from '../../config/api';
 
 const COURSES = [
   "Computer Basics",

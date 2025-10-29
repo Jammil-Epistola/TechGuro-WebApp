@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext";
 import { Award, Pencil } from "lucide-react";
-import API_URL from '../config/api';
+import API_URL from '../../config/api';
 
 const ProfileSection = () => {
     const { user, setUser } = useUser();

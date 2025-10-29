@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, Trash2, Download, Eye } from "lucide-react";
 import { FaSpinner } from "react-icons/fa";
-import API_URL from '../config/api';
+import API_URL from '../../config/api';
 
 const AdminUserTable = () => {
   const [users, setUsers] = useState([]);
