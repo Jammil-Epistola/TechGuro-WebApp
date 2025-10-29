@@ -13,6 +13,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useUser();
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -54,9 +55,8 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const endpoint = isAdminMode
-        ? "http://localhost:8000/admin/login"
-        : "http://localhost:8000/login";
-
+        ? `${API_URL}/admin/login`
+        : `${API_URL}/login`;
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -211,9 +211,8 @@ const LoginPage = () => {
 
                 {/* Error Message */}
                 {errorMessage && (
-                  <div className={`mt-4 mb-2 font-bold text-[20px] text-center ${
-                    isLocked ? "text-red-600" : "text-red-600 animate-fadeInOut"
-                  }`}>
+                  <div className={`mt-4 mb-2 font-bold text-[20px] text-center ${isLocked ? "text-red-600" : "text-red-600 animate-fadeInOut"
+                    }`}>
                     {errorMessage}
                   </div>
                 )}
@@ -229,13 +228,12 @@ const LoginPage = () => {
                 <button
                   onClick={handleLogin}
                   disabled={loading || cooldownSeconds > 0}
-                  className={`w-full py-4 mt-4 rounded-full text-white text-[20px] font-bold transition-all ${
-                    loading || cooldownSeconds > 0
+                  className={`w-full py-4 mt-4 rounded-full text-white text-[20px] font-bold transition-all ${loading || cooldownSeconds > 0
                       ? "bg-gray-400 cursor-not-allowed"
                       : isAdminMode
-                      ? "bg-red-500 hover:bg-red-600"
-                      : "bg-[#697DFF] hover:bg-[#5d71e0]"
-                  }`}
+                        ? "bg-red-500 hover:bg-red-600"
+                        : "bg-[#697DFF] hover:bg-[#5d71e0]"
+                    }`}
                 >
                   {loading ? (
                     <div className="flex items-center justify-center gap-2">
@@ -264,11 +262,10 @@ const LoginPage = () => {
           {/* Role Switcher */}
           <button
             onClick={toggleAdminMode}
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all absolute bottom-6 right-6 shadow-md ${
-              isAdminMode
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all absolute bottom-6 right-6 shadow-md ${isAdminMode
                 ? "bg-red-500 text-white"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+              }`}
             title={isAdminMode ? "Switch to User Login" : "Switch to Admin Login"}
           >
             <ShieldCheck className="w-5 h-5" />

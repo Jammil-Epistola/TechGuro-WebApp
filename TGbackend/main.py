@@ -8,9 +8,25 @@ from TGbackend import models
 from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes, milestoneRoutes, quizRoutes, adminRoutes
 
 # Initialize FastAPI
-print("Before FastAPI instance")
 app = FastAPI()
-print("After FastAPI instance")
+
+# Read CORS origins from environment variable
+CORS_ORIGINS_STR = os.getenv("CORS_ORIGINS", "http://localhost:5173")
+CORS_ORIGINS = [origin.strip() for origin in CORS_ORIGINS_STR.split(",")]
+
+print(f"🔒 Configuring CORS with origins: {CORS_ORIGINS}")
+
+# Add CORS middleware IMMEDIATELY after app creation
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"],
+)
+
+print("✅ CORS middleware added")
 
 # Startup event to create tables automatically
 @app.on_event("startup")
@@ -26,23 +42,8 @@ async def startup_event():
     except Exception as e:
         print(f"⚠️ Error creating tables: {e}")
 
-# Read CORS origins from environment variable
-CORS_ORIGINS_STR = os.getenv("CORS_ORIGINS", "http://localhost:5173")
-CORS_ORIGINS = [origin.strip() for origin in CORS_ORIGINS_STR.split(",")]
-
-print(f"🔒 CORS Origins: {CORS_ORIGINS}")  # Debug log
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=["*"],  # Add this
-)
-
 # Include all routers
-print("About to include routers...")
+print("📦 Including routers...")
 
 # Admin Endpoints
 app.include_router(adminRoutes.router)
@@ -68,7 +69,7 @@ app.include_router(quizRoutes.router)
 # BKT (Bayesian Knowledge Tracing)
 app.include_router(bktRoutes.router) 
 
-print("All routers included.")
+print("✅ All routers included")
 
 # Test root endpoint
 @app.get("/")
