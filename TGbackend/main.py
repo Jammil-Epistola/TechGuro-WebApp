@@ -27,7 +27,10 @@ async def startup_event():
         print(f"⚠️ Error creating tables: {e}")
 
 # Read CORS origins from environment variable
-CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
+CORS_ORIGINS_STR = os.getenv("CORS_ORIGINS", "http://localhost:5173")
+CORS_ORIGINS = [origin.strip() for origin in CORS_ORIGINS_STR.split(",")]
+
+print(f"🔒 CORS Origins: {CORS_ORIGINS}")  # Debug log
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,6 +38,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],  # Add this
 )
 
 # Include all routers
