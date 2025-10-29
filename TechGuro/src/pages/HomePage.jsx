@@ -139,7 +139,7 @@ const HomePage = () => {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4 }}
               >
-                {/* Close Button */}
+                {/* Close Button - Black X */}
                 <button
                   onClick={() => {
                     setShowTutorial(false);
@@ -147,88 +147,102 @@ const HomePage = () => {
                   }}
                   className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-all"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
 
-                {/* Content */}
-                <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-8">
-                  {/* Image */}
-                  <motion.div
-                    key={currentTutorialSlide}
-                    className="w-full h-[50%] sm:h-[60%] mb-6 flex items-center justify-center"
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      src={tutorialSlides[currentTutorialSlide].image}
-                      alt={tutorialSlides[currentTutorialSlide].title}
-                      className="max-w-full max-h-full object-contain rounded-lg shadow-md"
-                    />
-                  </motion.div>
-
-                  {/* Text Content */}
-                  <motion.div
-                    key={`text-${currentTutorialSlide}`}
-                    className="text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                  >
-                    <h3 className="text-2xl md:text-3xl font-bold text-[#4C5173] mb-3">
-                      {tutorialSlides[currentTutorialSlide].title}
-                    </h3>
-                    <p className="text-lg md:text-xl text-gray-600 max-w-[600px] mx-auto">
-                      {tutorialSlides[currentTutorialSlide].description}
-                    </p>
-                  </motion.div>
-
-                  {/* Progress Dots */}
-                  <div className="flex gap-2 mt-6">
-                    {tutorialSlides.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentTutorialSlide(index)}
-                        className={`w-3 h-3 rounded-full transition-all ${index === currentTutorialSlide
-                          ? "bg-[#4C5173] w-8"
-                          : "bg-gray-300 hover:bg-gray-400"
-                          }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Navigation Buttons */}
-                <div className="flex justify-between items-center p-4 md:p-6 border-t border-gray-200">
+                {/* Content with Side Navigation */}
+                <div className="flex-1 flex items-center justify-between p-4 md:p-8">
+                  {/* Left Chevron */}
                   <button
                     onClick={() => setCurrentTutorialSlide(Math.max(0, currentTutorialSlide - 1))}
                     disabled={currentTutorialSlide === 0}
-                    className={`px-6 py-3 rounded-lg font-semibold text-lg transition-all ${currentTutorialSlide === 0
-                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      : "bg-gray-600 text-white hover:bg-gray-700"
+                    className={`flex-shrink-0 p-3 rounded-full transition-all ${currentTutorialSlide === 0
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
                       }`}
                   >
-                    Previous
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
                   </button>
 
-                  {currentTutorialSlide === tutorialSlides.length - 1 ? (
-                    <button
-                      onClick={() => (window.location.href = "/login")}
-                      className="px-8 py-3 bg-[#B6C44D] text-black rounded-lg font-semibold text-lg hover:bg-[#a5b83d] transition-all"
+                  {/* Center Content */}
+                  <div className="flex-1 flex flex-col items-center justify-center mx-4">
+                    {/* Image */}
+                    <motion.div
+                      key={currentTutorialSlide}
+                      className="w-full h-[50%] sm:h-[60%] mb-6 flex items-center justify-center"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -50 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      Get Started Now!
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setCurrentTutorialSlide(Math.min(tutorialSlides.length - 1, currentTutorialSlide + 1))}
-                      className="px-6 py-3 bg-[#4C5173] text-white rounded-lg font-semibold text-lg hover:bg-[#3a3f5c] transition-all"
+                      <img
+                        src={tutorialSlides[currentTutorialSlide].image}
+                        alt={tutorialSlides[currentTutorialSlide].title}
+                        className="max-w-full max-h-full object-contain rounded-lg shadow-md"
+                      />
+                    </motion.div>
+
+                    {/* Text Content */}
+                    <motion.div
+                      key={`text-${currentTutorialSlide}`}
+                      className="text-center"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
                     >
-                      Next
-                    </button>
-                  )}
+                      <h3 className="text-2xl md:text-3xl font-bold text-[#4C5173] mb-3">
+                        {tutorialSlides[currentTutorialSlide].title}
+                      </h3>
+                      <p className="text-lg md:text-xl text-gray-600 max-w-[600px] mx-auto">
+                        {tutorialSlides[currentTutorialSlide].description}
+                      </p>
+                    </motion.div>
+
+                    {/* Progress Dots */}
+                    <div className="flex gap-2 mt-6">
+                      {tutorialSlides.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentTutorialSlide(index)}
+                          className={`w-3 h-3 rounded-full transition-all ${index === currentTutorialSlide
+                              ? "bg-[#4C5173] w-8"
+                              : "bg-gray-300 hover:bg-gray-400"
+                            }`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Get Started Button - Only on Last Slide */}
+                    {currentTutorialSlide === tutorialSlides.length - 1 && (
+                      <motion.button
+                        onClick={() => (window.location.href = "/login")}
+                        className="mt-6 px-8 py-3 bg-[#B6C44D] text-black rounded-lg font-semibold text-lg hover:bg-[#a5b83d] transition-all"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        Get Started Now!
+                      </motion.button>
+                    )}
+                  </div>
+
+                  {/* Right Chevron */}
+                  <button
+                    onClick={() => setCurrentTutorialSlide(Math.min(tutorialSlides.length - 1, currentTutorialSlide + 1))}
+                    disabled={currentTutorialSlide === tutorialSlides.length - 1}
+                    className={`flex-shrink-0 p-3 rounded-full transition-all ${currentTutorialSlide === tutorialSlides.length - 1
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
+                      }`}
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
                 </div>
               </motion.div>
             </>

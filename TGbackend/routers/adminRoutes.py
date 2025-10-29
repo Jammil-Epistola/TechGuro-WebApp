@@ -716,12 +716,7 @@ def verify_admin_secret(x_admin_key: str = Header(None)):
 async def seed_database(x_admin_key: str = Header(None)):
     """
     Seed the database with initial content (courses, lessons, milestones, quizzes).
-    
-    Usage:
-        curl -X POST https://your-backend.onrender.com/admin/seed-database \
-             -H "X-Admin-Key: your-secret-key"
-    
-    ⚠️ WARNING: This should only be used for initial setup!
+     WARNING: This should only be used for initial setup!
     """
     verify_admin_secret(x_admin_key)
     
@@ -770,9 +765,6 @@ async def database_status(x_admin_key: str = Header(None)):
     """
     Check database status and content counts.
     
-    Usage:
-        curl https://your-backend.onrender.com/admin/database-status \
-             -H "X-Admin-Key: your-secret-key"
     """
     verify_admin_secret(x_admin_key)
     
@@ -815,11 +807,6 @@ async def clear_content_only(x_admin_key: str = Header(None)):
     Clear ONLY content tables (courses, lessons, milestones, quizzes).
     User data (users, progress, assessment results) is PRESERVED.
     
-    ⚠️ USE WITH CAUTION! This deletes all course content.
-    
-    Usage:
-        curl -X POST https://your-backend.onrender.com/admin/clear-content \
-             -H "X-Admin-Key: your-secret-key"
     """
     verify_admin_secret(x_admin_key)
     
