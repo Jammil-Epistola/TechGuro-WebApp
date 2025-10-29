@@ -10,31 +10,22 @@ from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessm
 # Initialize FastAPI
 app = FastAPI()
 
-# Read CORS origins from environment variable
-CORS_ORIGINS_STR = os.getenv("CORS_ORIGINS", "http://localhost:5173")
-CORS_ORIGINS = [origin.strip() for origin in CORS_ORIGINS_STR.split(",")]
+print("🔒 Configuring CORS...")
 
-print(f"🔒 Configuring CORS with origins: {CORS_ORIGINS}")
-
-# Add CORS middleware IMMEDIATELY after app creation
+# TEMPORARY: Allow all origins for debugging
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=["*"],  # ⚠️ TEMPORARY - Allow all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["*"],
 )
 
-print("✅ CORS middleware added")
+print("✅ CORS middleware added with allow_origins=['*']")
 
 # Startup event to create tables automatically
 @app.on_event("startup")
 async def startup_event():
-    """
-    Create database tables on startup if they don't exist.
-    This runs automatically when the app starts on Render.
-    """
     try:
         print("🔄 Creating/verifying database tables...")
         Base.metadata.create_all(bind=engine)
@@ -45,28 +36,13 @@ async def startup_event():
 # Include all routers
 print("📦 Including routers...")
 
-# Admin Endpoints
 app.include_router(adminRoutes.router)
-
-# User management (register/login endpoints)
 app.include_router(userRoutes.router)
-
-# Progress tracking
 app.include_router(progressRoutes.router)
-
-# Milestones
 app.include_router(milestoneRoutes.router)
-
-# Lessons and courses
 app.include_router(lessonsRoutes.router)
-
-# Assessment management 
 app.include_router(assessmentRoutes.router)
-
-# Quiz
 app.include_router(quizRoutes.router)
-
-# BKT (Bayesian Knowledge Tracing)
 app.include_router(bktRoutes.router) 
 
 print("✅ All routers included")
