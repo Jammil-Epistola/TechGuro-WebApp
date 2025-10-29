@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Home, Calendar } from "lucide-react";
 import Teki1 from "../assets/Teki 1.png";
+import API_URL from '../config/api';
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -109,8 +110,7 @@ const RegisterPage = () => {
     const birthday = `${birthYear}-${birthMonth}-${birthDay}`;
 
     try {
-      const baseURL = import.meta.env.VITE_API_URL || "http://localhost:8000";
-      const response = await fetch(`${baseURL}/register`, {
+      const response = await fetch(`${API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

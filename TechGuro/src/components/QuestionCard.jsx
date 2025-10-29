@@ -1,7 +1,7 @@
 // src/components/QuestionCard.jsx
 import React from "react";
 import { Volume2, VolumeX } from "lucide-react";
-import useTTS from "../hooks/useTTS"; // Import the simplified custom hook
+import useTTS from "../hooks/useTTS";
 
 const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType }) => {
   const { isPlaying, speak, isSupported } = useTTS();
@@ -105,7 +105,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
             opt.toLowerCase().includes("false"))
       ));
 
-  // ✅ Layout depends on assessmentType
+  // Layout depends on assessmentType
   const shouldUseGrid =
     question.type === "image_mcq" ||
     (question.type === "text_mcq" &&
@@ -119,7 +119,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
         <div className="p-4 md:p-8 border-b-2 border-gray-200 min-h-[80px] md:min-h-[120px] flex items-center justify-between">
           <div className="flex-1">
             {isTrueFalseQuestion && assessmentType === "post" ? (
-              // Post-Assessment: Split into 2 statements
+              // Post-Assessment
               <div className="flex items-start gap-2 md:gap-4">
                 <h2 className="text-lg md:text-2xl font-bold text-black leading-relaxed flex-shrink-0">
                   Q{question.questionNumber}.
@@ -143,7 +143,7 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType
                 </div>
               </div>
             ) : (
-              // Pre-Assessment: single statement
+              // Pre-Assessment
               <h2 className="text-lg md:text-2xl font-bold text-black leading-relaxed mb-2 md:mb-4">
                 Q{question.questionNumber}. {question.text}
               </h2>

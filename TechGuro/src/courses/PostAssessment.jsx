@@ -8,6 +8,7 @@ import AssessmentInstructions from "../components/AssessmentInstructions";
 import AssessmentResults from "../components/AssessmentResults";
 import SubmitConfirmationModal from "../components/SubmitConfirmationModal";
 import { useUser } from "../context/UserContext";
+import API_URL from "../config/api";
 
 const PostAssessment = () => {
   const { courseName } = useParams();
@@ -31,7 +32,7 @@ const PostAssessment = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const resCourses = await fetch("http://localhost:8000/courses");
+        const resCourses = await fetch(`${API_URL}/courses`);
         if (!resCourses.ok) throw new Error("Failed to fetch courses");
         const courses = await resCourses.json();
 
@@ -44,7 +45,7 @@ const PostAssessment = () => {
         }
 
         const resQuestions = await fetch(
-          `http://localhost:8000/assessment/questions/${course.id}?assessment_type=post`
+          `${API_URL}/assessment/questions/${course.id}?assessment_type=post`
         );
         if (!resQuestions.ok) throw new Error("Failed to fetch questions");
         const data = await resQuestions.json();
@@ -123,7 +124,7 @@ const PostAssessment = () => {
 
     setIsSubmitting(true);
     try {
-      const resCourses = await fetch("http://localhost:8000/courses");
+      const resCourses = await fetch(`${API_URL}/courses`);
       const courses = await resCourses.json();
       const course = courses.find(
         (c) => c.title.replace(/\s+/g, "").toLowerCase() === courseName.toLowerCase()
@@ -139,7 +140,7 @@ const PostAssessment = () => {
         }))
       };
 
-      const response = await fetch("http://localhost:8000/assessment/submit", {
+      const response = await fetch(`${API_URL}/assessment/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submissionData),

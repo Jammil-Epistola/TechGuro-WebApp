@@ -16,6 +16,7 @@ import {
   filterByDateRange,
   sortItems,
 } from "../utility/historyConstants";
+import API_URL from '../config/api';
 
 const AssessmentHistory = ({
   data,
@@ -51,12 +52,10 @@ const AssessmentHistory = ({
     setDetailResponses([]);
     
     try {
-      const baseURL = import.meta.env.VITE_API_URL;
-      
       // Fetch questions and responses
       const [questionsRes, responsesRes] = await Promise.all([
-        fetch(`${baseURL}/assessment/questions/${item.course_id}?assessment_type=${item.assessment_type}`),
-        fetch(`${baseURL}/assessment/responses/${item.id}`)
+        fetch(`${API_URL}/assessment/questions/${item.course_id}?assessment_type=${item.assessment_type}`),
+        fetch(`${API_URL}/assessment/responses/${item.id}`)
       ]);
 
       if (questionsRes.ok) {

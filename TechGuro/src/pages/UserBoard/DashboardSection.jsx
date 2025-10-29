@@ -19,6 +19,7 @@ import CB_img from "../../assets/Home/computer_basics_imghead.png";
 import DCM_img from "../../assets/Home/digi_comms_imghead.png";
 import IS_img from "../../assets/Home/internet_safety_imghead.png";
 import ProfileSection from "./ProfileSection";
+import API_URL from '../config/api';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -82,8 +83,6 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
     setFetchError(null);
 
     try {
-      const baseURL = import.meta.env.VITE_API_URL;
-
       const [
         progressResponse,
         assessmentsResponse,
@@ -92,12 +91,12 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
         allMilestonesResponse,
         progressRecommendationsResponse
       ] = await Promise.all([
-        fetch(`${baseURL}/progress/${user.user_id}`),
-        fetch(`${baseURL}/assessment/${user.user_id}`),
-        fetch(`${baseURL}/milestones/earned/${user.user_id}`),
-        fetch(`${baseURL}/quiz/results/${user.user_id}`),
-        fetch(`${baseURL}/milestones/${user.user_id}`),
-        fetch(`${baseURL}/progress-recommendations/${user.user_id}/${courses.indexOf(selectedCourse) + 1}`) // NEW: Recommended lessons
+        fetch(`${API_URL}/progress/${user.user_id}`),
+        fetch(`${API_URL}/assessment/${user.user_id}`),
+        fetch(`${API_URL}/milestones/earned/${user.user_id}`),
+        fetch(`${API_URL}/quiz/results/${user.user_id}`),
+        fetch(`${API_URL}/milestones/${user.user_id}`),
+        fetch(`${API_URL}/progress-recommendations/${user.user_id}/${courses.indexOf(selectedCourse) + 1}`) // NEW: Recommended lessons
       ]);
 
       // Check if all responses are successful
@@ -380,7 +379,7 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
       const rawType = (selectedAssessment || "").toLowerCase();
       const assessmentType = rawType.startsWith("pre") ? "pre" : rawType.startsWith("post") ? "post" : rawType;
 
-      const assessRes = await fetch(`${import.meta.env.VITE_API_URL}/assessment/${user.user_id}`);
+      const assessRes = await fetch(`${API_URL}/assessment/${user.user_id}`);
       if (!assessRes.ok) throw new Error(`Failed to fetch assessments (${assessRes.status})`);
       const assessAll = await assessRes.json();
 
@@ -396,11 +395,11 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
         return tb - ta;
       })[0];
 
-      const questionsRes = await fetch(`${import.meta.env.VITE_API_URL}/assessment/questions/${courseId}?assessment_type=${assessmentType}`);
+      const questionsRes = await fetch(`${API_URL}/assessment/questions/${courseId}?assessment_type=${assessmentType}`);
       if (!questionsRes.ok) throw new Error("Failed to fetch questions for this assessment");
       const questions = await questionsRes.json();
 
-      const responsesRes = await fetch(`${import.meta.env.VITE_API_URL}/assessment/responses/${latest.id}`);
+      const responsesRes = await fetch(`${API_URL}/assessment/responses/${latest.id}`);
       if (!responsesRes.ok) {
         setModalQuestions(Array.isArray(questions) ? questions : []);
         setModalResponses([]);

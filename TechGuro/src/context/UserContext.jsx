@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import API_URL from '../config/api';
 
 const UserContext = createContext(null);
 
@@ -9,15 +10,13 @@ export const UserProvider = ({ children }) => {
   });
   const [loadingMilestones, setLoadingMilestones] = useState(false);
 
-  const API_BASE = import.meta.env?.VITE_API_URL || "http://localhost:8000";
-
   // Fetch milestones when user is set
   useEffect(() => {
     const fetchMilestones = async () => {
       if (!user?.user_id) return;
       setLoadingMilestones(true);
       try {
-        const res = await fetch(`${API_BASE}/milestones/${user.user_id}`);
+        const res = await fetch(`${API_URL}/milestones/${user.user_id}`);
         if (!res.ok) throw new Error("Failed to fetch milestones");
         const data = await res.json();
         setUser(prev => ({ ...prev, milestones: data }));
@@ -28,7 +27,7 @@ export const UserProvider = ({ children }) => {
       }
     };
     fetchMilestones();
-  }, [user?.user_id, API_BASE]);
+  }, [user?.user_id, API_URL]);
 
   // Persist user to localStorage
   useEffect(() => {

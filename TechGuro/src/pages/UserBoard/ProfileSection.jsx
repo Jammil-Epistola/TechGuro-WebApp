@@ -1,6 +1,8 @@
+// ProfileSection.js
 import React, { useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext";
 import { Award, Pencil } from "lucide-react";
+import API_URL from '../config/api';
 
 const ProfileSection = () => {
     const { user, setUser } = useUser();
@@ -10,7 +12,6 @@ const ProfileSection = () => {
     const [profileIcon, setProfileIcon] = useState("avatar_default.png");
     const [loading, setLoading] = useState(false);
     const [milestoneCount, setMilestoneCount] = useState(0);
-    const [setTotalMilestones] = useState(0);
 
     const PROFILE_ICON_URLS = {
         "avatar_default.png": "https://res.cloudinary.com/ddnf1lqu6/image/upload/v1761242991/avatar_default_nblkb8.png",
@@ -53,8 +54,8 @@ const ProfileSection = () => {
 
             try {
                 const [earnedRes, allRes] = await Promise.all([
-                    fetch(`http://localhost:8000/milestones/earned/${user.user_id}`),
-                    fetch(`http://localhost:8000/milestones/${user.user_id}`)
+                    fetch(`${API_URL}/milestones/earned/${user.user_id}`),
+                    fetch(`${API_URL}/milestones/${user.user_id}`)
                 ]);
 
                 if (earnedRes.ok && allRes.ok) {
@@ -75,7 +76,7 @@ const ProfileSection = () => {
         try {
             const profileIconUrl = getProfileIconUrl(profileIcon);
             
-            const response = await fetch(`http://localhost:8000/user/update/${user.user_id}`, {
+            const response = await fetch(`${API_URL}/user/update/${user.user_id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 

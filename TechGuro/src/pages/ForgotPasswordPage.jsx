@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Mail, Lock, CheckCircle } from "lucide-react";
 import Teki1 from "../assets/Teki 1.png";
+import API_URL from '../config/api';
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1); // 1: Email, 2: Code, 3: New Password
+  const [step, setStep] = useState(1); 
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -25,7 +26,7 @@ const ForgotPasswordPage = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/forgot-password", {
+      const response = await fetch(`${API_URL}/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -60,7 +61,7 @@ const ForgotPasswordPage = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/verify-reset-code", {
+      const response = await fetch(`${API_URL}/verify-reset-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code }),
@@ -101,7 +102,7 @@ const ForgotPasswordPage = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/reset-password", {
+      const response = await fetch(`${API_URL}/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

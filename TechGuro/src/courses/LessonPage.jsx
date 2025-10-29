@@ -9,6 +9,7 @@ import { normalizeSlides } from "../utility/normalizeContent";
 import useTTS from "../hooks/useTTS";
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
 import { Volume2, VolumeX, Play, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
+import API_URL from '../config/api';
 
 const LessonPage = () => {
   const { courseName } = useParams();
@@ -26,7 +27,7 @@ const LessonPage = () => {
   const [progressData, setProgressData] = useState(null);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
-    return window.innerWidth >= 1024; // 1024px is 'lg' in Tailwind
+    return window.innerWidth >= 1024; 
   });
 
   // Use the simplified TTS hook
@@ -49,7 +50,7 @@ const LessonPage = () => {
 
     console.log("Reading text:", textToRead);
 
-    // Use the simple speak function - it toggles play/stop automatically
+    // simple speak function
     speak(textToRead);
   };
 
@@ -63,7 +64,7 @@ const LessonPage = () => {
   // Handle window resize to update sidebar state
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) { // 'lg' breakpoint
+      if (window.innerWidth >= 1024) { 
         setIsSidebarOpen(true);
       } else {
         setIsSidebarOpen(false);
@@ -77,11 +78,10 @@ const LessonPage = () => {
   useEffect(() => {
     if (!user) return;
 
-    // First, get the correct course ID by matching courseName
     const fetchCourseData = async () => {
       try {
         // Get courses list to find matching course ID
-        const coursesRes = await fetch(`http://localhost:8000/courses`);
+        const coursesRes = await fetch(`${API_URL}/courses`);
         if (!coursesRes.ok) throw new Error("Failed to fetch courses list.");
         const courses = await coursesRes.json();
 
@@ -97,15 +97,15 @@ const LessonPage = () => {
         const courseId = matchedCourse.id;
 
         // Fetch course data with correct course ID
-        const lessonsRes = await fetch(`http://localhost:8000/lesson-courses/${courseId}`);
+        const lessonsRes = await fetch(`${API_URL}/lesson-courses/${courseId}`);
         if (!lessonsRes.ok) throw new Error("Failed to fetch lessons data.");
         const lessonsData = await lessonsRes.json();
         setLessonsData(lessonsData);
 
-        // UPDATED: Use BKT recommendations endpoint (same as LessonList)
+        //  Use BKT recommendations endpoint 
         try {
           const bktRes = await fetch(
-            `http://localhost:8000/bkt/recommendations/${user.user_id}/${courseId}?threshold=0.7&limit=10`
+            `${API_URL}/bkt/recommendations/${user.user_id}/${courseId}?threshold=0.7&limit=10`
           );
 
           if (!bktRes.ok) throw new Error("Failed to fetch BKT recommendations.");
@@ -115,7 +115,7 @@ const LessonPage = () => {
           setRecommendedLessons(bktData.recommended_lessons || []);
 
           // Fetch progress data
-          const progressRes = await fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`);
+          const progressRes = await fetch(`${API_URL}/progress-recommendations/${user.user_id}/${courseId}`);
           if (progressRes.ok) {
             const progressData = await progressRes.json();
             setProgressData(progressData);
@@ -124,9 +124,9 @@ const LessonPage = () => {
         } catch (bktError) {
           console.error("BKT recommendations failed:", bktError);
 
-          // Fallback to old endpoint if BKT fails
+          // Fallback
           try {
-            const progressRes = await fetch(`http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`);
+            const progressRes = await fetch(`${API_URL}/progress-recommendations/${user.user_id}/${courseId}`);
             if (progressRes.ok) {
               const progressData = await progressRes.json();
               setProgressData(progressData);
@@ -149,8 +149,8 @@ const LessonPage = () => {
   useEffect(() => {
     if (!lessonId) return;
 
-    // ✅ Fetch lesson detail with normalized slides
-    fetch(`http://localhost:8000/lessons/${lessonId}`)
+    // Fetch lesson detail with normalized slides
+    fetch(`${API_URL}/lessons/${lessonId}`)
       .then(res => res.json())
       .then(data => {
         const normalized = { ...data, slides: normalizeSlides(data.slides || []) };
@@ -179,7 +179,6 @@ const LessonPage = () => {
         lessonsData.lessons.map(l => [l.lesson_id, l])
       );
 
-      // Get recommended lessons and sort them by lesson_id
       const recommendedLessonsData = recommendedLessons
         .map(id => lessonMap.get(id))
         .filter(Boolean)
@@ -190,7 +189,7 @@ const LessonPage = () => {
       // All lessons section
       return lessonsData.lessons || [];
     } else {
-      // Quizzes section (empty for now)
+
       return [];
     }
   };
@@ -202,8 +201,8 @@ const LessonPage = () => {
     );
     if (currentIndex !== -1 && currentIndex < sectionLessons.length - 1) {
       const nextLesson = sectionLessons[currentIndex + 1];
-      // ✅ Fetch next lesson and normalize slides
-      fetch(`http://localhost:8000/lessons/${nextLesson.lesson_id}`)
+      // Fetch next lesson and normalize slides
+      fetch(`${API_URL}/lessons/${nextLesson.lesson_id}`)
         .then(res => res.json())
         .then(data => {
           const normalized = { ...data, slides: normalizeSlides(data.slides || []) };
@@ -223,7 +222,7 @@ const LessonPage = () => {
 
     try {
       // Step 1: Mark lesson as complete
-      const response = await fetch("http://localhost:8000/progress/update", {
+      const response = await fetch(`${API_URL}/progress/update`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -242,7 +241,7 @@ const LessonPage = () => {
 
         // Check if notification was already shown
         const milestoneCheckResponse = await fetch(
-          `http://localhost:8000/milestones/${user.user_id}`
+          `${API_URL}/milestones/${user.user_id}`
         );
         const milestones = await milestoneCheckResponse.json();
         const milestone = milestones.find(m => m.id === milestoneId);
@@ -253,7 +252,7 @@ const LessonPage = () => {
 
           // Mark notification as shown in database
           await fetch(
-            `http://localhost:8000/milestones/mark-shown/${user.user_id}/${milestoneId}`,
+            `${API_URL}/milestones/mark-shown/${user.user_id}/${milestoneId}`,
             { method: 'POST' }
           );
         }
@@ -261,7 +260,7 @@ const LessonPage = () => {
 
       // Step 3: Refresh progress data
       const progressResponse = await fetch(
-        `http://localhost:8000/progress-recommendations/${user.user_id}/${courseId}`
+        `${API_URL}/progress-recommendations/${user.user_id}/${courseId}`
       );
       const progressData = await progressResponse.json();
 
@@ -279,7 +278,7 @@ const LessonPage = () => {
   };
 
   const handleLessonClick = (lesson) => {
-    fetch(`http://localhost:8000/lessons/${lesson.lesson_id}`)
+    fetch(`${API_URL}/lessons/${lesson.lesson_id}`)
       .then(res => res.json())
       .then(data => {
         const normalized = { ...data, slides: normalizeSlides(data.slides || []) };

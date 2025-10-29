@@ -25,7 +25,7 @@ const SubmitConfirmationModal = ({ isOpen, onConfirm, onCancel, isSubmitting }) 
             exit={{ scale: 0.9, opacity: 0, y: 30 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
-            {/* Teki image + name (side by side, left-aligned) */}
+            {/* Teki image + name */}
             <div className="flex items-center gap-3 mb-4">
               <img
                 src={Teki1}
@@ -37,7 +37,7 @@ const SubmitConfirmationModal = ({ isOpen, onConfirm, onCancel, isSubmitting }) 
               </span>
             </div>
 
-            {/* Message (centered) */}
+            {/* Message */}
             <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-4 sm:p-6 text-center mb-6">
               <p className="text-base sm:text-lg text-black leading-relaxed">
                 Sigurado ka na ba sa lahat ng inyong mga sagot? <br />
@@ -45,7 +45,7 @@ const SubmitConfirmationModal = ({ isOpen, onConfirm, onCancel, isSubmitting }) 
               </p>
             </div>
 
-            {/* Buttons (side by side, centered) */}
+            {/* Buttons*/}
             <div className="flex justify-center gap-4 w-full">
               <button
                 onClick={onCancel}

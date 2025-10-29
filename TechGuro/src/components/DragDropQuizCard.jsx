@@ -1,4 +1,4 @@
-// DragDropQuizCard.jsx - Fixed touch support
+// DragDropQuizCard.jsx 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MousePointer, Check, RefreshCw, Target, Hand } from "lucide-react";

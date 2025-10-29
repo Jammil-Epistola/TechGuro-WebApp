@@ -14,6 +14,7 @@ import {
 import HistoryFilters from "../../components/HistoryFilters";
 import AssessmentHistory from "../../components/AssessmentHistory";
 import QuizHistory from "../../components/QuizHistory";
+import API_URL from '../config/api';
 
 const HistorySection = () => {
   const { user } = useUser();
@@ -57,11 +58,9 @@ const HistorySection = () => {
     setError(null);
 
     try {
-      const baseURL = import.meta.env.VITE_API_URL;
-
       const [assessmentRes, quizRes] = await Promise.all([
-        fetch(`${baseURL}/assessment/${user.user_id}`),
-        fetch(`${baseURL}/quiz/results/${user.user_id}`),
+        fetch(`${API_URL}/assessment/${user.user_id}`),
+        fetch(`${API_URL}/quiz/results/${user.user_id}`),
       ]);
 
       if (!assessmentRes.ok || !quizRes.ok) {

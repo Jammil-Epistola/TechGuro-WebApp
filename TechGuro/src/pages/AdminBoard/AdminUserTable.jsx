@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, Trash2, Download, Eye } from "lucide-react";
 import { FaSpinner } from "react-icons/fa";
+import API_URL from '../config/api';
 
 const AdminUserTable = () => {
   const [users, setUsers] = useState([]);
@@ -35,7 +36,7 @@ const AdminUserTable = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/admin/users");
+      const response = await fetch(`${API_URL}/admin/users`);
       const data = await response.json();
       setUsers(data);
       setFilteredUsers(data);
@@ -70,7 +71,7 @@ const AdminUserTable = () => {
     if (window.confirm(`Are you sure you want to delete ${username}? This action cannot be undone.`)) {
       setDeleting(userId);
       try {
-        const response = await fetch(`http://localhost:8000/admin/user/${userId}`, {
+        const response = await fetch(`${API_URL}:8000/admin/user/${userId}`, {
           method: "DELETE",
         });
 
@@ -94,7 +95,7 @@ const AdminUserTable = () => {
   const handleExportCSV = async () => {
     setExporting(true);
     try {
-      const response = await fetch("http://localhost:8000/admin/export/csv");
+      const response = await fetch(`${API_URL}:8000/admin/export/csv`);
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);

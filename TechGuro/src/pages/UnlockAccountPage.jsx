@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Home, Lock, CheckCircle } from "lucide-react";
 import Teki1 from "../assets/Teki 1.png";
+import API_URL from '../config/api';
 
 const UnlockAccountPage = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const UnlockAccountPage = () => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/request-account-unlock", {
+      const response = await fetch(`${API_URL}/request-account-unlock`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -79,7 +80,7 @@ const UnlockAccountPage = () => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/verify-unlock-code", {
+      const response = await fetch(`${API_URL}/verify-unlock-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code: unlockCode }),
@@ -105,7 +106,7 @@ const UnlockAccountPage = () => {
   const handleUnlockAccount = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/unlock-account", {
+      const response = await fetch(`${API_URL}/unlock-account`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, unlock_token: unlockToken }),

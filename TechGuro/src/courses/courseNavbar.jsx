@@ -57,17 +57,17 @@ const CourseNavbar = () => {
     } else {
       navigate(`/courses/${courseName}`);
     }
-    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+    setIsMobileMenuOpen(false); 
   };
 
   const handleDashboardClick = () => {
     navigate("/UserDashboard");
-    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+    setIsMobileMenuOpen(false); 
   };
 
   const handleLogoutClick = () => {
     handleLogout();
-    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+    setIsMobileMenuOpen(false); 
   };
 
   return (
@@ -159,7 +159,7 @@ const CourseNavbar = () => {
           </div>
         </div>
 
-        {/* Mobile View - Date (Numeric) + Hamburger Menu */}
+        {/* Mobile View  */}
         <div className="flex md:hidden items-center gap-3">
           {/* Date (Numeric Format) */}
           <div className="flex items-center gap-1 text-sm">

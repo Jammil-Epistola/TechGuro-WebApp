@@ -1,4 +1,4 @@
-//QuizHistory.jsx - Add this as a separate component
+//QuizHistory.jsx
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Calendar, Target, Search, MessageSquare, ThumbsUp, ThumbsDown, CheckCircle } from "lucide-react";

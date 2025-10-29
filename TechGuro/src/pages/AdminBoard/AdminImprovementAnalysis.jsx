@@ -19,8 +19,8 @@ const AdminImprovementAnalysis = () => {
     setLoading(true);
     try {
       const [analysisRes, summaryRes] = await Promise.all([
-        fetch("http://localhost:8000/admin/improvement-analysis"),
-        fetch("http://localhost:8000/admin/improvement-analysis/summary")
+        fetch(`${API_URL}:8000/admin/improvement-analysis`),
+        fetch(`${API_URL}:8000/admin/improvement-analysis/summary`)
       ]);
 
       const analysisData = await analysisRes.json();

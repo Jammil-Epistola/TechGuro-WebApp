@@ -7,8 +7,8 @@ import CourseNavbar from './courseNavbar';
 import { useUser } from '../context/UserContext';
 import QuizQuestionCard from '../components/QuizQuestionCard';
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
-
-const QUIZ_TIME_LIMIT = 300; // 5 minutes in seconds for all quizzes
+import API_URL from '../config/api';
+const QUIZ_TIME_LIMIT = 300;
 
 const QuizPage = () => {
   const { courseName, courseId, lessonId, quizType } = useParams();
@@ -60,9 +60,8 @@ const QuizPage = () => {
   const fetchQuizData = async () => {
     try {
       setLoading(true);
-      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       const response = await fetch(
-        `${baseURL}/quiz/${courseId}/${lessonId}/${quizType}`
+        `${API_URL}/quiz/${courseId}/${lessonId}/${quizType}`
       );
 
       if (!response.ok) {
@@ -145,7 +144,6 @@ const QuizPage = () => {
 
     try {
       setIsSubmitting(true);
-      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
       // Calculate actual time taken in seconds
       const actualTimeTaken = quizStartTime
@@ -219,7 +217,7 @@ const QuizPage = () => {
       console.log('=========================================\n');
 
       const response = await fetch(
-        `${baseURL}/quiz/submit/${quiz.quiz_id}/${user.user_id}`,
+        `${API_URL}/quiz/submit/${quiz.quiz_id}/${user.user_id}`,
         {
           method: 'POST',
           headers: {

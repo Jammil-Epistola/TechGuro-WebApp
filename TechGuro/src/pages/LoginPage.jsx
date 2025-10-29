@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Teki1 from "../assets/Teki 1.png";
 import loginBG from "../assets/login_image1.jpg";
 import { useUser } from "../context/UserContext";
+import API_URL from '../config/api';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useUser();
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);

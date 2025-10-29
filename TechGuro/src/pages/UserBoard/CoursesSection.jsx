@@ -85,7 +85,7 @@ const CoursesSection = () => {
     const fetchCourses = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/progress/${user.user_id}`
+          `${API_URL}/progress/${user.user_id}`
         );
         const progressData = await res.json();
 
@@ -141,7 +141,7 @@ const CoursesSection = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/progress-recommendations/${user.user_id}/${courseId}`
+        `${API_URL}/progress-recommendations/${user.user_id}/${courseId}`
       );
       const data = await res.json();
 

@@ -8,6 +8,7 @@ import { useMilestone } from '../context/MilestoneContext';
 import TekiDialog from '../components/TekiDialog';
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
 import { MousePointer, Keyboard, Image, X, Play, Menu } from 'lucide-react';
+import API_URL from '../config/api';
 
 const LessonList = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const LessonList = () => {
 
   const fetchCourseData = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/courses`);
+      const res = await fetch(`${API_URL}/courses`);
       if (!res.ok) throw new Error("Failed to fetch courses list.");
       const courses = await res.json();
 
@@ -76,14 +77,14 @@ const LessonList = () => {
       const foundCourseId = matchedCourse.id;
       setCourseId(foundCourseId);
 
-      const lessonsRes = await fetch(`http://localhost:8000/lesson-courses/${foundCourseId}`);
+      const lessonsRes = await fetch(`${API_URL}/lesson-courses/${foundCourseId}`);
       if (!lessonsRes.ok) throw new Error("Failed to fetch lessons data.");
       const lessonsData = await lessonsRes.json();
       setLessonsData(lessonsData);
 
       try {
         const bktRes = await fetch(
-          `http://localhost:8000/bkt/recommendations/${user.user_id}/${foundCourseId}?threshold=0.7&limit=10`
+          `${API_URL}/bkt/recommendations/${user.user_id}/${foundCourseId}?threshold=0.7&limit=10`
         );
 
         if (!bktRes.ok) throw new Error("Failed to fetch BKT recommendations.");
@@ -95,7 +96,7 @@ const LessonList = () => {
         setRecommendedLessons(recommended);
 
         const progressRes = await fetch(
-          `http://localhost:8000/progress-recommendations/${user.user_id}/${foundCourseId}`
+          `${API_URL}/progress-recommendations/${user.user_id}/${foundCourseId}`
         );
 
         if (progressRes.ok) {
@@ -120,7 +121,7 @@ const LessonList = () => {
 
         try {
           const progressRes = await fetch(
-            `http://localhost:8000/progress-recommendations/${user.user_id}/${foundCourseId}`
+            `${API_URL}/progress-recommendations/${user.user_id}/${foundCourseId}`
           );
           if (progressRes.ok) {
             const progressData = await progressRes.json();
@@ -153,7 +154,7 @@ const LessonList = () => {
 
     setLoadingQuizData(true);
     try {
-      const response = await fetch(`http://localhost:8000/quiz-modes/${courseId}`);
+      const response = await fetch(`${API_URL}/quiz-modes/${courseId}`);
       if (response.ok) {
         const data = await response.json();
         setQuizModes(data.quiz_modes || []);
@@ -174,7 +175,7 @@ const LessonList = () => {
 
     setLoadingQuizData(true);
     try {
-      const response = await fetch(`http://localhost:8000/quiz-lessons/${courseId}/${quizType}`);
+      const response = await fetch(`${API_URL}/quiz-lessons/${courseId}/${quizType}`);
       if (response.ok) {
         const data = await response.json();
         setAvailableLessonsForQuiz(data.available_lessons || []);
@@ -283,11 +284,11 @@ const LessonList = () => {
       if (!user || !courseId) return;
 
       try {
-        const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/2`);
+        const response = await fetch(`${API_URL}/milestones/check/${user.user_id}/2`);
         const data = await response.json();
 
         if (data.earned) {
-          const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
+          const milestonesResponse = await fetch(`${API_URL}/milestones/${user.user_id}`);
           const milestones = await milestonesResponse.json();
           const milestone2 = milestones.find(m => m.id === 2);
 
@@ -296,7 +297,7 @@ const LessonList = () => {
             setTimeout(() => {
               showMilestone(milestone2);
               // Mark as shown in the database
-              fetch(`http://localhost:8000/milestones/mark-shown/${user.user_id}/2`, {
+              fetch(`${API_URL}/milestones/mark-shown/${user.user_id}/2`, {
                 method: 'POST'
               }).catch(err => console.error("Error marking milestone as shown:", err));
             }, 1500);
@@ -344,7 +345,7 @@ const LessonList = () => {
               exit={{ x: -320, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              {/* Close Button - Only visible on mobile */}
+              {/* Close Button */}
               <button
                 onClick={() => setIsSidebarOpen(false)}
                 className="md:hidden absolute top-4 right-4 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all z-10"
@@ -513,7 +514,7 @@ const LessonList = () => {
           )}
         </AnimatePresence>
 
-        {/* Overlay backdrop - Only on mobile when sidebar is open */}
+        {/* Overlay backdrop*/}
         <AnimatePresence>
           {isSidebarOpen && (
             <motion.div
@@ -529,7 +530,7 @@ const LessonList = () => {
 
         {/* Main Content */}
         <div className="flex-1 p-4 md:p-8 relative z-0">
-          {/* Open Sidebar Button - Only visible on mobile when sidebar is closed */}
+          {/* Open Sidebar Button */}
           {!isSidebarOpen && (
             <motion.button
               onClick={() => setIsSidebarOpen(true)}

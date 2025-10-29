@@ -11,6 +11,7 @@ import AchievementsSection from "./UserBoard/AchievementsSection";
 import CoursesSection from "./UserBoard/CoursesSection";
 import HistorySection from "./UserBoard/HistorySection";
 import tgLogo from "../assets/TechGuroLogo_3.png";
+import API_URL from '../config/api';
 
 const UserBoard = () => {
   const navigate = useNavigate();
@@ -45,11 +46,11 @@ const UserBoard = () => {
       if (!user || !user.user_id) return;
 
       try {
-        const response = await fetch(`http://localhost:8000/milestones/check/${user.user_id}/1`);
+        const response = await fetch(`${API_URL}/milestones/check/${user.user_id}/1`);
         const data = await response.json();
 
         if (data.earned) {
-          const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
+          const milestonesResponse = await fetch(`${API_URL}/milestones/${user.user_id}`);
           const milestones = await milestonesResponse.json();
           const milestone1 = milestones.find(m => m.id === 1);
 
@@ -58,7 +59,7 @@ const UserBoard = () => {
             setTimeout(() => {
               showMilestone(milestone1);
               // Mark as shown in the database
-              fetch(`http://localhost:8000/milestones/mark-shown/${user.user_id}/1`, {
+              fetch(`${API_URL}/milestones/mark-shown/${user.user_id}/1`, {
                 method: 'POST'
               }).catch(err => console.error("Error marking milestone as shown:", err));
             }, 1000);
@@ -80,7 +81,7 @@ const UserBoard = () => {
       const newlyEarnedMilestones = [];
 
       try {
-        const milestonesResponse = await fetch(`http://localhost:8000/milestones/${user.user_id}`);
+        const milestonesResponse = await fetch(`${API_URL}/milestones/${user.user_id}`);
         const milestones = await milestonesResponse.json();
 
         for (const milestoneId of courseCompletionMilestones) {
@@ -90,7 +91,7 @@ const UserBoard = () => {
           if (milestone && milestone.status === "earned" && !milestone.notification_shown) {
             newlyEarnedMilestones.push(milestone);
             // Mark as shown in the database
-            fetch(`http://localhost:8000/milestones/mark-shown/${user.user_id}/${milestoneId}`, {
+            fetch(`${API_URL}/milestones/mark-shown/${user.user_id}/${milestoneId}`, {
               method: 'POST'
             }).catch(err => console.error("Error marking milestone as shown:", err));
           }

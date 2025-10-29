@@ -8,6 +8,7 @@ import AssessmentInstructions from "../components/AssessmentInstructions";
 import AssessmentResults from "../components/AssessmentResults";
 import SubmitConfirmationModal from "../components/SubmitConfirmationModal";
 import { useUser } from "../context/UserContext";
+import API_URL from '../config/api';
 
 const PreAssessment = () => {
   const { courseName } = useParams();
@@ -23,14 +24,13 @@ const PreAssessment = () => {
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [lastQuestionTimer, setLastQuestionTimer] = useState(null);
 
-  // New states for results
   const [showResults, setShowResults] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const resCourses = await fetch("http://localhost:8000/courses");
+        const resCourses = await fetch(`${API_URL}/courses`);
         if (!resCourses.ok) throw new Error("Failed to fetch courses");
         const courses = await resCourses.json();
 
@@ -43,7 +43,7 @@ const PreAssessment = () => {
         }
 
         const resQuestions = await fetch(
-          `http://localhost:8000/assessment/questions/${course.id}?assessment_type=pre`
+          `${API_URL}/assessment/questions/${course.id}?assessment_type=pre`
         );
         if (!resQuestions.ok) throw new Error("Failed to fetch questions");
         const data = await resQuestions.json();
@@ -127,7 +127,7 @@ const PreAssessment = () => {
 
     setIsSubmitting(true);
     try {
-      const resCourses = await fetch("http://localhost:8000/courses");
+      const resCourses = await fetch(`${API_URL}/courses`);
       const courses = await resCourses.json();
       const course = courses.find(
         (c) => c.title.replace(/\s+/g, "").toLowerCase() === courseName.toLowerCase()
@@ -143,7 +143,7 @@ const PreAssessment = () => {
         }))
       };
 
-      const response = await fetch("http://localhost:8000/assessment/submit", {
+      const response = await fetch(`${API_URL}/assessment/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submissionData),
@@ -223,9 +223,9 @@ const PreAssessment = () => {
           </div>
         </div>
 
-        {/* Desktop Layout: Side-by-side buttons */}
+        {/* Desktop Layout */}
         <div className="hidden md:flex items-end justify-center gap-6">
-          {/* Previous Button - Left Side */}
+          {/* Previous Button */}
           <div className="flex items-end">
             <button
               onClick={handlePrevious}
@@ -239,7 +239,7 @@ const PreAssessment = () => {
             </button>
           </div>
 
-          {/* Question Card - Center */}
+          {/* Question Card */}
           <div className="flex justify-center">
             <QuestionCard
               question={{ ...currentQuestion, questionNumber: currentQuestionIndex + 1 }}
@@ -249,7 +249,7 @@ const PreAssessment = () => {
             />
           </div>
 
-          {/* Next Button - Invisible on last question to maintain layout */}
+          {/* Next Button  */}
           <div className="flex items-end">
             <button
               onClick={handleNext}
@@ -261,7 +261,7 @@ const PreAssessment = () => {
           </div>
         </div>
 
-        {/* Mobile Layout: Buttons below card */}
+        {/* Mobile Layout*/}
         <div className="md:hidden flex flex-col items-center gap-4">
           {/* Question Card */}
           <div className="w-full flex justify-center px-2">
@@ -312,7 +312,7 @@ const PreAssessment = () => {
         isSubmitting={isSubmitting}
       />
 
-      {/* TekiDialog for "Please select an answer" message */}
+      {/* TekiDialog */}
       {showSelectAnswer && (
         <TekiDialog
           message="Please select an answer before proceeding to the next question."
@@ -320,7 +320,6 @@ const PreAssessment = () => {
         />
       )}
 
-      {/* TekiDialog for other messages */}
       {unlockReason && (
         <TekiDialog
           message={unlockReason}

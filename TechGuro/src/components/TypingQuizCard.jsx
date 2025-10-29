@@ -7,7 +7,6 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange, onSubmit }) => {
   const [inputValue, setInputValue] = useState(userAnswer || "");
   const [isTyping, setIsTyping] = useState(false);
 
-  // Update input when userAnswer changes from parent
   useEffect(() => {
     setInputValue(userAnswer || "");
   }, [userAnswer]);
@@ -21,7 +20,6 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange, onSubmit }) => {
     setInputValue(value);
     setIsTyping(true);
 
-    // Call parent's answer change handler
     onAnswerChange(value);
 
     // Reset typing indicator after a short delay
@@ -34,7 +32,6 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange, onSubmit }) => {
 
       // Check if there's a valid answer before submitting
       if (inputValue.trim() && onSubmit) {
-        // Add a small delay for better UX (shows typing animation briefly)
         setTimeout(() => {
           onSubmit();
         }, 300);
@@ -122,7 +119,7 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange, onSubmit }) => {
         </h2>
       </motion.div>
 
-      {/* Always Show Options Section - No Auto-fill */}
+      {/* Always Show Options Section*/}
       {options && options.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -154,7 +151,6 @@ const TypingQuizCard = ({ question, userAnswer, onAnswerChange, onSubmit }) => {
                     }}
                   >
                     <div className="text-center">
-                      {/* Removed "Option 1" text, increased font size to text-3xl (30px base + ~4-5px = ~34-35px) */}
                       <div className="font-bold text-3xl">{option}</div>
                       {isMatching && (
                         <motion.div

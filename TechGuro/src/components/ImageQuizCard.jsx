@@ -17,7 +17,7 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
     userAnswer: userAnswer
   });
 
-  // ✅ Parse options safely (handle JSON string from DB or already-parsed array)
+  // Parse options safely (handle JSON string from DB or already-parsed array)
   const parsedOptions = Array.isArray(options)
     ? options
     : (() => {
@@ -30,7 +30,7 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
 
   console.log('Parsed options:', parsedOptions);
 
-  // ✅ Helper function to get option value (copied from QuestionCard)
+  // Helper function to get option value (copied from QuestionCard)
   const getOptionValue = (option) => {
     console.log('Processing option:', option);
     
@@ -42,7 +42,7 @@ const ImageQuizCard = ({ question, userAnswer, onAnswerChange }) => {
     return option;
   };
 
-  // ✅ Helper function to render option content (copied from QuestionCard)
+  // Helper function to render option content (copied from QuestionCard)
   const renderOptionContent = (option, index) => {
     if (typeof option === 'object' && option.image) {
       return (

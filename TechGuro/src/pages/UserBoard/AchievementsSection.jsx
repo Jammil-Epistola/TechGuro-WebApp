@@ -1,9 +1,10 @@
-//Enhanced AchievementSection
+//AchievementSection
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Lock, CheckCircle, Filter, ChevronDown } from "lucide-react";
 import { useUser } from "../../context/UserContext";
 import placeholderimg from "../../assets/Dashboard/placeholder_teki.png";
+import API_URL from '../config/api';
 
 const AchievementsSection = () => {
   const [filter, setFilter] = useState("all");
@@ -13,15 +14,13 @@ const AchievementsSection = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user } = useUser();
 
-  const API_BASE = import.meta.env?.VITE_API_URL || 'http://localhost:8000';
-
   useEffect(() => {
     const fetchMilestones = async () => {
       if (!user?.user_id) return;
 
       try {
         setLoading(true);
-        const response = await fetch(`${API_BASE}/milestones/${user.user_id}`);
+        const response = await fetch(`${API_URL}/milestones/${user.user_id}`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch milestones: ${response.status}`);
@@ -39,7 +38,7 @@ const AchievementsSection = () => {
     };
 
     fetchMilestones();
-  }, [user, API_BASE]);
+  }, [user, API_URL]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -146,7 +145,7 @@ const AchievementsSection = () => {
         MILESTONES
       </motion.h1>
 
-      {/* Filter Section - Dropdown on Mobile, Buttons on Desktop */}
+      {/* Filter Section */}
       <motion.div 
         className="mb-6 md:mb-8"
         initial={{ opacity: 0, y: 20 }}
@@ -289,7 +288,7 @@ const AchievementsSection = () => {
                     </div>
                   )}
 
-                  {/* Left Image - Smaller on mobile */}
+                  {/* Left Image */}
                   <div className="w-16 h-16 md:w-20 md:h-20 mr-4 md:mr-6 relative flex-shrink-0">
                     <motion.img
                       src={milestone.icon_url && milestone.icon_url !== "placeholderimg" 
@@ -316,7 +315,7 @@ const AchievementsSection = () => {
                     )}
                   </div>
 
-                  {/* Details - Responsive text */}
+                  {/* Details  */}
                   <div className="flex-1 min-w-0">
                     <h2 className="text-lg md:text-2xl font-bold text-[#4C5173] mb-1 md:mb-2 break-words">
                       {milestone.title}
