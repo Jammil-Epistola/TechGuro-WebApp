@@ -2,20 +2,31 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware 
-from TGbackend.database import engine
+from TGbackend.database import engine, Base
 from TGbackend.database import SessionLocal
 from TGbackend import models
 from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes, milestoneRoutes, quizRoutes, adminRoutes
 
-# Create the database tables
-models.Base.metadata.create_all(bind=engine)
-
-# Initialize
+# Initialize FastAPI
 print("Before FastAPI instance")
 app = FastAPI()
 print("After FastAPI instance")
 
-# Read CORS origins from env
+# Startup event to create tables automatically
+@app.on_event("startup")
+async def startup_event():
+    """
+    Create database tables on startup if they don't exist.
+    This runs automatically when the app starts on Render.
+    """
+    try:
+        print("🔄 Creating/verifying database tables...")
+        Base.metadata.create_all(bind=engine)
+        print("✅ Database tables created/verified successfully!")
+    except Exception as e:
+        print(f"⚠️ Error creating tables: {e}")
+
+# Read CORS origins from environment variable
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
 
 app.add_middleware(
@@ -38,7 +49,7 @@ app.include_router(userRoutes.router)
 # Progress tracking
 app.include_router(progressRoutes.router)
 
-#Milestones
+# Milestones
 app.include_router(milestoneRoutes.router)
 
 # Lessons and courses

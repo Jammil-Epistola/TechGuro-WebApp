@@ -1,5 +1,5 @@
 # adminRoutes.py
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Header
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from datetime import datetime, date
@@ -7,6 +7,7 @@ from TGbackend import models
 from TGbackend.database import get_db
 from TGbackend.schema import AdminCreate, AdminLogin, UserAssessmentData
 import csv
+import os
 from io import StringIO
 from fastapi.responses import StreamingResponse
 
@@ -381,6 +382,7 @@ def get_user_detail(user_id: int, db: Session = Depends(get_db)):
         "course_progress": course_progress
     }
 
+
 # ============================================
 # USER DELETION
 # ============================================
@@ -529,6 +531,7 @@ def export_users_csv(db: Session = Depends(get_db)):
         headers={"Content-Disposition": "attachment; filename=users_export.csv"}
     )
 
+
 # ============================================
 # IMPROVEMENT ANALYSIS
 # ============================================
@@ -617,6 +620,7 @@ def get_improvement_analysis(db: Session = Depends(get_db)):
     
     return improvement_data
 
+
 @router.get("/improvement-analysis/summary")
 def get_improvement_summary(db: Session = Depends(get_db)):
     """
@@ -685,10 +689,201 @@ def get_improvement_summary(db: Session = Depends(get_db)):
     
     return {
         "total_users_with_both_assessments": total_users_with_both_assessments,
-        "total_course_assessments": course_assessment_count,  # Total number of course assessments completed
+        "total_course_assessments": course_assessment_count,
         "total_improved": total_improved,
         "total_declined": total_declined,
         "total_no_change": total_no_change,
         "average_improvement_percentage": average_improvement,
         "all_improvements": all_improvements
     }
+
+
+# ============================================
+# DATABASE SEEDING (For Render Deployment)
+# ============================================
+
+# Admin secret key for seeding (set in Render environment variables)
+ADMIN_SECRET = os.getenv("ADMIN_SECRET_KEY", "change-this-secret-in-production")
+
+def verify_admin_secret(x_admin_key: str = Header(None)):
+    """Verify admin secret key from header"""
+    if x_admin_key != ADMIN_SECRET:
+        raise HTTPException(status_code=403, detail="Unauthorized: Invalid admin key")
+    return True
+
+
+@router.post("/seed-database")
+async def seed_database(x_admin_key: str = Header(None)):
+    """
+    Seed the database with initial content (courses, lessons, milestones, quizzes).
+    
+    Usage:
+        curl -X POST https://your-backend.onrender.com/admin/seed-database \
+             -H "X-Admin-Key: your-secret-key"
+    
+    ⚠️ WARNING: This should only be used for initial setup!
+    """
+    verify_admin_secret(x_admin_key)
+    
+    try:
+        # Import seeding modules
+        from TGbackend.seeders.seedCourse import main as seed_courses
+        from TGbackend.seeders.seedMilestone import main as seed_milestones
+        from TGbackend.seeders.seedQuiz import seed_quizzes
+        
+        print("🌱 Starting database seeding...")
+        
+        # Seed courses and assessments
+        seed_courses()
+        print("✅ Courses and assessments seeded")
+        
+        # Seed milestones
+        seed_milestones()
+        print("✅ Milestones seeded")
+        
+        # Seed quizzes
+        seed_quizzes()
+        print("✅ Quizzes seeded")
+        
+        return {
+            "success": True,
+            "message": "Database seeded successfully!",
+            "courses": "seeded",
+            "lessons": "seeded",
+            "assessments": "seeded",
+            "milestones": "seeded",
+            "quizzes": "seeded"
+        }
+        
+    except Exception as e:
+        import traceback
+        error_details = traceback.format_exc()
+        print(f"❌ Seeding failed: {error_details}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Seeding failed: {str(e)}"
+        )
+
+
+@router.get("/database-status")
+async def database_status(x_admin_key: str = Header(None)):
+    """
+    Check database status and content counts.
+    
+    Usage:
+        curl https://your-backend.onrender.com/admin/database-status \
+             -H "X-Admin-Key: your-secret-key"
+    """
+    verify_admin_secret(x_admin_key)
+    
+    try:
+        from TGbackend.database import SessionLocal
+        from TGbackend.models import Course, Lesson, LessonSlides, Question, Milestone, Quiz, QuizQuestion, User
+        
+        db = SessionLocal()
+        
+        status = {
+            "database": "connected",
+            "content": {
+                "courses": db.query(Course).count(),
+                "lessons": db.query(Lesson).count(),
+                "lesson_slides": db.query(LessonSlides).count(),
+                "assessment_questions": db.query(Question).count(),
+                "milestones": db.query(Milestone).count(),
+                "quizzes": db.query(Quiz).count(),
+                "quiz_questions": db.query(QuizQuestion).count(),
+            },
+            "users": {
+                "total_users": db.query(User).filter(User.role == "user").count(),
+                "total_admins": db.query(User).filter(User.role == "admin").count(),
+            }
+        }
+        
+        db.close()
+        return status
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to check status: {str(e)}"
+        )
+
+
+@router.post("/clear-content")
+async def clear_content_only(x_admin_key: str = Header(None)):
+    """
+    Clear ONLY content tables (courses, lessons, milestones, quizzes).
+    User data (users, progress, assessment results) is PRESERVED.
+    
+    ⚠️ USE WITH CAUTION! This deletes all course content.
+    
+    Usage:
+        curl -X POST https://your-backend.onrender.com/admin/clear-content \
+             -H "X-Admin-Key: your-secret-key"
+    """
+    verify_admin_secret(x_admin_key)
+    
+    try:
+        from TGbackend.database import SessionLocal
+        from TGbackend import models
+        
+        db = SessionLocal()
+        
+        print("🗑️ Clearing content tables (preserving user data)...")
+        
+        # Delete content only
+        db.query(models.QuizQuestion).delete()
+        print("  ✓ Quiz questions cleared")
+        
+        db.query(models.Quiz).delete()
+        print("  ✓ Quizzes cleared")
+        
+        db.query(models.Question).delete()
+        print("  ✓ Assessment questions cleared")
+        
+        db.query(models.Milestone).delete()
+        print("  ✓ Milestones cleared")
+        
+        db.query(models.LessonSlides).delete()
+        print("  ✓ Lesson slides cleared")
+        
+        db.query(models.Lesson).delete()
+        print("  ✓ Lessons cleared")
+        
+        db.query(models.Course).delete()
+        print("  ✓ Courses cleared")
+        
+        db.commit()
+        db.close()
+        
+        print("✅ Content cleared successfully (user data preserved)")
+        
+        return {
+            "success": True,
+            "message": "Content cleared successfully. User data preserved.",
+            "cleared": [
+                "courses",
+                "lessons",
+                "lesson_slides",
+                "assessment_questions",
+                "milestones",
+                "quizzes",
+                "quiz_questions"
+            ],
+            "preserved": [
+                "users",
+                "progress",
+                "assessment_results",
+                "quiz_results",
+                "milestones_earned",
+                "user_lesson_mastery"
+            ]
+        }
+        
+    except Exception as e:
+        db.rollback()
+        db.close()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to clear content: {str(e)}"
+        )
