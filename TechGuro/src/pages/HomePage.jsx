@@ -1,6 +1,7 @@
 //HomePage.jsx
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./HomeNavbar";
 import { FaEnvelope, FaPhone, FaBookOpen } from "react-icons/fa";
 import home_background1 from "../assets/Home/home_background1.jpg";
@@ -74,6 +75,7 @@ const tutorialSlides = [
 ];
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [activeTab, setActiveTab] = useState("About");
   const [showTutorial, setShowTutorial] = useState(false);
@@ -219,7 +221,7 @@ const HomePage = () => {
                     {/* Get Started Button - Only on Last Slide */}
                     {currentTutorialSlide === tutorialSlides.length - 1 && (
                       <motion.button
-                        onClick={() => (window.location.href = "/login")}
+                        onClick={() => navigate("/login")}
                         className="mt-6 px-8 py-3 bg-[#B6C44D] text-black rounded-lg font-semibold text-lg hover:bg-[#a5b83d] transition-all"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -445,7 +447,7 @@ const HomePage = () => {
                   <div className="flex flex-col sm:flex-row gap-4 mt-auto">
                     <button
                       className="bg-[#4c5173] text-white w-full sm:w-1/2 py-3 md:py-4 rounded-lg text-[1.2rem] md:text-[1.4rem] font-bold transition-colors hover:bg-[#3b3f65]"
-                      onClick={() => (window.location.href = "/login")}
+                      onClick={() => navigate("/login")}
                     >
                       Start Course
                     </button>
