@@ -81,7 +81,7 @@ const QuizHistory = ({
           {Object.keys(groupedQuizzes).length === 0 ? (
             <div className="bg-white rounded-lg border border-[#6B708D] p-8 text-center">
               <Search size={48} className="mx-auto text-gray-400 mb-4" />
-              <p className="text-gray-600">No quizzes found with current filters</p>
+              <p className="text-xs md:text-sm text-gray-600">No quizzes found with current filters</p>
             </div>
           ) : (
             Object.entries(groupedQuizzes).map(([courseName, lessons]) => (
@@ -89,8 +89,8 @@ const QuizHistory = ({
                 key={courseName}
                 className="bg-white rounded-lg border border-[#6B708D] overflow-hidden"
               >
-                <div className="bg-[#F9F8FE] px-6 py-4 border-b border-[#6B708D]">
-                  <h3 className="text-xl font-semibold text-[#4C5173]">{courseName}</h3>
+                <div className="bg-[#F9F8FE] px-4 md:px-6 py-3 md:py-4 border-b border-[#6B708D]">
+                  <h3 className="text-lg md:text-xl font-semibold text-[#4C5173]">{courseName}</h3>
                 </div>
                 <div className="divide-y divide-gray-200">
                   {Object.entries(lessons).map(([lessonName, quizTypes]) => (
@@ -104,35 +104,39 @@ const QuizHistory = ({
                               <h5 className="font-medium text-[#4C5173]">{quizTypeName}</h5>
                               <span className="text-sm text-gray-500">({quizzes.length} attempts)</span>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                               {quizzes.map((quiz, index) => (
                                 <motion.div
                                   key={quiz.id}
-                                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md"
+                                  className="border border-gray-200 rounded-lg p-3 md:p-4 hover:shadow-md transition-shadow"
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: index * 0.05 }}
                                 >
                                   <div className="flex items-center justify-between mb-2">
-                                    <span className="text-sm text-gray-600">
+                                    <span className="text-xs md:text-sm text-gray-600">
                                       {quiz.score}/{quiz.total_questions}
                                     </span>
-                                    <span className={`px-2 py-1 rounded text-xs font-semibold ${
-                                      quiz.percentage >= 60 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                                    }`}>
+                                    <span className={`px-2 py-0.5 md:py-1 rounded text-xs font-semibold ${quiz.percentage >= 60 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                      }`}>
                                       {quiz.percentage >= 60 ? 'Passed' : 'Failed'}
                                     </span>
                                   </div>
+
                                   <div className="mb-3">
-                                    <div className="text-lg font-semibold text-[#4C5173]">
+                                    <div className="text-lg md:text-xl font-semibold text-[#4C5173]">
                                       {quiz.percentage}%
                                     </div>
                                     <div className="flex items-center gap-1 text-xs text-gray-500">
                                       <Calendar size={12} />
-                                      {formatDate(quiz.completed_at)}
+                                      <span className="truncate">{formatDate(quiz.completed_at)}</span>
                                     </div>
                                   </div>
-                                  <div className="flex gap-2">
+
+                                  <div className="flex flex-col sm:flex-row gap-2">
                                     <motion.button
                                       onClick={() => openDetailModal(quiz)}
-                                      className="flex-1 px-3 py-1 bg-[#4C5173] text-white text-xs rounded hover:bg-[#3a3f5c]"
+                                      className="flex-1 px-3 py-1.5 bg-[#4C5173] text-white text-xs md:text-sm rounded hover:bg-[#3a3f5c] transition-colors"
                                       whileHover={{ scale: 1.02 }}
                                       whileTap={{ scale: 0.98 }}
                                     >
@@ -144,17 +148,18 @@ const QuizHistory = ({
                                           showFeedback === `quiz-${quiz.id}` ? null : `quiz-${quiz.id}`
                                         )
                                       }
-                                      className="px-3 py-1 border border-[#4C5173] text-[#4C5173] text-xs rounded hover:bg-gray-50"
+                                      className="flex-1 px-3 py-1.5 border border-[#4C5173] text-[#4C5173] text-xs md:text-sm rounded hover:bg-gray-50 transition-colors"
                                       whileHover={{ scale: 1.02 }}
                                       whileTap={{ scale: 0.98 }}
                                     >
                                       Feedback
                                     </motion.button>
                                   </div>
+
                                   <AnimatePresence>
                                     {showFeedback === `quiz-${quiz.id}` && (
-                                      <motion.div 
-                                        className="mt-3 p-3 bg-gray-50 rounded border text-xs"
+                                      <motion.div
+                                        className="mt-3 p-2 md:p-3 bg-gray-50 rounded border text-xs"
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: "auto" }}
                                         exit={{ opacity: 0, height: 0 }}
@@ -164,7 +169,7 @@ const QuizHistory = ({
                                           <div className="flex gap-2">
                                             <motion.button
                                               onClick={() => handleFeedback(quiz.id, "quiz", true, "")}
-                                              className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-800 rounded"
+                                              className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-800 rounded text-xs"
                                               whileHover={{ scale: 1.05 }}
                                               whileTap={{ scale: 0.95 }}
                                             >
@@ -173,7 +178,7 @@ const QuizHistory = ({
                                             </motion.button>
                                             <motion.button
                                               onClick={() => handleFeedback(quiz.id, "quiz", false, "")}
-                                              className="flex items-center gap-1 px-2 py-1 bg-red-100 text-red-800 rounded"
+                                              className="flex items-center gap-1 px-2 py-1 bg-red-100 text-red-800 rounded text-xs"
                                               whileHover={{ scale: 1.05 }}
                                               whileTap={{ scale: 0.95 }}
                                             >
@@ -225,7 +230,7 @@ const QuizHistory = ({
             exit={{ opacity: 0 }}
             onClick={closeDetailModal}
           >
-            <motion.div 
+            <motion.div
               className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
               initial={{ scale: 0.9, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -294,9 +299,8 @@ const QuizHistory = ({
                       </div>
                       <div>
                         <span className="text-gray-600">Status:</span>
-                        <span className={`ml-2 font-medium ${
-                          detailModalData.percentage >= 60 ? 'text-green-600' : 'text-red-600'
-                        }`}>
+                        <span className={`ml-2 font-medium ${detailModalData.percentage >= 60 ? 'text-green-600' : 'text-red-600'
+                          }`}>
                           {detailModalData.percentage >= 60 ? '✅ Passed' : '❌ Failed'}
                         </span>
                       </div>
@@ -320,9 +324,9 @@ const QuizHistory = ({
                         <p className="text-sm text-blue-800 font-medium mb-1">Performance Analysis</p>
                         <p className="text-sm text-blue-700">
                           {detailModalData.percentage >= 90 ? 'Excellent work! You have mastered this quiz.' :
-                           detailModalData.percentage >= 75 ? 'Good job! You have a solid understanding.' :
-                           detailModalData.percentage >= 60 ? 'You passed, but there is room for improvement.' :
-                           'Keep practicing. Review the lesson materials and try again.'}
+                            detailModalData.percentage >= 75 ? 'Good job! You have a solid understanding.' :
+                              detailModalData.percentage >= 60 ? 'You passed, but there is room for improvement.' :
+                                'Keep practicing. Review the lesson materials and try again.'}
                         </p>
                       </div>
                     </div>
@@ -330,8 +334,8 @@ const QuizHistory = ({
 
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                     <p className="text-sm text-yellow-800">
-                      <strong>Note:</strong> Detailed question-by-question analysis is not available for quizzes. 
-                      Only overall scores are recorded. To see which questions you got right or wrong, 
+                      <strong>Note:</strong> Detailed question-by-question analysis is not available for quizzes.
+                      Only overall scores are recorded. To see which questions you got right or wrong,
                       you'll need to retake the quiz.
                     </p>
                   </div>

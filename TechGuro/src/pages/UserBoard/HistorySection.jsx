@@ -90,39 +90,43 @@ const HistorySection = () => {
   };
 
   return (
-    <div className="bg-[#DFDFEE] min-h-screen p-6">
+    <div className="bg-[#DFDFEE] min-h-screen p-4 md:p-6">
       <motion.div
         className="max-w-7xl mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        {/* Header */}
-        <h1 className="text-3xl font-bold text-[#4C5173] mb-2">Learning History</h1>
-        <p className="text-gray-600 mb-6">Track your progress and review performance</p>
+        {/* Header - Responsive */}
+        <h1 className="text-2xl md:text-3xl font-bold text-[#4C5173] mb-2">Learning History</h1>
+        <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Track your progress and review performance</p>
 
-        {/* Tab Navigation */}
-        <div className="flex gap-2 mb-6">
+        {/* Tab Navigation - Responsive */}
+        <div className="flex gap-2 mb-4 md:mb-6">
           <motion.button
             onClick={() => setActiveTab("assessments")}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold ${
+            className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base ${
               activeTab === "assessments"
                 ? "bg-[#4C5173] text-white"
                 : "bg-white border border-[#4C5173] text-[#4C5173]"
             }`}
+            whileTap={{ scale: 0.95 }}
           >
-            <BookOpen size={20} />
-            Assessments ({assessmentHistory.length})
+            <BookOpen size={16} className="md:w-5 md:h-5" />
+            <span className="hidden sm:inline">Assessments</span>
+            <span className="sm:hidden">Tests</span>
+            <span>({assessmentHistory.length})</span>
           </motion.button>
           <motion.button
             onClick={() => setActiveTab("quizzes")}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold ${
+            className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base ${
               activeTab === "quizzes"
                 ? "bg-[#4C5173] text-white"
                 : "bg-white border border-[#4C5173] text-[#4C5173]"
             }`}
+            whileTap={{ scale: 0.95 }}
           >
-            <Target size={20} />
-            Quizzes ({quizHistory.length})
+            <Target size={16} className="md:w-5 md:h-5" />
+            <span>Quizzes ({quizHistory.length})</span>
           </motion.button>
         </div>
 

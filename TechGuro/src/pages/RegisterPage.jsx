@@ -15,12 +15,12 @@ const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  
+
   // Separate birthday fields
   const [birthMonth, setBirthMonth] = useState('');
   const [birthDay, setBirthDay] = useState('');
   const [birthYear, setBirthYear] = useState('');
-  
+
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -55,16 +55,16 @@ const RegisterPage = () => {
   // Calculate age from separate fields
   const calculateAge = () => {
     if (!birthMonth || !birthDay || !birthYear) return null;
-    
+
     const birthDate = new Date(`${birthYear}-${birthMonth}-${birthDay}`);
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
-    
+
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
-    
+
     return age;
   };
 
@@ -174,7 +174,7 @@ const RegisterPage = () => {
             onChange={e => setEmail(e.target.value)}
             className="w-full px-4 py-3 bg-[#F9F8FE] border border-[#6B708D] rounded focus:outline-none focus:ring-2 focus:ring-[#697DFF] text-black"
           />
-          
+
           <input
             type="text"
             placeholder="Username"
@@ -223,7 +223,7 @@ const RegisterPage = () => {
               <Calendar className="w-4 h-4" />
               Birthday
             </label>
-            
+
             <div className="grid grid-cols-3 gap-3">
               {/* Month Dropdown */}
               <select
@@ -267,7 +267,7 @@ const RegisterPage = () => {
                 ))}
               </select>
             </div>
-            
+
             {/* Display Age if all fields are filled */}
             {birthMonth && birthDay && birthYear && (
               <div className="text-xs text-gray-600 mt-1 flex items-center gap-1">
@@ -349,13 +349,15 @@ const RegisterPage = () => {
       {showSuccessModal && (
         <>
           <div className="fixed inset-0 bg-black/50 z-40"></div>
-          <div className="fixed top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-6 w-[90%] max-w-md text-black text-center">
-            <div className="text-green-500 text-6xl mb-4">✓</div>
-            <h2 className="text-xl font-bold mb-4">Account Created Successfully!</h2>
-            <p className="mb-6 text-gray-600">Ang iyong account ay nagawa na. Welcome sa TechGuro!</p>
+          <div className="fixed top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-6 w-[85%] max-w-md text-black text-center">
+            <div className="text-green-500 text-4xl md:text-6xl mb-3 md:mb-4">✓</div>
+            <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Account Created Successfully!</h2>
+            <p className="mb-4 md:mb-6 text-sm md:text-base text-gray-600">
+              Ang iyong account ay nagawa na. Welcome sa TechGuro!
+            </p>
             <button
               onClick={handleCloseSuccess}
-              className="bg-[#697DFF] text-white px-6 py-2 rounded hover:bg-[#5d71e0] font-bold transition-all transform hover:scale-105"
+              className="bg-[#697DFF] text-white px-5 py-2 md:px-6 md:py-2 rounded text-sm md:text-base hover:bg-[#5d71e0] font-bold transition-all transform hover:scale-105 active:scale-95"
             >
               Bumalik sa Log In
             </button>

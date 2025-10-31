@@ -50,7 +50,7 @@ const AssessmentHistory = ({
     setLoadingDetails(true);
     setDetailQuestions([]);
     setDetailResponses([]);
-    
+
     try {
       // Fetch questions and responses
       const [questionsRes, responsesRes] = await Promise.all([
@@ -100,15 +100,15 @@ const AssessmentHistory = ({
       exit={{ opacity: 0, x: 20 }}
     >
       <div className="bg-white rounded-lg border border-[#6B708D] overflow-hidden">
-        <div className="bg-[#F9F8FE] px-6 py-4 border-b border-[#6B708D]">
-          <h3 className="text-xl font-semibold text-[#4C5173]">Assessment History</h3>
-          <p className="text-gray-600">Review your pre and post assessment attempts</p>
+        <div className="bg-[#F9F8FE] px-4 md:px-6 py-3 md:py-4 border-b border-[#6B708D]">
+          <h3 className="text-lg md:text-xl font-semibold text-[#4C5173]">Assessment History</h3>
+          <p className="text-xs md:text-sm text-gray-600">Review your pre and post assessment attempts</p>
         </div>
 
         {filteredAssessments.length === 0 ? (
           <div className="p-8 text-center">
             <Search size={48} className="mx-auto text-gray-400 mb-4" />
-            <p className="text-gray-600">No assessments found with current filters</p>
+            <p className="text-xs md:text-sm text-gray-600">No assessments found with current filters</p>
           </div>
         ) : (
           <div className="divide-y divide-gray-200">
@@ -120,32 +120,32 @@ const AssessmentHistory = ({
               return (
                 <motion.div
                   key={assessment.id}
-                  className="p-6 hover:bg-gray-50 transition-colors"
+                  className="p-4 md:p-6 hover:bg-gray-50 transition-colors"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div className="flex items-center justify-between">
+                  {/* Mobile: Stack vertically, Desktop: Side by side */}
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex items-center gap-4 mb-2">
-                        <h4 className="text-lg font-semibold text-[#4C5173]">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2">
+                        <h4 className="text-base md:text-lg font-semibold text-[#4C5173]">
                           {getCourseName(assessment.course_id)} -{" "}
                           {assessment.assessment_type === "pre" ? "Pre" : "Post"} Assessment
                         </h4>
                         <span
-                          className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            passed
+                          className={`self-start px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium ${passed
                               ? "bg-green-100 text-green-800"
                               : "bg-red-100 text-red-800"
-                          }`}
+                            }`}
                         >
                           {passed ? "Passed" : "Failed"}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-6 text-sm text-gray-600">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-xs md:text-sm text-gray-600">
                         <div className="flex items-center gap-1">
-                          <Calendar size={16} />
+                          <Calendar size={14} className="md:w-4 md:h-4" />
                           {formatDate(assessment.date_taken)}
                         </div>
                         <div className="font-semibold">
@@ -154,53 +154,54 @@ const AssessmentHistory = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    {/* Buttons - Stack on mobile */}
+                    <div className="flex items-center gap-2 md:gap-3">
                       <motion.button
                         onClick={() => openDetailModal(assessment)}
-                        className="px-4 py-2 bg-[#4C5173] text-white rounded-lg hover:bg-[#3a3f5c] transition-colors"
+                        className="flex-1 md:flex-none px-3 md:px-4 py-2 bg-[#4C5173] text-white text-sm rounded-lg hover:bg-[#3a3f5c] transition-colors"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         View Details
                       </motion.button>
                       {passed ? (
-                        <CheckCircle size={24} className="text-green-500" />
+                        <CheckCircle size={20} className="md:w-6 md:h-6 text-green-500 flex-shrink-0" />
                       ) : (
-                        <XCircle size={24} className="text-red-500" />
+                        <XCircle size={20} className="md:w-6 md:h-6 text-red-500 flex-shrink-0" />
                       )}
                     </div>
                   </div>
 
-                  {/* Feedback */}
+                  {/* Feedback section - unchanged */}
                   <AnimatePresence>
                     {showFeedback === `assessment-${assessment.id}` && (
                       <motion.div
-                        className="mt-4 p-4 bg-gray-50 rounded-lg border"
+                        className="mt-4 p-3 md:p-4 bg-gray-50 rounded-lg border"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                       >
-                        <h5 className="font-semibold mb-3">Was this assessment helpful?</h5>
-                        <div className="flex gap-4 mb-4">
+                        <h5 className="font-semibold text-sm md:text-base mb-3">Was this assessment helpful?</h5>
+                        <div className="flex gap-2 md:gap-4 mb-4">
                           <motion.button
                             onClick={() => handleFeedback(assessment.id, "assessment", true, "")}
-                            className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-lg hover:bg-green-200"
+                            className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-green-100 text-green-800 text-sm rounded-lg hover:bg-green-200"
                           >
-                            <ThumbsUp size={16} />
+                            <ThumbsUp size={14} className="md:w-4 md:h-4" />
                             Yes
                           </motion.button>
                           <motion.button
                             onClick={() => handleFeedback(assessment.id, "assessment", false, "")}
-                            className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-800 rounded-lg hover:bg-red-200"
+                            className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-red-100 text-red-800 text-sm rounded-lg hover:bg-red-200"
                           >
-                            <ThumbsDown size={16} />
+                            <ThumbsDown size={14} className="md:w-4 md:h-4" />
                             No
                           </motion.button>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">What was difficult?</label>
+                          <label className="block text-xs md:text-sm font-medium mb-2">What was difficult?</label>
                           <textarea
-                            className="w-full border border-gray-300 rounded-lg px-3 py-2 resize-none"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"
                             rows="3"
                             placeholder="Optional feedback..."
                             onBlur={(e) => {
@@ -223,9 +224,9 @@ const AssessmentHistory = ({
                             : `assessment-${assessment.id}`
                         )
                       }
-                      className="text-sm text-[#4C5173] hover:text-[#3a3f5c] flex items-center gap-1"
+                      className="text-xs md:text-sm text-[#4C5173] hover:text-[#3a3f5c] flex items-center gap-1"
                     >
-                      <MessageSquare size={16} />
+                      <MessageSquare size={14} className="md:w-4 md:h-4" />
                       Feedback
                     </motion.button>
                   </div>
@@ -324,7 +325,7 @@ const AssessmentHistory = ({
                 ) : detailQuestions.length > 0 ? (
                   <div className="space-y-6">
                     {detailQuestions.map((question, index) => {
-                      const userResponse = detailResponses.find(r => 
+                      const userResponse = detailResponses.find(r =>
                         r.question_id === question.id
                       );
 
@@ -341,9 +342,9 @@ const AssessmentHistory = ({
                               Question {index + 1}: {question.text}
                             </h4>
                             {question.image && (
-                              <img 
-                                src={question.image} 
-                                alt="Question" 
+                              <img
+                                src={question.image}
+                                alt="Question"
                                 className="max-w-xs rounded-lg mb-3"
                               />
                             )}
@@ -351,29 +352,28 @@ const AssessmentHistory = ({
 
                           <div className="space-y-2 mb-4">
                             {question.options?.map((option, optionIndex) => {
-                              const isCorrect = option === question.correct_answer || 
+                              const isCorrect = option === question.correct_answer ||
                                 (typeof option === 'object' && option.image === question.correct_answer);
                               const isUserChoice = userResponse && (
                                 option === userResponse.selected_choice ||
                                 (typeof option === 'object' && option.image === userResponse.selected_choice)
                               );
-                              
+
                               return (
                                 <div
                                   key={optionIndex}
-                                  className={`p-3 rounded border ${
-                                    isCorrect
+                                  className={`p-3 rounded border ${isCorrect
                                       ? 'bg-green-50 border-green-200'
                                       : isUserChoice
                                         ? 'bg-red-50 border-red-200'
                                         : 'bg-gray-50 border-gray-200'
-                                  }`}
+                                    }`}
                                 >
                                   <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                       {typeof option === 'object' && option.image ? (
-                                        <img 
-                                          src={option.image} 
+                                        <img
+                                          src={option.image}
                                           alt={`Option ${optionIndex + 1}`}
                                           className="w-16 h-16 object-cover rounded"
                                         />
