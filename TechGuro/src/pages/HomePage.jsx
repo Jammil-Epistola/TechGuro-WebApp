@@ -42,7 +42,7 @@ const courses = [
     ],
   },
   {
-    title: "Digital Communication",
+    title: "Digital Communication & Messaging",
     image: DCM_img,
     description: "Learn how to communicate effectively online using different platforms.",
     lessons: 6,

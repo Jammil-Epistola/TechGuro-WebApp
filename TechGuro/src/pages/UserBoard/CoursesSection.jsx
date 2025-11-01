@@ -16,13 +16,13 @@ import API_URL from '../../config/api';
 const COURSES = [
   "Computer Basics",
   "Internet Safety",
-  "Digital Communication and Messaging",
+  "Digital Communication & Messaging",
 ];
 
 const courseLessonCounts = {
   "Computer Basics": 5,
   "Internet Safety": 8,
-  "Digital Communication and Messaging": 5,
+  "Digital Communication & Messaging": 5,
 };
 
 const getCourseName = (courseId) => {
@@ -68,7 +68,7 @@ const CoursesSection = () => {
         ],
       },
       {
-        name: "Digital Communication and Messaging",
+        name: "Digital Communication & Messaging",
         icon: <FaComments />,
         description:
           "Use email, messaging apps, and video calls effectively.",

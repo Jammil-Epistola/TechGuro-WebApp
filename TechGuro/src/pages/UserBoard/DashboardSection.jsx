@@ -66,13 +66,13 @@ const DashboardSection = ({ goToProfile, navigateToSection }) => {
   const courses = [
     "Computer Basics",
     "Internet Safety",
-    "Digital Communication and Messaging"
+    "Digital Communication & Messaging"
   ];
 
   const courseLessonCounts = {
     "Computer Basics": 5,
     "Internet Safety": 5,
-    "Digital Communication and Messaging": 5
+    "Digital Communication & Messaging": 5
   };
 
   // Centralized data fetching function
