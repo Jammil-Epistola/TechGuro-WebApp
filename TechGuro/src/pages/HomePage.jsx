@@ -21,7 +21,7 @@ const courses = [
     title: "Computer Basics",
     image: CB_img,
     description: "Learn how to navigate and use a computer for daily tasks with ease.",
-    lessons: 8,
+    lessons: 5,
     keyPoints: [
       "Using a mouse and keyboard",
       "Managing files and folders",
@@ -33,7 +33,7 @@ const courses = [
     title: "Internet Safety",
     image: IS_img,
     description: "Stay safe online by understanding how to protect your information.",
-    lessons: 6,
+    lessons: 5,
     keyPoints: [
       "Recognizing fake news",
       "Safe social media practices",
@@ -45,7 +45,7 @@ const courses = [
     title: "Digital Communication & Messaging",
     image: DCM_img,
     description: "Learn how to communicate effectively online using different platforms.",
-    lessons: 6,
+    lessons: 5,
     keyPoints: [
       "Using email and messaging apps",
       "Online etiquette and safety",
@@ -161,8 +161,8 @@ const HomePage = () => {
                     onClick={() => setCurrentTutorialSlide(Math.max(0, currentTutorialSlide - 1))}
                     disabled={currentTutorialSlide === 0}
                     className={`flex-shrink-0 p-3 rounded-full transition-all ${currentTutorialSlide === 0
-                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                        : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
+                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                      : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
                       }`}
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,8 +211,8 @@ const HomePage = () => {
                           key={index}
                           onClick={() => setCurrentTutorialSlide(index)}
                           className={`w-3 h-3 rounded-full transition-all ${index === currentTutorialSlide
-                              ? "bg-[#4C5173] w-8"
-                              : "bg-gray-300 hover:bg-gray-400"
+                            ? "bg-[#4C5173] w-8"
+                            : "bg-gray-300 hover:bg-gray-400"
                             }`}
                         />
                       ))}
@@ -237,8 +237,8 @@ const HomePage = () => {
                     onClick={() => setCurrentTutorialSlide(Math.min(tutorialSlides.length - 1, currentTutorialSlide + 1))}
                     disabled={currentTutorialSlide === tutorialSlides.length - 1}
                     className={`flex-shrink-0 p-3 rounded-full transition-all ${currentTutorialSlide === tutorialSlides.length - 1
-                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                        : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
+                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                      : "bg-[#4C5173] text-white hover:bg-[#3a3f5c]"
                       }`}
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -295,16 +295,16 @@ const HomePage = () => {
               {activeTab === "Researchers" && (
                 <motion.div
                   key="researchers-tab"
-                  className="flex flex-col h-full p-4 md:p-6"
+                  className="flex flex-col h-full p-4 md:p-6 overflow-hidden"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0, y: 50 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <h2 className="text-[2.2rem] text-center mb-4">THE RESEARCHERS</h2>
+                  <h2 className="text-[1.8rem] sm:text-[2.2rem] text-center mb-4">THE RESEARCHERS</h2>
                   <hr className="w-full max-w-[50rem] mx-auto h-[3px] bg-white border-none mb-6" />
 
-                  <div className="flex lg:grid lg:grid-cols-3 gap-4 lg:gap-6 w-full overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-2 justify-center lg:justify-items-center">
+                  <div className="flex lg:grid lg:grid-cols-3 gap-4 lg:gap-6 w-full overflow-x-auto lg:overflow-visible snap-x snap-mandatory pb-4 lg:pb-0 px-4 lg:px-0">
                     {[
                       { name: "Jammil C. Epistola", email: "epistolajammil45@gmail.com", phone: "0921 729 4657", image: jammil_img },
                       { name: "Raquel H. Javier", email: "raquelhiraojavier@gmail.com", phone: "0991 584 9104", image: raquel_img },
@@ -312,7 +312,7 @@ const HomePage = () => {
                     ].map((res, idx) => (
                       <motion.div
                         key={idx}
-                        className="flex-shrink-0 w-[320px] sm:w-[320px] md:w-[270px] lg:w-[290px] rounded-lg shadow-md overflow-hidden snap-start"
+                        className="flex-shrink-0 w-[280px] sm:w-[300px] md:w-[270px] lg:w-full rounded-lg shadow-md overflow-hidden snap-center"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, y: 50 }}
@@ -320,14 +320,20 @@ const HomePage = () => {
                       >
                         <div className="bg-[#4C5173] flex justify-center items-center p-4">
                           <div
-                            className="w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] rounded-full bg-cover bg-center"
+                            className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[180px] md:h-[180px] rounded-full bg-cover bg-center"
                             style={{ backgroundImage: `url(${res.image})` }}
                           ></div>
                         </div>
                         <div className="bg-[#F9F8FE] text-black text-center p-4 md:p-6">
-                          <h3 className="text-[1.3rem] font-bold mb-2">{res.name}</h3>
-                          <p className="flex items-center justify-center gap-2"><FaEnvelope className="text-black" />{res.email}</p>
-                          <p className="flex items-center justify-center gap-2 mt-1"><FaPhone className="text-black" />{res.phone}</p>
+                          <h3 className="text-[1.1rem] sm:text-[1.2rem] md:text-[1.3rem] font-bold mb-2">{res.name}</h3>
+                          <p className="flex items-center justify-center gap-2 text-xs sm:text-sm break-all">
+                            <FaEnvelope className="text-black flex-shrink-0" />
+                            <span className="break-all">{res.email}</span>
+                          </p>
+                          <p className="flex items-center justify-center gap-2 mt-1 text-xs sm:text-sm">
+                            <FaPhone className="text-black flex-shrink-0" />
+                            {res.phone}
+                          </p>
                         </div>
                       </motion.div>
                     ))}
