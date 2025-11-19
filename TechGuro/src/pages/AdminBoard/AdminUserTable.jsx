@@ -136,6 +136,22 @@ const AdminUserTable = () => {
     }
   };
 
+  const calculateAge = (birthdayString) => {
+    if (!birthdayString) return "-";
+
+    const birthDate = new Date(birthdayString);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    // Adjust age if birthday hasn't occurred yet this year
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  };
+
   const toggleExpandUser = (userId) => {
     setExpandedUser(expandedUser === userId ? null : userId);
   };
@@ -197,11 +213,10 @@ const AdminUserTable = () => {
         <button
           onClick={handleExportCSV}
           disabled={exporting || users.length === 0}
-          className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all ${
-            exporting || users.length === 0
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-green-600 text-white hover:bg-green-700"
-          }`}
+          className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all ${exporting || users.length === 0
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-green-600 text-white hover:bg-green-700"
+            }`}
         >
           {exporting ? (
             <>
@@ -237,7 +252,7 @@ const AdminUserTable = () => {
                   <th className="px-6 py-4 text-left font-semibold">Username</th>
                   <th className="px-6 py-4 text-left font-semibold">Email</th>
                   <th className="px-6 py-4 text-left font-semibold">Birthday</th>
-                  <th className="px-6 py-4 text-left font-semibold">Date Created</th>
+                  <th className="px-6 py-4 text-left font-semibold">Age</th>
                   <th className="px-6 py-4 text-left font-semibold">Pre-Assessment</th>
                   <th className="px-6 py-4 text-left font-semibold">Post-Assessment</th>
                   <th className="px-6 py-4 text-center font-semibold">Actions</th>
@@ -249,14 +264,13 @@ const AdminUserTable = () => {
                 {filteredUsers.map((user, index) => {
                   const courseAssessment = getCourseAssessment(user, selectedCourse);
                   const courseCompleted = isCourseCompleted(user, selectedCourse);
-                  
+
                   return (
                     <React.Fragment key={user.user_id}>
                       {/* Main Row */}
                       <tr
-                        className={`border-b border-gray-200 hover:bg-gray-50 transition ${
-                          index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                        }`}
+                        className={`border-b border-gray-200 hover:bg-gray-50 transition ${index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                          }`}
                       >
                         <td className="px-6 py-4 font-semibold text-[#1A202C]">
                           {user.username}
@@ -265,8 +279,8 @@ const AdminUserTable = () => {
                         <td className="px-6 py-4 text-gray-700">
                           {formatDate(user.birthday)}
                         </td>
-                        <td className="px-6 py-4 text-gray-700">
-                          {formatDate(user.date_created)}
+                        <td className="px-6 py-4 text-gray-700 font-semibold">
+                          {calculateAge(user.birthday)} {calculateAge(user.birthday) !== "-" ? "years old" : ""}
                         </td>
 
                         {/* Pre-Assessment Status - Course Specific */}
@@ -343,8 +357,8 @@ const AdminUserTable = () => {
                               <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold w-fit bg-gray-200 text-gray-700">
                                 🔒 Disabled
                                 <span className="block text-[10px] mt-1">
-                                  {!courseAssessment.pre 
-                                    ? "(Pre required)" 
+                                  {!courseAssessment.pre
+                                    ? "(Pre required)"
                                     : "(Course incomplete)"}
                                 </span>
                               </span>
@@ -367,11 +381,10 @@ const AdminUserTable = () => {
                               handleDeleteUser(user.user_id, user.username)
                             }
                             disabled={deleting === user.user_id}
-                            className={`p-2 rounded-full transition ${
-                              deleting === user.user_id
-                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                                : "bg-red-100 text-red-600 hover:bg-red-200"
-                            }`}
+                            className={`p-2 rounded-full transition ${deleting === user.user_id
+                              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                              : "bg-red-100 text-red-600 hover:bg-red-200"
+                              }`}
                             title="Delete user"
                           >
                             {deleting === user.user_id ? (
@@ -403,7 +416,7 @@ const AdminUserTable = () => {
                                         <p className="font-semibold text-[#1A202C] mb-3">
                                           {courseData.course_name}
                                         </p>
-                                        
+
                                         <div className="space-y-2">
                                           {/* Pre-Assessment */}
                                           <div className="flex justify-between items-center text-sm">
@@ -447,11 +460,10 @@ const AdminUserTable = () => {
                                           <div className="flex justify-between items-center text-sm pt-2 border-t border-gray-200">
                                             <span className="text-gray-600">Course Status:</span>
                                             <span
-                                              className={`font-semibold ${
-                                                user.course_progress[courseId]?.status === "completed"
-                                                  ? "text-green-600"
-                                                  : "text-yellow-600"
-                                              }`}
+                                              className={`font-semibold ${user.course_progress[courseId]?.status === "completed"
+                                                ? "text-green-600"
+                                                : "text-yellow-600"
+                                                }`}
                                             >
                                               {user.course_progress[courseId]?.status === "completed"
                                                 ? "✓ Completed"

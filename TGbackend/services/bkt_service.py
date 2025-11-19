@@ -35,6 +35,12 @@ class BKTService:
         13: "use_messaging_apps",
         14: "video_communication", 
         15: "etiquette_safety",
+
+        # Intro to Online Selling(11-15)
+        16: "what_is_online_selling",
+        17: "setting_up_selling",
+        18: "creating_listing",
+        19: "respond_buyers_orders",
     }
 
     def __init__(

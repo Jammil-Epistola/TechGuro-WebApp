@@ -5,11 +5,12 @@ import { useMilestone } from "../context/MilestoneContext";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { LogOut, BookOpen, BarChart3, Award, History, Menu, X } from "lucide-react";
-import { FaUser, FaUserCircle, FaCalendar, FaChevronDown, FaSignOutAlt } from "react-icons/fa";
+import { FaUser, FaUserCircle, FaCalendar, FaChevronDown, FaSignOutAlt, FaBook } from "react-icons/fa";
 import DashboardSection from "./UserBoard/DashboardSection";
 import AchievementsSection from "./UserBoard/AchievementsSection";
 import CoursesSection from "./UserBoard/CoursesSection";
 import HistorySection from "./UserBoard/HistorySection";
+import DashboardTutorial from "../components/DashboardTutorial";
 import tgLogo from "../assets/TechGuroLogo_3.png";
 import API_URL from '../config/api';
 
@@ -20,6 +21,7 @@ const UserBoard = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { logout, user } = useUser();
   const { showMilestone } = useMilestone();
+  const [showTutorial, setShowTutorial] = useState(false);
 
   // Initialize sidebar state based on screen size
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
@@ -39,6 +41,25 @@ const UserBoard = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const checkFirstLogin = () => {
+      if (!user || !user.user_id) return;
+
+      const tutorialShownKey = `tutorial_shown_${user.user_id}`;
+      const hasShownTutorial = localStorage.getItem(tutorialShownKey);
+
+      if (!hasShownTutorial) {
+        // Show tutorial after a brief delay
+        setTimeout(() => {
+          setShowTutorial(true);
+          localStorage.setItem(tutorialShownKey, 'true');
+        }, 1000);
+      }
+    };
+
+    checkFirstLogin();
+  }, [user]);
 
   // Check and show Milestone #1
   useEffect(() => {
@@ -189,7 +210,7 @@ const UserBoard = () => {
 
   return (
     <div className="flex relative bg-[#DFDFEE] min-h-screen">
-      {/* Enhanced Sidebar - Full-screen overlay on mobile, sticky on desktop */}
+      {/* Enhanced Sidebar  */}
       <AnimatePresence mode="wait">
         {isSidebarOpen && (
           <motion.div
@@ -353,6 +374,17 @@ const UserBoard = () => {
                     <span>Profile</span>
                   </button>
 
+                  <button
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      setShowTutorial(true);
+                    }}
+                    className="w-full text-left flex items-center gap-2 px-4 py-3 hover:bg-gray-100 transition"
+                  >
+                    <FaBook /> 
+                    <span>Tutorial</span>
+                  </button>
+
                   <hr className="border-t border-gray-200" />
 
                   <button
@@ -363,6 +395,7 @@ const UserBoard = () => {
                     <span>Sign Out</span>
                   </button>
                 </div>
+
               )}
             </div>
           </div>
@@ -373,6 +406,12 @@ const UserBoard = () => {
           {renderContent()}
         </div>
       </div>
+      {/* Dashboard Tutorial */}
+      <DashboardTutorial
+        isOpen={showTutorial}
+        onClose={() => setShowTutorial(false)}
+        startSection="dashboard"
+      />
     </div>
   );
 };

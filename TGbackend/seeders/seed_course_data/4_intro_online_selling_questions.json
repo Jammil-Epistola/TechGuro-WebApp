@@ -1,0 +1,598 @@
+[
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 401,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang platform na karaniwang ginagamit sa online selling?",
+    "options": [
+      {"image": "facebook_logo.png"},
+      {"image": "twitter_logo.png"},
+      {"image": "instagram_logo.png"}
+    ],
+    "answer_image": "facebook_logo.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 402,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng ibinebentang produkto online?",
+    "options": [
+      {"image": "handmade_items.png"},
+      {"image": "car.png"},
+      {"image": "building.png"}
+    ],
+    "answer_image": "handmade_items.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 403,
+    "type": "text_mcq",
+    "question": "Ano ang ibig sabihin ng online selling?",
+    "options": [
+      "Pagbebenta gamit ang physical store",
+      "Pagbebenta ng produkto gamit ang internet",
+      "Pagbili ng produkto sa mall"
+    ],
+    "answer": "Pagbebenta ng produkto gamit ang internet",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 404,
+    "type": "text_mcq",
+    "question": "Ano ang isa sa mga kailangan para makapagbenta online?",
+    "options": [
+      "Facebook account",
+      "Printer",
+      "Car"
+    ],
+    "answer": "Facebook account",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 405,
+    "type": "true_false",
+    "question": "Puwede mong ibenta ang anumang produkto, kahit delikado o bawal.",
+    "options": ["Tama", "Mali"],
+    "answer": "Mali",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 406,
+    "type": "image_mcq",
+    "question": "Alin ang halimbawa ng malinaw at totoong profile picture para sa selling?",
+    "options": [
+      {"image": "real_profile.png"},
+      {"image": "blank_profile.png"},
+      {"image": "cartoon_avatar.png"}
+    ],
+    "answer_image": "real_profile.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 407,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang tamang setting para sa public post ng produkto?",
+    "options": [
+      {"image": "public_post.png"},
+      {"image": "friends_only.png"},
+      {"image": "private_post.png"}
+    ],
+    "answer_image": "public_post.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 408,
+    "type": "text_mcq",
+    "question": "Ano ang dapat gawin sa public posts bago magbenta online?",
+    "options": [
+      "I-delete lahat ng posts",
+      "I-check at i-hide ang masyadong personal o nakakalitong posts",
+      "Wala na, iwan lang"
+    ],
+    "answer": "I-check at i-hide ang masyadong personal o nakakalitong posts",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 409,
+    "type": "text_mcq",
+    "question": "Bakit mahalaga na naka-on ang Messenger notifications?",
+    "options": [
+      "Para makita ang latest news",
+      "Para hindi ma-miss ang messages ng buyers",
+      "Para makapag-post ng maraming products"
+    ],
+    "answer": "Para hindi ma-miss ang messages ng buyers",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 410,
+    "type": "true_false",
+    "question": "Pwede kang mag-accept ng friend requests kahit kahina-hinala ang account.",
+    "options": ["Tama", "Mali"],
+    "answer": "Mali",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 411,
+    "type": "image_mcq",
+    "question": "Alin ang icon ng Facebook Marketplace?",
+    "options": [
+      {"image": "marketplace_icon.png"},
+      {"image": "profile_icon.png"},
+      {"image": "settings_icon.png"}
+    ],
+    "answer_image": "marketplace_icon.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 412,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang magandang produkto photo?",
+    "options": [
+      {"image": "clear_photo.png"},
+      {"image": "dark_photo.png"},
+      {"image": "blurry_photo.png"}
+    ],
+    "answer_image": "clear_photo.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 413,
+    "type": "text_mcq",
+    "question": "Ano ang dapat ilagay sa product title?",
+    "options": [
+      "Maikli at malinaw",
+      "Mahaba at komplikado",
+      "Walang title"
+    ],
+    "answer": "Maikli at malinaw",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 414,
+    "type": "text_mcq",
+    "question": "Bakit mahalaga ang pag-set ng tamang location sa listing?",
+    "options": [
+      "Para malaman ng buyers kung puwede silang makipag-meet o mag-deliver",
+      "Para lang sa aesthetics",
+      "Hindi ito mahalaga"
+    ],
+    "answer": "Para malaman ng buyers kung puwede silang makipag-meet o mag-deliver",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 415,
+    "type": "true_false",
+    "question": "Mahalaga ang regular na pag-monitor ng messages sa listing.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 416,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang halimbawa ng pag-prepare ng item bago i-deliver?",
+    "options": [
+      {"image": "pack_item.png"},
+      {"image": "item_dirty.png"},
+      {"image": "item_missing_label.png"}
+    ],
+    "answer_image": "pack_item.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 417,
+    "type": "image_mcq",
+    "question": "Alin ang tamang paraan para sa COD meeting?",
+    "options": [
+      {"image": "public_place.png"},
+      {"image": "home_address.png"},
+      {"image": "hidden_location.png"}
+    ],
+    "answer_image": "public_place.png",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 418,
+    "type": "text_mcq",
+    "question": "Ano ang dapat i-confirm sa order bago i-deliver?",
+    "options": [
+      "Item name, price, quantity, delivery time, payment method",
+      "Item only",
+      "Buyer only"
+    ],
+    "answer": "Item name, price, quantity, delivery time, payment method",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 419,
+    "type": "text_mcq",
+    "question": "Paano maiiwasan ang scam sa online selling?",
+    "options": [
+      "Huwag tanggapin screenshot-only payments at pumunta sa public place para sa COD",
+      "Ibigay agad ang buong address sa buyer",
+      "Mag-reply nang mabagal sa buyer"
+    ],
+    "answer": "Huwag tanggapin screenshot-only payments at pumunta sa public place para sa COD",
+    "image": null
+  },
+  {
+    "assessment_type": "pre",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 420,
+    "type": "true_false",
+    "question": "Mahalaga ang after-sales care at pakikipag-communicate sa buyer pagkatapos ng delivery.",
+    "options": ["Tama", "Mali"],
+    "answer": "Tama",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 421,
+    "type": "text_mcq",
+    "question": "Si Ana gusto magbenta online. Ano ang pinakaunang dapat niyang malaman?",
+    "options": [
+      "Paano gumawa ng physical store",
+      "Ano ang online selling",
+      "Paano bumili ng produkto sa mall",
+      "Paano mag-travel abroad"
+    ],
+    "answer": "Ano ang online selling",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 422,
+    "type": "text_mcq",
+    "question": "Bakit maraming tao ang nag-o-online selling?",
+    "options": [
+      "Para makapagbenta kahit walang physical store",
+      "Para lang maglaro ng Facebook",
+      "Para mag-ipon ng pictures",
+      "Para sa personal blog"
+    ],
+    "answer": "Para makapagbenta kahit walang physical store",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 423,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang puwedeng ibenta online?",
+    "options": [
+      {"image": "handmade_items.png"},
+      {"image": "fireworks.png"},
+      {"image": "dangerous_items.png"}
+    ],
+    "answer_image": "handmade_items.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 424,
+    "type": "image_mcq",
+    "question": "Alin ang kailangan para makapagbenta sa Facebook?",
+    "options": [
+      {"image": "facebook_app.png"},
+      {"image": "tv.png"},
+      {"image": "refrigerator.png"}
+    ],
+    "answer_image": "facebook_app.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 16,
+    "question_id": 425,
+    "type": "true_false",
+    "question": "Pwede mong ibenta ang anumang produkto kahit bawal o delikado.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Mali, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Mali, ang Statement 2",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 426,
+    "type": "text_mcq",
+    "question": "Ano ang tamang profile picture para magbenta online?",
+    "options": [
+      "Blank profile picture",
+      "Real and clear photo ng seller",
+      "Cartoon avatar",
+      "Random image"
+    ],
+    "answer": "Real and clear photo ng seller",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 427,
+    "type": "text_mcq",
+    "question": "Bakit mahalaga i-check ang public posts bago magbenta?",
+    "options": [
+      "Para wala nang personal info na nakikita ng buyers",
+      "Para maglagay ng maraming memes",
+      "Para i-delete lahat ng posts",
+      "Para mag-share ng news"
+    ],
+    "answer": "Para wala nang personal info na nakikita ng buyers",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 428,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang tamang setting para sa selling posts?",
+    "options": [
+      {"image": "public_post.png"},
+      {"image": "friends_only.png"},
+      {"image": "private_post.png"}
+    ],
+    "answer_image": "public_post.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 429,
+    "type": "image_mcq",
+    "question": "Alin ang tamang icon para sa Messenger notifications?",
+    "options": [
+      {"image": "messenger_icon.png"},
+      {"image": "email_icon.png"},
+      {"image": "phone_icon.png"}
+    ],
+    "answer_image": "messenger_icon.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 17,
+    "question_id": 430,
+    "type": "true_false",
+    "question": "Pwede kang tumanggap ng friend request kahit kahina-hinala ang account.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Mali, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Mali, ang Statement 2",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 431,
+    "type": "text_mcq",
+    "question": "Ano ang Marketplace sa Facebook?",
+    "options": [
+      "Lugar kung saan puwedeng bumili at magbenta",
+      "Lugar para mag-chat lang",
+      "Lugar para mag-upload ng photos",
+      "Lugar para mag-post ng status"
+    ],
+    "answer": "Lugar kung saan puwedeng bumili at magbenta",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 432,
+    "type": "text_mcq",
+    "question": "Ano ang dapat gawin bago i-post ang item sa Marketplace?",
+    "options": [
+      "Gumawa ng malinaw at well-lit na larawan",
+      "Mag-upload ng random dark photos",
+      "Mag-type ng walang title",
+      "Maglagay ng mali ang price"
+    ],
+    "answer": "Gumawa ng malinaw at well-lit na larawan",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 433,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang tamang product photo?",
+    "options": [
+      {"image": "clear_photo.png"},
+      {"image": "dark_photo.png"},
+      {"image": "blurry_photo.png"}
+    ],
+    "answer_image": "clear_photo.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 434,
+    "type": "image_mcq",
+    "question": "Alin ang tamang icon para sa location selection?",
+    "options": [
+      {"image": "location_icon.png"},
+      {"image": "home_icon.png"},
+      {"image": "shop_icon.png"}
+    ],
+    "answer_image": "location_icon.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 18,
+    "question_id": 435,
+    "type": "true_false",
+    "question": "Mahalaga ang regular na pag-monitor ng messages sa listing.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Mali, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama, ang Statement 1",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 436,
+    "type": "text_mcq",
+    "question": "Ano ang dapat i-confirm bago i-deliver ang item sa buyer?",
+    "options": [
+      "Item name, price, quantity, delivery/meet-up time, payment method",
+      "Item name lang",
+      "Delivery time lang",
+      "Buyer name lang"
+    ],
+    "answer": "Item name, price, quantity, delivery/meet-up time, payment method",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 437,
+    "type": "text_mcq",
+    "question": "Paano maiiwasan ang scam sa online selling?",
+    "options": [
+      "Huwag tanggapin screenshot-only payments at pumunta sa public place para sa COD",
+      "Ibigay agad ang full address",
+      "Maghintay ng ilang araw bago mag-ship kahit walang payment",
+      "Magpadala ng item kahit walang confirmation"
+    ],
+    "answer": "Huwag tanggapin screenshot-only payments at pumunta sa public place para sa COD",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 438,
+    "type": "image_mcq",
+    "question": "Alin sa mga ito ang tamang paraan ng packaging bago i-deliver?",
+    "options": [
+      {"image": "pack_item.png"},
+      {"image": "item_dirty.png"},
+      {"image": "item_missing_label.png"}
+    ],
+    "answer_image": "pack_item.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 439,
+    "type": "image_mcq",
+    "question": "Alin ang tamang lugar para sa COD meeting?",
+    "options": [
+      {"image": "public_place.png"},
+      {"image": "home_address.png"},
+      {"image": "hidden_location.png"}
+    ],
+    "answer_image": "public_place.png",
+    "image": null
+  },
+  {
+    "assessment_type": "post",
+    "course_id": 4,
+    "lesson_id": 19,
+    "question_id": 440,
+    "type": "true_false",
+    "question": "Mahalaga ang after-sales care at pakikipag-communicate sa buyer pagkatapos ng delivery.",
+    "options": [
+      "Tama, ang Statement 1",
+      "Mali, ang Statement 2",
+      "Tama Parehas",
+      "Mali Parehas"
+    ],
+    "answer": "Tama, ang Statement 1",
+    "image": null
+  }
+]

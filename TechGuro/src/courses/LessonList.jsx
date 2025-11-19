@@ -7,7 +7,8 @@ import { useUser } from '../context/UserContext';
 import { useMilestone } from '../context/MilestoneContext';
 import TekiDialog from '../components/TekiDialog';
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
-import { MousePointer, Keyboard, Image, X, Play, Menu } from 'lucide-react';
+import LessonsCompletionModal from '../components/LessonsCompletionModal';
+import { MousePointer, Keyboard, Image, X, Play, Menu, Trophy } from 'lucide-react';
 import API_URL from '../config/api';
 
 const LessonList = () => {
@@ -19,10 +20,11 @@ const LessonList = () => {
   const [courseId, setCourseId] = useState(null);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [recommendedLessons, setRecommendedLessons] = useState([]);
-  const [completedActivities, setCompletedActivities] = useState(false);
   const [activeSection, setActiveSection] = useState('recommended');
   const [postAssessmentUnlocked, setPostAssessmentUnlocked] = useState(false);
   const [unlockReason, setUnlockReason] = useState("");
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [hasShownCompletionModal, setHasShownCompletionModal] = useState(false);
 
   // Sidebar state - Initialize based on screen size
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
@@ -35,6 +37,7 @@ const LessonList = () => {
   const [selectedQuizType, setSelectedQuizType] = useState(null);
   const [availableLessonsForQuiz, setAvailableLessonsForQuiz] = useState([]);
   const [loadingQuizData, setLoadingQuizData] = useState(false);
+  const [allQuizLessonsByType, setAllQuizLessonsByType] = useState({});
 
   const formattedTitle = courseName.replace(/([A-Z])/g, ' $1').trim();
 
@@ -58,6 +61,13 @@ const LessonList = () => {
   const areAllRecommendedCompleted = () => {
     if (recommendedLessons.length === 0) return false;
     return recommendedLessons.every(lessonId => completedLessons.includes(lessonId));
+  };
+  const getRecommendedQuizzes = () => {
+    if (recommendedLessons.length === 0 || !availableLessonsForQuiz) return [];
+
+    return availableLessonsForQuiz.filter(quiz =>
+      recommendedLessons.includes(quiz.lesson_id)
+    );
   };
 
   const fetchCourseData = async () => {
@@ -103,7 +113,6 @@ const LessonList = () => {
           const progressData = await progressRes.json();
           const completed = progressData.completed_lessons || [];
           setCompletedLessons(completed);
-          setCompletedActivities(progressData.completed_activities || false);
 
           const recommendedCompleted = recommended.filter(lessonId => completed.includes(lessonId));
           const shouldUnlockPostAssessment = recommended.length > 0 && recommendedCompleted.length === recommended.length;
@@ -112,7 +121,6 @@ const LessonList = () => {
         } else {
           console.warn("Progress endpoint failed, assuming no completed lessons");
           setCompletedLessons([]);
-          setCompletedActivities(false);
           setPostAssessmentUnlocked(false);
         }
 
@@ -129,7 +137,6 @@ const LessonList = () => {
             setCompletedLessons(completed);
             const fallbackRecommended = progressData.recommended_lessons || progressData.recommend || [];
             setRecommendedLessons(fallbackRecommended);
-            setCompletedActivities(progressData.completed_activities || false);
 
             const recommendedCompleted = fallbackRecommended.filter(lessonId => completed.includes(lessonId));
             const shouldUnlockPostAssessment = fallbackRecommended.length > 0 && recommendedCompleted.length === fallbackRecommended.length;
@@ -139,7 +146,6 @@ const LessonList = () => {
           console.error("All recommendation endpoints failed:", fallbackError);
           setCompletedLessons([]);
           setRecommendedLessons([]);
-          setCompletedActivities(false);
           setPostAssessmentUnlocked(false);
         }
       }
@@ -190,6 +196,35 @@ const LessonList = () => {
       setLoadingQuizData(false);
     }
   };
+  useEffect(() => {
+    const fetchQuizModesAndLessons = async () => {
+      if (activeSection === 'quizzes' && courseId) {
+        await fetchQuizModes();
+
+        // After quiz modes are fetched, fetch lessons for each type
+        if (quizModes.length > 0) {
+          const lessonsByType = {};
+
+          for (const mode of quizModes) {
+            try {
+              const response = await fetch(`${API_URL}/quiz-lessons/${courseId}/${mode.quiz_type}`);
+              if (response.ok) {
+                const data = await response.json();
+                lessonsByType[mode.quiz_type] = data.available_lessons || [];
+              }
+            } catch (error) {
+              console.error(`Error fetching lessons for ${mode.quiz_type}:`, error);
+              lessonsByType[mode.quiz_type] = [];
+            }
+          }
+
+          setAllQuizLessonsByType(lessonsByType);
+        }
+      }
+    };
+
+    fetchQuizModesAndLessons();
+  }, [activeSection, courseId, quizModes.length]);
 
   const handleQuizModeSelect = async (quizType) => {
     setSelectedQuizType(null);
@@ -311,6 +346,21 @@ const LessonList = () => {
     checkMilestone2();
   }, [user, courseId, showMilestone]);
 
+  useEffect(() => {
+    // Check if all recommended lessons are completed and modal hasn't been shown
+    if (areAllRecommendedCompleted() && !hasShownCompletionModal && recommendedLessons.length > 0) {
+      // Check localStorage to see if modal was already shown for this course
+      const modalShownKey = `completion_modal_shown_${user?.user_id}_${courseId}`;
+      const wasShown = localStorage.getItem(modalShownKey);
+
+      if (!wasShown) {
+        setShowCompletionModal(true);
+        setHasShownCompletionModal(true);
+        localStorage.setItem(modalShownKey, 'true');
+      }
+    }
+  }, [completedLessons, recommendedLessons, courseId, user]);
+
   const handleStartLesson = (lessonId) => {
     navigate(`/courses/${courseName}/lesson`, {
       state: { lessonId }
@@ -324,6 +374,17 @@ const LessonList = () => {
       return;
     }
     navigate(`/courses/${courseName}/Post-assessment`);
+  };
+
+  const handleCloseCompletionModal = () => {
+    setShowCompletionModal(false);
+  };
+
+  const handleSeeQuizzes = () => {
+    setShowCompletionModal(false);
+    navigateToSection('quizzes');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (!lessonsData) {
@@ -733,60 +794,180 @@ const LessonList = () => {
                   <p className="text-[13px] md:text-[14px] text-gray-600">Quiz exercises will be available soon for this course.</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {quizModes.map((mode, index) => {
-                    const details = getQuizModeDetails(mode.quiz_type);
-                    const IconComponent = details.icon;
+                <>
+                  {/* Quiz Type Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    {quizModes.map((mode, index) => {
+                      const details = getQuizModeDetails(mode.quiz_type);
+                      const IconComponent = details.icon;
 
-                    return (
-                      <motion.div
-                        key={mode.quiz_type}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className={`${details.bgColor} ${details.borderColor} border-2 rounded-xl p-6 cursor-pointer transition-all hover:shadow-lg hover:scale-105`}
-                        onClick={() => handleQuizModeSelect(mode.quiz_type)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <div className="text-center">
-                          <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${details.color} flex items-center justify-center shadow-lg`}>
-                            <IconComponent className="w-8 h-8 text-white" />
+                      return (
+                        <motion.div
+                          key={mode.quiz_type}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className={`${details.bgColor} ${details.borderColor} border-2 rounded-xl p-6 cursor-pointer transition-all hover:shadow-lg hover:scale-105`}
+                          onClick={() => handleQuizModeSelect(mode.quiz_type)}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <div className="text-center">
+                            <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${details.color} flex items-center justify-center shadow-lg`}>
+                              <IconComponent className="w-8 h-8 text-white" />
+                            </div>
+
+                            <h3 className={`text-[16px] md:text-[18px] font-bold mb-2 ${details.textColor}`}>
+                              {mode.display_name}
+                            </h3>
+
+                            <p className="text-[13px] md:text-[14px] text-gray-600 mb-4">
+                              {mode.quiz_type === 'multiple_choice' && 'Choose the correct answer from image options (10 random questions)'}
+                              {mode.quiz_type === 'drag_drop' && 'Drag items to their correct positions (5 random questions)'}
+                              {mode.quiz_type === 'typing' && 'Type the correct answers within time limit (5 random questions)'}
+                            </p>
+
+                            <div className="flex justify-center items-center gap-2 mb-4">
+                              <span className="text-[11px] md:text-[12px] text-gray-500">Available Lessons:</span>
+                              <span className="bg-white px-2 py-1 rounded-full text-[11px] md:text-[12px] font-bold text-gray-700">
+                                {mode.available_lessons}
+                              </span>
+                            </div>
+
+                            <motion.button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleQuizModeSelect(mode.quiz_type);
+                              }}
+                              className={`w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r ${details.color} hover:opacity-90 transition-all text-[14px] md:text-[15px]`}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              Select Quiz Mode
+                            </motion.button>
                           </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
 
-                          <h3 className={`text-[16px] md:text-[18px] font-bold mb-2 ${details.textColor}`}>
-                            {mode.display_name}
-                          </h3>
-
-                          <p className="text-[13px] md:text-[14px] text-gray-600 mb-4">
-                            {mode.quiz_type === 'multiple_choice' && 'Choose the correct answer from image options (10 random questions)'}
-                            {mode.quiz_type === 'drag_drop' && 'Drag items to their correct positions (5 random questions)'}
-                            {mode.quiz_type === 'typing' && 'Type the correct answers within time limit (5 random questions)'}
-                          </p>
-
-                          <div className="flex justify-center items-center gap-2 mb-4">
-                            <span className="text-[11px] md:text-[12px] text-gray-500">Available Lessons:</span>
-                            <span className="bg-white px-2 py-1 rounded-full text-[11px] md:text-[12px] font-bold text-gray-700">
-                              {mode.available_lessons}
-                            </span>
-                          </div>
-
-                          <motion.button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleQuizModeSelect(mode.quiz_type);
-                            }}
-                            className={`w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r ${details.color} hover:opacity-90 transition-all text-[14px] md:text-[15px]`}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            Select Quiz Mode
-                          </motion.button>
+                  {/* Recommended Quizzes Section */}
+                  {recommendedLessons.length > 0 && quizModes.length > 0 && Object.keys(allQuizLessonsByType).length > 0 && (
+                    <div className="mt-8">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-4 py-2 rounded-full">
+                          <Trophy className="w-5 h-5" />
+                          <h2 className="text-[18px] md:text-[20px] font-bold">Teki's Recommended Quizzes</h2>
                         </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
+                      </div>
+
+                      <p className="text-[13px] md:text-[14px] text-gray-600 mb-6">
+                        Based on your recommended lessons, we suggest practicing these quizzes. Click on a quiz type above to see available quizzes for your recommended lessons.
+                      </p>
+
+                      {/* Show quizzes grouped by type */}
+                      {quizModes.map((mode) => {
+                        const details = getQuizModeDetails(mode.quiz_type);
+                        const IconComponent = details.icon;
+
+                        // Get lessons for this quiz type that are in recommended lessons
+                        const lessonsForThisType = allQuizLessonsByType[mode.quiz_type] || [];
+                        const recommendedForThisType = lessonsForThisType.filter(quiz =>
+                          recommendedLessons.includes(quiz.lesson_id)
+                        );
+
+                        // Don't show this quiz type if no recommended lessons
+                        if (recommendedForThisType.length === 0) return null;
+
+                        return (
+                          <div key={mode.quiz_type} className="mb-8">
+                            {/* Quiz Type Header */}
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${details.color} flex items-center justify-center shadow-md`}>
+                                <IconComponent className="w-5 h-5 text-white" />
+                              </div>
+                              <h3 className={`text-[17px] md:text-[19px] font-bold ${details.textColor}`}>
+                                {mode.display_name}
+                              </h3>
+                              <span className="bg-yellow-400 text-black px-3 py-1 rounded-full text-[11px] font-bold">
+                                FOR RECOMMENDED
+                              </span>
+                            </div>
+
+                            {/* Quiz Cards for this type */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              {recommendedForThisType.map((lessonInfo, index) => (
+                                <motion.div
+                                  key={`recommended-${mode.quiz_type}-${lessonInfo.lesson_id}`}
+                                  initial={{ opacity: 0, x: -20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                                  className={`${details.bgColor} border-2 ${details.borderColor} rounded-lg p-4 hover:shadow-md cursor-pointer transition-all`}
+                                  onClick={() => {
+                                    setSelectedQuizType(mode.quiz_type);
+                                    handleLessonSelect(lessonInfo);
+                                  }}
+                                >
+                                  <div className="flex items-start gap-3">
+                                    <div className="flex-shrink-0">
+                                      <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${details.color} flex items-center justify-center shadow-md`}>
+                                        <span className="text-white font-bold text-lg">★</span>
+                                      </div>
+                                    </div>
+
+                                    <div className="flex-1">
+                                      <h4 className="text-[15px] md:text-[17px] font-bold text-gray-800 mb-2">
+                                        {lessonInfo.lesson_title}
+                                      </h4>
+
+                                      <div className="flex items-center gap-3 text-[12px] md:text-[13px] text-gray-600 flex-wrap mb-2">
+                                        <span>📝 {mode.quiz_type === "multiple_choice" ? 10 : mode.quiz_type === "drag_drop" ? 5 : mode.quiz_type === "typing" ? 5 : lessonInfo.total_questions} questions</span>
+                                        {lessonInfo.difficulty && (
+                                          <span className={`px-2 py-1 rounded-full text-[10px] md:text-[11px] font-bold ${lessonInfo.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
+                                            lessonInfo.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                                              'bg-red-100 text-red-800'
+                                            }`}>
+                                            {lessonInfo.difficulty.toUpperCase()}
+                                          </span>
+                                        )}
+                                      </div>
+
+                                      <p className="text-[12px] text-gray-600">
+                                        Practice your recommended lessons
+                                      </p>
+                                    </div>
+
+                                    <motion.button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        // Navigate directly to quiz page
+                                        navigate(
+                                          `/courses/${courseName}/quizzes/${courseId}/${lessonInfo.lesson_id}/${mode.quiz_type}`,
+                                          {
+                                            state: {
+                                              quizData: lessonInfo,
+                                              courseName: courseName,
+                                              formattedTitle: formattedTitle,
+                                            },
+                                          }
+                                        );
+                                      }}
+                                      className={`px-4 py-2 rounded-lg font-semibold text-white bg-gradient-to-r ${details.color} hover:opacity-90 transition-colors text-[13px] md:text-[14px]`}
+                                      whileHover={{ scale: 1.05 }}
+                                      whileTap={{ scale: 0.95 }}
+                                    >
+                                      Start
+                                    </motion.button>
+                                  </div>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </>
               )}
             </>
           ) : null}
@@ -894,6 +1075,20 @@ const LessonList = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {unlockReason && (
+        <TekiDialog
+          message={unlockReason}
+          onClose={() => setUnlockReason("")}
+        />
+      )}
+
+      {/* Add Completion Modal */}
+      <LessonsCompletionModal
+        isOpen={showCompletionModal}
+        onClose={handleCloseCompletionModal}
+        onSeeQuizzes={handleSeeQuizzes}
+      />
     </div>
   );
 };

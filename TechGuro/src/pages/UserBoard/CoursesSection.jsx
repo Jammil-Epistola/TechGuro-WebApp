@@ -17,12 +17,14 @@ const COURSES = [
   "Computer Basics",
   "Internet Safety",
   "Digital Communication & Messaging",
+  "Intro To Online Selling",
 ];
 
 const courseLessonCounts = {
   "Computer Basics": 5,
-  "Internet Safety": 8,
+  "Internet Safety": 5,
   "Digital Communication & Messaging": 5,
+  "Intro To Online Selling": 4
 };
 
 const getCourseName = (courseId) => {
@@ -79,6 +81,19 @@ const CoursesSection = () => {
           "How to Use Messaging Apps ",
           "Video Communication",
           "Online Etiquette and Safety",
+        ],
+      },
+      {
+        name: "Intro To Online Selling",
+        icon: <FaStore />,
+        description:
+          "Understand what online selling is, why people do it, and what tools are needed.",
+        available: true,
+        lessons: [
+          "What is Online Selling?",
+          "Setting Up fo Selling (Facebook)",
+          "How to Create Marketplace Listing",
+          " How to Respond to Buyers and Manage Orders",
         ],
       },
     ];
@@ -164,7 +179,7 @@ const CoursesSection = () => {
       <h2 className="text-left text-[40px] font-bold mb-5">COURSES</h2>
 
       <div className="text-[#4C5173] flex justify-center">
-        <div className="w-full max-w-[1200px] px-5 py-20 grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="w-full max-w-[1200px] px-5 py-20 grid grid-cols-1 md:grid-cols-2 gap-10">
           {courseData.map((course, index) => (
             <div
               key={index}

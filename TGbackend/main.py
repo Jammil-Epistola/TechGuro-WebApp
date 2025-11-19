@@ -13,7 +13,17 @@ app = FastAPI()
 print("🔒 Configuring CORS...")
 
 # Read CORS origins from environment variable or use defaults
-CORS_ORIGINS = os.getenv("CORS_ORIGINS", "...").split(",")
+CORS_ORIGINS_ENV = os.getenv("CORS_ORIGINS", "")
+
+CORS_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+]
+
+# Add production origins if they exist
+if CORS_ORIGINS_ENV:
+    CORS_ORIGINS.extend(CORS_ORIGINS_ENV.split(","))
 
 print(f"✅ CORS middleware configured with origins: {CORS_ORIGINS}")
 
@@ -26,14 +36,14 @@ app.add_middleware(
 )
 
 # Startup event to create tables automatically
-@app.on_event("startup")
-async def startup_event():
-    try:
-        print("🔄 Creating/verifying database tables...")
-        Base.metadata.create_all(bind=engine)
-        print("✅ Database tables created/verified successfully!")
-    except Exception as e:
-        print(f"⚠️ Error creating tables: {e}")
+#@app.on_event("startup")
+#async def startup_event():
+#    try:
+#        print("🔄 Creating/verifying database tables...")
+#        Base.metadata.create_all(bind=engine)
+#        print("✅ Database tables created/verified successfully!")
+#    except Exception as e:
+#        print(f"⚠️ Error creating tables: {e}")
 
 # Include all routers
 print("📦 Including routers...")
