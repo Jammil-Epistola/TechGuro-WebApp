@@ -90,7 +90,7 @@ const HistorySection = () => {
   };
 
   return (
-    <div className="bg-[#DFDFEE] min-h-screen p-4 md:p-6">
+    <div className="history-section bg-[#DFDFEE] min-h-screen p-4 md:p-6">
       <motion.div
         className="max-w-7xl mx-auto"
         initial={{ opacity: 0, y: 20 }}

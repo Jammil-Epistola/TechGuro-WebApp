@@ -1,11 +1,11 @@
-//UserBoard.jsx - Fixed seamless animation
+// UserBoard.jsx - DEBUG VERSION
 import React, { useState, useEffect } from "react";
 import { useUser } from "../context/UserContext";
 import { useMilestone } from "../context/MilestoneContext";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { LogOut, BookOpen, BarChart3, Award, History, Menu, X } from "lucide-react";
-import { FaUser, FaUserCircle, FaCalendar, FaChevronDown, FaSignOutAlt, FaBook } from "react-icons/fa";
+import { FaUser, FaUserCircle, FaSignOutAlt, FaBook } from "react-icons/fa";
 import DashboardSection from "./UserBoard/DashboardSection";
 import AchievementsSection from "./UserBoard/AchievementsSection";
 import CoursesSection from "./UserBoard/CoursesSection";
@@ -22,6 +22,16 @@ const UserBoard = () => {
   const { logout, user } = useUser();
   const { showMilestone } = useMilestone();
   const [showTutorial, setShowTutorial] = useState(false);
+
+  // ✅ DEBUG: Log tutorial state changes
+  useEffect(() => {
+    console.log("🎓 Tutorial showTutorial state changed to:", showTutorial);
+  }, [showTutorial]);
+
+  // ✅ DEBUG: Log user changes
+  useEffect(() => {
+    console.log("👤 User object:", user);
+  }, [user]);
 
   // Initialize sidebar state based on screen size
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
@@ -42,19 +52,66 @@ const UserBoard = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // ✅ LISTEN FOR TUTORIAL NAVIGATION EVENTS
+  useEffect(() => {
+    const handleTutorialNavigate = (e) => {
+      console.log("📍 Tutorial navigation event received:", e.detail);
+      const target = e.detail.target;
+      const sectionMap = {
+        "milestones": "achievements",
+        "history": "history",
+        "courses": "courses",
+        "dashboard": "dashboard"
+      };
+
+      const section = sectionMap[target] || target;
+      console.log("🔄 Navigating to section:", section);
+
+      const mainContent = document.querySelector('.flex-1.overflow-y-auto');
+      if (mainContent) {
+        mainContent.scrollTo({ top: 0, behavior: 'instant' }); // Use 'instant' for immediate scroll
+      }
+
+      setActiveSection(section);
+
+      if (window.innerWidth < 768) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener("tutorial-navigate", handleTutorialNavigate);
+    console.log("✅ Tutorial navigation listener registered");
+    return () => {
+      window.removeEventListener("tutorial-navigate", handleTutorialNavigate);
+      console.log("❌ Tutorial navigation listener removed");
+    };
+  }, []);
+
   useEffect(() => {
     const checkFirstLogin = () => {
-      if (!user || !user.user_id) return;
+      if (!user || !user.user_id) {
+        console.log("❌ No user or user_id available yet");
+        return;
+      }
+
+      console.log("👤 User ID:", user.user_id);
 
       const tutorialShownKey = `tutorial_shown_${user.user_id}`;
       const hasShownTutorial = localStorage.getItem(tutorialShownKey);
 
+      console.log("🔑 Tutorial key:", tutorialShownKey);
+      console.log("📦 Has shown tutorial before:", hasShownTutorial);
+
       if (!hasShownTutorial) {
-        // Show tutorial after a brief delay
+        console.log("🎓 First login detected - showing tutorial");
         setTimeout(() => {
+          console.log("⏰ Timeout finished - setting showTutorial to true");
           setShowTutorial(true);
           localStorage.setItem(tutorialShownKey, 'true');
+          console.log("💾 Saved tutorial flag to localStorage");
         }, 1000);
+      } else {
+        console.log("⏭️ Tutorial already shown before");
       }
     };
 
@@ -75,11 +132,9 @@ const UserBoard = () => {
           const milestones = await milestonesResponse.json();
           const milestone1 = milestones.find(m => m.id === 1);
 
-          // Only show if notification hasn't been shown before
           if (milestone1 && milestone1.status === "earned" && !milestone1.notification_shown) {
             setTimeout(() => {
               showMilestone(milestone1);
-              // Mark as shown in the database
               fetch(`${API_URL}/milestones/mark-shown/${user.user_id}/1`, {
                 method: 'POST'
               }).catch(err => console.error("Error marking milestone as shown:", err));
@@ -108,10 +163,8 @@ const UserBoard = () => {
         for (const milestoneId of courseCompletionMilestones) {
           const milestone = milestones.find(m => m.id === milestoneId);
 
-          // Only show if earned and notification hasn't been shown
           if (milestone && milestone.status === "earned" && !milestone.notification_shown) {
             newlyEarnedMilestones.push(milestone);
-            // Mark as shown in the database
             fetch(`${API_URL}/milestones/mark-shown/${user.user_id}/${milestoneId}`, {
               method: 'POST'
             }).catch(err => console.error("Error marking milestone as shown:", err));
@@ -140,7 +193,12 @@ const UserBoard = () => {
 
   const navigateToSection = (sectionName) => {
     setActiveSection(sectionName);
-    // Close sidebar on mobile when navigating
+
+    const mainContent = document.querySelector('.flex-1.overflow-y-auto');
+    if (mainContent) {
+      mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     if (window.innerWidth < 768) {
       setIsSidebarOpen(false);
     }
@@ -149,15 +207,35 @@ const UserBoard = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "dashboard":
-        return <DashboardSection goToProfile={dashboardKey} navigateToSection={navigateToSection} />;
+        return (
+          <div className="dashboard-section-wrapper">
+            <DashboardSection goToProfile={dashboardKey} navigateToSection={navigateToSection} />
+          </div>
+        );
       case "courses":
-        return <CoursesSection />;
+        return (
+          <div className="courses-section">
+            <CoursesSection />
+          </div>
+        );
       case "achievements":
-        return <AchievementsSection navigateToSection={navigateToSection} />;
+        return (
+          <div className="achievements-section">
+            <AchievementsSection navigateToSection={navigateToSection} />
+          </div>
+        );
       case "history":
-        return <HistorySection />;
+        return (
+          <div className="history-section">
+            <HistorySection />
+          </div>
+        );
       default:
-        return <DashboardSection goToProfile={dashboardKey} navigateToSection={navigateToSection} />;
+        return (
+          <div className="dashboard-section-wrapper">
+            <DashboardSection goToProfile={dashboardKey} navigateToSection={navigateToSection} />
+          </div>
+        );
     }
   };
 
@@ -171,9 +249,14 @@ const UserBoard = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // ✅ DEBUG: Log dropdown toggle
+  useEffect(() => {
+    console.log("📌 Dropdown open state:", isDropdownOpen);
+  }, [isDropdownOpen]);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest(".user-dropdown")) {
+      if (!event.target.closest(".floating-profile-dropdown")) {
         setIsDropdownOpen(false);
       }
     };
@@ -210,7 +293,7 @@ const UserBoard = () => {
 
   return (
     <div className="flex relative bg-[#DFDFEE] min-h-screen">
-      {/* Enhanced Sidebar  */}
+      {/* Enhanced Sidebar */}
       <AnimatePresence mode="wait">
         {isSidebarOpen && (
           <motion.div
@@ -218,18 +301,10 @@ const UserBoard = () => {
             animate={{ x: 0 }}
             exit={{ x: -280 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="w-[280px] h-screen bg-gradient-to-b from-[#BFC4D7] to-[#A8B0C8] flex flex-col justify-between p-6 shadow-xl z-[60] fixed md:sticky top-0"
+            className="sidebar-nav w-[280px] h-screen bg-gradient-to-b from-[#BFC4D7] to-[#A8B0C8] flex flex-col justify-between p-6 shadow-xl z-[60] fixed md:sticky top-0"
           >
-            {/* Logo Section with Close Button */}
+            {/* Logo Section*/}
             <div className="flex flex-col items-center mb-8 relative">
-              {/* Close Button - Only visible on mobile */}
-              <button
-                onClick={() => setIsSidebarOpen(false)}
-                className="md:hidden absolute top-0 right-0 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all"
-              >
-                <X className="w-5 h-5 text-[#1A202C]" />
-              </button>
-
               <img
                 src={tgLogo}
                 alt="TechGuro Logo"
@@ -297,7 +372,7 @@ const UserBoard = () => {
         )}
       </AnimatePresence>
 
-      {/* Overlay backdrop - Only on mobile when sidebar is open */}
+      {/* Overlay backdrop */}
       <AnimatePresence>
         {isSidebarOpen && (
           <motion.div
@@ -311,106 +386,99 @@ const UserBoard = () => {
         )}
       </AnimatePresence>
 
-      {/* Main Content Area - Always present */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Navbar */}
-        <div className="sticky top-0 z-40 w-full bg-[#4c5173] shadow-md flex justify-between items-center px-4 md:px-10 py-5">
-          {/* Hamburger Menu Button */}
+        <motion.button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="fixed top-5 left-5 z-[70] flex items-center justify-center w-12 h-12 bg-[#4c5173] hover:bg-[#3a3f5c] rounded-lg shadow-lg transition-all md:hidden"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Menu className="w-6 h-6 text-white" />
+        </motion.button>
+
+        {/* Floating User Profile Button */}
+        <div className="floating-profile-dropdown fixed top-5 right-5 z-[70]">
           <motion.button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg transition-all"
+            onClick={toggleDropdown}
+            className="flex items-center gap-2 px-4 py-3 bg-[#4c5173] hover:bg-[#3a3f5c] rounded-full shadow-lg transition-all"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Menu className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <FaUser className="text-white text-xl" />
+            </div>
+            <span className="text-white font-medium text-[15px] hidden sm:inline">
+              {user?.username || "User"}
+            </span>
           </motion.button>
 
-          {/* Right Side - Calendar and User Profile */}
-          <div className="flex items-center gap-3 md:gap-6">
-            {/* Calendar - Numeric Format */}
-            <div className="flex items-center gap-2 text-white text-[14px] md:text-[16px]">
-              <FaCalendar className="text-[18px] md:text-[20px]" />
-              <span className="hidden sm:inline">
-                {new Date().toLocaleDateString("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                })}
-              </span>
-              <span className="sm:hidden">
-                {new Date().toLocaleDateString("en-US", {
-                  month: "numeric",
-                  day: "numeric",
-                })}
-              </span>
-            </div>
-
-            {/* Separator Line */}
-            <div className="w-[1px] h-6 bg-white/30" />
-
-            {/* User Profile Dropdown */}
-            <div className="relative user-dropdown">
-              <button
-                className="flex items-center gap-2 px-3 md:px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition"
-                onClick={toggleDropdown}
+          {/* Dropdown Menu */}
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="absolute right-0 mt-2 bg-white text-black rounded-lg shadow-xl w-48 overflow-hidden border border-gray-200"
               >
-                <FaUser className="text-white text-[18px] md:text-[20px]" />
-                <span className="text-white font-medium text-[14px] md:text-[15px] hidden sm:inline">
-                  {user?.username || "User"}
-                </span>
-                <FaChevronDown className="text-white text-[14px]" />
-              </button>
+                <button
+                  onClick={() => {
+                    console.log("👤 Profile button clicked");
+                    setIsDropdownOpen(false);
+                    goToProfileSection();
+                  }}
+                  className="w-full text-left flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition-all"
+                >
+                  <FaUserCircle className="text-lg text-[#4c5173]" />
+                  <span className="font-medium">Profile</span>
+                </button>
 
-              {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg w-44 z-50 overflow-hidden">
-                  <button
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      goToProfileSection();
-                    }}
-                    className="w-full text-left flex items-center gap-2 px-4 py-3 hover:bg-gray-100 transition"
-                  >
-                    <FaUserCircle />
-                    <span>Profile</span>
-                  </button>
+                <hr className="border-t border-gray-200" />
 
-                  <button
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      setShowTutorial(true);
-                    }}
-                    className="w-full text-left flex items-center gap-2 px-4 py-3 hover:bg-gray-100 transition"
-                  >
-                    <FaBook /> 
-                    <span>Tutorial</span>
-                  </button>
+                <button
+                  onClick={() => {
+                    console.log("🎓 Tutorial button clicked - setShowTutorial(true)");
+                    setIsDropdownOpen(false);
+                    setShowTutorial(true);
+                    console.log("✅ showTutorial set to true");
+                  }}
+                  className="w-full text-left flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition-all"
+                >
+                  <FaBook className="text-lg text-[#4c5173]" />
+                  <span className="font-medium">Tutorial</span>
+                </button>
 
-                  <hr className="border-t border-gray-200" />
+                <hr className="border-t border-gray-200" />
 
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left flex items-center gap-2 px-4 py-3 text-red-600 hover:bg-red-50 transition"
-                  >
-                    <FaSignOutAlt />
-                    <span>Sign Out</span>
-                  </button>
-                </div>
-
-              )}
-            </div>
-          </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 transition-all"
+                >
+                  <FaSignOutAlt className="text-lg" />
+                  <span className="font-medium">Sign Out</span>
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto bg-[#DFDFEE] p-4 md:p-6">
+        <div className="flex-1 overflow-y-auto bg-[#DFDFEE] p-4 md:p-6 pt-20 md:pt-6">
           {renderContent()}
         </div>
       </div>
-      {/* Dashboard Tutorial */}
+
+      {/* ✅ Dashboard Tutorial - Pass currentPage (activeSection) */}
+      {console.log("🎓 DashboardTutorial props:", { isOpen: showTutorial, currentPage: activeSection })}
       <DashboardTutorial
         isOpen={showTutorial}
-        onClose={() => setShowTutorial(false)}
-        startSection="dashboard"
+        onClose={() => {
+          console.log("🎓 Tutorial closed");
+          setShowTutorial(false);
+        }}
+        currentPage={activeSection}
       />
     </div>
   );

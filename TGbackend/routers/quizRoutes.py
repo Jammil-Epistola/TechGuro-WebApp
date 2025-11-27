@@ -1,10 +1,11 @@
-# quizRoutes.py -CURRENT VERSION
+# quizRoutes.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from typing import List
 import json
 from TGbackend.database import get_db
-from TGbackend.models import Quiz, QuizQuestion, QuizResult, User, Course, Lesson
+from TGbackend.models import Quiz, QuizQuestion, QuizResult, QuizQuestionResponse, User, Course, Lesson
 from TGbackend.schema import QuizSubmission
 
 router = APIRouter(tags=["Quiz Handling"])
@@ -83,6 +84,182 @@ def get_quiz_lessons(course_id: int, quiz_type: str, db: Session = Depends(get_d
         "course_title": course.title,
         "quiz_type": quiz_type,
         "available_lessons": lessons_info
+    }
+
+# NEW ENDPOINT: Quiz Performance Breakdown Analytics
+@router.get("/quiz/performance-breakdown/{user_id}/{course_id}")
+def get_quiz_performance_breakdown(user_id: int, course_id: int, db: Session = Depends(get_db)):
+    """
+    Get aggregated quiz performance statistics by quiz type.
+    Returns performance patterns, weak areas, and recommendations.
+    """
+
+    # Verify user and course exist
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    
+    # Get all quiz results for this user and course
+    quiz_results = db.query(QuizResult).filter(
+        QuizResult.user_id == user_id,
+        QuizResult.course_id == course_id
+    ).all()
+    
+    if not quiz_results:
+        return {
+            "user_id": user_id,
+            "course_id": course_id,
+            "total_attempts": 0,
+            "performance_by_type": {},
+            "weak_areas": [],
+            "lesson_performance": [],
+            "recommendations": []
+        }
+    
+    performance_by_type = {}
+    lesson_performance = {}
+    
+    for result in quiz_results:
+        quiz_type = result.quiz_type
+        lesson_id = result.lesson_id
+        
+        # Aggregate by quiz type
+        if quiz_type not in performance_by_type:
+            performance_by_type[quiz_type] = {
+                "total_attempts": 0,
+                "total_score": 0,
+                "total_questions": 0,
+                "passed_attempts": 0,
+                "scores": []
+            }
+        
+        performance_by_type[quiz_type]["total_attempts"] += 1
+        performance_by_type[quiz_type]["total_score"] += result.score
+        performance_by_type[quiz_type]["total_questions"] += result.total_questions
+        performance_by_type[quiz_type]["scores"].append(result.percentage)
+        
+        if result.percentage >= 60:
+            performance_by_type[quiz_type]["passed_attempts"] += 1
+        
+        # Aggregate by lesson
+        if lesson_id not in lesson_performance:
+            lesson_performance[lesson_id] = {
+                "lesson_id": lesson_id,
+                "attempts": 0,
+                "quiz_types": {}
+            }
+        
+        lesson_performance[lesson_id]["attempts"] += 1
+        
+        # Track quiz types per lesson
+        if quiz_type not in lesson_performance[lesson_id]["quiz_types"]:
+            lesson_performance[lesson_id]["quiz_types"][quiz_type] = []
+        lesson_performance[lesson_id]["quiz_types"][quiz_type].append(result.percentage)
+    
+    # Calculate statistics for each quiz type
+    quiz_type_stats = {}
+    for quiz_type, data in performance_by_type.items():
+        average_percentage = sum(data["scores"]) / len(data["scores"]) if data["scores"] else 0
+        pass_rate = (data["passed_attempts"] / data["total_attempts"]) * 100 if data["total_attempts"] > 0 else 0
+        
+        quiz_type_stats[quiz_type] = {
+            "quiz_type": quiz_type,
+            "display_name": {
+                "multiple_choice": "Image Recognition Quiz",
+                "drag_drop": "Drag & Drop Challenge",
+                "typing": "Typing Practice Quiz"
+            }.get(quiz_type, quiz_type.replace('_', ' ').title()),
+            "total_attempts": data["total_attempts"],
+            "average_score": round(average_percentage, 2),
+            "pass_rate": round(pass_rate, 2),
+            "best_score": round(max(data["scores"]), 2) if data["scores"] else 0,
+            "worst_score": round(min(data["scores"]), 2) if data["scores"] else 0
+        }
+    
+    # Calculate lesson-level statistics
+    lesson_stats = []
+    for lesson_id, data in lesson_performance.items():
+        # Get lesson title
+        lesson = db.query(Lesson).filter(Lesson.id == lesson_id).first()
+        lesson_title = lesson.title if lesson else f"Lesson {lesson_id}"
+        
+        # Calculate average across all quiz types for this lesson
+        all_scores = []
+        best_score = 0
+        for scores in data["quiz_types"].values():
+            all_scores.extend(scores)
+            best_score = max(best_score, max(scores) if scores else 0)
+        
+        average_score = sum(all_scores) / len(all_scores) if all_scores else 0
+        
+        lesson_stats.append({
+            "lesson_id": lesson_id,
+            "lesson_title": lesson_title,
+            "attempts": data["attempts"],
+            "average_score": round(average_score, 2),
+            "best_score": round(best_score, 2),
+            "quiz_types_attempted": list(data["quiz_types"].keys())
+        })
+    
+    # Sort by average score to identify weak areas
+    lesson_stats.sort(key=lambda x: x["average_score"])
+    
+    # Identify weak areas (below 60%)
+    weak_areas = []
+    for lesson in lesson_stats:
+        if lesson["average_score"] < 60:
+            weak_areas.append({
+                "lesson_id": lesson["lesson_id"],
+                "lesson_title": lesson["lesson_title"],
+                "average_score": lesson["average_score"],
+                "reason": "Below passing threshold (60%)"
+            })
+    
+    # Generate recommendations
+    recommendations = []
+    
+    # Recommendation 1: Focus on weakest quiz type
+    weakest_type = min(quiz_type_stats.values(), key=lambda x: x["average_score"]) if quiz_type_stats else None
+    if weakest_type and weakest_type["average_score"] < 70:
+        recommendations.append({
+            "type": "quiz_type",
+            "priority": "high",
+            "message": f"Practice more {weakest_type['display_name']} - current average: {weakest_type['average_score']}%",
+            "quiz_type": weakest_type["quiz_type"]
+        })
+    
+    # Recommendation 2: Revisit weak lessons
+    if weak_areas:
+        top_weak = weak_areas[:3]
+        recommendations.append({
+            "type": "lesson_review",
+            "priority": "high",
+            "message": f"Review these lessons: {', '.join([w['lesson_title'] for w in top_weak])}",
+            "lessons": [w["lesson_id"] for w in top_weak]
+        })
+    
+    # Recommendation 3: Consistent practice
+    if len(quiz_results) < 10:
+        recommendations.append({
+            "type": "practice_more",
+            "priority": "medium",
+            "message": "Take more quizzes to build consistency and confidence",
+            "current_attempts": len(quiz_results)
+        })
+    
+    return {
+        "user_id": user_id,
+        "course_id": course_id,
+        "course_title": course.title,
+        "total_attempts": len(quiz_results),
+        "performance_by_type": quiz_type_stats,
+        "lesson_performance": lesson_stats,
+        "weak_areas": weak_areas,
+        "recommendations": recommendations
     }
 
 # Get specific quiz questions for a lesson and quiz type
@@ -176,7 +353,8 @@ def get_lesson_quiz(course_id: int, lesson_id: int, quiz_type: str, db: Session 
         },
         "questions": quiz_questions
     }
-# Submit quiz answers
+
+# Submit quiz answers - ENHANCED with question-level tracking
 @router.post("/quiz/submit/{quiz_id}/{user_id}")
 def submit_quiz(
     quiz_id: int, 
@@ -184,7 +362,7 @@ def submit_quiz(
     submission: QuizSubmission,
     db: Session = Depends(get_db)
 ):
-    """Submit quiz answers and calculate score"""
+    """Submit quiz answers and calculate score - NOW SAVES INDIVIDUAL QUESTION RESPONSES"""
     quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
     if not quiz:
         raise HTTPException(status_code=404, detail="Quiz not found")
@@ -195,7 +373,6 @@ def submit_quiz(
     
     # Get questions in the exact order they were presented to the user
     if submission.question_ids:
-        # Use the question IDs provided by the frontend to maintain order
         questions = []
         for q_id in submission.question_ids:
             question = db.query(QuizQuestion).filter(
@@ -205,7 +382,6 @@ def submit_quiz(
             if question:
                 questions.append(question)
     else:
-        # Fallback: Use the same logic as the GET endpoint
         all_questions = db.query(QuizQuestion).filter(
             QuizQuestion.quiz_id == quiz_id
         ).order_by(QuizQuestion.question_number).all()
@@ -217,7 +393,7 @@ def submit_quiz(
         }
         
         limit = question_limits.get(quiz.quiz_type, len(all_questions))
-        questions = all_questions[:limit]  # Take first N questions
+        questions = all_questions[:limit]
     
     # Validate answer count
     if len(submission.answers) != len(questions):
@@ -226,8 +402,9 @@ def submit_quiz(
             detail=f"Expected {len(questions)} answers, got {len(submission.answers)}. Quiz type: {quiz.quiz_type}"
         )
     
-    # Calculate score with enhanced debugging
+    # Calculate score and prepare individual responses
     correct_count = 0
+    question_responses = []
     
     print(f"\n=== QUIZ SUBMISSION DEBUG ===")
     print(f"Quiz Type: {quiz.quiz_type}")
@@ -239,6 +416,7 @@ def submit_quiz(
             continue
             
         user_answer = submission.answers[i]
+        is_correct = False
         
         print(f"\n--- Question {i+1} ---")
         print(f"Question ID: {question.id}")
@@ -249,126 +427,92 @@ def submit_quiz(
         # Handle null/empty answers
         if user_answer is None or user_answer == "":
             print("❌ User answer is empty")
-            continue
-            
-        if question.question_type == "multiple_choice" or question.question_type == "image_mcq":
+        elif question.question_type == "multiple_choice" or question.question_type == "image_mcq":
             # Enhanced image MCQ comparison
-            original_user_answer = user_answer
-            
-            # Handle case where frontend sends dict with image key
             if isinstance(user_answer, dict) and "image" in user_answer:
                 user_answer = user_answer["image"]
                 print(f"Extracted image from dict: {user_answer}")
             
-            # Get the correct answer (handle different storage formats)
             correct_answer = str(question.correct_answer)
             user_answer_str = str(user_answer)
             
             print(f"Comparing - Correct: '{correct_answer}', User: '{user_answer_str}'")
             
             # Try multiple comparison strategies
-            is_correct = False
-            
             # Strategy 1: Direct comparison
             if user_answer_str.lower().strip() == correct_answer.lower().strip():
                 is_correct = True
                 print("✅ Match Strategy 1: Direct comparison")
             
-            # Strategy 2: Filename comparison (extract just the filename)
+            # Strategy 2: Filename comparison
             elif "/" in correct_answer or "/" in user_answer_str:
                 correct_filename = correct_answer.split("/")[-1] if "/" in correct_answer else correct_answer
                 user_filename = user_answer_str.split("/")[-1] if "/" in user_answer_str else user_answer_str
-                
-                print(f"Filename comparison - Correct: '{correct_filename}', User: '{user_filename}'")
                 
                 if correct_filename.lower().strip() == user_filename.lower().strip():
                     is_correct = True
                     print("✅ Match Strategy 2: Filename comparison")
             
-            # Strategy 3: Check if user answer contains correct answer or vice versa
+            # Strategy 3: Contains comparison
             if not is_correct:
                 if correct_answer.lower() in user_answer_str.lower() or user_answer_str.lower() in correct_answer.lower():
                     is_correct = True
                     print("✅ Match Strategy 3: Contains comparison")
-            
-            # Strategy 4: For image options, check against all possible option values
-            if not is_correct and question.options:
-                try:
-                    options = json.loads(question.options) if isinstance(question.options, str) else question.options
-                    print(f"Available options: {options}")
-                    
-                    for opt in options:
-                        if isinstance(opt, dict) and "image" in opt:
-                            opt_image = str(opt["image"])
-                            if opt_image == user_answer_str:
-                                # Now check if this option is the correct one
-                                if opt_image == correct_answer or opt_image.split("/")[-1] == correct_answer.split("/")[-1]:
-                                    is_correct = True
-                                    print("✅ Match Strategy 4: Option validation")
-                                    break
-                        elif str(opt) == user_answer_str:
-                            if str(opt) == correct_answer:
-                                is_correct = True
-                                print("✅ Match Strategy 4: Text option validation")
-                                break
-                except Exception as e:
-                    print(f"Error parsing options: {e}")
             
             if is_correct:
                 correct_count += 1
                 print(f"🎉 Question {i+1}: CORRECT")
             else:
                 print(f"❌ Question {i+1}: INCORRECT")
-                print(f"   Final comparison: '{correct_answer.lower().strip()}' vs '{user_answer_str.lower().strip()}'")
         
         elif question.question_type == "typing":
-            # Case-insensitive comparison for typing
             if isinstance(user_answer, str):
                 user_text = user_answer.lower().strip()
                 correct_text = str(question.correct_answer).lower().strip()
                 
-                print(f"Typing comparison: '{user_text}' vs '{correct_text}'")
-                
                 if user_text == correct_text:
+                    is_correct = True
                     correct_count += 1
                     print(f"🎉 Question {i+1}: CORRECT")
                 else:
                     print(f"❌ Question {i+1}: INCORRECT")
         
         elif question.question_type == "drag_drop":
-            # Check if drag-drop mapping is correct
             try:
                 if isinstance(question.correct_answer, str):
                     expected_mapping = json.loads(question.correct_answer)
                 else:
                     expected_mapping = question.correct_answer
                 
-                print(f"Drag-drop comparison: {user_answer} vs {expected_mapping}")
-                
                 if user_answer == expected_mapping:
+                    is_correct = True
                     correct_count += 1
                     print(f"🎉 Question {i+1}: CORRECT")
                 else:
                     print(f"❌ Question {i+1}: INCORRECT")
             except (json.JSONDecodeError, TypeError) as e:
-                print(f"Error parsing drag_drop answer: {e}")
                 if str(user_answer) == str(question.correct_answer):
+                    is_correct = True
                     correct_count += 1
                     print(f"🎉 Question {i+1}: CORRECT (fallback)")
-                else:
-                    print(f"❌ Question {i+1}: INCORRECT (fallback)")
+        
+        # Store individual question response data
+        question_responses.append({
+            "question_id": question.id,
+            "selected_answer": json.dumps(user_answer) if not isinstance(user_answer, str) else user_answer,
+            "is_correct": is_correct,
+            "time_taken": None  # Can be enhanced later if frontend tracks per-question time
+        })
     
     percentage = (correct_count / len(questions)) * 100 if len(questions) > 0 else 0
+    time_taken = max(0, submission.time_taken or 0)
     
     print(f"\n=== FINAL RESULTS ===")
     print(f"Correct: {correct_count}/{len(questions)}")
     print(f"Percentage: {percentage}%")
     print(f"========================\n")
     
-    # Ensure time_taken is valid
-    time_taken = max(0, submission.time_taken or 0)
-    
-    # Save result
+    # Save quiz result
     quiz_result = QuizResult(
         user_id=user_id,
         quiz_id=quiz_id,
@@ -386,6 +530,22 @@ def submit_quiz(
     db.commit()
     db.refresh(quiz_result)
     
+    # NEW: Save individual question responses
+    for response_data in question_responses:
+        question_response = QuizQuestionResponse(
+            user_id=user_id,
+            quiz_result_id=quiz_result.id,
+            question_id=response_data["question_id"],
+            selected_answer=response_data["selected_answer"],
+            is_correct=response_data["is_correct"],
+            time_taken=response_data["time_taken"]
+        )
+        db.add(question_response)
+    
+    db.commit()
+    
+    print(f"✅ Saved {len(question_responses)} individual question responses")
+    
     return {
         "result_id": quiz_result.id,
         "quiz_type": quiz.quiz_type,
@@ -396,11 +556,193 @@ def submit_quiz(
         "passed": percentage >= 60
     }
 
+# NEW ENDPOINT: Get questions for a specific quiz attempt
+@router.get("/quiz/questions/{quiz_result_id}")
+def get_quiz_attempt_questions(quiz_result_id: int, db: Session = Depends(get_db)):
+    """
+    Get all questions for a specific quiz attempt.
+    Returns question text, options, correct answer, and metadata.
+    """
+    # Get the quiz result
+    quiz_result = db.query(QuizResult).filter(QuizResult.id == quiz_result_id).first()
+    if not quiz_result:
+        raise HTTPException(status_code=404, detail="Quiz result not found")
+    
+    # Get all question responses for this attempt
+    responses = db.query(QuizQuestionResponse).filter(
+        QuizQuestionResponse.quiz_result_id == quiz_result_id
+    ).all()
+    
+    if not responses:
+        raise HTTPException(status_code=404, detail="No question responses found for this quiz attempt")
+    
+    # Get full question details
+    questions_data = []
+    for response in responses:
+        question = db.query(QuizQuestion).filter(QuizQuestion.id == response.question_id).first()
+        if not question:
+            continue
+        
+        # Parse options safely
+        options = []
+        if question.options:
+            try:
+                options = json.loads(question.options) if isinstance(question.options, str) else question.options
+            except json.JSONDecodeError:
+                options = []
+        
+        # Parse drag items and drop zones if applicable
+        drag_items = []
+        drop_zones = []
+        if question.drag_items:
+            try:
+                drag_items = json.loads(question.drag_items) if isinstance(question.drag_items, str) else question.drag_items
+            except json.JSONDecodeError:
+                drag_items = []
+        
+        if question.drop_zones:
+            try:
+                drop_zones = json.loads(question.drop_zones) if isinstance(question.drop_zones, str) else question.drop_zones
+            except json.JSONDecodeError:
+                drop_zones = []
+        
+        questions_data.append({
+            "question_id": question.id,
+            "question_number": question.question_number,
+            "question_text": question.question_text,
+            "question_type": question.question_type,
+            "options": options,
+            "drag_items": drag_items,
+            "drop_zones": drop_zones,
+            "correct_answer": question.correct_answer,
+            "media_url": question.media_url
+        })
+    
+    return {
+        "quiz_result_id": quiz_result_id,
+        "quiz_type": quiz_result.quiz_type,
+        "lesson_id": quiz_result.lesson_id,
+        "total_questions": len(questions_data),
+        "questions": questions_data
+    }
+
+# NEW ENDPOINT: Get user's responses for a specific quiz attempt
+@router.get("/quiz/responses/{quiz_result_id}")
+def get_quiz_attempt_responses(quiz_result_id: int, db: Session = Depends(get_db)):
+    """
+    Get user's responses for a specific quiz attempt.
+    Includes selected answers and correctness for each question.
+    """
+    # Verify quiz result exists
+    quiz_result = db.query(QuizResult).filter(QuizResult.id == quiz_result_id).first()
+    if not quiz_result:
+        raise HTTPException(status_code=404, detail="Quiz result not found")
+    
+    # Get all responses
+    responses = db.query(QuizQuestionResponse).filter(
+        QuizQuestionResponse.quiz_result_id == quiz_result_id
+    ).order_by(QuizQuestionResponse.id).all()
+    
+    if not responses:
+        raise HTTPException(status_code=404, detail="No responses found for this quiz attempt")
+    
+    responses_data = []
+    for response in responses:
+        # Parse selected_answer if it's JSON
+        selected_answer = response.selected_answer
+        try:
+            selected_answer = json.loads(response.selected_answer) if isinstance(response.selected_answer, str) and response.selected_answer.startswith(('[', '{')) else response.selected_answer
+        except json.JSONDecodeError:
+            pass  # Keep as string if not valid JSON
+        
+        responses_data.append({
+            "question_id": response.question_id,
+            "selected_answer": selected_answer,
+            "is_correct": response.is_correct,
+            "time_taken": response.time_taken,
+            "timestamp": response.timestamp.isoformat() if response.timestamp else None
+        })
+    
+    return {
+        "quiz_result_id": quiz_result_id,
+        "user_id": quiz_result.user_id,
+        "quiz_type": quiz_result.quiz_type,
+        "overall_score": quiz_result.score,
+        "total_questions": quiz_result.total_questions,
+        "percentage": quiz_result.percentage,
+        "responses": responses_data
+    }
+
+# NEW ENDPOINT: Get attempt history for a specific quiz (lesson + quiz_type)
+@router.get("/quiz/attempt-history/{user_id}/{lesson_id}/{quiz_type}")
+def get_quiz_attempt_history(user_id: int, lesson_id: int, quiz_type: str, db: Session = Depends(get_db)):
+    """
+    Get all attempts for a specific quiz (identified by lesson_id and quiz_type).
+    Returns attempts ordered chronologically to show progression over time.
+    """
+    # Verify user exists
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Get all attempts for this specific quiz
+    attempts = db.query(QuizResult).filter(
+        QuizResult.user_id == user_id,
+        QuizResult.lesson_id == lesson_id,
+        QuizResult.quiz_type == quiz_type
+    ).order_by(QuizResult.completed_at.asc()).all()  # Chronological order
+    
+    if not attempts:
+        return {
+            "user_id": user_id,
+            "lesson_id": lesson_id,
+            "quiz_type": quiz_type,
+            "total_attempts": 0,
+            "attempts": []
+        }
+    
+    attempts_data = []
+    for idx, attempt in enumerate(attempts, 1):
+        # Calculate improvement from previous attempt
+        improvement = None
+        if idx > 1:
+            previous_percentage = attempts[idx - 2].percentage
+            improvement = round(attempt.percentage - previous_percentage, 2)
+        
+        attempts_data.append({
+            "attempt_number": idx,
+            "result_id": attempt.id,
+            "score": attempt.score,
+            "total_questions": attempt.total_questions,
+            "percentage": round(attempt.percentage, 2),
+            "time_taken": attempt.time_taken,
+            "completed_at": attempt.completed_at.isoformat() if attempt.completed_at else None,
+            "passed": attempt.percentage >= 60,
+            "improvement": improvement
+        })
+    
+    # Calculate overall statistics
+    best_score = max(attempt.percentage for attempt in attempts)
+    average_score = sum(attempt.percentage for attempt in attempts) / len(attempts)
+    total_improvement = attempts[-1].percentage - attempts[0].percentage if len(attempts) > 1 else 0
+    
+    return {
+        "user_id": user_id,
+        "lesson_id": lesson_id,
+        "quiz_type": quiz_type,
+        "total_attempts": len(attempts),
+        "best_score": round(best_score, 2),
+        "average_score": round(average_score, 2),
+        "latest_score": round(attempts[-1].percentage, 2),
+        "total_improvement": round(total_improvement, 2),
+        "attempts": attempts_data
+    }
+
+
 # Get user's quiz attempts/results for a specific quiz
 @router.get("/quiz/results/{user_id}/{quiz_id}")
 def get_quiz_results(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
     """Get all attempts for a specific quiz by a user"""
-    # Verify user and quiz exist
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")

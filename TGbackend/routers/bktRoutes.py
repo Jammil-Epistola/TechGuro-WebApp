@@ -1,6 +1,7 @@
 # routers/bkt_routes_clean.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from datetime import datetime
 
 from TGbackend.database import get_db
@@ -157,6 +158,202 @@ def get_recommendations(
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get recommendations: {str(e)}")
+    
+# NEW ENDPOINT: Complete Mastery Breakdown (All Lessons)
+@router.get("/mastery-complete/{user_id}/{course_id}")
+def get_complete_mastery_breakdown(user_id: int, course_id: int, db: Session = Depends(get_db)):
+    """
+    Get complete mastery breakdown for ALL lessons in a course.
+    Shows current mastery, improvement from pre-assessment, and quiz attempt counts.
+    
+    Features:
+    - Display all lessons in the course (not filtered by threshold)
+    - Show current mastery probability per lesson
+    - Display improvement delta (pre → current)
+    - Show quiz attempt counts per lesson
+    - Color-coded status (Mastered/Proficient/Developing/Needs Work)
+    """
+    from TGbackend.models import Lesson, QuizResult
+    
+    try:
+        # Get all lessons for this course
+        all_lessons = db.query(Lesson).filter(Lesson.course_id == course_id).all()
+        
+        if not all_lessons:
+            raise HTTPException(status_code=404, detail=f"No lessons found for course {course_id}")
+        
+        # Get current mastery levels
+        current_masteries = db.query(UserLessonMastery).filter(
+            UserLessonMastery.user_id == user_id,
+            UserLessonMastery.course_id == course_id
+        ).all()
+        
+        # Create lookup dict for current mastery
+        current_mastery_dict = {
+            m.lesson_id: {
+                "mastery": float(m.estimated_mastery or 0.0),
+                "is_mastered": m.is_mastered,
+                "last_updated": m.last_updated.isoformat() if m.last_updated else None
+            }
+            for m in current_masteries
+        }
+        
+        # Get pre-assessment baseline from history
+        pre_masteries = db.query(UserLessonMasteryHistory).filter(
+            UserLessonMasteryHistory.user_id == user_id,
+            UserLessonMasteryHistory.course_id == course_id,
+            UserLessonMasteryHistory.assessment_type == "pre"
+        ).all()
+        
+        # Create lookup dict for pre-assessment baseline
+        pre_mastery_dict = {}
+        for m in pre_masteries:
+            if m.lesson_id not in pre_mastery_dict:
+                pre_mastery_dict[m.lesson_id] = float(m.estimated_mastery or 0.0)
+        
+        # Get quiz attempt counts per lesson
+        quiz_attempts = db.query(
+            QuizResult.lesson_id,
+            func.count(QuizResult.id).label('attempt_count')  # ✅ Correct
+        ).filter(
+            QuizResult.user_id == user_id,
+            QuizResult.course_id == course_id
+        ).group_by(QuizResult.lesson_id).all()
+        
+        # Create lookup dict for quiz attempts
+        quiz_attempt_dict = {
+            result.lesson_id: result.attempt_count 
+            for result in quiz_attempts
+        }
+        
+        # Build complete lesson breakdown
+        lesson_breakdown = []
+        
+        for lesson in all_lessons:
+            lesson_id = lesson.id
+            
+            # Get current mastery (or 0 if not yet assessed)
+            current_data = current_mastery_dict.get(lesson_id, {
+                "mastery": 0.0,
+                "is_mastered": False,
+                "last_updated": None
+            })
+            
+            current_mastery = current_data["mastery"]
+            
+            # Get pre-assessment baseline (or 0 if not taken)
+            pre_mastery = pre_mastery_dict.get(lesson_id, 0.0)
+            
+            # Calculate improvement delta
+            improvement = round(current_mastery - pre_mastery, 3)
+            improvement_percentage = round((current_mastery - pre_mastery) * 100, 1)
+            
+            # Get quiz attempt count
+            quiz_attempts_count = quiz_attempt_dict.get(lesson_id, 0)
+            
+            # Determine mastery status with color coding
+            if current_mastery >= 0.8:
+                status = "Mastered"
+                status_color = "green"
+            elif current_mastery >= 0.6:
+                status = "Proficient"
+                status_color = "blue"
+            elif current_mastery >= 0.4:
+                status = "Developing"
+                status_color = "yellow"
+            else:
+                status = "Needs Work"
+                status_color = "red"
+            
+            lesson_breakdown.append({
+                "lesson_id": lesson_id,
+                "lesson_title": lesson.title,
+                
+                # Current state
+                "current_mastery": round(current_mastery, 3),
+                "current_percentage": round(current_mastery * 100, 1),
+                "is_mastered": current_data["is_mastered"],
+                "last_updated": current_data["last_updated"],
+                
+                # Historical comparison
+                "pre_mastery": round(pre_mastery, 3),
+                "pre_percentage": round(pre_mastery * 100, 1),
+                "improvement": improvement,
+                "improvement_percentage": improvement_percentage,
+                
+                # Activity metrics
+                "quiz_attempts": quiz_attempts_count,
+                
+                # Status classification
+                "status": status,
+                "status_color": status_color,
+                
+                # Recommendations
+                "needs_practice": current_mastery < 0.7,
+                "significant_improvement": improvement >= 0.2
+            })
+        
+        # Sort by lesson_id to maintain course order
+        lesson_breakdown.sort(key=lambda x: x["lesson_id"])
+        
+        # Calculate overall statistics
+        total_lessons = len(lesson_breakdown)
+        mastered_count = sum(1 for l in lesson_breakdown if l["is_mastered"])
+        proficient_count = sum(1 for l in lesson_breakdown if l["current_mastery"] >= 0.6 and not l["is_mastered"])
+        needs_work_count = sum(1 for l in lesson_breakdown if l["current_mastery"] < 0.6)
+        
+        avg_mastery = sum(l["current_mastery"] for l in lesson_breakdown) / total_lessons if total_lessons > 0 else 0
+        avg_improvement = sum(l["improvement"] for l in lesson_breakdown) / total_lessons if total_lessons > 0 else 0
+        
+        total_quiz_attempts = sum(l["quiz_attempts"] for l in lesson_breakdown)
+        
+        # Identify top improvements and areas needing work
+        top_improvements = sorted(
+            [l for l in lesson_breakdown if l["improvement"] > 0],
+            key=lambda x: x["improvement"],
+            reverse=True
+        )[:3]
+        
+        needs_attention = sorted(
+            [l for l in lesson_breakdown if l["current_mastery"] < 0.6],
+            key=lambda x: x["current_mastery"]
+        )[:3]
+        
+        return {
+            "user_id": user_id,
+            "course_id": course_id,
+            "status": "success",
+            
+            # Complete lesson breakdown
+            "lessons": lesson_breakdown,
+            
+            # Overall statistics
+            "statistics": {
+                "total_lessons": total_lessons,
+                "mastered_count": mastered_count,
+                "proficient_count": proficient_count,
+                "needs_work_count": needs_work_count,
+                "average_mastery": round(avg_mastery, 3),
+                "average_mastery_percentage": round(avg_mastery * 100, 1),
+                "average_improvement": round(avg_improvement, 3),
+                "average_improvement_percentage": round(avg_improvement * 100, 1),
+                "total_quiz_attempts": total_quiz_attempts
+            },
+            
+            # Highlights
+            "top_improvements": top_improvements,
+            "needs_attention": needs_attention,
+            
+            # Overall course progress
+            "course_completion_percentage": round((mastered_count / total_lessons) * 100, 1) if total_lessons > 0 else 0
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to get complete mastery breakdown: {str(e)}")
 
 # =========================
 # General BKT Update Endpoint

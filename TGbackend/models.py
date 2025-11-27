@@ -1,5 +1,5 @@
-#models.py
-from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, ForeignKey
+# models.py
+from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from sqlalchemy.sql import func
@@ -30,6 +30,7 @@ class User(Base):
 
     progress = relationship("Progress", back_populates="user")
     earned_milestones = relationship("MilestoneEarned", back_populates="user")
+    quiz_question_responses = relationship("QuizQuestionResponse", back_populates="user")  # NEW
 
 
 class Progress(Base):
@@ -62,7 +63,7 @@ class MilestoneEarned(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     milestone_id = Column(Integer, ForeignKey("milestones.id"), nullable=False)
     earned_at = Column(DateTime, default=datetime.utcnow)
-    notification_shown = Column(Boolean, default=False)  # ADD THIS LINE
+    notification_shown = Column(Boolean, default=False)
 
     user = relationship("User", back_populates="earned_milestones")
     milestone = relationship("Milestone", back_populates="users_earned")
@@ -103,7 +104,6 @@ class UserLessonMastery(Base):
     is_mastered = Column(Boolean)  # threshold flag
 
 
-# UserLessonMasteryHistory for tracking changes over time
 class UserLessonMasteryHistory(Base):
     __tablename__ = "user_lesson_mastery_history"
 
@@ -148,8 +148,8 @@ class LessonSlides(Base):
     id = Column(Integer, primary_key=True, index=True)
     lesson_id = Column(Integer, ForeignKey("lessons.id", ondelete="CASCADE"), nullable=False)
     slide_number = Column(Integer, nullable=False)
-    content = Column(String, nullable=True)  # Could hold HTML/Markdown/text
-    media_url = Column(String, nullable=True)  # Optional image/video/audio link
+    content = Column(String, nullable=True)
+    media_url = Column(String, nullable=True)
     date_created = Column(DateTime(timezone=True), server_default=func.now())
 
     lesson = relationship("Lesson", back_populates="slides")
@@ -165,13 +165,9 @@ class Question(Base):
     text = Column(String, nullable=False)
     type = Column(String, nullable=True)  # "text_mcq", "image_mcq", "true_false"
     assessment_type = Column(String, nullable=True)  # "pre" or "post"
-    media_url = Column(String, nullable=True)  # Optional image, audio, or video#
+    media_url = Column(String, nullable=True)
 
-    # Store options as JSON string
     options = Column(String, nullable=False)
-
-    
-    # Correct answer as a single string
     correct_answer = Column(String, nullable=False)  
 
     lesson = relationship("Lesson", back_populates="questions")
@@ -185,16 +181,15 @@ class Quiz(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
-    lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)  # Now specific to one lesson
+    lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)
     title = Column(String, nullable=False)
     quiz_type = Column(String, nullable=False)  # "drag_drop", "typing", "multiple_choice"
-    difficulty = Column(String, nullable=True)  # "easy", "medium", "hard" (mainly for typing)
-    time_limit = Column(Integer, nullable=True)  # in seconds, mainly for typing quiz
+    difficulty = Column(String, nullable=True)
+    time_limit = Column(Integer, nullable=True)
     description = Column(String, nullable=True)
     total_questions = Column(Integer, nullable=False)
     date_created = Column(DateTime(timezone=True), server_default=func.now())
     
-    # Relationships
     course = relationship("Course")
     lesson = relationship("Lesson")
     questions = relationship("QuizQuestion", back_populates="quiz", cascade="all, delete-orphan")
@@ -212,19 +207,17 @@ class QuizQuestion(Base):
     question_text = Column(String, nullable=False)  
     question_type = Column(String, nullable=False)  
     
-    # For different question types
     correct_answer = Column(String, nullable=True)  
-    options = Column(String, nullable=True)  # JSON string for MC and drag-drop options
-    drag_items = Column(String, nullable=True)  # JSON string for drag-drop: items to drag
-    drop_zones = Column(String, nullable=True)  # JSON string for drag-drop: where items go
+    options = Column(String, nullable=True)
+    drag_items = Column(String, nullable=True)
+    drop_zones = Column(String, nullable=True)
     
-    # Media support
     media_url = Column(String, nullable=True)  
     
-    # Relationships
     quiz = relationship("Quiz", back_populates="questions")
     course = relationship("Course")
     lesson = relationship("Lesson")
+    responses = relationship("QuizQuestionResponse", back_populates="question")  # NEW
 
 
 class QuizResult(Base):
@@ -236,15 +229,40 @@ class QuizResult(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)  
     lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)  
     quiz_type = Column(String, nullable=False) 
-    score = Column(Integer, nullable=False)  # Number of correct answers
+    score = Column(Integer, nullable=False)
     total_questions = Column(Integer, nullable=False)
     percentage = Column(Float, nullable=False)
-    time_taken = Column(Integer, nullable=True)  # in seconds
+    time_taken = Column(Integer, nullable=True)
     completed_at = Column(DateTime, default=datetime.utcnow)
-    answers = Column(String, nullable=True)  # JSON string of user's answers for review
+    answers = Column(String, nullable=True)
     
-    # Relationships
     user = relationship("User")
     quiz = relationship("Quiz", back_populates="results")
     course = relationship("Course")
     lesson = relationship("Lesson")
+    question_responses = relationship("QuizQuestionResponse", back_populates="quiz_result", cascade="all, delete-orphan")  # NEW
+
+
+# ===================
+# NEW: Quiz Question Response Tracking
+# ===================
+class QuizQuestionResponse(Base):
+    """
+    Tracks individual question responses for quizzes.
+    Enables detailed question-by-question analysis in History section.
+    """
+    __tablename__ = "quiz_question_responses"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    quiz_result_id = Column(Integer, ForeignKey("quiz_results.id"), nullable=False, index=True)
+    question_id = Column(Integer, ForeignKey("quiz_questions.id"), nullable=False)
+    selected_answer = Column(Text, nullable=True)  # JSON string for complex answers
+    is_correct = Column(Boolean, nullable=False)
+    time_taken = Column(Integer, nullable=True)  # Seconds taken for this question (optional)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    user = relationship("User", back_populates="quiz_question_responses")
+    quiz_result = relationship("QuizResult", back_populates="question_responses")
+    question = relationship("QuizQuestion", back_populates="responses")

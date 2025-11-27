@@ -56,28 +56,25 @@ class AdminLogin(BaseModel):
     email: EmailStr
     password: str
 
-# For returning user data with assessment info to admin
 class UserAssessmentData(BaseModel):
     user_id: int
     username: str
     email: str
     birthday: datetime
     date_created: datetime
-    pre_assessment_status: str  # "not_taken", "taken"
+    pre_assessment_status: str
     pre_assessment_score: Optional[float] = None
     pre_assessment_date: Optional[datetime] = None
-    post_assessment_status: str  # "disabled", "enabled"
+    post_assessment_status: str
     post_assessment_score: Optional[float] = None
     post_assessment_date: Optional[datetime] = None
-    course_progress: dict  # {course_id: {"course_name": str, "status": "completed"/"not_completed"}}
+    course_progress: dict
 
     class Config:
         orm_mode = True
 
-
-
 # -------------------------
-# Progress Inputs and Update (detects user Progress)
+# Progress Inputs and Update
 # -------------------------
 class ProgressCreate(BaseModel):
     user_id: int
@@ -150,10 +147,19 @@ class AssessmentResult(BaseModel):
 #--------------------------
 # Quiz-related Schema
 #---------------------------
+
+# NEW: Individual quiz question response
+class QuizQuestionResponseCreate(BaseModel):
+    question_id: int
+    selected_answer: Any  # Can be string, dict, list depending on question type
+    is_correct: bool
+    time_taken: Optional[int] = None  # Time in seconds for this question
+
 class QuizSubmission(BaseModel):
     answers: List[Any]  
     time_taken: Optional[int] = None  
-    question_ids: Optional[List[int]] = None  
+    question_ids: Optional[List[int]] = None
+    question_responses: Optional[List[QuizQuestionResponseCreate]] = None  # NEW: Detailed responses
     
 class QuizCreate(BaseModel):
     course_id: int

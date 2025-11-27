@@ -561,6 +561,280 @@ async def get_improvement_analysis(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to analyze improvements: {str(e)}")
+    
+# NEW ENDPOINT: Assessment Growth Analysis
+@router.get("/assessment/growth-analysis/{user_id}/{course_id}")
+def get_assessment_growth_analysis(user_id: int, course_id: int, db: Session = Depends(get_db)):
+    """
+    Get detailed assessment growth analysis comparing pre vs post assessment.
+    Includes growth metrics, lesson-level breakdown, and improvement highlights.
+    """
+    from TGbackend.models import User, Course, Lesson
+    from datetime import timedelta
+    
+    # Verify user and course exist
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    
+    # Get pre and post assessments
+    pre_assessment = db.query(AssessmentResults).filter(
+        AssessmentResults.user_id == user_id,
+        AssessmentResults.course_id == course_id,
+        AssessmentResults.assessment_type == "pre"
+    ).first()
+    
+    post_assessment = db.query(AssessmentResults).filter(
+        AssessmentResults.user_id == user_id,
+        AssessmentResults.course_id == course_id,
+        AssessmentResults.assessment_type == "post"
+    ).first()
+    
+    # If no assessments taken yet
+    if not pre_assessment and not post_assessment:
+        return {
+            "user_id": user_id,
+            "course_id": course_id,
+            "status": "no_assessments",
+            "message": "No assessments taken yet for this course"
+        }
+    
+    # If only pre-assessment taken
+    if pre_assessment and not post_assessment:
+        return {
+            "user_id": user_id,
+            "course_id": course_id,
+            "status": "pre_only",
+            "pre_score": pre_assessment.score,
+            "pre_date": pre_assessment.date_taken.isoformat() if pre_assessment.date_taken else None,
+            "message": "Only pre-assessment completed. Take post-assessment to see growth."
+        }
+    
+    # Calculate overall growth metrics
+    pre_score = pre_assessment.score if pre_assessment else 0
+    post_score = post_assessment.score
+    
+    # Get total questions (use post-assessment total, or count questions)
+    total_questions = db.query(Question).filter(
+        Question.course_id == course_id,
+        Question.assessment_type == "post"
+    ).count()
+    
+    if total_questions == 0:
+        total_questions = 20  # Default fallback
+    
+    # Calculate percentages
+    pre_percentage = round((pre_score / total_questions) * 100, 2) if pre_score > 0 else 0
+    post_percentage = round((post_score / total_questions) * 100, 2)
+    
+    # Calculate improvement
+    score_improvement = post_score - pre_score
+    percentage_improvement = round(post_percentage - pre_percentage, 2)
+    
+    # Calculate study period
+    study_period_days = None
+    growth_rate = None
+    
+    if pre_assessment and post_assessment and pre_assessment.date_taken and post_assessment.date_taken:
+        study_period = post_assessment.date_taken - pre_assessment.date_taken
+        study_period_days = study_period.days
+        
+        # Calculate growth rate (improvement per day)
+        if study_period_days > 0:
+            growth_rate = round(percentage_improvement / study_period_days, 2)
+    
+    # Get lesson-level breakdown
+    pre_responses = db.query(AssessmentQuestionResponse).filter(
+        AssessmentQuestionResponse.assessment_id == pre_assessment.id if pre_assessment else -1
+    ).all()
+    
+    post_responses = db.query(AssessmentQuestionResponse).filter(
+        AssessmentQuestionResponse.assessment_id == post_assessment.id
+    ).all()
+    
+    # Group responses by lesson
+    lesson_performance = {}
+    
+    # Process pre-assessment responses
+    for response in pre_responses:
+        lesson_id = response.lesson_id
+        if lesson_id not in lesson_performance:
+            lesson_performance[lesson_id] = {
+                "lesson_id": lesson_id,
+                "pre_correct": 0,
+                "pre_total": 0,
+                "post_correct": 0,
+                "post_total": 0
+            }
+        
+        lesson_performance[lesson_id]["pre_total"] += 1
+        if response.is_correct:
+            lesson_performance[lesson_id]["pre_correct"] += 1
+    
+    # Process post-assessment responses
+    for response in post_responses:
+        lesson_id = response.lesson_id
+        if lesson_id not in lesson_performance:
+            lesson_performance[lesson_id] = {
+                "lesson_id": lesson_id,
+                "pre_correct": 0,
+                "pre_total": 0,
+                "post_correct": 0,
+                "post_total": 0
+            }
+        
+        lesson_performance[lesson_id]["post_total"] += 1
+        if response.is_correct:
+            lesson_performance[lesson_id]["post_correct"] += 1
+    
+    # Calculate lesson-level improvements
+    lesson_breakdown = []
+    for lesson_id, data in lesson_performance.items():
+        # Get lesson title
+        lesson = db.query(Lesson).filter(Lesson.id == lesson_id).first()
+        lesson_title = lesson.title if lesson else f"Lesson {lesson_id}"
+        
+        # Calculate percentages
+        pre_lesson_percentage = round((data["pre_correct"] / data["pre_total"]) * 100, 2) if data["pre_total"] > 0 else 0
+        post_lesson_percentage = round((data["post_correct"] / data["post_total"]) * 100, 2) if data["post_total"] > 0 else 0
+        
+        improvement = round(post_lesson_percentage - pre_lesson_percentage, 2)
+        
+        lesson_breakdown.append({
+            "lesson_id": lesson_id,
+            "lesson_title": lesson_title,
+            "pre_percentage": pre_lesson_percentage,
+            "post_percentage": post_lesson_percentage,
+            "improvement": improvement,
+            "pre_correct": data["pre_correct"],
+            "pre_total": data["pre_total"],
+            "post_correct": data["post_correct"],
+            "post_total": data["post_total"]
+        })
+    
+    # Sort by improvement (descending) to identify strongest areas
+    lesson_breakdown.sort(key=lambda x: x["improvement"], reverse=True)
+    
+    # Identify strongest and weakest improvements
+    strongest_improvements = [l for l in lesson_breakdown if l["improvement"] > 0][:3]
+    weakest_improvements = [l for l in lesson_breakdown if l["improvement"] <= 0][:3]
+    
+    # Generate improvement highlights
+    highlights = []
+    
+    # Overall improvement highlight
+    if percentage_improvement > 0:
+        highlights.append({
+            "type": "overall_improvement",
+            "icon": "📈",
+            "message": f"Great progress! You improved by {percentage_improvement}% overall",
+            "value": percentage_improvement
+        })
+    elif percentage_improvement < 0:
+        highlights.append({
+            "type": "needs_review",
+            "icon": "⚠️",
+            "message": f"Score decreased by {abs(percentage_improvement)}%. Review the material and try again",
+            "value": percentage_improvement
+        })
+    else:
+        highlights.append({
+            "type": "no_change",
+            "icon": "➡️",
+            "message": "Score remained the same. More practice recommended",
+            "value": 0
+        })
+    
+    # Study period highlight
+    if study_period_days is not None:
+        if study_period_days <= 7:
+            highlights.append({
+                "type": "quick_learner",
+                "icon": "⚡",
+                "message": f"Completed course in {study_period_days} days - fast learner!",
+                "value": study_period_days
+            })
+        elif study_period_days <= 30:
+            highlights.append({
+                "type": "consistent_learner",
+                "icon": "📚",
+                "message": f"Steady progress over {study_period_days} days",
+                "value": study_period_days
+            })
+        else:
+            highlights.append({
+                "type": "persistent_learner",
+                "icon": "💪",
+                "message": f"Dedicated learning over {study_period_days} days - persistence pays off!",
+                "value": study_period_days
+            })
+    
+    # Strongest improvement area highlight
+    if strongest_improvements:
+        best_lesson = strongest_improvements[0]
+        highlights.append({
+            "type": "strongest_area",
+            "icon": "⭐",
+            "message": f"Biggest improvement in: {best_lesson['lesson_title']} (+{best_lesson['improvement']}%)",
+            "lesson_id": best_lesson["lesson_id"],
+            "value": best_lesson["improvement"]
+        })
+    
+    # Mastery status highlight
+    if post_percentage >= 80:
+        highlights.append({
+            "type": "mastery_achieved",
+            "icon": "🏆",
+            "message": f"Excellent mastery at {post_percentage}%!",
+            "value": post_percentage
+        })
+    elif post_percentage >= 60:
+        highlights.append({
+            "type": "proficient",
+            "icon": "✅",
+            "message": f"Good understanding at {post_percentage}%",
+            "value": post_percentage
+        })
+    
+    return {
+        "user_id": user_id,
+        "course_id": course_id,
+        "course_title": course.title,
+        "status": "complete_analysis",
+        
+        # Overall metrics
+        "overall_metrics": {
+            "pre_score": pre_score,
+            "post_score": post_score,
+            "total_questions": total_questions,
+            "pre_percentage": pre_percentage,
+            "post_percentage": post_percentage,
+            "score_improvement": score_improvement,
+            "percentage_improvement": percentage_improvement,
+            "study_period_days": study_period_days,
+            "growth_rate_per_day": growth_rate
+        },
+        
+        # Date information
+        "dates": {
+            "pre_assessment_date": pre_assessment.date_taken.isoformat() if pre_assessment and pre_assessment.date_taken else None,
+            "post_assessment_date": post_assessment.date_taken.isoformat() if post_assessment.date_taken else None
+        },
+        
+        # Lesson-level breakdown
+        "lesson_breakdown": lesson_breakdown,
+        
+        # Improvement areas
+        "strongest_improvements": strongest_improvements,
+        "weakest_improvements": weakest_improvements,
+        
+        # Visual highlights for dashboard
+        "highlights": highlights
+    }
 
 # ----------------------------
 # UTILITY: Manual BKT Trigger (for debugging/admin)

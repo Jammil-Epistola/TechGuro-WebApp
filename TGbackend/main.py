@@ -5,7 +5,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from TGbackend.database import engine, Base
 from TGbackend.database import SessionLocal
 from TGbackend import models
-from TGbackend.routers import userRoutes, progressRoutes, lessonsRoutes, assessmentRoutes, bktRoutes, milestoneRoutes, quizRoutes, adminRoutes
+from TGbackend.routers import (
+    userRoutes, 
+    progressRoutes, 
+    lessonsRoutes, 
+    assessmentRoutes,  # ✅ Now includes assessment_analytics endpoints
+    bktRoutes,         # ✅ Now includes mastery-complete endpoint
+    milestoneRoutes, 
+    quizRoutes,        # ✅ Now includes quiz_analytics endpoints
+    adminRoutes
+)
 
 # Initialize FastAPI
 app = FastAPI()
@@ -53,13 +62,15 @@ app.include_router(userRoutes.router)
 app.include_router(progressRoutes.router)
 app.include_router(milestoneRoutes.router)
 app.include_router(lessonsRoutes.router)
+
 app.include_router(assessmentRoutes.router)
 app.include_router(quizRoutes.router)
 app.include_router(bktRoutes.router) 
 
 print("✅ All routers included")
+print("📊 Analytics endpoints ready:")
 
 # Test root endpoint
 @app.get("/")
 def read_root():
-    return {"message": "TechGuro Backend is Live!"}
+    return {"message": "TechGuro Backend is Live! 🚀 Enhanced with Analytics"}

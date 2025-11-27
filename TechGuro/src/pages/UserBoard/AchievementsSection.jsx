@@ -134,7 +134,7 @@ const AchievementsSection = () => {
   }
 
   return (
-    <div className="bg-[#DFDFEE] p-4 md:p-6 min-h-screen text-[#4C5173]">
+    <div className="achievements-section bg-[#DFDFEE] p-4 md:p-6 min-h-screen text-[#4C5173]">
       <motion.h1 
         className="text-[24px] md:text-[30px] font-bold mb-4 md:mb-6 flex items-center gap-2 md:gap-3"
         initial={{ opacity: 0, y: -20 }}
