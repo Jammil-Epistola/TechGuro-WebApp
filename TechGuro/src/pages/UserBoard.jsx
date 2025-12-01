@@ -88,35 +88,41 @@ const UserBoard = () => {
   }, []);
 
   useEffect(() => {
-    const checkFirstLogin = () => {
+    const checkFirstLogin = async () => {
+      // Wait for user to be fully loaded
       if (!user || !user.user_id) {
-        console.log("❌ No user or user_id available yet");
+        console.log("⏳ Waiting for user data...");
         return;
       }
 
-      console.log("👤 User ID:", user.user_id);
+      console.log("👤 User loaded - ID:", user.user_id);
 
       const tutorialShownKey = `tutorial_shown_${user.user_id}`;
       const hasShownTutorial = localStorage.getItem(tutorialShownKey);
 
       console.log("🔑 Tutorial key:", tutorialShownKey);
-      console.log("📦 Has shown tutorial before:", hasShownTutorial);
+      console.log("📦 Tutorial previously shown:", hasShownTutorial);
 
+      // ✅ FIX: Check if tutorial was shown OR if this is first login
       if (!hasShownTutorial) {
-        console.log("🎓 First login detected - showing tutorial");
+        console.log("🎓 First login detected - preparing tutorial");
+
+        // Wait for DOM to be fully ready
         setTimeout(() => {
-          console.log("⏰ Timeout finished - setting showTutorial to true");
+          console.log("⏰ Showing tutorial now");
           setShowTutorial(true);
+
+          // Mark as shown immediately to prevent re-showing
           localStorage.setItem(tutorialShownKey, 'true');
           console.log("💾 Saved tutorial flag to localStorage");
-        }, 1000);
+        }, 1500); // Increased delay to ensure everything is loaded
       } else {
-        console.log("⏭️ Tutorial already shown before");
+        console.log("⏭️ Tutorial already shown before - skipping");
       }
     };
 
     checkFirstLogin();
-  }, [user]);
+  }, [user]); // Only depend on user
 
   // Check and show Milestone #1
   useEffect(() => {
@@ -439,10 +445,22 @@ const UserBoard = () => {
 
                 <button
                   onClick={() => {
-                    console.log("🎓 Tutorial button clicked - setShowTutorial(true)");
+                    console.log("🎓 Tutorial button clicked");
                     setIsDropdownOpen(false);
-                    setShowTutorial(true);
-                    console.log("✅ showTutorial set to true");
+
+                    // Navigate to dashboard FIRST
+                    setActiveSection("dashboard");
+
+                    // Scroll to top
+                    const mainContent = document.querySelector('.flex-1.overflow-y-auto');
+                    if (mainContent) {
+                      mainContent.scrollTo({ top: 0, behavior: 'instant' });
+                    }
+
+                    // Show tutorial after navigation
+                    setTimeout(() => {
+                      setShowTutorial(true);
+                    }, 400);
                   }}
                   className="w-full text-left flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition-all"
                 >

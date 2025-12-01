@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import TekiAvatar from "../assets/Teki 1.png";
 
 // Tutorial steps configuration
 const tutorialSteps = [
@@ -251,39 +252,48 @@ const getDialogueFixedPosition = (step) => {
   return topSteps.includes(step.id) ? "top" : "bottom";
 };
 
-const TekiDialogue = ({ step, onNext, onPrev, isFirst, isLast, targetElement, onNavigate }) => {
+const TekiDialogue = ({ step, onNext, onPrev, isFirst, isLast, targetElement, onNavigate, onSkip }) => {
   const [position, setPosition] = useState({ top: "50%", left: "50%" });
 
   useEffect(() => {
-    // Determine whether the box should be top or bottom
-    const fixed = step.fixedPosition;
+    const updatePosition = () => {
+      const fixed = step.fixedPosition;
+      const isMobile = window.innerWidth < 768;
 
-    const dialogWidth = 600;  // Much wider
-    const offsetY = 40;
+      let top, left;
 
-    let top, left;
+      if (isMobile) {
+        // Mobile: Position at bottom but centered horizontally like WelcomeModal
+        top = window.innerHeight - 280;
+        left = window.innerWidth / 2;
+      } else {
+        // Desktop positioning
+        if (fixed === "top") {
+          top = 120;
+          left = window.innerWidth / 2;
+        } else {
+          top = window.innerHeight - 400;
+          left = window.innerWidth / 2;
+        }
+      }
 
-    if (fixed === "top") {
-      top = 120; // Give more room from top
-      left = window.innerWidth / 2;
-    } else {
-      top = window.innerHeight - 400;
-      left = window.innerWidth / 2;
-    }
+      setPosition({
+        top: `${top}px`,
+        left: `${left}px`,
+      });
+    };
 
-    setPosition({
-      top: `${top}px`,
-      left: `${left}px`,
-    });
+    updatePosition();
+
+    // Update on resize
+    window.addEventListener("resize", updatePosition);
+    return () => window.removeEventListener("resize", updatePosition);
   }, [step.fixedPosition]);
 
   const handleNext = () => {
-
-    // If this step requires navigation, trigger it THEN move to next step
     if (step.actionRequired && step.actionTarget) {
       console.log("📍 Navigating to:", step.actionTarget);
       onNavigate(step.actionTarget);
-      // Delay moving to next step to allow navigation
       setTimeout(() => {
         onNext();
       }, 500);
@@ -294,7 +304,7 @@ const TekiDialogue = ({ step, onNext, onPrev, isFirst, isLast, targetElement, on
 
   return (
     <motion.div
-      className="fixed z-[302] bg-white rounded-3xl shadow-2xl p-10 w-[95%] max-w-2xl border-3 border-[#4C5173]"
+      className="fixed z-[302] bg-white rounded-3xl shadow-2xl p-6 md:p-10 w-[92%] md:w-[95%] max-w-2xl border-3 border-[#4C5173]"
       style={{
         top: position.top,
         left: position.left,
@@ -305,49 +315,67 @@ const TekiDialogue = ({ step, onNext, onPrev, isFirst, isLast, targetElement, on
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.3 }}
     >
-
       {/* Teki Character Avatar */}
-      <div className="flex items-start gap-4 mb-6">
+      <div className="flex items-start gap-3 md:gap-4 mb-4 md:mb-6">
         <div className="flex-shrink-0">
-          <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg">
-            T
-          </div>
+          <motion.img
+            src={TekiAvatar}
+            alt="Teki"
+            className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover shadow-lg"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
         </div>
         <div>
-          <h3 className="font-bold text-gray-800 text-lg">Teki</h3>
-          <p className="text-sm text-gray-500">{step.title}</p>
+          <h3 className="font-bold text-gray-800 text-base md:text-lg">Teki</h3>
+          <p className="text-xs md:text-sm text-gray-500">{step.title}</p>
         </div>
       </div>
 
-      {/* Dialogue Text */}
-      <p className="text-gray-700 mb-8 text-base leading-relaxed font-medium">
+      {/* Dialogue Text - Improved Readability */}
+      <p className="text-gray-800 mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-semibold">
         {step.description}
       </p>
 
-      {/* Navigation Buttons */}
-      <div className="flex gap-3 justify-end">
-        {!isFirst && (
-          <motion.button
-            onClick={onPrev}
-            className="px-6 py-3 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all text-sm font-bold"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Bumalik
-          </motion.button>
-        )}
+      {/* Navigation Buttons - Mobile Responsive */}
+      <div className="flex flex-col md:flex-row gap-2 md:gap-3 md:justify-between md:items-center">
+        {/* Skip Button - Full width on mobile */}
         <motion.button
-          onClick={handleNext}
-          className="px-8 py-3 rounded-xl bg-[#4C5173] text-white hover:bg-[#3a3f5c] transition-all text-sm font-bold"
+          onClick={onSkip}
+          className="w-full md:w-auto px-4 md:px-6 py-2.5 md:py-3 rounded-xl bg-red-100 text-red-700 hover:bg-red-200 transition-all text-sm md:text-sm font-bold order-2 md:order-1"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {isLast ? "Tapos!" : "Susunod →"}
+          Skip Tutorial
         </motion.button>
+
+        {/* Back & Next Buttons */}
+        <div className="flex gap-2 md:gap-3 order-1 md:order-2">
+          {!isFirst && (
+            <motion.button
+              onClick={onPrev}
+              className="flex-1 md:flex-none px-4 md:px-6 py-2.5 md:py-3 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all text-sm md:text-sm font-bold"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Bumalik
+            </motion.button>
+          )}
+          <motion.button
+            onClick={handleNext}
+            className="flex-1 md:flex-none px-6 md:px-8 py-2.5 md:py-3 rounded-xl bg-[#4C5173] text-white hover:bg-[#3a3f5c] transition-all text-sm md:text-sm font-bold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isLast ? "Tapos!" : "Susunod →"}
+          </motion.button>
+        </div>
       </div>
     </motion.div>
   );
 };
+
+
 
 const WelcomeModal = ({ onStart }) => {
   return (
@@ -359,34 +387,34 @@ const WelcomeModal = ({ onStart }) => {
         exit={{ opacity: 0 }}
       />
       <motion.div
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-2xl p-8 max-w-md z-[302] pointer-events-auto"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-[90%] max-w-md z-[302] pointer-events-auto"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
       >
         {/* Teki Character */}
-        <div className="text-center mb-6">
-          <motion.div
-            className="w-24 h-24 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-4xl font-bold mx-auto mb-4"
+        <div className="text-center mb-4 md:mb-6">
+          <motion.img
+            src={TekiAvatar}
+            alt="Teki"
+            className="w-20 h-20 md:w-24 md:h-24 rounded-full mx-auto mb-3 md:mb-4 object-cover shadow-lg"
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-          >
-            T
-          </motion.div>
+          />
         </div>
 
         {/* Welcome Text */}
-        <h2 className="text-3xl font-bold text-[#4C5173] mb-3 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#4C5173] mb-2 md:mb-3 text-center">
           Welcome to TechGuro!
         </h2>
-        <p className="text-gray-700 text-center mb-8 text-base leading-relaxed">
+        <p className="text-gray-700 text-center mb-6 md:mb-8 text-base md:text-base leading-relaxed font-medium">
           Hi! I'm Teki, your virtual guide. Let me show you around TechGuro and help you get started with your learning journey!
         </p>
 
         {/* Start Button */}
         <motion.button
           onClick={onStart}
-          className="w-full px-6 py-3 bg-[#B6C44D] text-black rounded-lg font-semibold text-lg hover:bg-[#a5b83d] transition-all"
+          className="w-full px-6 py-3 bg-[#B6C44D] text-black rounded-lg font-semibold text-base md:text-lg hover:bg-[#a5b83d] transition-all"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -551,50 +579,50 @@ const FinalDialogueModal = ({ step, onClose, onRestart }) => {
         exit={{ opacity: 0 }}
       />
       <motion.div
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-2xl p-10 max-w-2xl z-[302] pointer-events-auto border-3 border-[#4C5173]"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-2xl p-6 md:p-10 w-[92%] md:w-[95%] max-w-2xl z-[302] pointer-events-auto border-3 border-[#4C5173]"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
       >
         {/* Teki Character Avatar */}
-        <div className="flex items-start gap-4 mb-6">
+        <div className="flex items-start gap-3 md:gap-4 mb-4 md:mb-6">
           <div className="flex-shrink-0">
-            <motion.div
-              className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg"
+            <motion.img
+              src={TekiAvatar}
+              alt="Teki"
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover shadow-lg"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 0.5 }}
-            >
-              T
-            </motion.div>
+            />
           </div>
           <div>
-            <h3 className="font-bold text-gray-800 text-lg">Teki</h3>
-            <p className="text-sm text-gray-500">{step.title}</p>
+            <h3 className="font-bold text-gray-800 text-base md:text-lg">Teki</h3>
+            <p className="text-xs md:text-sm text-gray-500">{step.title}</p>
           </div>
         </div>
 
-        {/* Main Description */}
-        <p className="text-gray-700 mb-6 text-base leading-relaxed font-medium">
+        {/* Main Description - Better Readability */}
+        <p className="text-gray-800 mb-5 md:mb-6 text-base md:text-lg leading-relaxed font-semibold">
           {step.description}
         </p>
 
         {/* Highlighted Info Box */}
         <motion.div
-          className="bg-gradient-to-r from-[#B6C44D]/20 to-[#4C5173]/10 border-l-4 border-[#B6C44D] rounded-lg p-4 mb-8"
+          className="bg-gradient-to-r from-[#B6C44D]/20 to-[#4C5173]/10 border-l-4 border-[#B6C44D] rounded-lg p-3 md:p-4 mb-6 md:mb-8"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <p className="text-sm text-gray-700">
+          <p className="text-sm md:text-base text-gray-800 font-medium">
             Look for the <span className="font-bold text-[#4C5173]">Tutorial</span> button in the top-right user menu dropdown to start again anytime! 📚
           </p>
         </motion.div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-3 justify-end">
+        {/* Action Buttons - Mobile Responsive */}
+        <div className="flex flex-col md:flex-row gap-2 md:gap-3 md:justify-end">
           <motion.button
             onClick={onClose}
-            className="px-6 py-3 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all text-sm font-bold"
+            className="w-full md:w-auto px-6 py-3 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all text-sm font-bold order-2 md:order-1"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -602,7 +630,7 @@ const FinalDialogueModal = ({ step, onClose, onRestart }) => {
           </motion.button>
           <motion.button
             onClick={onRestart}
-            className="px-8 py-3 rounded-xl bg-[#B6C44D] text-black hover:bg-[#a5b83d] transition-all text-sm font-bold"
+            className="w-full md:w-auto px-8 py-3 rounded-xl bg-[#B6C44D] text-black hover:bg-[#a5b83d] transition-all text-sm font-bold order-1 md:order-2"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -634,7 +662,7 @@ const DashboardTutorial = ({ isOpen, onClose, currentPage = "dashboard" }) => {
     };
   }, [isOpen]);
 
-  // ✅ SYNC showModal with isOpen prop
+  // SYNC showModal with isOpen prop
   useEffect(() => {
     if (!isOpen) {
       setCurrentStepIndex(0);
@@ -648,7 +676,7 @@ const DashboardTutorial = ({ isOpen, onClose, currentPage = "dashboard" }) => {
         const element = document.querySelector(currentStep.targetSelector);
         console.log("🔍 Looking for element:", currentStep.targetSelector, "Found:", !!element);
         setTargetElement(element);
-        // ✅ AUTO-SCROLL to element if it's off-screen
+        // AUTO-SCROLL to element if it's off-screen
         if (element) {
           // Use a small delay to ensure proper rendering before scroll
           setTimeout(() => {
@@ -672,7 +700,7 @@ const DashboardTutorial = ({ isOpen, onClose, currentPage = "dashboard" }) => {
       return true;
     }
 
-    // ✅ Always show final dialogue regardless of current page
+    // Always show final dialogue regardless of current page
     if (currentStep?.id === "final-dialogue") {
       return true;
     }
@@ -696,6 +724,11 @@ const DashboardTutorial = ({ isOpen, onClose, currentPage = "dashboard" }) => {
     }
   };
 
+  const handleSkip = () => {
+    console.log("⏭️ Tutorial skipped");
+    onClose();
+  };
+
   const handleRestart = () => {
     setCurrentStepIndex(1); // Skip welcome, start from first spotlight
   };
@@ -710,13 +743,27 @@ const DashboardTutorial = ({ isOpen, onClose, currentPage = "dashboard" }) => {
   };
 
   const handleStart = () => {
-    setCurrentStepIndex(1); // Move past welcome
+    console.log("🚀 Tutorial started - current page:", currentPage);
+
+    if (currentPage !== "dashboard") {
+      console.log("📍 Not on dashboard - navigating there first");
+
+      if (onNavigateToDashboard) {
+        onNavigateToDashboard();
+      }
+
+      setTimeout(() => {
+        setCurrentStepIndex(1);
+      }, 600);
+    } else {
+      setCurrentStepIndex(1);
+    }
   };
 
   const isFirst = currentStepIndex === 0;
   const isLast = currentStepIndex === tutorialSteps.length - 1;
 
-  // ✅ Return null only when NOT open
+  // Return null only when NOT open
   if (!isOpen) return null;
   return (
     <AnimatePresence mode="wait">
@@ -735,6 +782,7 @@ const DashboardTutorial = ({ isOpen, onClose, currentPage = "dashboard" }) => {
             }}
             onNext={handleNext}
             onPrev={handlePrev}
+            onSkip={handleSkip}
             isFirst={isFirst}
             isLast={isLast}
             targetElement={targetElement}
