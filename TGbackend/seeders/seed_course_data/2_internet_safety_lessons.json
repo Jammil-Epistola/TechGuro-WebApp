@@ -4,11 +4,6 @@
   "image_url": "course_img2.png",
   "sources": [
       {
-        "name": "UNICEF",
-        "url": "https://www.unicef.org/eca/stories/quick-guide-spotting-misinformation",
-        "type": "primary"
-      },
-      {
         "name": "GCFGlobal - Internet",
         "url": "https://edu.gcfglobal.org/en/topics/internet/",
         "type": "primary"
@@ -19,14 +14,29 @@
         "type": "primary"
       },
       {
+        "name": "BDO Unibank Inc.",
+        "url": "https://www.bdo.com.ph/about-bdo/learn/stop-scam?utm_medium=adwords&utm_campaign=&utm_source=&utm_content=&gad_source=1&gad_campaignid=22486560655&gbraid=0AAAAAC3Ag6VbP5eB6UPSxcLMM60po7WGA&gclid=Cj0KCQiArt_JBhCTARIsADQZaykWaiR18p-VTRn5NmEQEX-aHDdG52WaS1tCNn2IECoIeh_OuU1jMqQaAnf_EALw_wcB",
+        "type": "primary"
+      },
+      {
         "name": "DigitalLearn",
-        "url": "https://www.digitallearn.org/",
+        "url": "https://www.digitallearn.org/courses/why-use-a-computer",
         "type": "supplementary"
       },
       {
-        "name": "Common Sense Education",
-        "url": "https://www.commonsense.org/education/digital-citizenship?topic=115521",
-        "type": "primary"
+        "name": "Cornell University Library",
+        "url": "https://guides.library.cornell.edu/evaluate_news/infographic",
+        "type": "supplementary"
+      },
+        {
+        "name": "UNICEF",
+        "url": "https://www.unicef.org/eca/stories/quick-guide-spotting-misinformation",
+        "type": "supplementary"
+      },
+        {
+        "name": "Google Ads Help",
+        "url": "https://support.google.com/google-ads/answer/2375413?hl=en",
+        "type": "supplementary"
       }
     ],
   "lessons": [

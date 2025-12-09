@@ -4,7 +4,7 @@
   "image_url" : "course_img1.png",
   "sources": [
     {
-      "name": "GCFGlobal",
+      "name": "GCFGlobal - Computers",
       "url": "https://edu.gcfglobal.org/en/topics/computers/",
       "type": "primary"
     },
@@ -15,7 +15,7 @@
     },
     {
       "name": "DigitalLearn",
-      "url": "https://www.digitallearn.org/",
+      "url": "https://www.digitallearn.org/courses/getting-started-on-a-computer",
       "type": "supplementary"
     }
   ],
