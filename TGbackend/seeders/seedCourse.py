@@ -261,7 +261,6 @@ def seed_courses(session: Session, filename: str, data):
     course_key = get_course_key_from_filename(filename)
     if not course_key or course_key not in COURSE_LESSON_ID_MAPPING:
         print(f"⚠️ Unknown course type in {filename}, using default behavior")
-        # Fallback to original behavior
         _seed_courses_original(session, filename, data)
         return
         
@@ -273,24 +272,29 @@ def seed_courses(session: Session, filename: str, data):
     course_title = get_title(data, filename, "course")
     course_desc = data.get("description", "")
     course_image = add_image_path(data.get("image_url", ""), "course")
+    
+    # NEW: Get sources from JSON (no attribution field)
+    course_sources = data.get("sources")  # This will be stored as JSON
 
     course = session.query(Course).filter_by(id=expected_course_id).first()
     if not course:
-        # Create course with specific ID
+        # Create course with specific ID and sources
         course = Course(
-            id=expected_course_id,  # ← SET SPECIFIC ID
+            id=expected_course_id,
             title=course_title, 
-            description=course_desc, 
-            image_url=course_image
+            description=course_desc,
+            image_url=course_image,
+            sources=course_sources  # NEW: Store sources as JSON
         )
         session.add(course)
         session.flush()
-        print(f"➕ Inserted course: {course_title} (ID: {course.id})")
+        print(f"➕ Inserted course: {course_title} (ID: {course.id}) with {len(course_sources) if course_sources else 0} sources")
     else:
         course.title = course_title
         course.description = course_desc
         course.image_url = course_image
-        print(f"🔄 Updated course: {course_title} (ID: {course.id})")
+        course.sources = course_sources  # NEW: Update sources
+        print(f"🔄 Updated course: {course_title} (ID: {course.id}) with {len(course_sources) if course_sources else 0} sources")
 
     # --- LESSONS with enforced IDs ---
     for lesson_data in data.get("lessons", []):

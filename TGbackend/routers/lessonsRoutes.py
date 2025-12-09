@@ -18,6 +18,7 @@ def get_all_courses(db: Session = Depends(get_db)):
             "title": c.title,
             "description": c.description,
             "image_url": c.image_url,
+            "sources": c.sources, 
             "lessons": [
                 {
                     "lesson_id": l.id,
@@ -44,6 +45,7 @@ def get_lessons_by_course(course_id: int, db: Session = Depends(get_db)):
         "course_title": course.title,
         "description": course.description,
         "image_url": course.image_url,
+        "sources": course.sources, 
         "lessons": [
             {
                 "lesson_id": lesson.id,
@@ -52,6 +54,7 @@ def get_lessons_by_course(course_id: int, db: Session = Depends(get_db)):
             for lesson in sorted(course.lessons, key=lambda l: l.id)
         ]
     }
+
 
 
 # =========================
@@ -84,5 +87,25 @@ def get_lesson_detail(lesson_id: int, db: Session = Depends(get_db)):
         "course_title": lesson.course.title,
         "lesson_id": lesson.id,
         "lesson_title": lesson.title,
+        "sources": lesson.course.sources, 
         "slides": slides_data
+    }
+
+# =========================
+# 4. NEW: GET SOURCES FOR A SPECIFIC COURSE
+# =========================
+@router.get("/courses/{course_id}/sources")
+def get_course_sources(course_id: int, db: Session = Depends(get_db)):
+    """
+    Dedicated endpoint to fetch only sources for a course.
+    Useful for the sources modal in CourseNavbar.
+    """
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    
+    return {
+        "course_id": course.id,
+        "course_title": course.title,
+        "sources": course.sources or []
     }

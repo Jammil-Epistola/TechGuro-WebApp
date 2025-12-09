@@ -2,6 +2,34 @@
   "course_id": 3,
   "course_name": "Digital Communication & Messaging",
   "image_url": "course_img3.png",
+  "sources": [
+      {
+        "name": "GCFGlobal - Email Basics",
+        "url": "https://edu.gcfglobal.org/en/topics/emailbasics/",
+        "type": "primary"
+      },
+      {
+        "name": "Microsoft Digital Literacy",
+        "url": "https://www.microsoft.com/en-us/digital-literacy",
+        "type": "primary"
+      },
+      {
+        "name": "DigitalLearn",
+        "url": "https://www.digitallearn.org/",
+        "type": "supplementary"
+      },
+      {
+        "name": "Google Meet Help",
+        "url": "https://support.google.com/meet/answer/9302870?hl=en&co=GENIE.Platform%3DAndroid",
+        "type": "supplementary"
+      }
+      ,
+      {
+        "name": "University of the Potomac",
+        "url": "https://potomac.edu/netiquette-rules-online-students-should-know/",
+        "type": "supplementary"
+      }
+    ],
   "lessons": [
     {
       "lesson_id": 11,

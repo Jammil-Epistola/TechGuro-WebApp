@@ -2,6 +2,23 @@
   "course_id": 1,
   "course_name": "Computer Basics",
   "image_url" : "course_img1.png",
+  "sources": [
+    {
+      "name": "GCFGlobal",
+      "url": "https://edu.gcfglobal.org/en/topics/computers/",
+      "type": "primary"
+    },
+    {
+      "name": "Microsoft Digital Literacy",
+      "url": "https://www.microsoft.com/en-us/digital-literacy",
+      "type": "primary"
+    },
+    {
+      "name": "DigitalLearn",
+      "url": "https://www.digitallearn.org/",
+      "type": "supplementary"
+    }
+  ],
   "lessons": [
     {
       "lesson_id": 1,

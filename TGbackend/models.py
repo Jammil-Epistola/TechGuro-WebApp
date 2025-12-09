@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, Foreig
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from sqlalchemy.sql import func
+from sqlalchemy.dialects.postgresql import JSON
 import json
 from TGbackend.database import Base
 
@@ -127,6 +128,7 @@ class Course(Base):
     title = Column(String, nullable=False)
     description = Column(String, nullable=True)
     image_url = Column(String, nullable=True)
+    sources = Column(JSON, nullable=True)
 
     lessons = relationship("Lesson", back_populates="course")
 

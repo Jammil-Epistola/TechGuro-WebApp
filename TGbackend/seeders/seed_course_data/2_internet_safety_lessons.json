@@ -2,6 +2,33 @@
   "course_id": 2,
   "course_name": "Internet Safety",
   "image_url": "course_img2.png",
+  "sources": [
+      {
+        "name": "UNICEF",
+        "url": "https://www.unicef.org/eca/stories/quick-guide-spotting-misinformation",
+        "type": "primary"
+      },
+      {
+        "name": "GCFGlobal - Internet",
+        "url": "https://edu.gcfglobal.org/en/topics/internet/",
+        "type": "primary"
+      },
+      {
+        "name": "GCFGlobal - Online Safety",
+        "url": "https://edu.gcfglobal.org/en/topics/onlinesafety/",
+        "type": "primary"
+      },
+      {
+        "name": "DigitalLearn",
+        "url": "https://www.digitallearn.org/",
+        "type": "supplementary"
+      },
+      {
+        "name": "Common Sense Education",
+        "url": "https://www.commonsense.org/education/digital-citizenship?topic=115521",
+        "type": "primary"
+      }
+    ],
   "lessons": [
     {
       "lesson_id": 6,
