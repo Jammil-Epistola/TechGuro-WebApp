@@ -1,8 +1,5 @@
 """
 Cloudinary URL Helper for TechGuro Seeders
-File: TGbackend/seeders/cloudinary_helper.py
-
-This version handles missing images gracefully by returning empty strings.
 """
 
 import os

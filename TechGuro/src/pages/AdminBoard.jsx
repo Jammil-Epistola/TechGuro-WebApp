@@ -55,7 +55,7 @@ const AdminBoard = () => {
 
   return (
     <div className="flex">
-      {/* Enhanced Sidebar */}
+      {/* Sidebar */}
       <div className="w-[280px] sticky top-0 h-screen bg-gradient-to-b from-[#BFC4D7] to-[#A8B0C8] flex flex-col justify-between p-6 shadow-xl">
         {/* Logo Section */}
         <div className="flex flex-col items-center mb-8">

@@ -169,7 +169,6 @@ const LearningGrowth = ({
         </div>
       </div>
 
-      {/* GRID: 3 columns - Assessment, Quiz Breakdown, Mastery */}
       <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
         
         {/* 1. Assessment Performance Chart */}
@@ -196,7 +195,7 @@ const LearningGrowth = ({
           </div>
         </motion.div>
 
-        {/* 2. Quiz Performance Breakdown (NEW) */}
+        {/* 2. Quiz Performance Breakdown  */}
         <motion.div
           className="flex flex-col bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border-2 border-purple-300"
           initial={{ opacity: 0, y: 20 }}

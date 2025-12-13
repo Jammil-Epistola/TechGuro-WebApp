@@ -1,7 +1,7 @@
 // src/components/LessonsCompletionModal.jsx
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import Teki1 from "../assets/Teki 1.png";
+import Teki1 from "../../assets/Teki 1.png";
 import { Trophy, Target } from "lucide-react";
 
 const LessonsCompletionModal = ({ isOpen, onClose, onSeeQuizzes }) => {

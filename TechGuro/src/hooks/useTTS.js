@@ -1,4 +1,4 @@
-// src/hooks/useTTS.js - Clean version using external phonetics config
+// src/hooks/useTTS.js 
 import { useState, useCallback } from "react";
 import filipinoPhonetics from "../config/filipinoPhoenetics";
 

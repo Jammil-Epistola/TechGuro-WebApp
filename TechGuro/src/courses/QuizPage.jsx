@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, Clock, CheckCircle, XCircle } from "lucide-react";
 import CourseNavbar from './courseNavbar';
 import { useUser } from '../context/UserContext';
-import QuizQuestionCard from '../components/QuizQuestionCard';
+import QuizQuestionCard from '../components/QuizPage/QuizQuestionCard';
 import placeholderimg from "../assets/Dashboard/placeholder_teki.png";
 import API_URL from '../config/api';
 const QUIZ_TIME_LIMIT = 300;

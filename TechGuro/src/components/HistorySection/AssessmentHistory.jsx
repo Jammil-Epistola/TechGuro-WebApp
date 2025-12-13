@@ -15,8 +15,8 @@ import {
   formatDate,
   filterByDateRange,
   sortItems,
-} from "../utility/historyConstants";
-import API_URL from '../config/api';
+} from "../../utility/historyConstants";
+import API_URL from '../../config/api';
 
 const AssessmentHistory = ({
   data,
@@ -86,9 +86,8 @@ const AssessmentHistory = ({
     setDetailResponses([]);
   };
 
-  // Calculate total questions (assuming standard 20 questions per assessment)
+  // Calculate total questions 
   const getTotalQuestions = (assessment) => {
-    // If total exists in the response, use it; otherwise default to 20
     return assessment.total || 20;
   };
 
@@ -154,7 +153,7 @@ const AssessmentHistory = ({
                       </div>
                     </div>
 
-                    {/* Buttons - Stack on mobile */}
+                    {/* Buttons */}
                     <div className="flex items-center gap-2 md:gap-3">
                       <motion.button
                         onClick={() => openDetailModal(assessment)}
@@ -172,7 +171,7 @@ const AssessmentHistory = ({
                     </div>
                   </div>
 
-                  {/* Feedback section - unchanged */}
+                  {/* Feedback section*/}
                   <AnimatePresence>
                     {showFeedback === `assessment-${assessment.id}` && (
                       <motion.div

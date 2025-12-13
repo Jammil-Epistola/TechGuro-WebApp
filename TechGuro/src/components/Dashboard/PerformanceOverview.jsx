@@ -11,7 +11,7 @@ const PerformanceOverview = ({
 }) => {
   return (
     <div className="flex flex-col md:flex-row gap-4 mb-6">
-      {/* TechGuro Progression - Overall Progress Circle */}
+      {/* TechGuro Progression */}
       <motion.div
         className="flex-1 border border-black rounded-md p-4 flex flex-col items-center justify-center"
         whileHover={{ scale: 1.02 }}
@@ -64,7 +64,7 @@ const PerformanceOverview = ({
         <p className="text-center text-[#4C5173] mt-2">Overall Task Progress</p>
       </motion.div>
 
-      {/* Course Progression - Per Course Breakdown */}
+      {/* Course Progression */}
       <motion.div
         className="flex-1 border border-black rounded-md p-4 flex flex-col"
         initial={{ opacity: 0, y: 30 }}

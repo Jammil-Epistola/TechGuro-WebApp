@@ -1,7 +1,7 @@
 // src/components/SubmitConfirmationModal.jsx
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import Teki1 from "../assets/Teki 1.png";
+import Teki1 from "../../assets/Teki 1.png";
 
 const SubmitConfirmationModal = ({ isOpen, onConfirm, onCancel, isSubmitting }) => {
   return (

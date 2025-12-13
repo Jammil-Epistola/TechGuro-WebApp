@@ -1,7 +1,7 @@
 export function normalizeSlides(slides) {
   return slides.map(slide => {
     let content = slide.content;
-    console.log("🔍 Before normalize:", content, "Type:", typeof content);
+    console.log("Before normalize:", content, "Type:", typeof content);
 
     // Handle null/undefined content
     if (!content) {
@@ -21,7 +21,7 @@ export function normalizeSlides(slides) {
             .map(s => s.trim())
             .filter(Boolean);
 
-          console.log("✅ After normalize (newline split case):", cleaned);
+          console.log("After normalize (newline split case):", cleaned);
           return { ...slide, content: cleaned };
         }
         
@@ -36,7 +36,7 @@ export function normalizeSlides(slides) {
             })
             .filter(Boolean);
 
-          console.log("✅ After normalize (PostgreSQL array case):", cleaned);
+          console.log("After normalize (PostgreSQL array case):", cleaned);
           return { ...slide, content: cleaned };
         }
         
@@ -44,7 +44,7 @@ export function normalizeSlides(slides) {
         if (innerContent.includes('","') || innerContent.includes('", "')) {
           // Looks like concatenated content, try to split
           let parts = innerContent.split(/",\s*"|\s*,\s*/).map(s => s.replace(/["{}\[\]]/g, '').trim()).filter(Boolean);
-          console.log("✅ After normalize (split string case):", parts);
+          console.log("After normalize (split string case):", parts);
           return { ...slide, content: parts };
         }
       }
@@ -69,7 +69,7 @@ export function normalizeSlides(slides) {
         return item;
       }).flat();
 
-      console.log("✅ After normalize (normal array case):", processedContent);
+      console.log("After normalize (normal array case):", processedContent);
       return { ...slide, content: processedContent };
     }
 
@@ -82,7 +82,7 @@ export function normalizeSlides(slides) {
           .map(s => s.trim())
           .filter(Boolean);
 
-        console.log("✅ After normalize (newline string case):", cleaned);
+        console.log("After normalize (newline string case):", cleaned);
         return { ...slide, content: cleaned };
       }
 
@@ -94,7 +94,7 @@ export function normalizeSlides(slides) {
           .map(s => s.replace(/^"/, '').replace(/"$/, '').trim())
           .filter(Boolean);
 
-        console.log("✅ After normalize (PostgreSQL string case):", cleaned);
+        console.log("After normalize (PostgreSQL string case):", cleaned);
         return { ...slide, content: cleaned };
       }
 
@@ -103,7 +103,7 @@ export function normalizeSlides(slides) {
         try {
           const parsed = JSON.parse(content);
           if (Array.isArray(parsed)) {
-            console.log("✅ After normalize (JSON array case):", parsed);
+            console.log("After normalize (JSON array case):", parsed);
             return { ...slide, content: parsed };
           }
         } catch (e) {
@@ -115,18 +115,18 @@ export function normalizeSlides(slides) {
       if (content.includes(',')) {
         let parts = content.split(',').map(s => s.trim()).filter(Boolean);
         if (parts.length > 1) {
-          console.log("✅ After normalize (comma split case):", parts);
+          console.log(" After normalize (comma split case):", parts);
           return { ...slide, content: parts };
         }
       }
 
       // Single string content
-      console.log("✅ After normalize (single string case):", [content]);
+      console.log(" After normalize (single string case):", [content]);
       return { ...slide, content: [content] };
     }
 
     // Fallback case
-    console.log("✅ After normalize (fallback case):", [String(content)]);
+    console.log("After normalize (fallback case):", [String(content)]);
     return { ...slide, content: [String(content)] };
   });
 }

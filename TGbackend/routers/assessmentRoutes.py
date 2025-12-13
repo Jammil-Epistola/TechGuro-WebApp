@@ -257,7 +257,7 @@ def submit_assessment(data: schema.AssessmentSubmission, db: Session = Depends(g
             # Award Course Completion Milestones (4-8)
             # Collect all newly earned milestones
             # -------------------------
-            milestones_to_award = []  # ✅ NEW: Collect milestones
+            milestones_to_award = [] 
             
             if bkt_result.get("completion_eligible", False):
                 try:
@@ -368,7 +368,7 @@ def submit_assessment(data: schema.AssessmentSubmission, db: Session = Depends(g
                 except Exception as e:
                     print(f"Error awarding course completion milestones: {str(e)}")
             
-            # ✅ Store milestones for frontend (if any were awarded)
+            # Store milestones for frontend (if any were awarded)
             if milestones_to_award:
                 milestone_awarded = milestones_to_award  # Will be a list now
             else:
@@ -446,7 +446,7 @@ def get_assessments(user_id: int, db: Session = Depends(get_db)):
 
 
 # ----------------------------
-# SIMPLIFIED: Read-Only Recommendation Routes
+#  Read-Only Recommendation Routes
 # ----------------------------
 
 @router.get("/recommendations/{user_id}/{course_id}")
@@ -455,10 +455,7 @@ async def get_recommendations(
     course_id: int,
     db: Session = Depends(get_db)
 ):
-    """
-    FAST: Just read pre-computed recommendations from database.
-    No BKT computation - assumes event-driven updates keep data fresh.
-    """
+
     try:
         recommendations = teki_bkt.get_recommendations(user_id, course_id, db)
         
@@ -562,7 +559,7 @@ async def get_improvement_analysis(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to analyze improvements: {str(e)}")
     
-# NEW ENDPOINT: Assessment Growth Analysis
+# Assessment Growth Analysis
 @router.get("/assessment/growth-analysis/{user_id}/{course_id}")
 def get_assessment_growth_analysis(user_id: int, course_id: int, db: Session = Depends(get_db)):
     """

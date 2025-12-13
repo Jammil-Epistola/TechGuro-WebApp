@@ -8,11 +8,10 @@ from TGbackend.database import get_db
 from TGbackend.models import UserLessonMastery, UserLessonMasteryHistory
 from TGbackend.services.bkt_service import teki_bkt
 
-# Clean BKT router - pure wrapper around BKTService
 router = APIRouter(prefix="/bkt", tags=["Bayesian Knowledge Tracing"])
 
 # -------------------------
-# BKT Status & History (read-only endpoints)
+# BKT Status & History 
 # -------------------------
 
 @router.get("/status/{user_id}")
@@ -51,7 +50,7 @@ def get_mastery_history(user_id: int, course_id: int, db: Session = Depends(get_
         raise HTTPException(status_code=500, detail=f"Failed to fetch history: {str(e)}")
 
 # =========================
-# BKT Processing Endpoints (pure wrappers)
+# BKT Processing Endpoints 
 # =========================
 
 @router.post("/update-from-pre")
@@ -159,20 +158,9 @@ def get_recommendations(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get recommendations: {str(e)}")
     
-# NEW ENDPOINT: Complete Mastery Breakdown (All Lessons)
+# Complete Mastery Breakdown (All Lessons)
 @router.get("/mastery-complete/{user_id}/{course_id}")
 def get_complete_mastery_breakdown(user_id: int, course_id: int, db: Session = Depends(get_db)):
-    """
-    Get complete mastery breakdown for ALL lessons in a course.
-    Shows current mastery, improvement from pre-assessment, and quiz attempt counts.
-    
-    Features:
-    - Display all lessons in the course (not filtered by threshold)
-    - Show current mastery probability per lesson
-    - Display improvement delta (pre → current)
-    - Show quiz attempt counts per lesson
-    - Color-coded status (Mastered/Proficient/Developing/Needs Work)
-    """
     from TGbackend.models import Lesson, QuizResult
     
     try:

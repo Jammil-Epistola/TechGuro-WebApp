@@ -1,4 +1,4 @@
-// src/pages/Userboard/DashboardSection.jsx
+// DashboardSection.jsx
 import React, { useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext";
 import { motion } from "motion/react";
@@ -13,8 +13,6 @@ import {
 } from "chart.js";
 import ProfileSection from "../../components/Dashboard/ProfileSection";
 import API_URL from '../../config/api';
-
-// Import new modular components
 import RecentMilestones from "../../components/Dashboard/RecentMilestones";
 import AssessmentPerformance from "../../components/Dashboard/AssessmentPerformance";
 import RecentQuizScores from "../../components/Dashboard/RecentQuizScores";

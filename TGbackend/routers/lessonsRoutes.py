@@ -92,7 +92,7 @@ def get_lesson_detail(lesson_id: int, db: Session = Depends(get_db)):
     }
 
 # =========================
-# 4. NEW: GET SOURCES FOR A SPECIFIC COURSE
+# 4. GET SOURCES FOR A SPECIFIC COURSE
 # =========================
 @router.get("/courses/{course_id}/sources")
 def get_course_sources(course_id: int, db: Session = Depends(get_db)):

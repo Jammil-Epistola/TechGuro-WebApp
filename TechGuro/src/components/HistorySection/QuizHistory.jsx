@@ -8,8 +8,8 @@ import {
   formatDate,
   filterByDateRange,
   sortItems,
-} from "../utility/historyConstants";
-import API_URL from '../config/api';
+} from "../../utility/historyConstants";
+import API_URL from '../../config/api';
 
 const QuizHistory = ({
   data,
@@ -24,7 +24,7 @@ const QuizHistory = ({
   setLoadingDetails,
   handleFeedback,
 }) => {
-  // NEW: State for quiz questions and responses
+  // State for quiz questions and responses
   const [detailQuestions, setDetailQuestions] = React.useState([]);
   const [detailResponses, setDetailResponses] = React.useState([]);
 
@@ -56,7 +56,7 @@ const QuizHistory = ({
     return grouped;
   })();
 
-  // ENHANCED: Open detail modal with question-level data
+  // Open detail modal with question-level data
   const openDetailModal = async (item) => {
     setShowDetailModal(true);
     setDetailModalData({ ...item, type: "quiz" });
@@ -257,7 +257,7 @@ const QuizHistory = ({
         </div>
       </motion.div>
 
-      {/* ENHANCED Modal with Question Details */}
+      {/* Modal with Question Details */}
       <AnimatePresence>
         {showDetailModal && detailModalData && (
           <motion.div

@@ -86,7 +86,7 @@ def get_quiz_lessons(course_id: int, quiz_type: str, db: Session = Depends(get_d
         "available_lessons": lessons_info
     }
 
-# NEW ENDPOINT: Quiz Performance Breakdown Analytics
+# Quiz Performance Breakdown Analytics
 @router.get("/quiz/performance-breakdown/{user_id}/{course_id}")
 def get_quiz_performance_breakdown(user_id: int, course_id: int, db: Session = Depends(get_db)):
     """
@@ -354,7 +354,7 @@ def get_lesson_quiz(course_id: int, lesson_id: int, quiz_type: str, db: Session 
         "questions": quiz_questions
     }
 
-# Submit quiz answers - ENHANCED with question-level tracking
+# Submit quiz answers
 @router.post("/quiz/submit/{quiz_id}/{user_id}")
 def submit_quiz(
     quiz_id: int, 
@@ -530,7 +530,7 @@ def submit_quiz(
     db.commit()
     db.refresh(quiz_result)
     
-    # NEW: Save individual question responses
+    # Save individual question responses
     for response_data in question_responses:
         question_response = QuizQuestionResponse(
             user_id=user_id,
@@ -556,7 +556,7 @@ def submit_quiz(
         "passed": percentage >= 60
     }
 
-# NEW ENDPOINT: Get questions for a specific quiz attempt
+# Get questions for a specific quiz attempt
 @router.get("/quiz/questions/{quiz_result_id}")
 def get_quiz_attempt_questions(quiz_result_id: int, db: Session = Depends(get_db)):
     """
@@ -626,7 +626,7 @@ def get_quiz_attempt_questions(quiz_result_id: int, db: Session = Depends(get_db
         "questions": questions_data
     }
 
-# NEW ENDPOINT: Get user's responses for a specific quiz attempt
+# Get user's responses for a specific quiz attempt
 @router.get("/quiz/responses/{quiz_result_id}")
 def get_quiz_attempt_responses(quiz_result_id: int, db: Session = Depends(get_db)):
     """
@@ -673,7 +673,7 @@ def get_quiz_attempt_responses(quiz_result_id: int, db: Session = Depends(get_db
         "responses": responses_data
     }
 
-# NEW ENDPOINT: Get attempt history for a specific quiz (lesson + quiz_type)
+# Get attempt history for a specific quiz (lesson + quiz_type)
 @router.get("/quiz/attempt-history/{user_id}/{lesson_id}/{quiz_type}")
 def get_quiz_attempt_history(user_id: int, lesson_id: int, quiz_type: str, db: Session = Depends(get_db)):
     """

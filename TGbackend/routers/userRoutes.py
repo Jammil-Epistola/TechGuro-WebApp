@@ -142,7 +142,6 @@ async def request_password_reset(request: ForgotPasswordRequest, db: Session = D
     user = db.query(models.User).filter(models.User.email == email).first()
     
     if not user:
-        # Don't reveal if email exists for security, but don't process further
         return {"message": "If the email exists, a reset code has been sent"}
     
     # Generate 6-digit code
@@ -230,7 +229,6 @@ async def request_account_unlock(request: RequestAccountUnlockRequest, db: Sessi
     user = db.query(models.User).filter(models.User.email == email).first()
     
     if not user:
-        # Don't reveal if email exists for security, but don't process further
         return {"message": "If the account exists, an unlock code has been sent"}
     
     if not user.is_locked:

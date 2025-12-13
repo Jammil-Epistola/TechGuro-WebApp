@@ -1,7 +1,7 @@
 //LessonSidebar.jsx
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, ChevronRight, X, BookOpen, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import placeholderimg from "../../assets/Dashboard/placeholder_teki.png";
 
 const LessonSidebar = ({
@@ -16,8 +16,7 @@ const LessonSidebar = ({
   isLessonCompleted,
   handleLessonClick,
   courseName,
-  navigate,
-  courseSources
+  navigate
 }) => {
   const handlePrevSection = () => {
     const totalSections = 3;
@@ -157,40 +156,6 @@ const LessonSidebar = ({
                 </motion.div>
               </AnimatePresence>
             </div>
-
-            {/* Course Sources - moved here */}
-            {courseSources && courseSources.length > 0 && (
-              <div className="px-3 md:px-4 pb-3">
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-gray-200">
-                  <div className="flex items-center gap-2 mb-2">
-                    <BookOpen className="w-3.5 h-3.5 text-blue-600" />
-                    <h3 className="text-xs font-bold text-gray-800">Sources</h3>
-                  </div>
-                  
-                  <div className="space-y-1.5">
-                    {courseSources.map((source, index) => (
-                      <a
-                        key={index}
-                        href={source.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-between p-2 bg-gray-50 hover:bg-blue-50 rounded border border-gray-200 hover:border-blue-300 transition-all group text-xs"
-                      >
-                        <div className="flex items-center gap-2 flex-1 min-w-0">
-                          <span className="text-xs flex-shrink-0">
-                            {source.type === 'primary' ? '📚' : '📖'}
-                          </span>
-                          <span className="font-medium text-gray-700 group-hover:text-blue-600 truncate">
-                            {source.name}
-                          </span>
-                        </div>
-                        <ExternalLink className="w-3 h-3 text-gray-400 group-hover:text-blue-600 flex-shrink-0 ml-2" />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Footer Button */}
             <div className="p-3 md:p-4 border-t border-gray-100">

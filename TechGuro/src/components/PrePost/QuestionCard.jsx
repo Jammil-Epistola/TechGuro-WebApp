@@ -1,7 +1,7 @@
 // src/components/QuestionCard.jsx
 import React from "react";
 import { Volume2, VolumeX } from "lucide-react";
-import useTTS from "../hooks/useTTS";
+import useTTS from "../../hooks/useTTS";
 
 const QuestionCard = ({ question, selectedAnswer, onAnswerChange, assessmentType }) => {
   const { isPlaying, speak, isSupported } = useTTS();

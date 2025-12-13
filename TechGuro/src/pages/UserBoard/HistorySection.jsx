@@ -11,9 +11,9 @@ import {
   sortItems,
 } from "../../utility/historyConstants";
 
-import HistoryFilters from "../../components/HistoryFilters";
-import AssessmentHistory from "../../components/AssessmentHistory";
-import QuizHistory from "../../components/QuizHistory";
+import HistoryFilters from "../../components/HistorySection/HistoryFilters";
+import AssessmentHistory from "../../components/HistorySection/AssessmentHistory";
+import QuizHistory from "../../components/HistorySection/QuizHistory";
 import API_URL from '../../config/api';
 
 const HistorySection = () => {

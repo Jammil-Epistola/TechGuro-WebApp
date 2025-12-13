@@ -2,8 +2,8 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Brain, TrendingUp, CheckCircle, RotateCcw, Loader2 } from "lucide-react";
-import CourseNavbar from "../courses/courseNavbar";
-import Teki1 from "../assets/Teki 1.png";
+import CourseNavbar from "../../courses/courseNavbar";
+import Teki1 from "../../assets/Teki 1.png";
 
 const AssessmentResults = ({ 
   assessmentType = "pre", 

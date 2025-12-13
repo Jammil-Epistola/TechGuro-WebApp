@@ -1,4 +1,4 @@
-//LessonPage.jsx (Refactored)
+//LessonPage.jsx 
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CourseNavbar from "./courseNavbar";

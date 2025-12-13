@@ -1,4 +1,4 @@
-// UserBoard.jsx - DEBUG VERSION
+// UserBoard.jsx 
 import React, { useState, useEffect } from "react";
 import { useUser } from "../context/UserContext";
 import { useMilestone } from "../context/MilestoneContext";
@@ -22,15 +22,20 @@ const UserBoard = () => {
   const { logout, user } = useUser();
   const { showMilestone } = useMilestone();
   const [showTutorial, setShowTutorial] = useState(false);
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
 
-  // ✅ DEBUG: Log tutorial state changes
+  // DEBUG: Log tutorial state changes
   useEffect(() => {
     console.log("🎓 Tutorial showTutorial state changed to:", showTutorial);
   }, [showTutorial]);
 
-  // ✅ DEBUG: Log user changes
+  // DEBUG: Log user changes
   useEffect(() => {
     console.log("👤 User object:", user);
+    if (user && user.user_id) {
+      setIsUserLoaded(true);
+      console.log("✅ User fully loaded");
+    }
   }, [user]);
 
   // Initialize sidebar state based on screen size
@@ -52,7 +57,7 @@ const UserBoard = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ LISTEN FOR TUTORIAL NAVIGATION EVENTS
+  // LISTEN FOR TUTORIAL NAVIGATION EVENTS
   useEffect(() => {
     const handleTutorialNavigate = (e) => {
       console.log("📍 Tutorial navigation event received:", e.detail);
@@ -69,7 +74,7 @@ const UserBoard = () => {
 
       const mainContent = document.querySelector('.flex-1.overflow-y-auto');
       if (mainContent) {
-        mainContent.scrollTo({ top: 0, behavior: 'instant' }); // Use 'instant' for immediate scroll
+        mainContent.scrollTo({ top: 0, behavior: 'instant' });
       }
 
       setActiveSection(section);
@@ -87,6 +92,7 @@ const UserBoard = () => {
     };
   }, []);
 
+  // Check first login and show tutorial
   useEffect(() => {
     const checkFirstLogin = async () => {
       // Wait for user to be fully loaded
@@ -103,26 +109,45 @@ const UserBoard = () => {
       console.log("🔑 Tutorial key:", tutorialShownKey);
       console.log("📦 Tutorial previously shown:", hasShownTutorial);
 
-      // ✅ FIX: Check if tutorial was shown OR if this is first login
+      // Check if tutorial was shown
       if (!hasShownTutorial) {
         console.log("🎓 First login detected - preparing tutorial");
 
-        // Wait for DOM to be fully ready
-        setTimeout(() => {
-          console.log("⏰ Showing tutorial now");
-          setShowTutorial(true);
+        // Ensure DOM is fully ready and all sections are rendered
+        let attempts = 0;
+        const maxAttempts = 30; // 3 seconds max
 
-          // Mark as shown immediately to prevent re-showing
-          localStorage.setItem(tutorialShownKey, 'true');
-          console.log("💾 Saved tutorial flag to localStorage");
-        }, 1500); // Increased delay to ensure everything is loaded
+        const checkDOMReady = () => {
+          attempts++;
+          const profileCard = document.querySelector('.profile-card');
+          const sidebar = document.querySelector('.sidebar-nav');
+          
+          if (profileCard && sidebar) {
+            console.log(`✅ DOM elements ready after ${attempts} attempts - showing tutorial`);
+            setShowTutorial(true);
+            // DON'T SET FLAG HERE - will be set when user closes tutorial
+            console.log("🎓 Tutorial opened - flag will be saved when user completes it");
+          } else if (attempts < maxAttempts) {
+            console.log(`⏳ DOM not ready (attempt ${attempts}/${maxAttempts}), retrying...`);
+            setTimeout(checkDOMReady, 100);
+          } else {
+            console.warn("⚠️ Max attempts reached - showing tutorial anyway");
+            setShowTutorial(true);
+          }
+        };
+
+        // Start checking after a brief delay
+        setTimeout(checkDOMReady, 500);
       } else {
         console.log("⏭️ Tutorial already shown before - skipping");
       }
     };
 
-    checkFirstLogin();
-  }, [user]); // Only depend on user
+    // Only run when user is loaded
+    if (isUserLoaded) {
+      checkFirstLogin();
+    }
+  }, [isUserLoaded, user]);
 
   // Check and show Milestone #1
   useEffect(() => {
@@ -254,11 +279,6 @@ const UserBoard = () => {
     e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
-
-  // ✅ DEBUG: Log dropdown toggle
-  useEffect(() => {
-    console.log("📌 Dropdown open state:", isDropdownOpen);
-  }, [isDropdownOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -445,7 +465,7 @@ const UserBoard = () => {
 
                 <button
                   onClick={() => {
-                    console.log("🎓 Tutorial button clicked");
+                    console.log("Tutorial button clicked");
                     setIsDropdownOpen(false);
 
                     // Navigate to dashboard FIRST
@@ -488,12 +508,20 @@ const UserBoard = () => {
         </div>
       </div>
 
-      {/* ✅ Dashboard Tutorial - Pass currentPage (activeSection) */}
-      {console.log("🎓 DashboardTutorial props:", { isOpen: showTutorial, currentPage: activeSection })}
+      {/* Dashboard Tutorial*/}
+      {console.log("DashboardTutorial props:", { isOpen: showTutorial, currentPage: activeSection })}
       <DashboardTutorial
         isOpen={showTutorial}
         onClose={() => {
-          console.log("🎓 Tutorial closed");
+          console.log("✅ Tutorial closed by user");
+          
+          // Save the flag when tutorial is actually closed
+          if (user && user.user_id) {
+            const tutorialShownKey = `tutorial_shown_${user.user_id}`;
+            localStorage.setItem(tutorialShownKey, 'true');
+            console.log("💾 Tutorial completed - saved flag to localStorage:", tutorialShownKey);
+          }
+          
           setShowTutorial(false);
         }}
         currentPage={activeSection}

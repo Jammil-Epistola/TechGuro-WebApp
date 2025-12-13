@@ -80,7 +80,7 @@ const DragDropQuizCard = ({ question, userAnswer, onAnswerChange }) => {
     e.dataTransfer.dropEffect = "move";
   };
 
-  // Touch event handlers - FIXED VERSION
+  // Touch event handlers
   const handleTouchStart = (e, item) => {
     // Don't prevent default - let the browser handle touch
     const touch = e.touches[0];

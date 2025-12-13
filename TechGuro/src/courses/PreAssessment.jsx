@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CourseNavbar from "./courseNavbar";
 import TekiDialog from "../components/TekiDialog";
-import QuestionCard from "../components/QuestionCard";
-import AssessmentInstructions from "../components/AssessmentInstructions";
-import AssessmentResults from "../components/AssessmentResults";
-import SubmitConfirmationModal from "../components/SubmitConfirmationModal";
+import QuestionCard from "../components/PrePost/QuestionCard";
+import AssessmentInstructions from "../components/PrePost/AssessmentInstructions";
+import AssessmentResults from "../components/PrePost/AssessmentResults";
+import SubmitConfirmationModal from "../components/PrePost/SubmitConfirmationModal";
 import { useUser } from "../context/UserContext";
 import API_URL from '../config/api';
 

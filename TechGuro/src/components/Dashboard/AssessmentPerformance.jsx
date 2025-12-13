@@ -59,7 +59,7 @@ const AssessmentPerformance = ({
         </span>
       </div>
 
-      {/* Assessment Task Status: Shows only selected assessment */}
+      {/* Assessment Task Status */}
       <div className="mb-3 p-2 bg-gray-50 rounded-lg">
         <div className="text-sm font-semibold text-[#4C5173] mb-1">Assessment Task Status:</div>
         <div className="flex items-center gap-1">

@@ -48,7 +48,7 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
             lesson_newly_completed = True
         message = "Progress created. "
 
-    # EVENT-DRIVEN BKT INTEGRATION: Update mastery when lesson is completed
+    # EVENT-DRIVEN BKT INTEGRATION
     bkt_update_result = None
     if lesson_newly_completed:
         try:
@@ -63,7 +63,6 @@ def update_progress(progress_data: schema.ProgressCreate, db: Session = Depends(
 
     # -------------------------
     # Award Milestone #3: "First Lesson"
-    # Trigger: Complete your first lesson ever
     # -------------------------
     milestone_awarded = None
     if lesson_newly_completed:
@@ -170,7 +169,7 @@ def get_progress_with_recommendations(user_id: int, course_id: int, db: Session 
         len(completed_recommended) == len(recommended_lessons)
     )
 
-    # ✅ FIXED: Post-assessment unlock logic
+    # Post-assessment unlock logic
     post_assessment_unlocked = all_recommended_done and not post_passed
 
     course_completed = all_recommended_done and post_passed

@@ -189,7 +189,7 @@ const SpotlightOverlay = ({ targetElement, padding = 12 }) => {
     });
     resizeObserver.observe(targetElement);
 
-    // #2 — Sync once AFTER scroll events using RAF (safe)
+    // #2 — Sync once AFTER scroll events using RAF
     const handleScroll = () => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
@@ -263,11 +263,11 @@ const TekiDialogue = ({ step, onNext, onPrev, isFirst, isLast, targetElement, on
       let top, left;
 
       if (isMobile) {
-        // Mobile: Position at bottom but centered horizontally like WelcomeModal
+        // Mobile
         top = window.innerHeight - 280;
         left = window.innerWidth / 2;
       } else {
-        // Desktop positioning
+        // Desktop
         if (fixed === "top") {
           top = 120;
           left = window.innerWidth / 2;
@@ -332,14 +332,14 @@ const TekiDialogue = ({ step, onNext, onPrev, isFirst, isLast, targetElement, on
         </div>
       </div>
 
-      {/* Dialogue Text - Improved Readability */}
+      {/* Dialogue Text */}
       <p className="text-gray-800 mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-semibold">
         {step.description}
       </p>
 
-      {/* Navigation Buttons - Mobile Responsive */}
+      {/* Navigation Buttons */}
       <div className="flex flex-col md:flex-row gap-2 md:gap-3 md:justify-between md:items-center">
-        {/* Skip Button - Full width on mobile */}
+        {/* Skip Button */}
         <motion.button
           onClick={onSkip}
           className="w-full md:w-auto px-4 md:px-6 py-2.5 md:py-3 rounded-xl bg-red-100 text-red-700 hover:bg-red-200 transition-all text-sm md:text-sm font-bold order-2 md:order-1"

@@ -54,16 +54,10 @@ class BKTService:
         self.min_responses_per_skill = max(0, min_responses_per_skill)
 
     # ----------------------------
-    # ENHANCED: Pre/Post Assessment Methods with History Tracking
+    #  Pre/Post Assessment Methods with History Tracking
     # ----------------------------
 
     def update_from_pre(self, user_id: int, course_id: int, db: Session) -> Dict:
-        """
-        Handle mastery updates when a PRE-assessment is submitted.
-        - Uses BKT algorithm but with conservative estimates
-        - Sets initial mastery baselines for lesson recommendations
-        - Stores baseline in history for later improvement tracking
-        """
         # Filter for pre-assessment responses only
         responses = self._fetch_user_responses(user_id, course_id, db, assessment_type="pre")
         
@@ -85,12 +79,6 @@ class BKTService:
         return result
 
     def update_from_post(self, user_id: int, course_id: int, db: Session) -> Dict:
-        """
-        Handle mastery updates when a POST-assessment is submitted.
-        Hybrid Rule:
-        - Pass if (BKT mastery ≥ 0.8) OR (Overall score ≥ 0.75).
-        - Provides eligibility_reason to explain why they passed/failed.
-        """
         responses = self._fetch_user_responses(user_id, course_id, db, assessment_type="post")
         
         if not responses:
@@ -164,7 +152,7 @@ class BKTService:
 
 
     # ----------------------------
-    # EVENT-DRIVEN: Core BKT Logic (now with history tracking)
+    # EVENT-DRIVEN: Core BKT Logic
     # ----------------------------
 
     def update_from_assessments(self, user_id: int, course_id: int, db: Session, source: str = "general_assessment") -> Dict:
@@ -224,7 +212,7 @@ class BKTService:
 
 
     # ----------------------------
-    # EVENT-DRIVEN: Simplified Recommendations (just read from DB)
+    # EVENT-DRIVEN: Simplified Recommendations
     # ----------------------------
 
     def get_recommendations(
@@ -235,10 +223,6 @@ class BKTService:
         threshold: float = 0.7,
         limit: int = 5,
     ) -> Dict:
-        """
-        SIMPLIFIED: Just read from already-updated mastery records.
-        No more recomputation - assumes event-driven updates keep data fresh.
-        """
         # Read all mastery records for the course
         q = (
             db.query(UserLessonMastery)
@@ -301,17 +285,6 @@ class BKTService:
     course_id: int,
     db: Session
     ) -> Dict:
-        """
-        Get complete mastery breakdown for ALL lessons in a course.
-        Returns detailed information including:
-        - All lessons (not filtered by threshold)
-        - Current mastery per lesson
-        - Pre-assessment baseline for comparison
-        - Improvement deltas
-        - Quiz attempt counts
-        
-        This method supports the "Enhanced Mastery Progress by Lesson" dashboard feature.
-        """
         
         # Get all lessons for this course
         all_lessons = db.query(Lesson).filter(Lesson.course_id == course_id).all()
@@ -502,14 +475,10 @@ class BKTService:
     }
 
     # ----------------------------
-    # ENHANCED: Helper Methods with Real Improvement Tracking
+    # Helper Methods with Real Improvement Tracking
     # ----------------------------
 
     def _analyze_improvement_from_history(self, user_id: int, course_id: int, db: Session, current_masteries: Dict[int, float]) -> Dict:
-        """
-        REAL improvement tracking using history table.
-        Compare current (post) masteries with historical (pre) masteries.
-        """
         if not current_masteries:
             return {
                 "avg_improvement": 0.0, 
@@ -570,7 +539,7 @@ class BKTService:
         return (mastered_count / len(recommended_lessons)) >= 0.9  # 90% of STUDIED lessons
 
     # ----------------------------
-    # ENHANCED: Internal Methods with History Tracking
+    # Internal Methods with History Tracking
     # ----------------------------
 
     def _upsert_mastery_with_history(self, db: Session, user_id: int, course_id: int, lesson_id: int, mastery: float, source: str = "general") -> None:

@@ -91,7 +91,6 @@ const RecentMilestones = ({
                 />
               </div>
 
-              {/* Tagalog + English Description */}
               <p className="text-xs text-gray-600 mt-2">
                 {milestones.length}/{allMilestonesData.length} mga milestone na-unlock •
                 {allMilestonesData.length - milestones.length} pa ang natitira

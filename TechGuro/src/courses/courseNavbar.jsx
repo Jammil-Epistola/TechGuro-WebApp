@@ -145,7 +145,7 @@ const CourseNavbar = () => {
           <h1 className="text-lg md:text-2xl font-bold">TechGuro.</h1>
         </div>
 
-        {/* Desktop View - Right Side */}
+        {/* Desktop View */}
         <div className="hidden md:flex items-center gap-6">
           {/* Date */}
           <div className="flex items-center gap-2 text-[16px]">
@@ -173,7 +173,7 @@ const CourseNavbar = () => {
           {/* Divider */}
           <div className="w-[1px] h-6 bg-white/20" />
 
-          {/* NEW: Sources Button */}
+          {/* Sources Button */}
           <button
             onClick={handleSourcesClick}
             className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-[15px] font-medium"
@@ -279,7 +279,7 @@ const CourseNavbar = () => {
               <span>Lessons</span>
             </div>
 
-            {/* NEW: Sources Button for Mobile */}
+            {/* Sources Button for Mobile */}
             <div
               onClick={handleSourcesClick}
               className="flex items-center gap-3 px-4 py-4 hover:bg-gray-100 transition cursor-pointer border-b border-gray-100"
@@ -299,7 +299,7 @@ const CourseNavbar = () => {
         )}
       </nav>
 
-      {/* NEW: Sources Modal */}
+      {/* Sources Modal */}
       <AnimatePresence>
         {isSourcesModalOpen && (
           <>

@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CourseNavbar from "./courseNavbar";
 import TekiDialog from "../components/TekiDialog";
-import QuestionCard from "../components/QuestionCard";
-import AssessmentInstructions from "../components/AssessmentInstructions";
-import AssessmentResults from "../components/AssessmentResults";
-import SubmitConfirmationModal from "../components/SubmitConfirmationModal";
+import QuestionCard from "../components/PrePost/QuestionCard";
+import AssessmentInstructions from "../components/PrePost/AssessmentInstructions";
+import AssessmentResults from "../components/PrePost/AssessmentResults";
+import SubmitConfirmationModal from "../components/PrePost/SubmitConfirmationModal";
 import { useUser } from "../context/UserContext";
 import API_URL from "../config/api";
 
@@ -228,9 +228,7 @@ const PostAssessment = () => {
           </div>
         </div>
 
-        {/* Desktop Layout: Side-by-side buttons */}
         <div className="hidden md:flex items-end justify-center gap-6">
-          {/* Previous Button - Left Side */}
           <div className="flex items-end">
             <button
               onClick={handlePrevious}
@@ -244,7 +242,7 @@ const PostAssessment = () => {
             </button>
           </div>
 
-          {/* Question Card - Center */}
+          {/* Question Card */}
           <div className="flex justify-center">
             <QuestionCard
               question={{ ...currentQuestion, questionNumber: currentQuestionIndex + 1 }}
@@ -254,7 +252,7 @@ const PostAssessment = () => {
             />
           </div>
 
-          {/* Next Button - Invisible on last question to maintain layout */}
+          {/* Next Button  */}
           <div className="flex items-end">
             <button
               onClick={handleNext}
@@ -266,7 +264,7 @@ const PostAssessment = () => {
           </div>
         </div>
 
-        {/* Mobile Layout: Buttons below card */}
+        {/* Mobile Layout */}
         <div className="md:hidden flex flex-col items-center gap-4">
           {/* Question Card */}
           <div className="w-full flex justify-center px-2">

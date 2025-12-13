@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { Filter, RotateCcw } from "lucide-react";
-import { COURSES, QUIZ_TYPES } from "../utility/historyConstants";
+import { COURSES, QUIZ_TYPES } from "../../utility/historyConstants";
 
 const HistoryFilters = ({ activeTab, filters, setFilters, resetFilters }) => {
   return (
@@ -31,7 +31,7 @@ const HistoryFilters = ({ activeTab, filters, setFilters, resetFilters }) => {
             ))}
           </select>
         </div>
-        {/* Quiz Type (quizzes tab only) */}
+        {/* Quiz Type */}
         {activeTab === "quizzes" && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Quiz Type</label>

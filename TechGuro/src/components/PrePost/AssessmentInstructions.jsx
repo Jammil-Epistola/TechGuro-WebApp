@@ -1,7 +1,7 @@
 // src/components/AssessmentInstructions.jsx
 import React, { useState } from "react";
-import CourseNavbar from "../courses/courseNavbar";
-import Teki1 from "../assets/Teki 1.png";
+import CourseNavbar from "../../courses/courseNavbar";
+import Teki1 from "../../assets/Teki 1.png";
 
 const AssessmentInstructions = ({ 
   assessmentType = "pre", 
@@ -69,7 +69,7 @@ const AssessmentInstructions = ({
         <div className="max-w-5xl w-full">
           {/* Dialogue Box */}
           <div className="bg-white border-4 border-gray-400 rounded-xl shadow-xl relative">
-            {/* Teki - Visual Novel Style (Outside the card) */}
+            {/* Teki */}
             <div className="absolute -top-16 -right-4 z-10 md:-top-30 md:-right-20">
               <img 
                 src={Teki1} 
@@ -111,7 +111,7 @@ const AssessmentInstructions = ({
             </div>
           </div>
 
-          {/* Navigation Buttons - Outside the dialogue container */}
+          {/* Navigation Buttons */}
           <div className="flex justify-between items-center mt-4 md:mt-8 gap-3">
             <button
               onClick={handlePrevious}
